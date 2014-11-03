@@ -9,13 +9,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Half Slider - Start Bootstrap Template</title>
-
+    
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
 
-    <!-- Custom CSS -->
-    <link href="css/half-slider.css" rel="stylesheet">
+    
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -130,10 +129,12 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    
 
     <!-- Script to Activate the Carousel -->
     <script>

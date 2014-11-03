@@ -8,10 +8,10 @@
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/bootswatch.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/home.css' %}">
-  <link rel="stylesheet" href="{% static 'css/js-image-slider.css' %}">
+  <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-  <script src="{% static 'js/js-image-slider.js' %}"></script>
+  
 </head>
 <!-- body Start -->
 <body class>
@@ -111,15 +111,48 @@
 <!-- Content Of the Site -->
 	<div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="home">
-		 <div id="sliderFrame">
-        <div id="slider">
-           <img src="{% static 'images/image-slider-1.jpg' %}" alt=""/>
-            <img src="{% static 'images/image-slider-2.jpg' %}" alt=""/>
-            <img src="{% static 'images/image-slider-3.jpg' %}" alt=""/>
-            <img src="{% static 'images/image-slider-4.jpg' %}" alt="" />
-            <img src="{% static 'images/image-slider-5.jpg' %}" />
+		<header id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <!-- Set the first background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"></div>
+                <div class="carousel-caption">
+                    <h2>Caption 1</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the second background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
+                <div class="carousel-caption">
+                    <h2>Caption 2</h2>
+                </div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
+                <div class="carousel-caption">
+                    <h2>Caption 3</h2>
+                </div>
+            </div>
         </div>
-                      </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+
+    </header>
       
 		  	<div class="global">
 		  	<div class="container"> 
@@ -186,6 +219,10 @@
       
           </div>
 	</div>
-
+  <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
 </body>
 </html>

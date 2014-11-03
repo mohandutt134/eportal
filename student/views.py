@@ -6,3 +6,7 @@ import datetime
 def home(request):
 	now = datetime.datetime.now()
 	return render_to_response('login_register.html', {'current_date': now})
+
+def halfslider(request):
+	now = datetime.datetime.now()
+	return render_to_response('halfslider.html',{'current_date': now})

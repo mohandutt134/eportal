@@ -16,8 +16,12 @@ def home(request):
 	else:
 		now = datetime.datetime.now()
 	now = datetime.datetime.now()
-	return render(request,'login_register.html', {'current_date': now})
+	return render(request,'index.html', {'current_date': now})
 
-def halfslider(request):
-	now = datetime.datetime.now()
-	return render(request,'halfslider.html',{'current_date': now})
+def login(request):
+	username = request.POST.get('username', '')
+	password=request.POST.get('password', '')
+	if(username!='' and password!=''):
+		b = user(username=username,password=password)
+		b.save()
+	return render(request,'login_register.html',{})

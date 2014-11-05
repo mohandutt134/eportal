@@ -25,13 +25,15 @@ def login(request):
 	R_password=request.POST.get('R_password','')
 	if('login' in request.POST):
 		if(username!='' and password!=''):
-			query = 'SELECT password FROM student_user WHERE username = %s' % username
+			query = 'SELECT * FROM student_user WHERE username = %s' % username
 			dpassword=user.objects.raw(query)
 			if(dpassword!=password):
+				return render(request,'login_register.html',{'message':dpassword.password})
+			else:
 				return render(request,'login_register.html',{'message':"wrong password"})
 
 	if('register' in request.POST):
 		if(R_username!='' and R_password!=''):
 			b = user(username=R_username,password=R_password)
 			b.save()
-	return render(request,'login_register.html',{})
+	return render(request,'login_register.html',{'message':""})

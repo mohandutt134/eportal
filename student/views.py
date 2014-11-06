@@ -38,23 +38,31 @@ def login(request):
 		username = request.POST.get('username', '')
 		password=request.POST.get('password', '')
 		if(username!='' and password!=''):
-			result=user.objects.filter(username=username).values()[0]
-			if(result['password']==password):
-				return render(request,'login_register.html',{'message':result['password']})
-			else:
-				return render(request,'login_register.html',{'message':"wrong password"})
+			try:
+				result=user.objects.filter(username=username).values()[0]
+				if(result['password']==password):
+					return render(request,'login_register.html')
+				else:
+					return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
+			except:
+				return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
 
 	if('register' in request.POST):
 		R_username = request.POST.get('R_username', '')
 		if(R_username!=''):
-			temp_pass = get_password()
-			b = user(username=R_username,password=temp_pass,status=True)
-			b.save()
-			subject="Confirmation  mail"
-			message = "your password is " + temp_pass
-			from_email = settings.EMAIL_HOST_USER
-			to_list=[R_username,settings.EMAIL_HOST_USER]
-			send_mail(subject,message,from_email,to_list, fail_silently=False)
+			try:
+				user_exists = user.objects.get(username=R_username)
+				return render(request,'login_register.html',{'message_register_alert':"User with this email is already registered"})
+			except:
+				temp_pass = get_password()
+				b = user(username=R_username,password=temp_pass,status=True)
+				b.save()
+				subject="Confirmation  mail"
+				message = "your password is " + temp_pass
+				from_email = settings.EMAIL_HOST_USER
+				to_list=[R_username,settings.EMAIL_HOST_USER]
+				send_mail(subject,message,from_email,to_list, fail_silently=False)
+				return render(request,'login_register.html',{'message_register_success':"your password has been sent to your e-mail"})
 	return render(request,'login_register.html',{'message':""})
 	
 def courses(request):

@@ -5,7 +5,6 @@ from django.core.context_processors import csrf
 from student.models import user
 
 # Create your views here.
-from django.shortcuts import render_to_response
 import datetime
 def home(request):
 	username = request.POST.get('username', '')

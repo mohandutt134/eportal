@@ -25,9 +25,9 @@ def login(request):
 	R_password=request.POST.get('R_password','')
 	if('login' in request.POST):
 		if(ausername!='' and password!=''):
-			result=user.objects.get(username=ausername)
-			if(result.password!=password):
-				return render(request,'login_register.html',{'message':result.password})
+			result=user.objects.filter(username=ausername).values()[0]
+			if(result['password']==password):
+				return render(request,'login_register.html',{'message':result['password']})
 			else:
 				return render(request,'login_register.html',{'message':"wrong password"})
 

@@ -1,37 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>Login/Registration</title>
-	{% load staticfiles %}
-	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-	<link rel="stylesheet" href="{% static 'css/bootswatch.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/home.css' %}">
-  <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-  
-</head>
-<!-- body Start -->
-<body class>
-  <!-- Navigation bar -->
-	<div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-              <a href="#" class="navbar-brand">SMVDU E-Portal</a>
-            </div>
-
-            <div class="navbar-collapse collapse" id="navbar-main">
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="http://localhost:8000/login" data-toggle="modal">Log In/Register</a></li>
-              </ul>
-            </div>
-
-        </div>
-    </div>
-    <!--End of Navigation -->
-    <header id="myCarousel" class="carousel slide">
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% load staticfiles %}
+<header id="myCarousel" class="carousel slide">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -76,72 +47,7 @@
 
     </header>
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content" style="width:100%; text-align:center;">
-        <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <h4 class="modal-title" id="myModalLabel">Log In</h4>
-        </div>
-        <div class="modal-body">
-                <form role="form" method="post">
-                  {% csrf_token %}
-                      <fieldset enabled>
-                        <div class="form-group">
-                              <input type="text" id="username" name="username" class="form-control" placeholder="Username">
-                        </div>
-                        <div class="form-group">
-                              <input type="password" name="password" id="password" class="form-control" placeholder="Password">
-                        </div>
 
-      
-                          <div class="modal-footer">
-                                  <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">Submit</button><br>
-                                    <a href="#myModal2" data-dismiss="modal" data-toggle="modal" style="padding-top:10px">New user Registration</a>
-                                  </div>
-                          </div>
-                    </fieldset>
-                </form>
-        </div>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content" style="width:100%; text-align:center;">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">Register</h4>
-      </div>
-      <div class="modal-body">
-          <form role="form" metho="post">
-            <fieldset enable>
-                <div class="form-group">
-                  <input type="text" id="fname" name="fname"class="form-control" placeholder="First Name">
-                </div>
-                <div class="form-group">
-                  <input type="text" id="lname" name="lname" class="form-control" placeholder="Last Name">
-                </div>
-                <div class="form-group">
-                  <input type="email" id="email" name="email" class="form-control" placeholder="Email">
-                </div>
-                <div class="form-group">
-                  <input type="password" id="password" name="rpassword" class="form-control" placeholder="Password">
-                </div>
-                <div class="modal-footer">
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Submit</button><br>
-                    <a href="#myModal" data-dismiss="modal" data-toggle="modal">Log In</a>
-                  </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-      
-    </div>
-  </div>
-</div>
   	<!-- toggle tan -->
 	<ul class="nav nav-tabs" role="tablist">
 	 	<li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
@@ -152,11 +58,12 @@
 <!-- Content Of the Site -->
 	<div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="home">
-		
-      
+        
+		    
 		  	<div class="global">
-		  	<div class="container"> 
-			        <div class="row">
+                <div class="container"> 
+                    <div class="row">
+              
 			            <div class="col-lg-4 col-md-4 col-sm-4">
 			                <div class="thumb-pad1 maxheight wow fadeInLeft animated" data-wow-delay="0.4s" style="visibility: visible; -webkit-animation: fadeInLeft 0.4s; height: 326px;"><div class="box_inner">
 			                    <div class="badge"><img src="{% static 'images/page1_icon1.png'%}" alt=""></div>
@@ -200,29 +107,44 @@
   
  
 		  <div role="tabpanel" class="tab-pane fade" id="course">Course
-          <div class="row">
-            <div class="col-sm-6 col-md-4">
-              <div class="thumbnail">
-                <img data-src="holder.js/300x300" src="{% static 'images/course1.jpg' %}" alt="...">
-                <div class="caption">
-                  <h3>Thumbnail label</h3>
-                  <p>...</p>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-
+                            
+           <div class="global">
+                <div class="container"> 
+                    <div class="row">
+                        </div>
+                    </div>
+               </div>
       </div>
-		  <div role="tabpanel" class="tab-pane fade" id="faculty">Faculty</div>
-		  <div role="tabpanel" class="tab-pane fade" id="aboutus">About US</div>
+		  <div role="tabpanel" class="tab-pane fade" id="faculty">
+             
+        
+              
+               <div class="global">
+                <div class="container"> 
+                    <div class="row">
+                        </div>
+                    </div>
+               </div>
+        
+        
+        
+         </div>
+		  <div role="tabpanel" class="tab-pane fade" id="aboutus">
+           <div class="global">
+                <div class="container"> 
+                    <div class="row">
+                        </div>
+                    </div>
+               </div>
+        
+         </div>
       
           <div class="text-center">SMVDU</div>
 	</div>
-  <script>
+ <!-- <script>
     $('.carousel').carousel({
         interval: 5000 //changes the speed
     })
     </script>
-</body>
-</html>
+  -->
+{% endblock %}

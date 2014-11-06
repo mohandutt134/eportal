@@ -1,39 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>Login/Registration</title>
-	{% load staticfiles %}
-	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-	<link rel="stylesheet" href="{% static 'css/bootswatch.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/home.css' %}">
-  <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-  
-</head>
-<body >
-	<div class="container">
-  <!-- Navigation bar -->
-	<div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-              <a href="#" class="navbar-brand">SMVDU E-Portal</a>
-            </div>
-
-            <div class="navbar-collapse collapse" id="navbar-main">
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="#myModal" data-toggle="modal">Log In/Register</a></li>
-              </ul>
-            </div>
-
-        </div>
-    </div>
-    <!-- end of navigation bar -->
+{% extends 'base.html' %}
+{% block title %}Login Register{% endblock %}
     <!-- login form -->
+ {% block content %} 
     <br>
     <br/>
+    <div class="container">
     <div class="row">
     	<div class="col-md-5">
     		<div class="jumbotron">
@@ -92,7 +63,8 @@
 		<!-- end of registration-->
 	</div>
 </div>
+	{% endblock %}
 
 
- </body>
- </html>
+
+ 

@@ -19,16 +19,15 @@ def home(request):
 	return render(request,'index.html', {'current_date': now})
 
 def login(request):
-	username = request.POST.get('username', '')
+	ausername = request.POST.get('username', '')
 	password=request.POST.get('password', '')
 	R_username=request.POST.get('R_username','')
 	R_password=request.POST.get('R_password','')
 	if('login' in request.POST):
-		if(username!='' and password!=''):
-			query = 'SELECT * FROM student_user WHERE username = %s' % username
-			dpassword=user.objects.raw(query)
-			if(dpassword!=password):
-				return render(request,'login_register.html',{'message':dpassword.password})
+		if(ausername!='' and password!=''):
+			result=user.objects.get(username=ausername)
+			if(result.password!=password):
+				return render(request,'login_register.html',{'message':result.password})
 			else:
 				return render(request,'login_register.html',{'message':"wrong password"})
 

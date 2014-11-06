@@ -5,13 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<title>{% block title %}{% endblock %}</title>
 	{% load staticfiles %}
+
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
 	<link rel="stylesheet" href="{% static 'css/bootswatch.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/home.css' %}">
   <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
 	<script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
-	   <script type="text/javascript">
+
+
+    <script type="text/javascript">
        
        $(function(){
           function stripTrailingSlash(str) {
@@ -31,12 +35,10 @@
             if (activePage == currentPage) {
               $(this).parent().addClass('active '); 
               
-              
             } 
           });
         });
     </script>
-  
 </head>
 <!-- body Start -->
 <body>
@@ -45,7 +47,7 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
        
-              <a href="#" class="navbar-brand "><h3 style="margin:0;padding:0;">SMVDU E-Portal</h3></a>
+              <a href="/index" class="navbar-brand ">SMVDU E-Portal</a>
       
        
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -80,18 +82,18 @@
       </li-->
     </ul>
      <ul class="nav navbar-nav navbar-right" >
-        <li><a href="http://127.0.0.1:8000/login">SIGN-IN/SIGN-UP</a></li>
-      </ul>
+       <li><a href="http://127.0.0.1:8000/login">Sign-in/Sign-up</a></li>
+     </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
     <!--End of Navigation -->
     {% block content %} 
     {% endblock %}
-   <div id="footer" style="margin-top:10px">
+   <div id="footer" style="margin-top:10px;">
     <div class="container">
-        <p class="text-center" style="color:white;">&#128522; SMVDU</p>
+        <p class="text-center" >&#128522; <a href="www.smvdu.net.in" style="color:white;">SMVDU</a></p>
     </div>
-</div>
+   </div>
   </body>
   </html>

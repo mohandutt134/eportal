@@ -37,3 +37,7 @@ def login(request):
 			b = user(username=R_username,password=R_password)
 			b.save()
 	return render(request,'login_register.html',{'message':""})
+def courses(request):
+    return render_to_response ("courses.html",{})
+def faculty(request):
+    return render_to_response ("faculty.html",{})

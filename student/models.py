@@ -28,6 +28,7 @@ class Course(models.Model):
 class user(models.Model):
  	username=models.EmailField(primary_key=True)
  	password=models.CharField(max_length=50)
+ 	status=models.BooleanField(default=False)
 
 class coursetaken(models.Model):
 	username= models.ForeignKey(student)

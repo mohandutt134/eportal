@@ -4,8 +4,17 @@ from django.shortcuts import render_to_response,HttpResponseRedirect,render,redi
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.context_processors import csrf
+from django.core.mail import send_mail
+from django.conf import settings
 from student.models import user
 
+def get_password():
+	temp_pass=str(uuid.uuid4())[:11].replace('-','')
+	try:
+		pass_exists=user.objects.get(password=temp_pass)
+		get_password()
+	except:
+		return temp_pass
 # Create your views here.
 import datetime
 
@@ -39,6 +48,7 @@ def login(request):
 				return render(request,'login_register.html',{'message_login':"wrong Username or Password under except"})
 
 	if('register' in request.POST):
+
 		R_username = request.POST.get('R_username', '')
 		if(R_username!=''):
 			try:

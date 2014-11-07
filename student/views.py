@@ -6,15 +6,9 @@ from django.conf import settings
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
 from django.conf import settings
-from student.models import user
+from student.models import user,student
+from django.core import serializers
 
-def get_password():
-	temp_pass=str(uuid.uuid4())[:11].replace('-','')
-	try:
-		pass_exists=user.objects.get(password=temp_pass)
-		get_password()
-	except:
-		return temp_pass
 # Create your views here.
 import datetime
 
@@ -37,15 +31,16 @@ def login(request):
 		username = request.POST.get('username', '')
 		password=request.POST.get('password', '')
 		if(username!='' and password!=''):
-	#		try:
+			try:
 				result=user.objects.filter(username=username).values()[0]
 				if(result['password']==password):
-					request.session['student']=result
+					request.session['uname'] = username
 					return redirect('home')
+					#return render(request,'login_register.html',{'message_login':request.session['uname']})
 				else:
-					return render(request,'login_register.html',{'message_login':"wrong Username or Password under if"})
-	#		except:
-				return render(request,'login_register.html',{'message_login':"wrong Username or Password under except"})
+					return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
+			except:
+				return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
 
 	if('register' in request.POST):
 
@@ -65,15 +60,28 @@ def login(request):
 				send_mail(subject,message,from_email,to_list, fail_silently=True)
 				return render(request,'login_register.html',{'message_register_success':"your password has been sent to your e-mail"})
 	return render(request,'login_register.html',{'message':""})
+
+
 def home(request):
-	if 'student' in request.session:
-		return render(request,'index.html', {'student': "Hello"})
+	if 'uname' in request.session:
+		try:
+			info = student.objects.get(username=request.session['uname'])
+		#	request.session['info']=serializers.serialize('json',info)
+			return render(request,'index.html',{'student':info})
+		except:
+			return render(request,'index.html')
 	now = datetime.datetime.now()
 	now = datetime.datetime.now()
-	return render(request,'index.html', {'current_date': now})
+	return render(request,'index.html')
 	
 def courses(request):
 	return render_to_response('courses.html')
 def faculty(request):
 	return render_to_response('courses.html')
+
+def logout(request):
+	if 'uname' in request.session:
+		del request.session['uname']
+		#del request.session['info']
+	return redirect('home')
 

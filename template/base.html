@@ -84,7 +84,16 @@
       </li-->
     </ul>
      <ul class="nav navbar-nav navbar-right" >
+      {% if student %}
+        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome {{ student.FirstName }} <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Change Password</a></li>
+          <li><a href="http://127.0.0.1:8000/logout">Logout</a></li>
+        </ul>
+      </li>
+      {% else %}
        <li><a href="http://127.0.0.1:8000/login">Sign-in/Sign-up</a></li>
+      {% endif %}
      </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

@@ -1,7 +1,6 @@
 import uuid
 from django.db.models import Q
-from django.shortcuts import render_to_response
-from django.shortcuts import render
+from django.shortcuts import render_to_response,HttpResponseRedirect,render,redirect
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.context_processors import csrf
@@ -20,16 +19,7 @@ def get_password():
         return temp_pass
     
     
-def home(request):
-	username = request.POST.get('username', '')
-	password=request.POST.get('password', '')
-	if(username!='' and password!=''):
-		b = user(username=username,password=password)
-		b.save()
-	else:
-		now = datetime.datetime.now()
-	now = datetime.datetime.now()
-	return render(request,'index.html', {'current_date': now})
+
 
 def login(request):
 	
@@ -38,14 +28,15 @@ def login(request):
 		username = request.POST.get('username', '')
 		password=request.POST.get('password', '')
 		if(username!='' and password!=''):
-			try:
+	#		try:
 				result=user.objects.filter(username=username).values()[0]
 				if(result['password']==password):
-					return render(request,'login_register.html')
+					request.session['student']=result
+					return redirect('home')
 				else:
-					return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
-			except:
-				return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
+					return render(request,'login_register.html',{'message_login':"wrong Username or Password under if"})
+	#		except:
+				return render(request,'login_register.html',{'message_login':"wrong Username or Password under except"})
 
 	if('register' in request.POST):
 		R_username = request.POST.get('R_username', '')
@@ -61,12 +52,18 @@ def login(request):
 				message = "your password is " + temp_pass
 				from_email = settings.EMAIL_HOST_USER
 				to_list=[R_username,settings.EMAIL_HOST_USER]
-				send_mail(subject,message,from_email,to_list, fail_silently=False)
+				send_mail(subject,message,from_email,to_list, fail_silently=True)
 				return render(request,'login_register.html',{'message_register_success':"your password has been sent to your e-mail"})
 	return render(request,'login_register.html',{'message':""})
+def home(request):
+	if 'student' in request.session:
+		return render(request,'index.html', {'student': "Hello"})
+	now = datetime.datetime.now()
+	now = datetime.datetime.now()
+	return render(request,'index.html', {'current_date': now})
 	
 def courses(request):
 	return render_to_response('courses.html')
-	
 def faculty(request):
-	return render_to_response('faculty.html')
+	return render_to_response('courses.html')
+

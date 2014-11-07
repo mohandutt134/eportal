@@ -2,6 +2,8 @@ import uuid
 from django.db.models import Q
 from django.shortcuts import render_to_response
 from django.shortcuts import render
+from django.core.mail import send_mail
+from django.conf import settings
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
 from django.conf import settings
@@ -15,8 +17,18 @@ def get_password():
 	except:
 		return temp_pass
 # Create your views here.
-from django.shortcuts import render_to_response
 import datetime
+
+#function that generates random password
+def get_password():
+    temp_pass = str(uuid.uuid4())[:11].replace('-','').lower()
+    try:
+        pass_exists = user.objects.get(password=temp_pass)
+        get_password()
+    except:
+        return temp_pass
+    
+    
 def home(request):
 	username = request.POST.get('username', '')
 	password=request.POST.get('password', '')
@@ -32,24 +44,40 @@ def login(request):
 	
 	
 	if('login' in request.POST):
-		ausername = request.POST.get('username', '')
+		username = request.POST.get('username', '')
 		password=request.POST.get('password', '')
-		if(ausername!='' and password!=''):
-			result=user.objects.filter(username=ausername).values()[0]
-			if(result['password']==password):
-				return render(request,'login_register.html',{'message':result['password']})
-			else:
-				return render(request,'login_register.html',{'message':"wrong password"})
+		if(username!='' and password!=''):
+			try:
+				result=user.objects.filter(username=username).values()[0]
+				if(result['password']==password):
+					return render(request,'login_register.html')
+				else:
+					return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
+			except:
+				return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
 
 	if('register' in request.POST):
-		R_username=request.POST.get('R_username','')
+
+		R_username = request.POST.get('R_username', '')
 		if(R_username!=''):
-			temp_pass=get_password()
-			b = user(username=R_username,password=temp_pass)
-			b.save()
-			subject="Com"
-			message="password" + temp_pass
-			from_email = settings.EMAIL_HOST_USER
-			to_list = [R_username,settings.EMAIL_HOST_USER]
-			send_mail(subject,message,from_email,to_list,fail_silently=False)
+			try:
+				user_exists = user.objects.get(username=R_username)
+				return render(request,'login_register.html',{'message_register_alert':"User with this email is already registered"})
+			except:
+				temp_pass = get_password()
+				b = user(username=R_username,password=temp_pass,status=True)
+				b.save()
+				subject="Confirmation  mail"
+				message = "your password is " + temp_pass
+				from_email = settings.EMAIL_HOST_USER
+				to_list=[R_username,settings.EMAIL_HOST_USER]
+				send_mail(subject,message,from_email,to_list, fail_silently=False)
+				return render(request,'login_register.html',{'message_register_success':"your password has been sent to your e-mail"})
 	return render(request,'login_register.html',{'message':""})
+	
+def courses(request):
+	return render_to_response('courses.html')
+	
+def faculty(request):
+	return render_to_response('faculty.html')
+

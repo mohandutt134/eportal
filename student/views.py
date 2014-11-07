@@ -35,6 +35,17 @@ def login(request):
 				result=user.objects.filter(username=username).values()[0]
 				if(result['password']==password):
 					request.session['uname'] = username
+					try:
+						info = student.objects.get(username=request.session['uname'])
+						status="student"
+					except:
+						info = student.objects.get(username=request.session['uname'])
+						status="faculty"
+					request.session['info_dic']={
+						'fname': info.FirstName,
+						'lname': info.LastNmae,
+						'status':status
+					}
 					return redirect('home')
 					#return render(request,'login_register.html',{'message_login':request.session['uname']})
 				else:
@@ -63,25 +74,32 @@ def login(request):
 
 
 def home(request):
-	if 'uname' in request.session:
-		try:
-			info = student.objects.get(username=request.session['uname'])
-		#	request.session['info']=serializers.serialize('json',info)
-			return render(request,'index.html',{'student':info})
-		except:
+	if 'change_password_submit' in request.POST:
+		new_password=request.POST.get('new_password', 'mohan1234')
+		if new_password!='':
+			user.objects.select_related().filter(username=request.session['uname']).update(password=new_password)
+			return render(request,'index.html',{'changed':new_password,'logged':request.session['info_dic']})
+		else:
 			return render(request,'index.html')
-	now = datetime.datetime.now()
-	now = datetime.datetime.now()
+		#b=user.objects.filter(username=request.session['uname']).values()[0]
+		#b['password'] = new_password
+		#b.update()
+		
+	if 'uname' in request.session:
+		return render(request,'index.html',{'logged':request.session['info_dic']})
 	return render(request,'index.html')
 	
 def courses(request):
-	return render_to_response('courses.html')
+	if 'uname' in request.session:
+		return render(request,'courses.html',{'logged':request.session['info_dic']})
+	return render(request,'courses.html')
 def faculty(request):
-	return render_to_response('courses.html')
+	if 'uname' in request.session:
+		return render(request,'courses.html',{'logged':request.session['info_dic']})
+	return render(request,'courses.html')
 
 def logout(request):
 	if 'uname' in request.session:
 		del request.session['uname']
-		#del request.session['info']
 	return redirect('home')
 

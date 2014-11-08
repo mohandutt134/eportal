@@ -40,7 +40,7 @@
 		 		{% if message_register_alert %}
 					<p class="alert alert-danger"><em><small>{{message_register_alert}}</small></em></p>
 		 		{% endif %}
-		 <form role="form" method="post">
+		 <form role="form" method="post" enctype="multipart/form-data">
 		 	 {% csrf_token %}
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Email address</label>
@@ -54,12 +54,45 @@
 			    <label for="exampleInputEmail1">Last Nmae</label>
 			    <input type="text" name="R_lanme" class="form-control" id="exampleInputLastname" placeholder="Firstname">
 			    </div>
-
+			    <div class="form-group">
+			    	<label for="exampleInputEmail1">Date of Birth</label>
+	               
+	                    <input type='date'  name ="R_date" class="form-control glyphicon glyphicon-calendar" />
+	                    
+	                
+            	</div>
+            
+            	</script>
 			    <div class="form-group">
 					    <label for="exampleInputFile">Image</label>
 					    <input type="file" name="R_Image" id="exampleInputFile">
-					    <h6>Image should me lss than 200kB</h6>
+					    <h6></h6>
   				</div>
+  				<!--radio button selection -->
+  				 <div class="form-group">
+
+				    
+
+				        <label for="exampleInputFile">Profile</label>
+				        <div class="row ">
+				        <label class="radio-inline">
+				        	<span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+				          <input name="radioGroup" id="radio1" value="student" type="radio"> Student
+				        </label>
+				        <label class="radio-inline">
+				          <input name="radioGroup" id="radio2" value="faculty" type="radio"> Faculty
+				        </label>
+				        
+				    </div>
+				</div>
+				    <!-- end of radio button selction -->
+
+				<!-- student -->
+				<div class="red box">You have selected <strong>Student</strong> so i am here</div>
+				<!-- end of student -->
+				<!-- faculty-->
+    			<div class="green box">You have selected <strong>faculty</strong> so i am here</div>
+    			<!-- end of faculty -->
 			  
 			  <button type="submit" name="register" class="btn btn-default">Submit</button>
 			</form>
@@ -68,6 +101,25 @@
 		<!-- end of registration-->
 	</div>
 </div>
+
+<!-- java script for the radio button selction -->
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('input[type="radio"]').click(function(){
+            if($(this).attr("value")=="student"){
+                $(".box").hide();
+                $(".red").show();
+            }
+            if($(this).attr("value")=="faculty"){
+                $(".box").hide();
+                $(".green").show();
+            }
+           
+        });
+       
+    });
+</script>
 	{% endblock %}
 
 

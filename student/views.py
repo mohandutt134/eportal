@@ -94,7 +94,7 @@ def registration_function(request):
 		R_lname=request.POST.get('R_lname','')
 		R_date=request.POST.get('R_date')
 		_file = request.FILES.get('R_Image','')
-		message_register_ale=''
+		message_register_alert=''
 		if(R_username==''):
 			message_register_alert="Enter Username Name"
 		elif(R_fname==''):
@@ -104,7 +104,7 @@ def registration_function(request):
 		else:
 			try:
 				user_exists = user.objects.get(username=R_username)
-				message_register_alert="User with this email is already registered"
+				message_register_alert="You are already registered"
 			except:
 				temp_pass = get_password()
 				filename=request.FILES.get('R_Image').name
@@ -121,14 +121,14 @@ def registration_function(request):
 				to_list=[R_username,settings.EMAIL_HOST_USER]
 
 				send_mail(subject,message,from_email,to_list, fail_silently=False)
-				message_register_alert='your password has been sent to your email'
+				message_register_alert='success'
 		return message_register_alert
 
 			
 
 def home(request):
 	if 'change_password_submit' in request.POST:
-		new_password=request.POST.get('new_password', 'mohan123')
+		new_password=request.POST.get('new_password', '')
 		if new_password!='':
 			user.objects.select_related().filter(username=request.session['uname']).update(password=new_password)
 			return render(request,'index.html',{'changed':new_password,'logged':request.session['info_dic']})

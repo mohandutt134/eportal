@@ -56,26 +56,27 @@
 			    </div>
 			    <div class="form-group">
 			    	<label for="exampleInputEmail1">Date of Birth</label>
-	                <div class='input-group date' id='datetimepicker1'>
-	                    <input type='text' class="form-control" />
-	                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-	                    </span>
-	                </div>
+	               
+	                    <input type='date'  name ="R_date" class="form-control glyphicon glyphicon-calendar" />
+	                    
+	                
             	</div>
             
             	</script>
 			    <div class="form-group">
 					    <label for="exampleInputFile">Image</label>
 					    <input type="file" name="R_Image" id="exampleInputFile">
-					    <h6>Image should me lss than 200kB</h6>
+					    <h6></h6>
   				</div>
   				<!--radio button selection -->
-  				<div class="container">
-				    <div class="row ">
+  				 <div class="form-group">
+
+				    
 
 				        <label for="exampleInputFile">Profile</label>
+				        <div class="row ">
 				        <label class="radio-inline">
-				        	<span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+				        	<span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
 				          <input name="radioGroup" id="radio1" value="student" type="radio"> Student
 				        </label>
 				        <label class="radio-inline">
@@ -116,7 +117,7 @@
             }
            
         });
-        $('#datetimepicker1').datetimepicker();
+       
     });
 </script>
 	{% endblock %}

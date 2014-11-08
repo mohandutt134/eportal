@@ -91,7 +91,8 @@ def handle_uploaded_file(f,path=''):
 def registration_function(request):
 		R_username = request.POST.get('R_username', '')
 		R_fname=request.POST.get('R_fname','')
-		R_lname=request.POST.get('R_lname')
+		R_lname=request.POST.get('R_lname','')
+		R_date=request.POST.get('R_date')
 		_file = request.FILES.get('R_Image','')
 		message_register_ale=''
 		if(R_username==''):
@@ -109,8 +110,11 @@ def registration_function(request):
 				filename=request.FILES.get('R_Image').name
 				handle_uploaded_file(request.FILES.get('R_Image'))
 				user_table = user(username=R_username,password=temp_pass,status=True)
+				
+				#date store in the student table
+				student_table=student(username=R_username,FirstName=R_fname,LastNmae=R_lname,DOB=R_date,Semester='',Branch='',image=filename)
+				student_table.save()
 				user_table.save()
-
 				subject="Confirmation  mail"
 				message = "your password is " + temp_pass
 				from_email = settings.EMAIL_HOST_USER

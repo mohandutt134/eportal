@@ -75,15 +75,12 @@ def login(request):
 
 def home(request):
 	if 'change_password_submit' in request.POST:
-		new_password=request.POST.get('new_password', 'mohan1234')
+		new_password=request.POST.get('new_password', 'mohan123')
 		if new_password!='':
 			user.objects.select_related().filter(username=request.session['uname']).update(password=new_password)
 			return render(request,'index.html',{'changed':new_password,'logged':request.session['info_dic']})
 		else:
-			return render(request,'index.html')
-		#b=user.objects.filter(username=request.session['uname']).values()[0]
-		#b['password'] = new_password
-		#b.update()
+			return render(request,'index.html',{'logged':request.session['info_dic']})
 		
 	if 'uname' in request.session:
 		return render(request,'index.html',{'logged':request.session['info_dic']})

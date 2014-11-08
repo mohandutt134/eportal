@@ -1,7 +1,6 @@
 import uuid
 from django.db.models import Q
-from django.shortcuts import render_to_response
-from django.shortcuts import render
+from django.shortcuts import render_to_response,HttpResponseRedirect,render,redirect
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.context_processors import csrf
@@ -11,17 +10,12 @@ from student.models import user,student
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
 import os
-
+from django.core import serializers
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-def get_password():
-	temp_pass=str(uuid.uuid4())[:11].replace('-','')
-	try:
-		pass_exists=user.objects.get(password=temp_pass)
-		get_password()
-	except:
-		return temp_pass
+
+
 # Create your views here.
 import datetime
 
@@ -35,16 +29,7 @@ def get_password():
         return temp_pass
     
     
-def home(request):
-	username = request.POST.get('username', '')
-	password=request.POST.get('password', '')
-	if(username!='' and password!=''):
-		b = user(username=username,password=password)
-		b.save()
-	else:
-		now = datetime.datetime.now()
-	now = datetime.datetime.now()
-	return render(request,'index.html', {'current_date': now})
+
 
 def login(request):
 	if('login' in request.POST):
@@ -54,7 +39,20 @@ def login(request):
 			try:
 				result=user.objects.filter(username=username).values()[0]
 				if(result['password']==password):
-					return render(request,'login_register.html')
+					request.session['uname'] = username
+					try:
+						info = student.objects.get(username=request.session['uname'])
+						status="student"
+					except:
+						info = student.objects.get(username=request.session['uname'])
+						status="faculty"
+					request.session['info_dic']={
+						'fname': info.FirstName,
+						'lname': info.LastNmae,
+						'status':status
+					}
+					return redirect('home')
+					#return render(request,'login_register.html',{'message_login':request.session['uname']})
 				else:
 					return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
 			except:
@@ -117,6 +115,41 @@ def registration_function(request):
 				message = "your password is " + temp_pass
 				from_email = settings.EMAIL_HOST_USER
 				to_list=[R_username,settings.EMAIL_HOST_USER]
+
 				send_mail(subject,message,from_email,to_list, fail_silently=False)
 				message_register_alert='your password has been sent to your email'
 		return message_register_alert
+
+			
+
+def home(request):
+	if 'change_password_submit' in request.POST:
+		new_password=request.POST.get('new_password', 'mohan1234')
+		if new_password!='':
+			user.objects.select_related().filter(username=request.session['uname']).update(password=new_password)
+			return render(request,'index.html',{'changed':new_password,'logged':request.session['info_dic']})
+		else:
+			return render(request,'index.html')
+		#b=user.objects.filter(username=request.session['uname']).values()[0]
+		#b['password'] = new_password
+		#b.update()
+		
+	if 'uname' in request.session:
+		return render(request,'index.html',{'logged':request.session['info_dic']})
+	return render(request,'index.html')
+	
+def courses(request):
+	if 'uname' in request.session:
+		return render(request,'courses.html',{'logged':request.session['info_dic']})
+	return render(request,'courses.html')
+def faculty(request):
+	if 'uname' in request.session:
+		return render(request,'courses.html',{'logged':request.session['info_dic']})
+	return render(request,'courses.html')
+
+def logout(request):
+	if 'uname' in request.session:
+		del request.session['uname']
+	return redirect('home')
+
+

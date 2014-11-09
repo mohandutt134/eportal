@@ -9,6 +9,7 @@ from django.conf import settings
 from student.models import user,student
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
+from django.contrib.auth.hashers import check_password,make_password
 import os
 from django.core import serializers
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -38,7 +39,8 @@ def login(request):
 		if(username!='' and password!=''):
 			try:
 				result=user.objects.filter(username=username).values()[0]
-				if(result['password']==password):
+
+				if(check_password(password, result['password'])):
 					request.session['uname'] = username
 					try:
 						info = student.objects.get(username=request.session['uname'])
@@ -107,9 +109,10 @@ def registration_function(request):
 				message_register_alert="You are already registered"
 			except:
 				temp_pass = get_password()
+				temp_hashed_pass = make_password(temp_pass, salt=None, hasher='default')
 				filename=request.FILES.get('R_Image').name
 				handle_uploaded_file(request.FILES.get('R_Image'))
-				user_table = user(username=R_username,password=temp_pass,status=True)
+				user_table = user(username=R_username,password=temp_hashed_pass,status=True)
 				
 				#date store in the student table
 				student_table=student(username=R_username,FirstName=R_fname,LastNmae=R_lname,DOB=R_date,Semester='',Branch='',image=filename)

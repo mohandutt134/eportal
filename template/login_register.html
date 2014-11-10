@@ -34,12 +34,14 @@
 		<div class="col-md-6">
 			<div class="jumbotron">
 				<h3 class="form-signin-heading centered"><span class="label label-primary">Register</span></h3>
-				{% if message_register_success %}
-					<p class="alert alert-success"><em><small>{{message_register_success}}</small></em></p>
+			{% if message_register_alert %}
+				{% if message_register_alert == "success" %}
+					<p class="alert alert-success"><em><small>Your password has been sent to your e-mail</small></em></p>
 		 		{% endif %}
-		 		{% if message_register_alert %}
-					<p class="alert alert-danger"><em><small>{{message_register_alert}}</small></em></p>
+		 		{% if message_register_alert != "success" %}
+					<p class="alert alert-danger"><em><small>{{ message_register_alert }}</small></em></p>
 		 		{% endif %}
+		 	{% endif %}
 		 <form role="form" method="post" enctype="multipart/form-data">
 		 	 {% csrf_token %}
 			  <div class="form-group">
@@ -93,7 +95,7 @@
 				<!-- faculty-->
     			<div class="green box">You have selected <strong>faculty</strong> so i am here</div>
     			<!-- end of faculty -->
-			  
+			  <br />
 			  <button type="submit" name="register" class="btn btn-default">Submit</button>
 			</form>
 		</div>

@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'django_extensions',
     'quiz',
     'student',
+    'course',
+    
 )
 
 MIDDLEWARE_CLASSES = (

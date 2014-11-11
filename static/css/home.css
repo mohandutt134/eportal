@@ -114,3 +114,6 @@ overflow: visible !important;
 .datefield input#year { width:2.5em; }
 .datefield input:focus { outline:none; }
 
+.bg-white {
+    background-color: #ffffff;
+}

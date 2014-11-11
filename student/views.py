@@ -9,7 +9,7 @@ from django.conf import settings
 from student.models import user,student
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
-from django.contrib.auth.hashers import check_password,make_password
+from django.contrib.auth.hashers import check_password,make_password                                                                                                       
 import os
 from django.core import serializers
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -17,9 +17,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 
-# Create your views here.
+# Create your views here.                                                 
 import datetime
-
+                                       
 #function that generates random password
 def get_password():
     temp_pass = str(uuid.uuid4())[:11].replace('-','').lower()

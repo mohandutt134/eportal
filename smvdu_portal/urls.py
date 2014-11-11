@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^faculty$', 'student.views.faculty', name='faculty'),
     url(r'^about$', 'smvdu_portal.views.about', name='about'),
     url(r'^logout$', 'student.views.logout', name='logout'),
+    url(r'^quiz$', 'quiz.views.quiz', name='quiz'),
 )

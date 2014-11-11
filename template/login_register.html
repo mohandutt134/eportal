@@ -25,6 +25,7 @@
 			  </div>
 			  <button type="submit" name="login"  class="btn btn-default">Submit</button>
 			</form>
+			<a href="#" data-toggle="modal" data-target="#myModal3" class="btn">Forget password</a>
 		</div>
 		</div>
 		<!-- end of login form -->
@@ -54,7 +55,7 @@
 			    </div>
 			    <div class="form-group">
 			    <label for="exampleInputEmail1">Last Nmae</label>
-			    <input type="text" name="R_lanme" class="form-control" id="exampleInputLastname" placeholder="Firstname">
+			    <input type="text" name="R_lanme" class="form-control" id="exampleInputLastname" placeholder="Lastname">
 			    </div>
 			    <div class="form-group">
 			    	<label for="exampleInputEmail1">Date of Birth</label>
@@ -122,6 +123,31 @@
        
     });
 </script>
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width:100%; text-align:center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Enter E-mail</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form" id="change_password_form" method="post">
+        {% csrf_token %}
+                <div class="form-group">
+                 <input type="email" id="forget" name="forget" class="form-control" placeholder="E-mail">
+               </div>
+               <div class="modal-footer">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary" name="email">Send Password</button><br>
+                    <a href="#myModal3" data-dismiss="modal" data-toggle="modal" style="padding-top:10px"></a>
+                  </div>
+                </div>
+                </form>
+      </div>
+      
+</div>
+</div>
+</div>
 	{% endblock %}
 
 

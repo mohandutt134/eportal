@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response
-from course.form import CourseForm
+#from course.form import CourseForm
 from django.core.files.base import File
 from course.models import course
 from django.db.models import Q
 from django.core.context_processors import csrf
+from django.template import RequestContext
 # Create your views here.
 def course(request):
 	if(request.method == 'POST'):
@@ -26,8 +27,8 @@ def course(request):
 		course_data.save()
 
 		
-	else:
-		form=CourseForm()	
-	return render(request,'course.html',{'form':form})
-
+	#else:
+	#	form=CourseForm()	
+	#return render(request,'course.html',{'form':form})
+	return render(request,'course.html',context_instance=RequestContext(request))
 									

@@ -2,7 +2,6 @@ import uuid
 from django.db.models import Q
 from django.shortcuts import render_to_response,HttpResponseRedirect,render,redirect
 from django.core.mail import send_mail
-from django.conf import settings
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
 from django.conf import settings
@@ -12,6 +11,7 @@ from django.core.files.base import File
 from django.contrib.auth.hashers import check_password,make_password                                                                                                       
 import os
 from django.core import serializers
+from django.template import RequestContext
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -33,50 +33,42 @@ def get_password():
 
 
 def login(request):
-	if('login' in request.POST):
-		username = request.POST.get('username', '')
-		password=request.POST.get('password', '')
-		if(username!='' and password!=''):
-			try:
-				result=user.objects.filter(username=username).values()[0]
+	if 'uname' in request.session:
+		return redirect('home')
+	else:
+		if('login' in request.POST):
+			username = request.POST.get('username', '')
+			password=request.POST.get('password', '')
+			if(username!='' and password!=''):
+				try:
+					result=user.objects.filter(username=username).values()[0]
 
-				if(check_password(password, result['password'])):
-					request.session['uname'] = username
-					try:
-						info = student.objects.get(username=request.session['uname'])
-						status="student"
-					except:
-						info = student.objects.get(username=request.session['uname'])
-						status="faculty"
-					request.session['info_dic']={
-						'fname': info.FirstName,
-						'lname': info.LastNmae,
-						'status':status
-					}
-					return redirect('home')
-					#return render(request,'login_register.html',{'message_login':request.session['uname']})
-				else:
+					if(check_password(password, result['password'])):
+						request.session['uname'] = username
+						try:
+							info = student.objects.get(username=request.session['uname'])
+							status="student"
+						except:
+							info = student.objects.get(username=request.session['uname'])
+							status="faculty"
+						request.session['info_dic']={
+							'fname': info.FirstName,
+							'lname': info.LastNmae,
+							'status':status
+						}
+						return redirect('home')
+						#return render(request,'login_register.html',{'message_login':request.session['uname']})
+					else:
+						return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
+				except:
 					return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
-			except:
-				return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
 
-	if('register' in request.POST):
-		#call registration function 
-		message=registration_function(request)#store message from registration function 
-		return render(request,'login_register.html',{'message_register_alert':message})
+		if('register' in request.POST):
+			#call registration function 
+			message=registration_function(request)#store message from registration function 
+			return render(request,'login_register.html',{'message_register_alert':message})
 
-	return render(request,'login_register.html',{'message_register_alert':''})
-
-#function for course
-def courses(request):
-	return render_to_response('courses.html')
-	
-
-#function for faculty
-def faculty(request):
-	return render_to_response('faculty.html')
-
-
+		return render(request,'login_register.html',{'message_register_alert':''})
 
 #function for upload the image
 def handle_uploaded_file(f,path=''):
@@ -133,27 +125,21 @@ def home(request):
 	if 'change_password_submit' in request.POST:
 		new_password=request.POST.get('new_password', '')
 		if new_password!='':
+			new_password = make_password(new_password,salt=None,hasher='default')
 			user.objects.select_related().filter(username=request.session['uname']).update(password=new_password)
-			return render(request,'index.html',{'changed':new_password,'logged':request.session['info_dic']})
+			return render(request,'index.html',{'changed':"password changed successfully"},context_instance=RequestContext(request))
 		else:
-			return render(request,'index.html',{'logged':request.session['info_dic']})
-		
-	if 'uname' in request.session:
-		return render(request,'index.html',{'logged':request.session['info_dic']})
-	return render(request,'index.html')
+			return render(request,'index.html',context_instance=RequestContext(request))
+	return render_to_response('index.html',context_instance=RequestContext(request))
 	
 def courses(request):
-	if 'uname' in request.session:
-		return render(request,'courses.html',{'logged':request.session['info_dic']})
 	return render(request,'courses.html')
 def faculty(request):
-	if 'uname' in request.session:
-		return render(request,'courses.html',{'logged':request.session['info_dic']})
-	return render(request,'courses.html')
-
+	return render(request,'courses.html',context_instance=RequestContext(request))
 def logout(request):
 	if 'uname' in request.session:
 		del request.session['uname']
+		del request.session['info_dic']
 	return redirect('home')
 
 

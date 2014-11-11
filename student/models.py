@@ -22,7 +22,7 @@ class Course(models.Model):
 class student(models.Model):
 	username=models.EmailField(primary_key=True)
 	FirstName=models.CharField(max_length=50)
-	LastNmae=models.CharField(max_length=50,default=None)
+	LastName=models.CharField(max_length=50,default=None)
 	DOB=models.CharField(max_length=20,default=None)
 	Branch=models.CharField(max_length=10,default=None)
 	Semester=models.CharField(max_length=10,default=None)

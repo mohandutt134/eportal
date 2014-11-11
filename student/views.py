@@ -53,7 +53,7 @@ def login(request):
 							status="faculty"
 						request.session['info_dic']={
 							'fname': info.FirstName,
-							'lname': info.LastNmae,
+							'lname': info.LastName,
 							'status':status
 						}
 						return redirect('home')
@@ -107,7 +107,7 @@ def registration_function(request):
 				user_table = user(username=R_username,password=temp_hashed_pass,status=True)
 				
 				#date store in the student table
-				student_table=student(username=R_username,FirstName=R_fname,LastNmae=R_lname,DOB=R_date,Semester='',Branch='',image=filename)
+				student_table=student(username=R_username,FirstName=R_fname,LastName=R_lname,DOB=R_date,Semester='',Branch='',image=filename)
 				student_table.save()
 				user_table.save()
 				subject="Confirmation  mail"

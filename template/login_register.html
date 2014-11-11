@@ -16,7 +16,10 @@
 			    	 {% csrf_token %}
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Email address</label>
-			    <input type="email" name="username" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			    <div class="input-group">
+			    	<input type="email" name="username" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			    	<span class="input-group-addon">@smvdu.ac.in</span>
+			  	</div>
 			  </div>
 			  <div class="form-group">
 			    <label for="exampleInputPassword1">Password</label>
@@ -47,14 +50,17 @@
 		 	 {% csrf_token %}
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Email address</label>
-			    <input type="email" name="R_username" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			    <div class="input-group">
+			    	<input type="email" name="R_username" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			    	<span class="input-group-addon">@smvdu.ac.in</span>
+			    </div>
 			  </div>
 			     <div class="form-group">
-			    <label for="exampleInputEmail1">First Nmae</label>
+			    <label for="exampleInputEmail1">First Name</label>
 			    <input type="text" name="R_fname" class="form-control" id="exampleInputFirstname" placeholder="Firstname">
 			    </div>
 			    <div class="form-group">
-			    <label for="exampleInputEmail1">Last Nmae</label>
+			    <label for="exampleInputEmail1">Last Name</label>
 			    <input type="text" name="R_lanme" class="form-control" id="exampleInputLastname" placeholder="Lastname">
 			    </div>
 			    <div class="form-group">

@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
-{% block title %}About Us{% endblock %}
-    <!-- login form -->
- {% block content %} 
-  <div class="container-fluid" style="margin-top:3%">
-  <div class="row">
-    <div class="col-md-4">
-        HEY
-   </div>
-    <div class="col-md-4">HELLO</div>
-    <div class="col-md-4">FUCKU</div>
-  </div>
+{% block title %}{{sucess}}{% endblock %}
+{% block content %}
+{% load staticfiles %}
+
+<div class="container">
+    <br>
+    <div class="col-md-6 iPhone-features col-xs-4">
+      <p>{{form.errors}}</p>
+        <div class="jumbotron">
+            <h3 class="form-signin-heading centered"><span class="label label-primary">Course Details</span></h3>
+   
 </div>
- {% endblock %}
+
+</div>    </div>                                                                     
+{% endblock %}

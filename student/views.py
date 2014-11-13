@@ -8,6 +8,8 @@ from django.conf import settings
 from student.models import user,student,Course
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.hashers import check_password,make_password                                                                                                       
 import os
 from django.core import serializers
@@ -33,43 +35,30 @@ def get_password():
     
 
 
-def login(request):
-	if 'uname' in request.session:
+def login_view(request):
+	if(request.user.is_authenticated()):
+		print "aman"
 		return redirect('home')
-	else:
-		if('login' in request.POST):
-			username = request.POST.get('username', '')
-			password=request.POST.get('password', '')
-			if(username!='' and password!=''):
-				try:
-					result=user.objects.filter(username=username).values()[0]
-
-					if(check_password(password, result['password'])):
-						request.session['uname'] = username
-						try:
-							info = student.objects.get(username=request.session['uname'])
-							status="student"
-						except:
-							info = student.objects.get(username=request.session['uname'])
-							status="faculty"
-						request.session['info_dic']={
-							'fname': info.FirstName,
-							'lname': info.LastName,
-							'status':status
-						}
-						return redirect('home')
-						#return render(request,'login_register.html',{'message_login':request.session['uname']})
-					else:
-						return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
-				except:
-					return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
-
-		if('register' in request.POST):
+		
+	if('login' in request.POST):
+		username = request.POST.get('username', '')
+		password=request.POST.get('password', '')
+		user = authenticate(username=username, password=password)
+		if(user is not None):
+			if user.is_active:
+				print "login"
+				login(request,user)
+				return redirect('home')
+			else:
+				return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
+		else:
+			return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
+	if('register' in request.POST):
 			#call registration function 
 			message=registration_function(request)#store message from registration function 
 			return render(request,'login_register.html',{'message_register_alert':message})
 
-		return render(request,'login_register.html',{'message_register_alert':''})
+	return render(request,'login_register.html',{'message_register_alert':''})
 
 #function for upload the image
 def handle_uploaded_file(f,path=''):
@@ -84,40 +73,35 @@ def handle_uploaded_file(f,path=''):
 
 #function for registration
 def registration_function(request):
-		R_username = request.POST.get('R_username', '')
+		R_username = request.POST.get('R_email', '')
 		R_fname=request.POST.get('R_fname','')
 		R_lname=request.POST.get('R_lname','')
-		R_date=request.POST.get('R_date')
-		_file = request.FILES.get('R_Image','')
+		R_email=request.POST.get('R_email','')
 		message_register_alert=''
 		if(R_username==''):
 			message_register_alert="Enter Username Name"
 		elif(R_fname==''):
 			message_register_alert="Enter First Name"
-		elif(_file==''):
-			message_register_alert="please uplaod the image file"
+		elif(R_email==''):
+			message_register_alert="please Enter the Email ID"
 		else:
 			try:
-				user_exists = user.objects.get(username=R_username)
-				message_register_alert="You are already registered"
-			except:
 				temp_pass = get_password()
-				temp_hashed_pass = make_password(temp_pass, salt=None, hasher='default')
-				filename=request.FILES.get('R_Image').name
-				handle_uploaded_file(request.FILES.get('R_Image'))
-				user_table = user(username=R_username,password=temp_hashed_pass,status=True)
-				
-				#date store in the student table
-				student_table=student(username=R_username,FirstName=R_fname,LastName=R_lname,DOB=R_date,Semester='',Branch='',image=filename)
-				student_table.save()
-				user_table.save()
-				subject="Confirmation  mail"
-				message = "your password is " + temp_pass
-				from_email = settings.EMAIL_HOST_USER
-				to_list=[R_username,settings.EMAIL_HOST_USER]
-
-				send_mail(subject,message,from_email,to_list, fail_silently=False)
-				message_register_alert='success'
+				if(User.objects.get(username=R_username)):
+					message_register_alert="User Already Exits"
+				else:
+					user = User.objects.create_user(R_username, R_email, temp_pass)
+					user.first_name=R_fname
+					user.last_name=R_lname
+					user.save()
+					subject="Confirmation  mail"
+					message = "your password is " + temp_pass
+					from_email = settings.EMAIL_HOST_USER
+					to_list=[R_username,settings.EMAIL_HOST_USER]
+					send_mail(subject,message,from_email,to_list, fail_silently=False)
+					message_register_alert='success'
+			except :
+				message_register_alert="user already exit"
 		return message_register_alert
 
 			
@@ -137,10 +121,8 @@ def courses(request):
 	return render(request,'courses.html')
 def faculty(request):
 	return render(request,'courses.html',context_instance=RequestContext(request))
-def logout(request):
-	if 'uname' in request.session:
-		del request.session['uname']
-		del request.session['info_dic']
+def logout_view(request):
+	logout(request)
 	return redirect('home')
 
 

@@ -31,6 +31,7 @@ class question(models.Model):
 	ans = models.CharField(max_length=1,choices=CHOICES)
 	quizes = models.ManyToManyField(quiz_spec)
 	parent = models.ForeignKey(student)
+	dateAdded = models.DateTimeField(); 
 
 	def __str__(self):
 		return self.statement

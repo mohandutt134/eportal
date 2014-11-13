@@ -5,13 +5,14 @@ from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
 from django.conf import settings
-from student.models import user,student
+from student.models import user,student,Course
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
 from django.contrib.auth.hashers import check_password,make_password                                                                                                       
 import os
 from django.core import serializers
 from django.template import RequestContext
+from datetime import datetime
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -143,3 +144,28 @@ def logout(request):
 	return redirect('home')
 
 
+def courseView(request):
+	if(request.method == 'POST'):
+		course_id1 = request.POST.get('course_id', '')
+		course_name1 = request.POST.get('course_name', '')
+		credits1 = request.POST.get('credits', '')
+		end_date1=request.POST.get('end_date', '')
+		start_date1=request.POST.get('start_date', '')
+		image1=request.FILES.get('image','')
+		image2=request.FILES.get('image').name
+		course_data=course(
+			courseid=course_id1,
+			coursename=course_name1,
+			startdate=start_date1,
+			enddate=end_date1,
+			image=image2,
+			credits=credits1
+		)
+		course_data.save()
+
+		
+	#else:
+	#	form=CourseForm()	
+	#return render(request,'course.html',{'form':form})
+	return render(request,'course.html',context_instance=RequestContext(request))
+									

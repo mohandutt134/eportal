@@ -63,7 +63,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav" >
-                {% if request.session.uname %}
+                {% if  user.is_authenticated %}
                   <li><a href="{% url 'home' %}">Dashboard</a></li>
                 {% endif %}
                 <li><a href="{% url 'courses' %}">Courses</a></li>
@@ -83,8 +83,8 @@
       </li-->
     </ul>
      <ul class="nav navbar-nav navbar-right" >
-      {% if request.session.uname %}
-        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome {{ request.session.info_dic.fname }} <b class="caret"></b></a>
+      {% if  user.is_authenticated %}
+        <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome {{ user.username }} <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a href="#" data-toggle="modal" data-target="#myModal">Change Password</a></li>
           <li><a href="{% url 'logout' %}">Logout</a></li>

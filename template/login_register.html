@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% block title %}Login Register{% endblock %}
     <!-- login form -->
@@ -9,7 +10,7 @@
     	<div class="col-md-5">
     		<div class="jumbotron">
     			<div class="centered"><h3 class="form-signin-heading"><span class="label label-primary">LOGIN</span></h3></div>
-    			{% if message_login%}
+    			{% if message_login %}
 					<p class="alert alert-danger"><em><small>{{message_login}}</small></em></p>
 		 		{% endif %}
 			    <form role="form" method="post">
@@ -17,7 +18,7 @@
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Email address</label>
 			    <div class="input-group">
-			    	<input type="email" name="username" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			    	<input type="text" name="username" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
 			    	<span class="input-group-addon">@smvdu.ac.in</span>
 			  	</div>
 			  </div>
@@ -48,11 +49,14 @@
 		 	{% endif %}
 		 <form role="form" method="post" enctype="multipart/form-data">
 		 	 {% csrf_token %}
+		 	 <div class="form-group">
+			    <label for="exampleInputEmail1">UserName</label>
+			    <input type="text" name="R_username" class="form-control" id="exampleInputFirstname" placeholder="Firstname">
+			    </div>
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Email address</label>
 			    <div class="input-group">
-			    	<input type="email" name="R_username" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-			    	<span class="input-group-addon">@smvdu.ac.in</span>
+			    	<input type="text" name="R_email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
 			    </div>
 			  </div>
 			     <div class="form-group">
@@ -61,48 +65,9 @@
 			    </div>
 			    <div class="form-group">
 			    <label for="exampleInputEmail1">Last Name</label>
-			    <input type="text" name="R_lanme" class="form-control" id="exampleInputLastname" placeholder="Lastname">
+			    <input type="text" name="R_lname" class="form-control" id="exampleInputLastname" placeholder="Lastname">
 			    </div>
-			    <div class="form-group">
-			    	<label for="exampleInputEmail1">Date of Birth</label>
-	               
-	                    <input type='date'  name ="R_date" class="form-control glyphicon glyphicon-calendar" />
-	                    
-	                
-            	</div>
-            
-            	</script>
-			    <div class="form-group">
-					    <label for="exampleInputFile">Image</label>
-					    <input type="file" name="R_Image" class="form-control" id="exampleInputFile">
-					    <h6></h6>
-  				</div>
-  				<!--radio button selection -->
-  				 <div class="form-group">
-
-				    
-
-				        <label for="exampleInputFile">Profile</label>
-				        <div class="row ">
-				        <label class="radio-inline">
-				        	<span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
-				          <input name="radioGroup" id="radio1" value="student" type="radio"> Student
-				        </label>
-				        <label class="radio-inline">
-				          <input name="radioGroup" id="radio2" value="faculty" type="radio"> Faculty
-				        </label>
-				        
-				    </div>
-				</div>
-				    <!-- end of radio button selction -->
-
-				<!-- student -->
-				<div class="red box">You have selected <strong>Student</strong> so i am here</div>
-				<!-- end of student -->
-				<!-- faculty-->
-    			<div class="green box">You have selected <strong>faculty</strong> so i am here</div>
-    			<!-- end of faculty -->
-			  <br />
+			   
 			  <button type="submit" name="register" class="btn btn-default">Submit</button>
 			</form>
 		</div>

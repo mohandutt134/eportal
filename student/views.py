@@ -72,7 +72,7 @@ def handle_uploaded_file(f,path=''):
 
 #function for registration
 def registration_function(request):
-		R_username = request.POST.get('R_username', '')
+		R_username = request.POST.get('R_email', '')
 		R_fname=request.POST.get('R_fname','')
 		R_lname=request.POST.get('R_lname','')
 		R_email=request.POST.get('R_email','')

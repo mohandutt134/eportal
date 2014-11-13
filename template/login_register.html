@@ -49,14 +49,12 @@
 		 	{% endif %}
 		 <form role="form" method="post" enctype="multipart/form-data">
 		 	 {% csrf_token %}
-		 	 <div class="form-group">
-			    <label for="exampleInputEmail1">UserName</label>
-			    <input type="text" name="R_username" class="form-control" id="exampleInputFirstname" placeholder="Firstname">
-			    </div>
+		 	
 			  <div class="form-group">
 			    <label for="exampleInputEmail1">Email address</label>
 			    <div class="input-group">
 			    	<input type="text" name="R_email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+			    	<span class="input-group-addon">@smvdu.ac.in</span>
 			    </div>
 			  </div>
 			     <div class="form-group">

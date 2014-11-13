@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
 from django.conf import settings
-from student.models import user,student,Course
+from student.models import student,Course
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
 from django.contrib.auth.models import User
@@ -15,6 +15,12 @@ import os
 from django.core import serializers
 from django.template import RequestContext
 from datetime import datetime
+from django.contrib.auth.views import password_reset
+
+from django.core.urlresolvers import reverse
+
+# Import the built-in password reset view and password reset confirmation view.
+from django.contrib.auth.views import password_reset, password_reset_confirm
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -27,7 +33,7 @@ import datetime
 def get_password():
     temp_pass = str(uuid.uuid4())[:11].replace('-','').lower()
     try:
-        pass_exists = user.objects.get(password=temp_pass)
+        pass_exists = User.objects.get(password=temp_pass)
         get_password()
     except:
         return temp_pass
@@ -87,7 +93,8 @@ def registration_function(request):
 		else:
 			try:
 				temp_pass = get_password()
-				if(User.objects.get(username=R_username)):
+				if(User.objects.filter(username=R_username).exists()):
+					print "error"
 					message_register_alert="User Already Exits"
 				else:
 					user = User.objects.create_user(R_username, R_email, temp_pass)
@@ -110,12 +117,14 @@ def home(request):
 	if 'change_password_submit' in request.POST:
 		new_password=request.POST.get('new_password', '')
 		if new_password!='':
-			new_password = make_password(new_password,salt=None,hasher='default')
-			user.objects.select_related().filter(username=request.session['uname']).update(password=new_password)
+			request.user.set_password(new_password)
+			request.user.save()
+			#new_password = make_password(new_password,salt=None,hasher='default')
+			#User.objects.select_related().filter(username=request.user.username).update(password=new_password)
 			return render(request,'index.html',{'changed':"password changed successfully"},context_instance=RequestContext(request))
 		else:
 			return render(request,'index.html',context_instance=RequestContext(request))
-	return render_to_response('index.html',context_instance=RequestContext(request))
+	return render(request,'index.html',context_instance=RequestContext(request))
 	
 def courses(request):
 	return render(request,'courses.html')
@@ -150,4 +159,20 @@ def courseView(request):
 	#	form=CourseForm()	
 	#return render(request,'course.html',{'form':form})
 	return render(request,'course.html',context_instance=RequestContext(request))
-									
+def reset(request):
+    # Wrap the built-in password reset view and pass it the arguments
+    # like the template name, email template name, subject template name
+    # and the url to redirect after the password reset is initiated.
+    return password_reset(request,template_name='reset.html', post_reset_redirect=reverse('success'))
+
+# This view handles password reset confirmation links. See urls.py file for the mapping.
+# This view is not used here because the password reset emails with confirmation links
+# cannot be sent from this application.
+def reset_confirm(request, uidb64=None, token=None):
+    # Wrap the built-in reset confirmation view and pass to it all the captured parameters like uidb64, token
+    # and template name, url to redirect after password reset is confirmed.
+    return password_reset_confirm(request,template_name='reset_confirm.html', uidb64=uidb64, token=token, post_reset_redirect=reverse('success'))
+
+# This view renders a page with success message.
+def success(request):
+  return render(request,'success.html')

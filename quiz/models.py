@@ -1,5 +1,6 @@
 from django.db import models
-from student.models import user,student,Course
+from student.models import student,Course
+from django.contrib.auth.models import User
 
 
 

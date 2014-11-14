@@ -12,21 +12,26 @@ class Course(models.Model):
     #def __str__(self):
  		#return self.course_id
 
-class student(models.Model):
-	username=models.EmailField(primary_key=True)
-	FirstName=models.CharField(max_length=50)
-	LastName=models.CharField(max_length=50,default=None)
-	DOB=models.CharField(max_length=20,default=None)
+class student_profile(models.Model):
+	user = models.OneToOneField(User,primary_key=True)
+	DOB=models.DateField()
 	Branch=models.CharField(max_length=10,default=None)
 	Semester=models.CharField(max_length=10,default=None)
 	image = models.CharField(max_length=20)
 	coursetaken=models.ManyToManyField(Course)
 
-	def __str__(self):
-		return self.username
+	def __unicode__(self):
+   		return unicode(self.user) or u''
 
+#User.profile=property(lambda u: student_profile.objects.get_or_create(user=u)[0])
 
-
-
+class faculty_profile(models.Model):
+	user = models.OneToOneField(User,primary_key=True)
+	DOB=models.DateField()
+	Branch=models.CharField(max_length=10,default=None)
+	Semester=models.CharField(max_length=10,default=None)
+	image = models.CharField(max_length=20)
 	
+	def __str__(self):
+		return 'self.DOB'
 	

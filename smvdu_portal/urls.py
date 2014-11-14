@@ -22,16 +22,12 @@ urlpatterns = patterns('student.views',
     url(r'^mark-as-read/(?P<slug>\d+)/$', 'mark_as_read', name='mark_as_read'),
     url(r'^mark-as-unread/(?P<slug>\d+)/$', 'mark_as_unread', name='mark_as_unread'),
     url(r'^delete/(?P<slug>\d+)/$', 'delete', name='delete'),
-    
-    # Map the 'app.hello.reset_confirm' view that wraps around built-in password
-    # reset confirmation view, to the password reset confirmation links.
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         'reset_confirm', name='password_reset_confirm'),
-    
-    # Map the 'app.hello.success' view to the success message page.
     url(r'^success/$', 'success', name='success'),
+    url(r'^edit/$', 'edit', name='edit'),
     url(r'^success2/$', 'success2', name='success2'),
-     url(r'^fc/$', 'fc', name='fc'),
-     url('^inbox/notifications/', include(notifications.urls)),
+    url(r'^fc/$', 'fc', name='fc'),
+    url('^inbox/notifications/', include(notifications.urls)),
 )
 

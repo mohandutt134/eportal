@@ -4,7 +4,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>{% block title %}{% endblock %}</title>
+
+    <title>{% block title %}SMVDU E-Portal | HOME{% endblock %}</title>
     {% load staticfiles %}
 
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
@@ -12,9 +13,14 @@
 
     <link rel="stylesheet" href="{% static 'css/bootswatch.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
+<!--<<<<<< HEAD
     <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+=======-->
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}" ></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" ></script>
+    <script src="{% static 'js/bootstrap.min.js' %}" ></script>
     <script type="text/javascript">
     $(function() {
         function stripTrailingSlash(str) {
@@ -114,12 +120,39 @@
 
     <!--End of Navigation -->
     {% block content %} {% endblock %}
-    <div id="footer" style="margin-top:10px;">
-        <div class="container">
-            <p class="text-center">&#128522; <a href="www.smvdu.net.in" style="color:white;">SMVDU</a>
-            </p>
+    <!--footer style="background-color: rgb(27, 27, 26);position: relative; width: 98%; max-height: 33px;bottom: 2%;" >
+        <div class="row" style="margin-right: -2%;">
+            <div class="col-lg-11 col-lg-offset-1">
+
+                <ul class="list-unstyled">
+                    <li class="pull-right"><a href="#top">TOP</a>
+                    </li>
+                    <li><a href="#" onclick="pageTracker._link(this.href); return false;">Blog</a>
+                    </li>
+                    <li><a href="#">RSS</a>
+                    </li>
+                    <li><a href="#">Twitter</a>
+                    </li>
+                    <li><a href="#">GitHub</a>
+                    </li>
+                    <li><a href="../help/#api">API</a>
+                    </li>
+                    <li><a href="../help/#support">Support</a>
+                    </li>
+                </ul>
+                <p>Made by <a href="#" rel="nofollow">Thomas Park</a>. Contact him at <a href="mailto:thomas@bootswatch.com">thomas@bootswatch.com</a>.</p>
+                <p>Code released under the <a href="https://github.com/thomaspark/bootswatch/blob/gh-pages/LICENSE">MIT License</a>.</p>
+                <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
+
+            </div>
         </div>
+
+    </footer-->
+    <div id="footer" style="margin-top:10px;">
+    <div class="container">
+        <p class="text-center" >&#128522; <a href="www.smvdu.net.in" style="color:white;">SMVDU</a></p>
     </div>
+   </div>
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -160,6 +193,7 @@
                 </div>
                 <div class="modal-body">
                     <p class="alert alert-success">{{ changed }}</p>
+
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" data-dismiss="modal">Close</button>

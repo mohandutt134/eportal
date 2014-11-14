@@ -179,13 +179,19 @@ def reset(request):
 def reset_confirm(request, uidb64=None, token=None):
     # Wrap the built-in reset confirmation view and pass to it all the captured parameters like uidb64, token
     # and template name, url to redirect after password reset is confirmed.
-    return password_reset_confirm(request, template_name='reset_confirm.html', uidb64=uidb64, token=token, post_reset_redirect=reverse('success'))
+
+    return password_reset_confirm(request,template_name='reset_confirm.html', uidb64=uidb64, token=token, post_reset_redirect=reverse('success2'))
 
 # This view renders a page with success message.
 
 
 def success(request):
     return render(request, 'success.html')
+
+def success2(request):
+    return render(request,'changed_successfuly.html')
+
+    
 def edit(request):
     if request.method=='POST':
         if student_profile.objects.filter(user_id=request.user.id).exists():

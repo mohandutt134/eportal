@@ -18,6 +18,11 @@ from datetime import datetime
 from django.contrib.auth.views import password_reset
 
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import get_object_or_404, render, redirect
+from django.template.context import RequestContext
+from .utils import slug2id
 
 # Import the built-in password reset view and password reset confirmation view.
 from django.contrib.auth.views import password_reset, password_reset_confirm
@@ -41,9 +46,9 @@ def get_password():
     
 
 
-def login_view(request):
+
+def login_view(request,next='home'):
 	if(request.user.is_authenticated()):
-		print "aman"
 		return redirect('home')
 		
 	if('login' in request.POST):
@@ -52,8 +57,10 @@ def login_view(request):
 		user = authenticate(username=username, password=password)
 		if(user is not None):
 			if user.is_active:
-				print "login"
 				login(request,user)
+				next = request.GET.get('next')
+				if next:
+					return redirect(next)
 				return redirect('home')
 			else:
 				return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
@@ -129,7 +136,7 @@ def home(request):
 def courses(request):
 	return render(request,'courses.html')
 def faculty(request):
-	return render(request,'courses.html',context_instance=RequestContext(request))
+	return render(request,'404.html',context_instance=RequestContext(request))
 def logout_view(request):
 	logout(request)
 	return redirect('home')
@@ -179,3 +186,97 @@ def success(request):
 
 def success2(request):
 	return render(request,'changed_successfuly.html')
+
+def fc(request):
+	return render(request,'fc.html')
+
+
+
+
+def about (request):
+	return render(request,'about.html')
+
+@login_required
+def all(request):
+    """
+    Index page for authenticated user
+    """
+    return render(request, 'notifications/list.html', {
+        'notifications': request.user.notifications.all()
+    })
+    actions = request.user.notifications.all()
+
+    paginator = Paginator(actions, 16) # Show 16 notifications per page
+    page = request.GET.get('p')
+
+    try:
+        action_list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        action_list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        action_list = paginator.page(paginator.num_pages)
+
+    return render_to_response('notifications/list.html', {
+        'member': request.user,
+        'action_list': action_list,
+    }, context_instance=RequestContext(request))
+
+@login_required
+def unread(request):
+    return render(request, 'notifications/list.html', {
+        'notifications': request.user.notifications.unread()
+    })
+
+@login_required
+def mark_all_as_read(request):
+    request.user.notifications.mark_all_as_read()
+
+    next = request.REQUEST.get('next')
+
+    if next:
+        return redirect(next)
+    return redirect('notifications:all')
+
+@login_required
+def mark_as_read(request, slug=None):
+    id = slug2id(slug)
+
+    notification = get_object_or_404(Notification, recipient=request.user, id=id)
+    notification.mark_as_read()
+
+    next = request.REQUEST.get('next')
+
+    if next:
+        return redirect(next)
+
+    return redirect('notifications:all')
+
+@login_required
+def mark_as_unread(request, slug=None):
+    id = slug2id(slug)
+
+    notification = get_object_or_404(Notification, recipient=request.user, id=id)
+    notification.mark_as_unread()
+
+    next = request.REQUEST.get('next')
+
+    if next:
+        return redirect(next)
+
+    return redirect('notifications:all')
+
+@login_required
+def delete(request, slug=None):
+    id = slug2id(slug)
+
+    notification = get_object_or_404(Notification, recipient=request.user, id=id)
+    notification.delete()
+
+    next = request.REQUEST.get('next')
+
+    if next:
+        return redirect(next)
+
+    return redirect('notifications:all')

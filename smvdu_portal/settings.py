@@ -36,14 +36,19 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'django_extensions',
+    'django_extensions',
     'quiz',
     'student',
-    'django_extensions'
+    'django_extensions',
+    'notifications',
+    'smartextends',
+    'django.contrib.admindocs',
+
+    
     
     
 )
-
+SITE_ID = 1
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,6 +56,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.admindocs.middleware.XViewMiddleware',
 )
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'template'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -60,7 +66,7 @@ TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'template'),
 ROOT_URLCONF = 'smvdu_portal.urls'
 
 WSGI_APPLICATION = 'smvdu_portal.wsgi.application'
-
+OVERWRITE_EXTENDS = False
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -118,3 +124,4 @@ EMAIL_HOST_USER = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_PORT = EMAIL_PORT
 
+LOGIN_URL = '/login'

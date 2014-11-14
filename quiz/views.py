@@ -5,6 +5,4 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Create your views here.
 def quiz(request):
-	if 'uname' in request.session:
-		return render(request,'courses.html',{'logged':request.session['info_dic']})
-	return render(request,'courses.html')
+	return render(request,'course.html')

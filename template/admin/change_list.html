@@ -1,17 +1,12 @@
-{% smart_extends "admin/base.html" %}
+{% smart_extends "admin/change_list.html" %}
 
-{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
-
-{% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('SMVDU E-portal ADMIN') }}</a></h1>
-{% endblock %}
 {% block extrastyle %}
     {{ block.super }}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'dist/css/bootstrap.min.css' %}" />
     <script src="{% static 'dist/js/jquery-1.11.1.min.js' %}" ></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" ></script>
     <script src="{% static 'dist/js/bootstrap.min.js' %}" ></script>
 {% endblock %}
-
-{% block nav-global %}{% endblock %}

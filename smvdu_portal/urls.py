@@ -1,27 +1,37 @@
 from django.conf.urls import patterns, include, url
-
+import notifications
 from django.contrib import admin
+from django.conf.urls import *
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('student.views',
     # Examples:
     (r'^quizes/',include('quiz.urls')),
-    url(r'^$', 'student.views.home', name='home'),
-    url(r'^login$', 'student.views.login_view', name='login'),
-    url(r'^course$', 'student.views.courseView', name='courses'),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^faculty$', 'student.views.faculty', name='faculty'),
-    url(r'^about$', 'smvdu_portal.views.about', name='about'),
-    url(r'^logout$', 'student.views.logout_view', name='logout'),
-    url(r'^reset/$', 'student.views.reset', name='reset'),
+    url(r'^$', 'home', name='home'),
+    url(r'^login/$', 'login_view', name='login'),
+    url(r'^course$', 'courseView', name='courses'),
+    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    (r'^admin/', include(admin.site.urls)),
+    url(r'^faculty$', 'faculty', name='faculty'),
+    url(r'^about$', 'about', name='about'),
+    url(r'^logout$', 'logout_view', name='logout'),
+    url(r'^reset/$', 'reset', name='reset'),
+    url(r'^all/$', 'all', name='all'),
+    url(r'^unread/$', 'unread', name='unread'),
+    url(r'^mark-all-as-read/$', 'mark_all_as_read', name='mark_all_as_read'),
+    url(r'^mark-as-read/(?P<slug>\d+)/$', 'mark_as_read', name='mark_as_read'),
+    url(r'^mark-as-unread/(?P<slug>\d+)/$', 'mark_as_unread', name='mark_as_unread'),
+    url(r'^delete/(?P<slug>\d+)/$', 'delete', name='delete'),
     
     # Map the 'app.hello.reset_confirm' view that wraps around built-in password
     # reset confirmation view, to the password reset confirmation links.
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-        'student.views.reset_confirm', name='password_reset_confirm'),
+        'reset_confirm', name='password_reset_confirm'),
     
     # Map the 'app.hello.success' view to the success message page.
-    url(r'^success/$', 'student.views.success', name='success'),
-    url(r'^success2/$', 'student.views.success2', name='success2'),
-
+    url(r'^success/$', 'success', name='success'),
+    url(r'^success2/$', 'success2', name='success2'),
+     url(r'^fc/$', 'fc', name='fc'),
+     url('^inbox/notifications/', include(notifications.urls)),
 )
+

@@ -23,5 +23,6 @@ urlpatterns = patterns('',
     # Map the 'app.hello.success' view to the success message page.
     url(r'^success/$', 'student.views.success', name='success'),
     url(r'^success2/$', 'student.views.success2', name='success2'),
+    url(r'^edit/$','student.views.edit',name='edit')
 
 )

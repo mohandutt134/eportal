@@ -13,20 +13,15 @@ class Course(models.Model):
  		#return self.course_id
 
 class student(models.Model):
-	username=models.EmailField(primary_key=True)
-	FirstName=models.CharField(max_length=50)
-	LastName=models.CharField(max_length=50,default=None)
-	DOB=models.CharField(max_length=20,default=None)
-	Branch=models.CharField(max_length=10,default=None)
-	Semester=models.CharField(max_length=10,default=None)
-	image = models.CharField(max_length=20)
-	coursetaken=models.ManyToManyField(Course)
-
-	def __str__(self):
-		return self.username
+	u=models.OneToOneField(User,null=True)
+	sex=models.CharField(max_length=10)
+	branch=models.CharField(max_length=10)
+	dateofbirth=models.CharField(max_length=20)
+	image=models.CharField(max_length=20)
+	course_taken=models.ManyToManyField(Course,null=True, blank=True)
+	
 
 
-
-
+User.profile=property(lambda u: student.objects.get_or_create(u=u)[0])
 	
 	

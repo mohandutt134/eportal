@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
 from django.conf import settings
-from student.models import student,Course
+from student.models import student,Course,User
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
 from django.contrib.auth.models import User
@@ -16,7 +16,7 @@ from django.core import serializers
 from django.template import RequestContext
 from datetime import datetime
 from django.contrib.auth.views import password_reset
-
+from student.form import student_form
 from django.core.urlresolvers import reverse
 
 # Import the built-in password reset view and password reset confirmation view.
@@ -179,3 +179,13 @@ def success(request):
 
 def success2(request):
 	return render(request,'changed_successfuly.html')
+
+def edit(request):
+	if(request.method=='POST'):
+		form=student_form(request.POST,request.user.profile)
+		if(form.is_valid()):
+			form.save()
+			return redirect('login')
+	else:
+		form=student_form()
+		return render(request,'edit.html',{'form':form})

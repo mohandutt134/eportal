@@ -62,7 +62,10 @@ def login_view(request,next='home'):
 				next = request.GET.get('next')
 				if next:
 					return redirect(next)
-				return redirect('home')
+				elif user.is_staff:
+					return redirect ('/admin')
+				else:
+				    return redirect('home')
 			else:
 				return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
 		else:

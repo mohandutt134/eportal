@@ -23,6 +23,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
 from .utils import slug2id
 from student.form import student_profile_form
+from django.contrib.auth.models import Group
 
 
 # Import the built-in password reset view and password reset confirmation view.
@@ -94,6 +95,7 @@ def registration_function(request):
     R_fname = request.POST.get('R_fname', '')
     R_lname = request.POST.get('R_lname', '')
     R_email = request.POST.get('R_email', '')
+    R_category=request.POST.get('category','')
     message_register_alert = ''
     if(R_username == ''):
         message_register_alert = "Enter Username Name"
@@ -101,6 +103,8 @@ def registration_function(request):
         message_register_alert = "Enter First Name"
     elif(R_email == ''):
         message_register_alert = "please Enter the Email ID"
+    elif(R_category==''):
+        message_register_alert="Please Enter Category"
     else:
         try:
             temp_pass = get_password()
@@ -111,7 +115,15 @@ def registration_function(request):
                 user = User.objects.create_user(R_username, R_email, temp_pass)
                 user.first_name = R_fname
                 user.last_name = R_lname
-                user.save()
+                if(R_category=='student'):
+                    g = Group.objects.get(name='student')
+                    g.user_set.add(user) 
+                    user.save()
+                else:
+                    g = Group.objects.get(name='faculty')
+                    g.user_set.add(user) 
+                    user.save()
+                
                 subject = "Confirmation  mail"
                 message = "your password is " + temp_pass
                 from_email = settings.EMAIL_HOST_USER
@@ -200,6 +212,7 @@ def success(request):
 
 def success2(request):
 	return render(request,'changed_successfuly.html')
+
 
 def fc(request):
 	return render(request,'fc.html')

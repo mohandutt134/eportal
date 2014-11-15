@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'smartextends',
     'django.contrib.admindocs',
     'notification',
+    'accounts',
 )
 SITE_ID = 1
 MIDDLEWARE_CLASSES = (
@@ -123,5 +124,5 @@ EMAIL_PORT = EMAIL_PORT
 
 AUTH_PROFILE_MODULE='student.student_profile'
 
-LOGIN_URL = '/login'
+
 

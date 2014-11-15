@@ -5,11 +5,7 @@ from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
 from django.conf import settings
-<<<<<<< HEAD
-from student.models import student,Course,User
-=======
 from student.models import student_profile, Course
->>>>>>> 22873ab327e39ca48b686831d11d992da8e3f97a
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
 from django.contrib.auth.models import User
@@ -20,7 +16,6 @@ from django.core import serializers
 from django.template import RequestContext
 from datetime import datetime
 from django.contrib.auth.views import password_reset
-from student.form import student_form
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -206,17 +201,6 @@ def success(request):
 def success2(request):
 	return render(request,'changed_successfuly.html')
 
-<<<<<<< HEAD
-def edit(request):
-	if(request.method=='POST'):
-		form=student_form(request.POST,request.user.profile)
-		if(form.is_valid()):
-			form.save()
-			return redirect('login')
-	else:
-		form=student_form()
-		return render(request,'edit.html',{'form':form})
-=======
 def fc(request):
 	return render(request,'fc.html')
 
@@ -311,7 +295,7 @@ def delete(request, slug=None):
 
     return redirect('notifications:all')
 
-    
+@login_required
 def edit(request):
     if request.method=='POST':
         if student_profile.objects.filter(user_id=request.user.id).exists():
@@ -335,4 +319,4 @@ def edit(request):
         form=student_profile_form()
         return render(request,'edit.html',{'form':form})
 
->>>>>>> 22873ab327e39ca48b686831d11d992da8e3f97a
+

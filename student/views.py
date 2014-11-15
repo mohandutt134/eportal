@@ -308,7 +308,7 @@ def delete(request, slug=None):
 
     return redirect('notifications:all')
 
-    
+@login_required
 def edit(request):
     if request.method=='POST':
         if student_profile.objects.filter(user_id=request.user.id).exists():

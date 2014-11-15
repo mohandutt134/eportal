@@ -39,14 +39,11 @@ INSTALLED_APPS = (
     'quiz',
     'student',
     'django_extensions',
-    'notifications',
     'smartextends',
     'django.contrib.admindocs',
 
-    
-    
-    
 )
+
 SITE_ID = 1
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -65,7 +62,7 @@ TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'template'),
 ROOT_URLCONF = 'smvdu_portal.urls'
 
 WSGI_APPLICATION = 'smvdu_portal.wsgi.application'
-OVERWRITE_EXTENDS = False
+OVERWRITE_EXTENDS = True
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases

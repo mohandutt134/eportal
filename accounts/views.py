@@ -17,33 +17,33 @@ from django.core.urlresolvers import reverse
 from django.template.context import RequestContext
 
 def login_view(request,next='home'):
-	if(request.user.is_authenticated()):
-		return redirect('home')
-		
-	if('login' in request.POST):
-		username = request.POST.get('username', '')
-		password=request.POST.get('password', '')
-		user = authenticate(username=username, password=password)
-		if(user is not None):
-			if user.is_active:
-				login(request,user)
-				next = request.GET.get('next')
-				if next:
-					return redirect(next)
-				elif user.is_staff:
-					return redirect ('/admin')
-				else:
-				    return redirect('home')
-			else:
-				return render(request,'accounts/login_register.html',{'message_login':"wrong Username or Password"})
-		else:
-			return render(request,'accounts/login_register.html',{'message_login':"wrong Username or Password"})
-	if('register' in request.POST):
-			#call registration function 
-			message=registration_function(request)#store message from registration function 
-			return render(request,'accounts/login_register.html',{'message_register_alert':message})
+    if(request.user.is_authenticated()):
+        return redirect('home')
+        
+    if('login' in request.POST):
+        username = request.POST.get('username', '')
+        password=request.POST.get('password', '')
+        user = authenticate(username=username, password=password)
+        if(user is not None):
+            if user.is_active:
+                login(request,user)
+                next = request.GET.get('next')
+                if next:
+                    return redirect(next)
+                elif user.is_staff:
+                    return redirect ('/admin')
+                else:
+                    return redirect('home')
+            else:
+                return render(request,'accounts/login_register.html',{'message_login':"wrong Username or Password"})
+        else:
+            return render(request,'accounts/login_register.html',{'message_login':"wrong Username or Password"})
+    if('register' in request.POST):
+            #call registration function 
+            message=registration_function(request)#store message from registration function 
+            return render(request,'accounts/login_register.html',{'message_register_alert':message})
 
-	return render(request,'accounts/login_register.html',{'message_register_alert':''})
+    return render(request,'accounts/login_register.html',{'message_register_alert':''})
 
 def logout_view(request):
     logout(request)
@@ -74,6 +74,7 @@ def registration_function(request):
                 user = User.objects.create_user(R_username, R_email, temp_pass)
                 user.first_name = R_fname
                 user.last_name = R_lname
+                user.is_active = False
                 if(R_category=='student'):
                     g = Group.objects.get(name='student')
                     g.user_set.add(user) 
@@ -129,4 +130,5 @@ def success(request):
     return render(request, 'accounts/success.html')
 
 def success2(request):
-	return render(request,'accounts/changed_successfuly.html')
+    return render(request,'accounts/changed_successfuly.html')
+

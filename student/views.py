@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
 from django.conf import settings
-from student.models import student_profile, Course
+from student.models import student_profile, Course , faculty_profile
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
 from django.contrib.auth.models import User
@@ -15,14 +15,18 @@ import os
 from django.core import serializers
 from django.template import RequestContext
 from datetime import datetime
+from models import Course
 from django.contrib.auth.views import password_reset
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
-from student.form import student_profile_form
+from student.form import student_profile_form,faculty_profile_form
 from django.contrib.auth.models import Group
-
+from django.http import HttpResponse
+from django.core.mail import EmailMultiAlternatives
+from django.template import Context
+from django.template.loader import render_to_string
 
 # Import the built-in password reset view and password reset confirmation view.
 from django.contrib.auth.views import password_reset, password_reset_confirm
@@ -31,51 +35,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Create your views here.
 import datetime
-
-# function that generates random password
-
-
-def get_password():
-    temp_pass = str(uuid.uuid4())[:11].replace('-', '').lower()
-    try:
-        pass_exists = User.objects.get(password=temp_pass)
-        get_password()
-    except:
-        return temp_pass
-
-
-
-
-def login_view(request,next='home'):
-	if(request.user.is_authenticated()):
-		return redirect('home')
-		
-	if('login' in request.POST):
-		username = request.POST.get('username', '')
-		password=request.POST.get('password', '')
-		user = authenticate(username=username, password=password)
-		if(user is not None):
-			if user.is_active:
-				login(request,user)
-				next = request.GET.get('next')
-				if next:
-					return redirect(next)
-				elif user.is_staff:
-					return redirect ('/admin')
-				else:
-				    return redirect('home')
-			else:
-				return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
-		else:
-			return render(request,'login_register.html',{'message_login':"wrong Username or Password"})
-	if('register' in request.POST):
-			#call registration function 
-			message=registration_function(request)#store message from registration function 
-			return render(request,'login_register.html',{'message_register_alert':message})
-
-	return render(request,'login_register.html',{'message_register_alert':''})
-
-#function for upload the image
 
 
 
@@ -88,50 +47,6 @@ def handle_uploaded_file(f, path=''):
 
 
 # function for registration
-def registration_function(request):
-    R_username = request.POST.get('R_email', '')
-    R_fname = request.POST.get('R_fname', '')
-    R_lname = request.POST.get('R_lname', '')
-    R_email = request.POST.get('R_email', '')
-    R_category=request.POST.get('category','')
-    message_register_alert = ''
-    if(R_username == ''):
-        message_register_alert = "Enter Username Name"
-    elif(R_fname == ''):
-        message_register_alert = "Enter First Name"
-    elif(R_email == ''):
-        message_register_alert = "please Enter the Email ID"
-    elif(R_category==''):
-        message_register_alert="Please Enter Category"
-    else:
-        try:
-            temp_pass = get_password()
-            if(User.objects.filter(username=R_username).exists()):
-                print "error"
-                message_register_alert = "User Already Exits"
-            else:
-                user = User.objects.create_user(R_username, R_email, temp_pass)
-                user.first_name = R_fname
-                user.last_name = R_lname
-                if(R_category=='student'):
-                    g = Group.objects.get(name='student')
-                    g.user_set.add(user) 
-                    user.save()
-                else:
-                    g = Group.objects.get(name='faculty')
-                    g.user_set.add(user) 
-                    user.save()
-                
-                subject = "Confirmation  mail"
-                message = "your password is " + temp_pass
-                from_email = settings.EMAIL_HOST_USER
-                to_list = [R_username, settings.EMAIL_HOST_USER]
-                send_mail(
-                    subject, message, from_email, to_list, fail_silently=False)
-                message_register_alert = 'success'
-        except:
-            message_register_alert = "user already exit"
-    return message_register_alert
 
 
 def home(request):
@@ -153,11 +68,9 @@ def courses(request):
 
 
 def faculty(request):
-	return render(request,'404.html',context_instance=RequestContext(request))
+    return render(request,'404.html',context_instance=RequestContext(request))
 
-def logout_view(request):
-    logout(request)
-    return redirect('home')
+
 
 
 def courseView(request):
@@ -169,82 +82,91 @@ def courseView(request):
         start_date1 = request.POST.get('start_date', '')
         image1 = request.FILES.get('image', '')
         image2 = request.FILES.get('image').name
-        course_data = course(
-            courseid=course_id1,
-            coursename=course_name1,
-            startdate=start_date1,
-            enddate=end_date1,
+        course_data = Course(
+            course_id=course_id1,
+            course_name=course_name1,
+            start_date=start_date1,
+            end_date=end_date1,
             image=image2,
             credits=credits1
         )
         course_data.save()
-
-    # else:
-    #	form=CourseForm()
-    # return render(request,'course.html',{'form':form})
     return render(request, 'course.html', context_instance=RequestContext(request))
 
 
-def reset(request):
-    # Wrap the built-in password reset view and pass it the arguments
-    # like the template name, email template name, subject template name
-    # and the url to redirect after the password reset is initiated.
-    return password_reset(request, template_name='reset.html', post_reset_redirect=reverse('success'))
-
-# This view handles password reset confirmation links. See urls.py file for the mapping.
-# This view is not used here because the password reset emails with confirmation links
-# cannot be sent from this application.
-
-
-def reset_confirm(request, uidb64=None, token=None):
-    # Wrap the built-in reset confirmation view and pass to it all the captured parameters like uidb64, token
-    # and template name, url to redirect after password reset is confirmed.
-
-    return password_reset_confirm(request,template_name='reset_confirm.html', uidb64=uidb64, token=token, post_reset_redirect=reverse('success2'))
-
-# This view renders a page with success message.
-
-
-def success(request):
-    return render(request, 'success.html')
-
-def success2(request):
-	return render(request,'changed_successfuly.html')
-
 
 def fc(request):
-	return render(request,'fc.html')
+    return render(request,'fc.html')
 
 
 
 
 def about (request):
-	return render(request,'about.html')
+    return render(request,'about.html')
 
 
 
 @login_required
 def edit(request):
-    if request.method=='POST':
-        if student_profile.objects.filter(user_id=request.user.id).exists():
-            a=student_profile.objects.get(user_id=request.user.id)
-            form = student_profile_form(request.POST, instance=a)
-            if form.is_valid():
-                j = form.save( commit=False )
-                j.save()
-            return redirect('home')
-        else:
-            form=student_profile_form(request.POST)
-            if form.is_valid():
-                obj = form.save(commit=False)
-                obj.user=request.user
-                obj.save()
+    if request.user.groups.filter(name='student').exists():
+        if request.method=='POST':
+            if student_profile.objects.filter(user_id=request.user.id).exists():
+                a=student_profile.objects.get(user_id=request.user.id)
+                form = student_profile_form(request.POST, instance=a)
+                if form.is_valid():
+                    j = form.save( commit=False )
+                    j.save()
                 return redirect('home')
             else:
-                return render(request,'edit.html',{'form':form})
+                form=student_profile_form(request.POST)
+                if form.is_valid():
+                    obj = form.save(commit=False)
+                    obj.user=request.user
+                    obj.save()
+                    return redirect('home')
+                else:
+                    return render(request,'edit.html',{'form':form})
+
+        else:
+            form=student_profile_form()
+            return render(request,'edit.html',{'form':form})
 
     else:
-        form=student_profile_form()
-        return render(request,'edit.html',{'form':form})
+        if request.method=='POST':
+            if faculty_profile.objects.filter(user_id=request.user.id).exists():
+                a=faculty_profile.objects.get(user_id=request.user.id)
+                form = faculty_profile_form(request.POST, instance=a)
+                if form.is_valid():
+                    j = form.save( commit=False )
+                    j.save()
+                return redirect('home')
+            else:
+                form=faculty_profile_form(request.POST)
+                if form.is_valid():
+                    obj = form.save(commit=False)
+                    obj.user=request.user
+                    obj.save()
+                    return redirect('home')
+                else:
+                    return render(request,'edit.html',{'form':form})
+        else:
+            form=faculty_profile_form()
+            return render(request,'edit.html',{'form':form})
+                                    
 
 
+
+
+
+
+@login_required
+def mail(request):
+    c = Context({'username': settings.EMAIL_HOST_USER })    
+    text_content = render_to_string('mail/email.txt', c)
+    html_content = render_to_string('mail/fancy-1-2-3.html', c)
+
+    email = EmailMultiAlternatives('Subject', text_content)
+    email.attach_alternative(html_content, "text/html")
+    email.to = ['vibhanshu86@gmail.com']
+    email.send()
+    return HttpResponse("SUCCESS")

@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
     <title>{% block title %}SMVDU E-Portal | HOME{% endblock %}</title>
     {% load staticfiles %}
 
@@ -12,6 +13,11 @@
 
     <link rel="stylesheet" href="{% static 'css/bootswatch.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
+<!--<<<<<< HEAD
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+=======-->
     <script src="{% static 'js/jquery-1.11.1.min.js' %}" ></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" ></script>
     <script src="{% static 'js/bootstrap.min.js' %}" ></script>
@@ -65,7 +71,11 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'home' %}">Dashboard</a>
+                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dashboard</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'edit' %}">edit profile</a>
+                            </li>
+                        </ul>
                     </li>
                     {% endif %}
                     <li><a href="{% url 'courses' %}">Courses</a>
@@ -110,7 +120,6 @@
 
     <!--End of Navigation -->
     {% block content %} {% endblock %}
-   
     <!--footer style="background-color: rgb(27, 27, 26);position: relative; width: 98%; max-height: 33px;bottom: 2%;" >
         <div class="row" style="margin-right: -2%;">
             <div class="col-lg-11 col-lg-offset-1">
@@ -141,7 +150,7 @@
     </footer-->
     <div id="footer" style="margin-top:10px;">
     <div class="container">
-        <p class="text-center" >&#128522; <a href="www.smvdu.net.in" style="color:white;">SMVDU</a></p>
+        <p class="text-center" >&#128522; <a href="http://smvdu.net.in/" target="blank" style="color:white;">SMVDU</a></p>
     </div>
    </div>
 
@@ -184,6 +193,7 @@
                 </div>
                 <div class="modal-body">
                     <p class="alert alert-success">{{ changed }}</p>
+
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" data-dismiss="modal">Close</button>

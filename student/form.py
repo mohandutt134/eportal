@@ -1,6 +1,8 @@
 from django.forms import ModelForm
-from student.models import student
-class student_form(ModelForm):
+from student.models import student_profile
+
+class student_profile_form(ModelForm):
 	class Meta:
-		model=student
-		fields = ['branch', 'image', 'dateofbirth']
+		model=student_profile
+		fields=['DOB','Branch','Semester','image','coursetaken']
+

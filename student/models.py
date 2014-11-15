@@ -12,16 +12,32 @@ class Course(models.Model):
     #def __str__(self):
  		#return self.course_id
 
-class student(models.Model):
-	u=models.OneToOneField(User,null=True)
-	sex=models.CharField(max_length=10)
-	branch=models.CharField(max_length=10)
-	dateofbirth=models.CharField(max_length=20)
-	image=models.CharField(max_length=20)
-	course_taken=models.ManyToManyField(Course,null=True, blank=True)
-	
+
+class student_profile(models.Model):
+	user = models.OneToOneField(User,primary_key=True)
+	DOB=models.DateField()
+	Branch=models.CharField(max_length=10,default=None)
+	Semester=models.CharField(max_length=10,default=None)
+	image = models.CharField(max_length=20)
+	coursetaken=models.ManyToManyField(Course)
+
+	def __unicode__(self):
+   		return unicode(self.user) or u''
+
+
+#User.profile=property(lambda u: student_profile.objects.get_or_create(user=u)[0])
 
 
 User.profile=property(lambda u: student.objects.get_or_create(u=u)[0])
+
+class faculty_profile(models.Model):
+	user = models.OneToOneField(User,primary_key=True)
+	DOB=models.DateField()
+	Branch=models.CharField(max_length=10,default=None)
+	Semester=models.CharField(max_length=10,default=None)
+	image = models.CharField(max_length=20)
+
 	
+	def __str__(self):
+		return 'self.DOB'
 	

@@ -1,5 +1,5 @@
 from django.db import models
-from student.models import student,Course
+from student.models import student_profile,Course,faculty_profile
 from django.contrib.auth.models import User
 
 
@@ -31,7 +31,6 @@ class question(models.Model):
 	d = models.TextField()
 	ans = models.CharField(max_length=1,choices=CHOICES)
 	quizes = models.ManyToManyField(quiz_spec)
-	parent = models.ForeignKey(student)
 	dateAdded = models.DateTimeField(); 
 
 	def __str__(self):
@@ -40,7 +39,7 @@ class question(models.Model):
 #model for results of students
 
 class result(models.Model):
-	user = models.ForeignKey(student)
+	user = models.ForeignKey(student_profile)
 	course = models.ForeignKey(Course)
 	quiz = models.ForeignKey(quiz_spec)
 	score = models.IntegerField()

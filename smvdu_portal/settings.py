@@ -42,10 +42,7 @@ INSTALLED_APPS = (
     'notifications',
     'smartextends',
     'django.contrib.admindocs',
-
-    
-    
-    
+    'notification',
 )
 SITE_ID = 1
 MIDDLEWARE_CLASSES = (

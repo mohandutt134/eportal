@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 
 def slug2id(slug):
     return long(slug) - 110909

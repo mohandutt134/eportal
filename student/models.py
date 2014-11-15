@@ -12,6 +12,7 @@ class Course(models.Model):
     #def __str__(self):
  		#return self.course_id
 
+
 class student_profile(models.Model):
 	user = models.OneToOneField(User,primary_key=True)
 	DOB=models.DateField()
@@ -23,7 +24,11 @@ class student_profile(models.Model):
 	def __unicode__(self):
    		return unicode(self.user) or u''
 
+
 #User.profile=property(lambda u: student_profile.objects.get_or_create(user=u)[0])
+
+
+User.profile=property(lambda u: student.objects.get_or_create(u=u)[0])
 
 class faculty_profile(models.Model):
 	user = models.OneToOneField(User,primary_key=True)
@@ -31,6 +36,7 @@ class faculty_profile(models.Model):
 	Branch=models.CharField(max_length=10,default=None)
 	Semester=models.CharField(max_length=10,default=None)
 	image = models.CharField(max_length=20)
+
 	
 	def __str__(self):
 		return 'self.DOB'

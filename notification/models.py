@@ -11,7 +11,7 @@ class notification(models.Model):
 	course = models.ForeignKey(Course)
 	sender = models.ForeignKey(User,related_name="sends", related_query_name="send")
 	receiver = models.ForeignKey(User,related_name="tags", related_query_name="tag")
-	time=models.DateTimeField()
+	time=models.DateTimeField(auto_now=True)
 
 	def __unicode__(self):
    		return unicode(self.title) or u''

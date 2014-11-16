@@ -16,10 +16,9 @@ from django.contrib.auth.views import password_reset,password_reset_confirm
 from django.core.urlresolvers import reverse
 from django.template.context import RequestContext
 from django.contrib.auth.models import Group
-<<<<<<< HEAD
-=======
 from notification.models import notification
->>>>>>> c7f0fe830afb5b776d8c0b26791e4fc5ef9c381a
+from student.models import Course
+
 
 def login_view(request,next='home'):
     if(request.user.is_authenticated()):
@@ -70,12 +69,20 @@ def registration_function(request):
     elif(R_category==''):
         message_register_alert="Please Enter Category"
     else:
+        error="Null"
         try:
             temp_pass = get_password()
+            print temp_pass
             if(User.objects.filter(username=R_username).exists()):
                 message_register_alert = "User Already Exits"
             else:
+                user1=User.objects.get(username="admin")
+                course1=Course.objects.get(course_id="CS50")
                 user = User.objects.create_user(R_username, R_email, temp_pass)
+                try:
+                    notification.objects.create(title="Registered",body="YOU HAVE BEEN REGISTERD Please change your password & Complete your profile",link='/edit',course=course1,receiver=user,sender=user1)
+                except:
+                    print "unable to create notification"
                 user.first_name = R_fname
                 user.last_name = R_lname
                 if(R_category=='student'):
@@ -90,9 +97,11 @@ def registration_function(request):
                 message = "Your password is " + temp_pass
                 from_email = settings.EMAIL_HOST_USER
                 to_list = [R_username, settings.EMAIL_HOST_USER]
+                print "above mail"
                 send_mail(subject, message, from_email, to_list, fail_silently=False)
                 message_register_alert = 'success'
         except:
+            print error
             message_register_alert = "Error occured in account creation"
             user.delete()
     return message_register_alert

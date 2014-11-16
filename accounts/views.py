@@ -15,6 +15,8 @@ from datetime import datetime
 from django.contrib.auth.views import password_reset,password_reset_confirm
 from django.core.urlresolvers import reverse
 from django.template.context import RequestContext
+from django.contrib.auth.models import Group
+from notification.models import notification
 
 def login_view(request,next='home'):
     if(request.user.is_authenticated()):
@@ -26,12 +28,13 @@ def login_view(request,next='home'):
         user = authenticate(username=username, password=password)
         if(user is not None):
             if user.is_active:
+                request.session['notifications']=notification.objects.values('title','body').filter(receiver=request.user.id,viewed=False)
                 login(request,user)
                 next = request.GET.get('next')
                 if next:
                     return redirect(next)
                 elif user.is_staff:
-                    return redirect ('/admin')
+                    return redirect ('/admin') 
                 else:
                     return redirect('home')
             else:
@@ -68,28 +71,26 @@ def registration_function(request):
         try:
             temp_pass = get_password()
             if(User.objects.filter(username=R_username).exists()):
-                print "error"
                 message_register_alert = "User Already Exits"
             else:
                 user = User.objects.create_user(R_username, R_email, temp_pass)
                 user.first_name = R_fname
                 user.last_name = R_lname
-                user.is_active = False
+                print user.first_name
                 if(R_category=='student'):
                     g = Group.objects.get(name='student')
                     g.user_set.add(user) 
                     user.save()
                 else:
                     g = Group.objects.get(name='faculty')
-                    g.user_set.add(user) 
+                    g.user_set.add(user)
                     user.save()
                 
                 subject = "Confirmation  mail"
                 message = "your password is " + temp_pass
                 from_email = settings.EMAIL_HOST_USER
                 to_list = [R_username, settings.EMAIL_HOST_USER]
-                send_mail(
-                    subject, message, from_email, to_list, fail_silently=False)
+                send_mail(subject, message, from_email, to_list, fail_silently=False)
                 message_register_alert = 'success'
         except:
             message_register_alert = "user already exit"

@@ -7,20 +7,28 @@
 
     <title>{% block title %}SMVDU E-Portal | HOME{% endblock %}</title>
     {% load staticfiles %}
-
+    <link rel="stylesheet" href="{% static 'css/ns.css' %}">
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'js/ns.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-
     <link rel="stylesheet" href="{% static 'css/bootswatch.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
-<!--<<<<<< HEAD
+    <style type="text/css">
+    .navbar-default .navbar-nav>li>a:hover,
+    .navbar-default .navbar-nav>li>a:focus {
+        color: #00bc8c;
+        background-color: #28415b;
+    }
+    .notifications {
+        top: 12%;
+        left: 74%;
+        z-index: -100;
+    }
+    </style>
     <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-=======-->
-    <script src="{% static 'js/jquery-1.11.1.min.js' %}" ></script>
-    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" ></script>
-    <script src="{% static 'js/bootstrap.min.js' %}" ></script>
     <script type="text/javascript">
     $(function() {
         function stripTrailingSlash(str) {
@@ -71,16 +79,15 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
-                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dashboard</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'edit' %}">edit profile</a>
-                            </li>
-                        </ul>
+                    <li><a href="#">Dashboard</a>
+
                     </li>
                     {% endif %}
                     <li><a href="{% url 'courses' %}"><i class="icon-question-sign icon-white"></i>Courses</a>
                     </li>
                     <li><a href="{% url 'faculty' %}">Faculty</a>
+                    </li>
+                    <li><a href="{% url 'fc' %}">Quiz</a>
                     </li>
                     <li><a href="{% url 'about' %}">About Us</a>
                     </li>
@@ -99,15 +106,24 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome {{ user.first_name }} <b class="caret"></b></a>
+                    <li><a href="#" id='notificationicon'>Welcome {{ user.first_name }} &nbsp; <span class="badge">2</span> </a>
+
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{% static 'images/page1_icon3 .png'%}" style="height:22px;width:25px;" alt=""><b class="caret"></b>
+                        </a>
                         <ul class="dropdown-menu">
                             <li><a href="#" data-toggle="modal" data-target="#myModal">Change Password</a>
                             </li>
-                            <li><a href="/inbox/notifications" >Inbox</a>
+                            <li><a href="{% url 'edit' %}">Edit Profile</a>
+                            </li>
+                            <li><a href="/inbox/notifications">Inbox</a>
                             </li>
                             <li><a href="{% url 'logout' %}">Logout</a>
                             </li>
                         </ul>
+
                     </li>
                     {% else %}
                     <li><a href="{% url 'login' %}">Sign-in/Sign-up</a>
@@ -120,6 +136,71 @@
         <!-- /.container-fluid -->
     </nav>
 
+    <ul id="notificationMenu" class="notifications">
+        <li class="titlebar">
+            <span class="title">Notifications</span>
+            <span class="settings"><i class="icon-cog"></i>
+            </span>
+        </li>
+        <div class="notifbox">
+            <li class=" notif unread">
+                <a href="#">
+                    <div class="imageblock">
+                        <img src="https://si0.twimg.com/profile_images/3186728694/7a0e012910e06dd1476c5edac8b9a28d_bigger.jpeg" class="notifimage" />
+                    </div>
+                    <div class="messageblock">
+                        <div class="message">This guy
+                            <strong>Jonesy</strong>has just built a tower.
+                        </div>
+                        <div class="messageinfo">
+                            <i class="icon-trophy"></i>2 hours ago
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class=" notif unread">
+                <a href="#">
+                    <div class="imageblock">
+                        <img src="https://si0.twimg.com/profile_images/712543138/Self-Portrait-in-Stripes_bigger.jpg" class="notifimage" />
+                    </div>
+                    <div class="messageblock">
+                        <div class="message">
+                            <strong>Pete Nawara</strong>want's to drink beer with you
+                        </div>
+                        <div class="messageaction">
+                            <a class="button tiny success">accept</a> 
+                            <a class="button tiny alert">decline</a>
+                        </div>
+                        <div class="messageinfo">
+                            <i class="icon-flag"></i>3 hour ago
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class=" notif">
+                <a href="#">
+                    <div class="imageblock">
+                        <img src="https://si0.twimg.com/profile_images/3312733808/5caeaec6d93114657c40fb257f933d28_bigger.jpeg" class="notifimage" />
+                    </div>
+                    <div class="messageblock">
+                        <div class="message">
+                            <strong>Gary LaPlante</strong>has talked some trash: "
+                            <em>Buncha bitches.</em>
+                        </div>
+                        <div class="messageinfo">
+                            <i class="icon-comment"></i>4 hours ago
+                        </div>
+                    </div>
+                </a>
+            </li>
+
+
+
+        </div>
+        <li class="seeall">
+            <a href="/all">See All</a>
+        </li>
+    </ul>
     <!--End of Navigation -->
     {% block content %} {% endblock %}
     <!--footer style="background-color: rgb(27, 27, 26);position: relative; width: 98%; max-height: 33px;bottom: 2%;" >
@@ -151,10 +232,11 @@
 
     </footer-->
     <div id="footer" style="margin-top:10px;">
-    <div class="container">
-        <p class="text-center" >&#128522; <a href="http://smvdu.net.in/" target="blank" style="color:white;">SMVDU</a></p>
+        <div class="container">
+            <p class="text-center">&#128522; <a href="http://smvdu.net.in/" target="blank" style="color:white;">SMVDU</a>
+            </p>
+        </div>
     </div>
-   </div>
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

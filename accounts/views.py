@@ -15,6 +15,7 @@ from datetime import datetime
 from django.contrib.auth.views import password_reset,password_reset_confirm
 from django.core.urlresolvers import reverse
 from django.template.context import RequestContext
+from django.contrib.auth.models import Group
 
 def login_view(request,next='home'):
     if(request.user.is_authenticated()):
@@ -35,7 +36,7 @@ def login_view(request,next='home'):
                 else:
                     return redirect('home')
             else:
-                return render(request,'accounts/login_register.html',{'message_login':"wrong Username or Password"})
+                return render(request,'accounts/login_register.html',{'message_login':"Your account is inactive"})
         else:
             return render(request,'accounts/login_register.html',{'message_login':"wrong Username or Password"})
     if('register' in request.POST):
@@ -68,31 +69,30 @@ def registration_function(request):
         try:
             temp_pass = get_password()
             if(User.objects.filter(username=R_username).exists()):
-                print "error"
                 message_register_alert = "User Already Exits"
             else:
                 user = User.objects.create_user(R_username, R_email, temp_pass)
                 user.first_name = R_fname
                 user.last_name = R_lname
-                user.is_active = False
                 if(R_category=='student'):
                     g = Group.objects.get(name='student')
                     g.user_set.add(user) 
-                    user.save()
                 else:
                     g = Group.objects.get(name='faculty')
-                    g.user_set.add(user) 
-                    user.save()
-                
+                    g.user_set.add(user)
+                    user.is_active=False
+                user.save()
                 subject = "Confirmation  mail"
-                message = "your password is " + temp_pass
+                message = "Your password is " + temp_pass
                 from_email = settings.EMAIL_HOST_USER
                 to_list = [R_username, settings.EMAIL_HOST_USER]
                 send_mail(
                     subject, message, from_email, to_list, fail_silently=False)
+                print "below confirmation"
                 message_register_alert = 'success'
         except:
-            message_register_alert = "user already exit"
+            message_register_alert = "Error occured in account creation"
+            user.delete()
     return message_register_alert
 
 

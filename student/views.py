@@ -96,7 +96,7 @@ def courseView(request):
 
 
 def fc(request):
-    return render(request,'fc.html')
+    return render(request,'mail/fancy-1-2-3.html')
 
 
 

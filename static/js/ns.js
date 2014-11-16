@@ -9,9 +9,11 @@ $(document).ready(function () {
     $("#notificationMenu").toggleClass("open");
     $("li").removeClass("open");
 
+
 });
   $("#notificationMenu").click(function(event){
     event.stopPropagation();
     $("li").removeClass("open");
+
 });
 });

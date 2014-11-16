@@ -86,8 +86,10 @@
   padding-top: 8px;
 }
 .notifications .notifbox {
+
   max-height: 450px;
   overflow: auto; /*scroll bar appears*/
+
 }
 .notifications .notifbox li {
   color: #666;
@@ -139,8 +141,10 @@
   font-size: 10px;
   color: #999;
 }
-.badge1 {
+/**.badge {
+>>>>>>> c7f0fe830afb5b776d8c0b26791e4fc5ef9c381a
   position: absolute;
   top: 30px;
   right: -20px;
 }
+**/

@@ -7,7 +7,6 @@ admin.autodiscover()
 urlpatterns = patterns('student.views',
     # Examples:
     (r'^quizes/',include('quiz.urls')),
-    (r'^',include('notification.urls')),
     (r'^accounts/',include('accounts.urls')),
     url(r'^$', 'home', name='home'),
     url(r'^course$', 'courseView', name='courses'),
@@ -19,6 +18,7 @@ urlpatterns = patterns('student.views',
     url(r'^fc/$', 'fc', name='fc'),
     #url('^inbox/notifications/', include(notifications.urls)),
     url(r'^mail$','mail'),
+    url(r'^change/$', 'changePassword', name='change'),
 )
 
 

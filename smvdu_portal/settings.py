@@ -39,11 +39,10 @@ INSTALLED_APPS = (
     'quiz',
     'student',
     'django_extensions',
-    'notifications',
     'smartextends',
     'django.contrib.admindocs',
-    'notification',
     'accounts',
+    'notification'
 )
 SITE_ID = 1
 MIDDLEWARE_CLASSES = (

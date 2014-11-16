@@ -16,13 +16,23 @@
     <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
     <style type="text/css">
     .notifications {
-        top: 11%;
+
+
+        top: 13%;
         left: 74%;
-        z-index: -20;
+        z-index: -100;
     }
-    </style>    
-    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    .navbar-default .navbar-nav>li>a:hover,
+    .navbar-default .navbar-nav>li>a:focus {
+        color: #00bc8c;
+        background-color: #28415b;
+    }
+    </style>
+
+    
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
     <script type="text/javascript">
     $(function() {
         function stripTrailingSlash(str) {
@@ -73,16 +83,20 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     {% if user.is_authenticated %}
+
                     <li><a href="#" >Dashboard</a>
                         
+
                     </li>
                     {% endif %}
                     <li><a href="{% url 'courses' %}"><i class="icon-question-sign icon-white"></i>Courses</a>
                     </li>
                     <li><a href="{% url 'faculty' %}">Faculty</a>
                     </li>
-                    <li><a href="#" />About Us</a>
+
+                    <li><a href="{% url 'fc' %}">Quiz</a>
                     </li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
                  
                     <!--li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -100,15 +114,22 @@
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
 
-                    
-                    <li><a href="#" id='notificationicon'><span class="badge pull-right" >2</span>Welcome {{ user.first_name }}&nbsp;&nbsp;
-  </a></li>
-                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static 'images/user_blue.png'%}" alt="" style="height:20px;width:20px;"><b class="caret"></b></a>
+                    <li><a href="#" id='notificationicon'>Welcome {{ user.first_name }} &nbsp; <span class="badge">{{ request.session.count }}</span> </a>
+
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{% static 'images/page1_icon3 .png'%}" style="height:22px;width:25px;" alt=""><b class="caret"></b>
+                        </a>
                         <ul class="dropdown-menu">
                            <li><a href="{% url 'edit' %}">Edit Profile</a>
                             </li>
                             <li><a href="#" data-toggle="modal" data-target="#myModal">Change Password</a>
                             </li>
+
+                            <li><a href="{% url 'edit' %}">Edit Profile</a>
+                            </li>
+
                             <li><a href="/inbox/notifications">Inbox</a>
                             </li>
                             <li><a href="{% url 'logout' %}">Logout</a>
@@ -133,113 +154,29 @@
             <span class="settings"><i class="icon-cog"></i>
             </span>
         </li>
+      
         <div class="notifbox">
-                   <li class=" notif unread">
-                <a href="#">
+        {% for n in notifications %}
+            <li class="notif unread">
+                <a href="{{ n.link }}">
                     <div class="imageblock">
-                        <img src="{% static 'images/user_blue.png'%}" alt="" class="notifimage">
-                        
-                    </div>
-                    <div class="messageblock">
-                        <div class="message">
-                            <strong>Pete Nawara</strong>want's to drink beer with you
-                        </div>
-                        <div class="messageaction">
-                            <a class="button tiny success">accept</a> 
-                            <a class="button tiny alert">decline</a>
-                        </div>
-                        <div class="messageinfo">
-                            <i class="icon-flag"></i>3 hour ago
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class=" notif">
-                <a href="#">
-                    <div class="imageblock">
-                        <img src="{% static 'images/user_blue.png'%}" alt="" class="notifimage">
-                    </div>
-                    <div class="messageblock">
-                        <div class="message">
-                            <strong>Gary LaPlante</strong>has talked some trash: "
-                            <em>Buncha bitches.</em>
-                        </div>
-                        <div class="messageinfo">
-                            <i class="icon-comment"></i>4 hours ago
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class=" notif">
-                <a href="#">
-                    <div class="imageblock">
-                       <img src="{% static 'images/user_blue.png'%}" alt="" class="notifimage">
-                    </div>
-                    <div class="messageblock">
-                        <div class="message">
-                            <strong>Jason Nawara</strong>is probably playing
-                            <strong>Smite</strong>right now.
-                        </div>
-                        <div class="messageinfo"><i class="icon-trophy"></i>Yesterday</div>
-                    </div>
-                </a>
-            </li>
-            <li class=" notif">
-                <a href="#">
-                    <div class="imageblock">
-                        <img src="{% static 'images/user_blue.png'%}" alt="" class="notifimage">
-                    </div>
-                    <div class="messageblock">
-                        <div class="message">
-                            <strong>Danny DK12</strong>got a sweet fade!</div>
+                        <img src="{% static 'images/page1_icon2.png'%}" alt="" class="notifimage">
 
-                        <div class="messageinfo"><i class="icon-flag"></i>Yesterday</div>
-                    </div>
-                </a>
-            </li>
-            <li class=" notif">
-                <a href="#">
-                    <div class="imageblock">
-                        <img src="{% static 'images/user_blue.png'%}" alt="" class="notifimage">
                     </div>
                     <div class="messageblock">
                         <div class="message">
-                            <strong>Roidberg</strong>left you a comment: "
-                            <em>Hey buddy! Nice toenails!"</em>
+                            <strong>{{ n.title }}</strong>
+                            <br>{{ n.body }}
                         </div>
-                        <div class="messageinfo"><i class="icon-comment"></i>2 hours ago</div>
+                        <div class="messageinfo">
+                            <i class="icon-trophy"></i>{{ n.time }}
+                        </div>
                     </div>
                 </a>
             </li>
-            <li class=" notif">
-                <a href="#">
-                    <div class="imageblock">
-                        <img src="{% static 'images/user_blue.png'%}" alt="" class="notifimage">
-                    </div>
-                    <div class="messageblock">
-                        <div class="message">
-                            <strong>Roidberg</strong>left you a comment: "
-                            <em>Hey buddy! Nice toenails!"</em>
-                        </div>
-                        <div class="messageinfo"><i class="icon-comment"></i>2 hours ago</div>
-                    </div>
-                </a>
-            </li>
-            <li class=" notif">
-                <a href="#">
-                    <div class="imageblock">
-                        <img src="{% static 'images/user_blue.png'%}" alt="" class="notifimage">
-                    </div>
-                    <div class="messageblock">
-                        <div class="message">
-                            <strong>Roidberg</strong>left you a comment: "
-                            <em>Hey buddy! Nice toenails!"</em>
-                        </div>
-                        <div class="messageinfo"><i class="icon-comment"></i>2 hours ago</div>
-                    </div>
-                </a>
-            </li>
+            {% endfor %}
         </div>
+
         <li class="seeall">
             <a href="/all">See All</a>
         </li>
@@ -290,7 +227,7 @@
                     <h4 class="modal-title">Change Password</h4>
                 </div>
                 <div class="modal-body">
-                    <form role="form" id="change_password_form" method="post">
+                    <form role="form" id="change_password_form" method="post" action="{% url 'change' %}">
                         {% csrf_token %}
                         <div class="form-group">
                             <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
@@ -335,29 +272,29 @@
     });
     </script>
     {% endif %}
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
     <script>
     $(document).ready(function() {
         $("#change_password_form").validate({
-
             // Specify the validation rules
             rules: {
-                new_password: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 10
+                    new_password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 10
 
+                    },
+                    c_password: {
+                        required: true,
+                        equalTo: "#new_password"
+                    }
                 },
-                c_password: {
-                    required: true,
-                    equalTo: "#new_password"
-                }
-            },
 
-            // Specify the validation error messages
-            messages: {
-                password: "Please enter your first name",
-                c_password: "Password do not match"
-            }
+                // Specify the validation error messages
+                messages: {
+                    password: "Please enter your first name",
+                    c_password: "Password do not match"
+                }
         });
     });
     </script>

@@ -28,7 +28,6 @@ def login_view(request,next='home'):
         user = authenticate(username=username, password=password)
         if(user is not None):
             if user.is_active:
-                request.session['notifications']=notification.objects.values('title','body').filter(receiver=request.user.id,viewed=False)
                 login(request,user)
                 next = request.GET.get('next')
                 if next:

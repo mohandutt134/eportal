@@ -15,20 +15,21 @@
     <link rel="stylesheet" href="{% static 'css/bootswatch.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
     <style type="text/css">
+    .notifications {
+        top: 13%;
+        left: 74%;
+        z-index: -100;
+    }
     .navbar-default .navbar-nav>li>a:hover,
     .navbar-default .navbar-nav>li>a:focus {
         color: #00bc8c;
         background-color: #28415b;
     }
-    .notifications {
-        top: 12%;
-        left: 74%;
-        z-index: -100;
-    }
     </style>
-    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
-    <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
+    
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
     <script type="text/javascript">
     $(function() {
         function stripTrailingSlash(str) {
@@ -106,7 +107,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                    <li><a href="#" id='notificationicon'>Welcome {{ user.first_name }} &nbsp; <span class="badge">2</span> </a>
+                    <li><a href="#" id='notificationicon'>Welcome {{ user.first_name }} &nbsp; <span class="badge">{{ request.session.count }}</span> </a>
 
                     </li>
                     <li>
@@ -142,61 +143,29 @@
             <span class="settings"><i class="icon-cog"></i>
             </span>
         </li>
+        
         <div class="notifbox">
-            <li class=" notif unread">
-                <a href="#">
+        {% for n in notifications %}
+            <li class="notif unread">
+                <a href="{{ n.link }}">
                     <div class="imageblock">
-                        <img src="https://si0.twimg.com/profile_images/3186728694/7a0e012910e06dd1476c5edac8b9a28d_bigger.jpeg" class="notifimage" />
-                    </div>
-                    <div class="messageblock">
-                        <div class="message">This guy
-                            <strong>Jonesy</strong>has just built a tower.
-                        </div>
-                        <div class="messageinfo">
-                            <i class="icon-trophy"></i>2 hours ago
-                        </div>
-                    </div>
-                </a>
-            </li>
-            <li class=" notif unread">
-                <a href="#">
-                    <div class="imageblock">
-                        <img src="https://si0.twimg.com/profile_images/712543138/Self-Portrait-in-Stripes_bigger.jpg" class="notifimage" />
+                        <img src="{% static 'images/page1_icon2.png'%}" alt="" class="notifimage">
+
                     </div>
                     <div class="messageblock">
                         <div class="message">
-                            <strong>Pete Nawara</strong>want's to drink beer with you
-                        </div>
-                        <div class="messageaction">
-                            <a class="button tiny success">accept</a> 
-                            <a class="button tiny alert">decline</a>
+                            <strong>{{ n.title }}</strong>
+                            <br>{{ n.body }}
                         </div>
                         <div class="messageinfo">
-                            <i class="icon-flag"></i>3 hour ago
+                            <i class="icon-trophy"></i>{{ n.time }}
                         </div>
                     </div>
                 </a>
             </li>
-            <li class=" notif">
-                <a href="#">
-                    <div class="imageblock">
-                        <img src="https://si0.twimg.com/profile_images/3312733808/5caeaec6d93114657c40fb257f933d28_bigger.jpeg" class="notifimage" />
-                    </div>
-                    <div class="messageblock">
-                        <div class="message">
-                            <strong>Gary LaPlante</strong>has talked some trash: "
-                            <em>Buncha bitches.</em>
-                        </div>
-                        <div class="messageinfo">
-                            <i class="icon-comment"></i>4 hours ago
-                        </div>
-                    </div>
-                </a>
-            </li>
-
-
-
+            {% endfor %}
         </div>
+        
         <li class="seeall">
             <a href="/all">See All</a>
         </li>
@@ -247,7 +216,7 @@
                     <h4 class="modal-title">Change Password</h4>
                 </div>
                 <div class="modal-body">
-                    <form role="form" id="change_password_form" method="post">
+                    <form role="form" id="change_password_form" method="post" action="{% url 'change' %}">
                         {% csrf_token %}
                         <div class="form-group">
                             <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
@@ -292,29 +261,29 @@
     });
     </script>
     {% endif %}
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
     <script>
     $(document).ready(function() {
         $("#change_password_form").validate({
-
             // Specify the validation rules
             rules: {
-                new_password: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 10
+                    new_password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 10
 
+                    },
+                    c_password: {
+                        required: true,
+                        equalTo: "#new_password"
+                    }
                 },
-                c_password: {
-                    required: true,
-                    equalTo: "#new_password"
-                }
-            },
 
-            // Specify the validation error messages
-            messages: {
-                password: "Please enter your first name",
-                c_password: "Password do not match"
-            }
+                // Specify the validation error messages
+                messages: {
+                    password: "Please enter your first name",
+                    c_password: "Password do not match"
+                }
         });
     });
     </script>

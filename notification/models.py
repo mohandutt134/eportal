@@ -13,5 +13,8 @@ class notification(models.Model):
 	receiver = models.ForeignKey(User,related_name="tags", related_query_name="tag")
 	time=models.DateTimeField()
 
+	def __unicode__(self):
+   		return unicode(self.title) or u''
+
 
 

@@ -27,6 +27,7 @@ from django.http import HttpResponse
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context
 from django.template.loader import render_to_string
+from notification.models import notification
 
 # Import the built-in password reset view and password reset confirmation view.
 from django.contrib.auth.views import password_reset, password_reset_confirm
@@ -35,7 +36,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Create your views here.
 import datetime
-
 
 
 def handle_uploaded_file(f, path=''):
@@ -50,30 +50,37 @@ def handle_uploaded_file(f, path=''):
 
 
 def home(request):
-    if 'change_password_submit' in request.POST:
-        new_password = request.POST.get('new_password', '')
-        if new_password != '':
-            request.user.set_password(new_password)
-            request.user.save()
-            #new_password = make_password(new_password,salt=None,hasher='default')
-            # User.objects.select_related().filter(username=request.user.username).update(password=new_password)
-            return render(request, 'index.html', {'changed': "password changed successfully"}, context_instance=RequestContext(request))
-        else:
-            return render(request, 'index.html', context_instance=RequestContext(request))
-    return render(request, 'index.html', context_instance=RequestContext(request))
+    request.session['last']='home'
+    if 'changed' in request.session:
+        del request.session['changed']
+        return render(request, 'index.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
+    result_list = notification.objects.filter(receiver=request.user.id,viewed=False)
+    print result_list
+    request.session['count']= len(result_list)
+    print request.session['count']
+    return render(request, 'index.html',{'notifications':result_list},context_instance=RequestContext(request))
 
 
 def courses(request):
+    request.session['last']='courses'
+    if 'changed' in request.session:
+        del request.session['changed']
+        return render(request, 'courses.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
     return render(request, 'courses.html')
 
 
 def faculty(request):
+    request.session['last']='home'
     return render(request,'404.html',context_instance=RequestContext(request))
 
 
 
 
 def courseView(request):
+    request.session['last']='courses'
+    if 'changed' in request.session:
+        del request.session['changed']
+        return render(request, 'course.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
     if(request.method == 'POST'):
         course_id1 = request.POST.get('course_id', '')
         course_name1 = request.POST.get('course_name', '')
@@ -96,18 +103,32 @@ def courseView(request):
 
 
 def fc(request):
+    request.session['last']='courses'
+    if 'changed' in request.session:
+        del request.session['changed']
+        return render(request, 'fc.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
+    request.session['last']='fc'
     return render(request,'fc.html')
 
 
 
 
 def about (request):
+    request.session['last']='courses'
+    if 'changed' in request.session:
+        del request.session['changed']
+        return render(request, 'about.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
+    request.session['last']='about'
     return render(request,'about.html')
 
 
 
 @login_required
 def edit(request):
+    request.session['last']='courses'
+    if 'changed' in request.session:
+        del request.session['changed']
+        return render(request, 'edit.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
     if request.user.groups.filter(name='student').exists():
         if request.method=='POST':
             if student_profile.objects.filter(user_id=request.user.id).exists():
@@ -170,3 +191,16 @@ def mail(request):
     email.to = ['vibhanshu86@gmail.com']
     email.send()
     return HttpResponse("SUCCESS")
+
+def changePassword(request):
+    if 'change_password_submit' in request.POST:
+        new_password = request.POST.get('new_password', '')
+        if new_password != '':
+            request.user.set_password(new_password)
+            request.user.save()
+            #new_password = make_password(new_password,salt=None,hasher='default')
+            # User.objects.select_related().filter(username=request.user.username).update(password=new_password)
+            request.session['changed']=True
+    print request.session['last']
+    return redirect(request.session['last'])
+

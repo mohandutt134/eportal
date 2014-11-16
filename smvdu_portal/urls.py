@@ -18,6 +18,7 @@ urlpatterns = patterns('student.views',
     url(r'^fc/$', 'fc', name='fc'),
     #url('^inbox/notifications/', include(notifications.urls)),
     url(r'^mail$','mail'),
+    url(r'^change/$', 'changePassword', name='change'),
 )
 
 

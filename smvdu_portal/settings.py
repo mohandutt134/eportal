@@ -42,7 +42,10 @@ INSTALLED_APPS = (
     'smartextends',
     'django.contrib.admindocs',
     'accounts',
-    'notification'
+    'notification',
+    'sekizai',
+    'django_markdown',
+    'online_status',
 )
 SITE_ID = 1
 MIDDLEWARE_CLASSES = (
@@ -53,6 +56,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
+    'online_status.middleware.OnlineStatusMiddleware',
 )
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'template'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -90,6 +94,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     'django.core.context_processors.request',
+    'sekizai.context_processors.sekizai',
 )
 LANGUAGE_CODE = 'en-us'
 

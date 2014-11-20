@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>{% block title %}SMVDU E-Portal | HOME{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/ns.css' %}">
+    <script src="{% static 'js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static 'js/ns.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootswatch.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
+    <style type="text/css">
+    .notifications {
+
+
+        top: 13%;
+        left: 74%;
+        z-index: -100;
+    }
+    .navbar-default .navbar-nav>li>a:hover,
+    .navbar-default .navbar-nav>li>a:focus {
+        color: #00bc8c;
+        background-color: #28415b;
+    }
+    </style>
+
+    
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+    <script type="text/javascript">
+    $(function() {
+        function stripTrailingSlash(str) {
+            if (str.substr(-1) == '/') {
+                return str.substr(0, str.length - 1);
+            }
+            return str;
+        }
+
+        var url = window.location.pathname;
+        var activePage = stripTrailingSlash(url);
+
+
+        $('.nav li a').each(function() {
+            var currentPage = stripTrailingSlash($(this).attr('href'));
+
+            if (activePage == currentPage) {
+                $(this).parent().addClass('active ');
+
+            }
+        });
+    });
+    </script>
+</head>
+<!-- body Start -->
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom:0px;" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+
+                <a href="{% url 'home' %}" class="navbar-brand ">SMVDU E-Portal</a>
+
+
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                </button>
+
+            </div>
+
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    {% if user.is_authenticated %}
+
+                    <li><a href="#" >Dashboard</a>
+                        
+
+                    </li>
+                    {% endif %}
+                    <li><a href="{% url 'courses' %}"><i class="icon-question-sign icon-white"></i>Courses</a>
+                    </li>
+                    <li><a href="{% url 'faculty' %}">Faculty</a>
+                    </li>
+
+                    <li><a href="{% url 'fc' %}">Quiz</a>
+                    </li>
+                    <li><a href="{% url 'about' %}">About Us</a></li>
+                 
+                    <!--li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li class="dropdown-header">Dropdown header</li>
+          <li><a href="#">Separated link</a></li>
+          <li><a href="#">One more separated link</a></li>
+        </ul>
+      </li-->
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+
+                    <li><a href="#" id='notificationicon'>Welcome {{ user.first_name }} &nbsp; <span class="badge">{{ request.session.count }}</span> </a>
+
+                    </li>
+                    <li>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{% static 'images/page1_icon3 .png'%}" style="height:22px;width:25px;" alt=""><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-toggle="modal" data-target="#myModal">Change Password</a>
+                            </li>
+
+                            <li><a href="{% url 'edit' %}">Edit Profile</a>
+                            </li>
+                            <li><a href="{% url 'logout' %}">Logout</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Sign-in/Sign-up</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <ul id="notificationMenu" class="notifications">
+        <li class="titlebar">
+            <span class="title">Notifications</span>
+            <span class="settings"><i class="icon-cog"></i>
+            </span>
+        </li>
+      
+        <div class="notifbox">
+        {% for n in notifications %}
+            <li class="notif unread">
+                <a href="{{ n.link }}">
+                    <div class="imageblock">
+                        <img src="{% static 'images/page1_icon2.png'%}" alt="" class="notifimage">
+
+                    </div>
+                    <div class="messageblock">
+                        <div class="message">
+                            <strong>{{ n.title }}</strong>
+                            <br>{{ n.body }}
+                        </div>
+                        <div class="messageinfo">
+                            <i class="icon-trophy"></i>{{ n.time }}
+                        </div>
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </div>
+
+        <li class="seeall">
+            <a href="/all">See All</a>
+        </li>
+    </ul>
+    <!--End of Navigation -->
+    {% block content %} {% endblock %}
+    <!--footer style="background-color: rgb(27, 27, 26);position: relative; width: 98%; max-height: 33px;bottom: 2%;" >
+        <div class="row" style="margin-right: -2%;">
+            <div class="col-lg-11 col-lg-offset-1">
+
+                <ul class="list-unstyled">
+                    <li class="pull-right"><a href="#top">TOP</a>
+                    </li>
+                    <li><a href="#" onclick="pageTracker._link(this.href); return false;">Blog</a>
+                    </li>
+                    <li><a href="#">RSS</a>
+                    </li>
+                    <li><a href="#">Twitter</a>
+                    </li>
+                    <li><a href="#">GitHub</a>
+                    </li>
+                    <li><a href="../help/#api">API</a>
+                    </li>
+                    <li><a href="../help/#support">Support</a>
+                    </li>
+                </ul>
+                <p>Made by <a href="#" rel="nofollow">Thomas Park</a>. Contact him at <a href="mailto:thomas@bootswatch.com">thomas@bootswatch.com</a>.</p>
+                <p>Code released under the <a href="https://github.com/thomaspark/bootswatch/blob/gh-pages/LICENSE">MIT License</a>.</p>
+                <p>Based on <a href="http://getbootstrap.com" rel="nofollow">Bootstrap</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts" rel="nofollow">Google</a>.</p>
+
+            </div>
+        </div>
+
+    </footer-->
+    <div id="footer" style="margin-top:10px;">
+        <div class="container">
+            <p class="text-center">&#128522; <a href="http://smvdu.net.in/" target="blank" style="color:white;">SMVDU</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width:100%; text-align:center">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Change Password</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" id="change_password_form" method="post" action="{% url 'change' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="c_password" name="c_password" class="form-control" placeholder="Confirm Password">
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" name="change_password_submit">Submit</button>
+                                <br>
+                                <a href="#myModal2" data-dismiss="modal" data-toggle="modal" style="padding-top:10px"></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width:100%; text-align:center">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Change Password</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="alert alert-success">{{ changed }}</p>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if changed %}
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#myModal1').modal('show');
+    });
+    </script>
+    {% endif %}
+    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script>
+    $(document).ready(function() {
+        $("#change_password_form").validate({
+            // Specify the validation rules
+            rules: {
+                    new_password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 10
+
+                    },
+                    c_password: {
+                        required: true,
+                        equalTo: "#new_password"
+                    }
+                },
+
+                // Specify the validation error messages
+                messages: {
+                    password: "Please enter your first name",
+                    c_password: "Password do not match"
+                }
+        });
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{sucess}}{% endblock %}
+{% block content %}
+{% load staticfiles %}
+<ul class="notifications">
+  {% for notice in notifications %}
+    {% include 'notifications/notice.html' %}
+  {% endfor %}
+</ul>
+{% endblock %}
+

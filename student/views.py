@@ -71,7 +71,7 @@ def courses(request):
 
 def faculty(request):
     request.session['last']='home'
-    return render(request,'404.html',context_instance=RequestContext(request))
+    return render(request,'base4.html',context_instance=RequestContext(request))
 
 
 
@@ -108,7 +108,7 @@ def fc(request):
         del request.session['changed']
         return render(request, 'fc.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
     request.session['last']='fc'
-    return render(request,'fc.html')
+    return render(request,'base3.html')
 
 
 

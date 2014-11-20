@@ -6,13 +6,16 @@ admin.autodiscover()
 
 urlpatterns = patterns('student.views',
     # Examples:
+    (r'^admin/', include(admin.site.urls)),
+    (r'^markdown/', include("django_markdown.urls")),
     (r'^quizes/',include('quiz.urls')),
+    (r'status/',include('online_status.urls')),
     #(r'^',include('notification.urls')),
     (r'^accounts/',include('accounts.urls')),
     url(r'^$', 'home', name='home'),
     url(r'^course$', 'courseView', name='courses'),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    (r'^admin/', include(admin.site.urls)),
+    
     url(r'^faculty$', 'faculty', name='faculty'),
     url(r'^about$', 'about', name='about'),
     url(r'^edit/$', 'edit', name='edit'),

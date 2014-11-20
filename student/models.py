@@ -12,6 +12,11 @@ class Course(models.Model):
     #def __str__(self):
  		#return self.course_id
 
+ 	class Meta:
+		verbose_name = "Course"
+		verbose_name_plural = "Courses"
+		ordering = ["-course_name"]
+
 
 class student_profile(models.Model):
 	user = models.OneToOneField(User,primary_key=True)
@@ -23,6 +28,11 @@ class student_profile(models.Model):
 
 	def __unicode__(self):
    		return unicode(self.user) or u''
+
+	class Meta:
+		verbose_name = "Student Profile"
+		verbose_name_plural = "Student Profiles"
+		ordering = ["-user"]
 
 
 #User.profile=property(lambda u: student_profile.objects.get_or_create(user=u)[0])
@@ -43,3 +53,8 @@ class faculty_profile(models.Model):
 	
 	def __str__(self):
 		return 'self.DOB'
+
+	class Meta:
+		verbose_name = "Faculty Profile"
+		verbose_name_plural = "Faculty Profiles"
+		ordering = ["-user"]

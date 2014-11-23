@@ -23,6 +23,7 @@ urlpatterns = patterns('student.views',
     url(r'^addmaterial$', 'addmaterial', name='addmaterial'),
     url(r'^admin_course_view$', 'admin_course_view', name='admin_course_view'),
     url(r'^admin_courses$', 'admin_courses', name='admin_courses'),
+    #url(r'^attendance$', 'attendance', name='attendance'),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     
     url(r'^faculty$', 'faculty', name='faculty'),

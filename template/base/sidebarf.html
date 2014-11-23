@@ -36,6 +36,7 @@
                     </li>
                     <li><a href="{% url 'quiz_confirm' %}">Quiz Confirm</a>
                     </li>
+
                     
                 </ul>
             </li>
@@ -54,6 +55,8 @@
                     </li>
                     <li><a href="{% url 'admin_course_view' %}">Admin Course View</a>
                     </li>
+                     <li><a href="#">Attendance</a>
+                    </li>
                 </ul>
             </li>
             <li class="sub-menu">
@@ -62,11 +65,11 @@
                     <span>Extra Pages</span>
                 </a>
                 <ul class="sub">
-                    <li><a href="blank.html">Blank Page</a>
+                    <li><a href="{% url 'login' %}">Blank Page</a>
                     </li>
-                    <li><a href="login.html">Login</a>
+                    <li><a href="{% url 'login' %}">Login</a>
                     </li>
-                    <li><a href="lock_screen.html">Lock Screen</a>
+                    <li><a href="#">Lock Screen</a>
                     </li>
                 </ul>
             </li>

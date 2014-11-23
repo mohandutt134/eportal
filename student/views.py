@@ -51,6 +51,8 @@ def handle_uploaded_file(f, path=''):
 
 def home(request):
     request.session['last']='home'
+    if request.user.is_authenticated():
+        return redirect('dashboard')
     if 'changed' in request.session:
         del request.session['changed']
         return render(request, 'index.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
@@ -130,14 +132,19 @@ def fc(request):
         return render(request, 'fc.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
     request.session['last']='fc'
     return render(request,'add_question.html')
-
+@login_required
 def dashboard(request):
     request.session['last']='courses'
-    if 'changed' in request.session:
-        del request.session['changed']
-        return render(request, 'fc.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
-    request.session['last']='fc'
-    return render(request,'dashboard.html')
+    if request.user.groups.filter(name='faculty').exists():
+        faculty=faculty_profile.objects.get(user=request.user)
+        courses = Course.objects.filter(facultyassociated=faculty)
+        if 'changed' in request.session:
+            del request.session['changed']
+            return render(request, 'fc.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
+        request.session['last']='fc'
+        return render(request,'dashboard.html',{'courses':courses,'temp':'base/sidebarf.html'})
+    else:
+        return render(request,'dashboard.html',{'temp':'base/sidebars.html'})
 
 
 def about (request):

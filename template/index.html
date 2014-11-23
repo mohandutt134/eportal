@@ -3,14 +3,25 @@
 
 {% block cssadd %}
 <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
+<style type="text/css">
+    #main-content
+    {
+        margin-left:0;margin-top:0px;padding:0;
+
+    }
+.wrapper{
+    margin-left:0;margin-top:0px;padding:0;
+}
+   
+
+</style>
 {% endblock cssadd %}
 
 
 
 {% block content %}
 
-    <section id="main-content" style="margin-left:0;margin-top:0px;padding:0;">
-        <section class="wrapper" style="margin-left:0;margin-top:0px;padding:0;">
+    
 
             <header id="myCarousel" class="carousel slide">
                 <!-- Indicators -->
@@ -125,19 +136,7 @@
                     <!---col-md-4-->
                 </div>
             </div>
-        </section>
-        {% block footer %}
-        <footer class="site-footer">
-            <div class="text-center">
-                <img src="{% static 'assets/img/sm.gif' %}" style="width:30px;">
-                <a href="#" class="go-top">
-                    <i class="fa fa-angle-up"></i>
-                </a>
-            </div>
-        </footer>
-        {% endblock footer %}
-    </section>
-
+        
 
 {% endblock content %}
 {% block jsadd %}

@@ -1,0 +1,192 @@
+{% extends 'base/sidebarf.html' %} {% load staticfiles %}
+
+{% block jsadd-up %}
+<script src="{% static 'assets/js/chart-master/Chart.js' %}"></script>
+{% endblock jsadd-up %}
+
+
+
+                <div class="row">
+
+                    <!-- RIGHT SIDEBAR CONTENT
+      *********************************************************************************************************************************************************** -->
+                    <!--<h3 class="goright">Questions added:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</h3-->
+                    <div class="col-lg-3">
+                        <!--COMPLETED ACTIONS DONUTS CHART-->
+                        <div class="form-panel">
+                            <h4 class="mb"><i class="fa fa-angle-right"></i> Filters</h4>
+                            <form class="form-horizontal style-form" method="get">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <legend class="center-block"><b>Select Course</b>
+                                        </legend>
+                                        <select class="form-control">
+                                            <option value="my">DSP</option>
+                                            <option value="computers">AGT</option>
+                                        </select>
+                                        <br>
+                                        <input type="submit" name="search" class="btn btn-primary btn-lg btn-block">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!--COMPLETED ACTIONS DONUTS CHART-->
+                    </div>
+
+                    <div class="col-lg-9 main-chart">
+                            <!-- SERVER STATUS PANELS -->
+                            <div class="content-panel">
+                            <form>
+                              <h4 class="goright"><i class="fa fa-calender"></i> Date: &nbsp;&nbsp;23/11/2014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4><hr><table class="table table-hover">
+                              
+                              
+                                  <thead>
+                                  <tr>
+                                      <th>#</th>
+                                      <th>Entry No</th>
+                                      <th>First Name</th>
+                                      <th>Last Name</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs01</td>
+                                      <td>Otto</td>
+                                      <td>@mdo</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs02</td>
+                                      <td>Thornton</td>
+                                      <td>@fat</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs03</td>
+                                      <td>Mosa</td>
+                                      <td>@twitter</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs01</td>
+                                      <td>Otto</td>
+                                      <td>@mdo</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs02</td>
+                                      <td>Thornton</td>
+                                      <td>@fat</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs03</td>
+                                      <td>Mosa</td>
+                                      <td>@twitter</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs01</td>
+                                      <td>Otto</td>
+                                      <td>@mdo</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs02</td>
+                                      <td>Thornton</td>
+                                      <td>@fat</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs03</td>
+                                      <td>Mosa</td>
+                                      <td>@twitter</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs01</td>
+                                      <td>Otto</td>
+                                      <td>@mdo</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs02</td>
+                                      <td>Thornton</td>
+                                      <td>@fat</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs03</td>
+                                      <td>Mosa</td>
+                                      <td>@twitter</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs01</td>
+                                      <td>Otto</td>
+                                      <td>@mdo</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs02</td>
+                                      <td>Thornton</td>
+                                      <td>@fat</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs03</td>
+                                      <td>Mosa</td>
+                                      <td>@twitter</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs01</td>
+                                      <td>Otto</td>
+                                      <td>@mdo</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs02</td>
+                                      <td>Thornton</td>
+                                      <td>@fat</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs03</td>
+                                      <td>Mosa</td>
+                                      <td>@twitter</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs01</td>
+                                      <td>Otto</td>
+                                      <td>@mdo</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs02</td>
+                                      <td>Thornton</td>
+                                      <td>@fat</td>
+                                  </tr>
+                                  <tr>
+                                      <td><input type="checkbox" id="inlineCheckbox1" value="option1"></td>
+                                      <td>2011ecs03</td>
+                                      <td>Mosa</td>
+                                      <td>@twitter</td>
+                                  </tr>
+                                  </tbody>
+                              </table>
+                              <input class="btn btn-primary btn-block btn-lg" type="submit" name="submit" value="SUBMIT">
+                            </form>
+                          </div>
+                            
+
+                        </div>
+                       
+                    </div>
+                    
+           
+ {% endblock %}
+{% block jsadd %}
+{% endblock jsadd %}

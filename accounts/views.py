@@ -20,18 +20,21 @@ from notification.models import notification
 from student.models import Course
 
 
-def login(request,next='home'):
+def login_view(request,next='home'):
     if(request.user.is_authenticated()):
         return redirect('home')
         
     if('login' in request.POST):
         username = request.POST.get('username', '')
         password=request.POST.get('password', '')
+        print username+password
         user = authenticate(username=username, password=password)
+        print user
         if(user is not None):
             if user.is_active:
                 login(request,user)
                 next = request.GET.get('next')
+                print "admin"
                 if next:
                     return redirect(next)
                 elif user.is_staff:

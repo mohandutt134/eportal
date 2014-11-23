@@ -28,15 +28,17 @@
 
 <body>
     <section id="container">
-     {% with check=1 %}
+     
         <header class="header black-bg">
+        {% if  user.is_authenticated %}
             <div class="sidebar-toggle-box">
                 <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+                {% endif %}
             </div>
             <!--logo start-->
-            <a href="{% url 'home' %}" class="logo"><b>DASHGUM FREE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></a>
+            <a href="{% url 'home' %}" class="logo"><b>SMVDU E-portal  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></a>
             <!--logo end-->
-            {% if not check %}
+           {% if  user.is_authenticated %}
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
                   <li>
@@ -182,12 +184,12 @@
             </div>
                       
                   </li>
-                    <li><a class="logout" href="login.html"><i class="fa fa-sign-out">&nbsp;&nbsp;Logout</i></a>
+                    <li><a class="logout" href="{% url 'logout' %}"><i class="fa fa-sign-out">&nbsp;&nbsp;Logout</i></a>
                     </li>
                 </ul>
             </div>
             {% endif %}
-            {% if  check %}
+            {% if not user.is_authenticated %}
              <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -221,11 +223,29 @@
         </header>
 
          {% block sidebar %}
-        {% endblock sidebar %} {% block content %}
+        {% endblock sidebar %} 
+        <section id="main-content" >
+        <section class="wrapper" >
 
+         {% block content %}
+
+            
          {% endblock content %}
+
+        </section>
+{% block footer %}
+        <footer class="site-footer">
+            <div class="text-center">
+                <img src="{% static 'assets/img/sm.gif' %}" style="width:30px;">
+                <a href="#" class="go-top">
+                    <i class="fa fa-angle-up"></i>
+                </a>
+            </div>
+        </footer>
+        {% endblock footer %}
+
+        </section>
         
-        {% endwith %}
     </section>
 
     {% block js-foot %}

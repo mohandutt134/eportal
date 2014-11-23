@@ -3,7 +3,7 @@ from django.core.cache import cache
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
-from django.utils import simplejson
+import json
 from online_status.status import CACHE_USERS
 from online_status.utils import encode_json
 
@@ -11,7 +11,7 @@ from online_status.utils import encode_json
 def users(request):
     """Json of online users, useful f.ex. for refreshing a online users list via an ajax call or something"""
     online_users = cache.get(CACHE_USERS)
-    return HttpResponse(simplejson.dumps(online_users, default=encode_json), mimetype='application/javascript')
+    return HttpResponse(json.dumps(online_users, default=encode_json), mimetype='application/javascript')
     
 
 def example(request):

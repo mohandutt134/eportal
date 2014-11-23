@@ -1,0 +1,75 @@
+{% extends 'base/sidebarf.html' %} {% load staticfiles %}
+ {% block content %}
+        <section id="main-content">
+            <section class="wrapper">
+
+                <div class="row">
+
+                    <div class="col-lg-6 col-lg-offset-3">
+
+                        <!-- /row mt -->
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+
+                            <div class="form-panel">
+                                <legend class="center-block">
+                                    <h1 style="text-align:center">Add Study Material</h1>
+                                </legend>
+                                <!-- /form-panel -->
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+
+                            <div class="form-panel">
+                                <form class="form-horizontal style-form" method="get">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"><b>Title</b></label>
+                                        <div class="col-sm-8 pull-right">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"><b>Select Course</b></label>
+                                        <div class="col-sm-8 pull-right">
+                                            <select class="form-control">
+                                                <option value="computers">Computers</option>
+                                                <option value="electronics">Electronics</option>
+                                                <option value="communication">Communications</option>
+                                                <option value="mechanical">Mechanical Engg</option>
+                                                <option value="IBT">IBT</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"><b>About</b></label>
+                                        <div class="col-sm-8 pull-right">
+                                            <textarea class="form-control" rows="4"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"><b>File</b></label>
+                                        <div class="col-sm-8 pull-right">
+                                            <input type="date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <legend class="center-block"></legend>
+                                    <div class="inline">
+                                        <input type="submit" value="Save" name="save" class="btn btn-primary btn-lg btn-block">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /row -->
+                    </div>
+                    <!-- /col-lg-9 END SECTION MIDDLE -->
+                </div>
+            </section>
+       
+    </section>
+
+{% endblock content %}  

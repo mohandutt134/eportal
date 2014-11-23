@@ -71,10 +71,31 @@ def courses(request):
 
 def faculty(request):
     request.session['last']='home'
-    return render(request,'base4.html',context_instance=RequestContext(request))
+    return render(request,'faculty.html',context_instance=RequestContext(request))
 
+def edit_spec(request):
+    return render(request, 'edit_spec.html')
 
+def quiz_control(request):
+    return render(request, 'quiz_control.html')
 
+def add_question(request):
+    return render(request, 'add_question.html')
+
+def attach_question(request):
+    return render(request, 'attach_question.html')
+
+def quiz_confirm(request):
+    return render(request, 'quiz_confirm.html')
+
+def addmaterial(request):
+    return render(request, 'add_material.html')
+
+def admin_courses(request):
+    return render(request, 'admin_courses.html')
+
+def admin_course_view(request):
+    return render(request, 'admin_course_view.html')
 
 def courseView(request):
     request.session['last']='courses'
@@ -108,10 +129,15 @@ def fc(request):
         del request.session['changed']
         return render(request, 'fc.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
     request.session['last']='fc'
-    return render(request,'base3.html')
+    return render(request,'add_question.html')
 
-
-
+def dashboard(request):
+    request.session['last']='courses'
+    if 'changed' in request.session:
+        del request.session['changed']
+        return render(request, 'fc.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
+    request.session['last']='fc'
+    return render(request,'dashboard.html')
 
 
 def about (request):

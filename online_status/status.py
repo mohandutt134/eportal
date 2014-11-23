@@ -11,7 +11,7 @@ CACHE_USERS = getattr(settings, 'USERS_ONLINE__CACHE_USERS', 'online_users')
 
 CACHE_PREFIX_ANONYM_USER = getattr(settings, 'USERS_ONLINE__CACHE_PREFIX_ANONYM_USER', 'online_anonym_user') + '_%s'
 
-ONLY_LOGGED_USERS = getattr(settings, 'USERS_ONLINE__ONLY_LOGGED_USERS', False)
+ONLY_LOGGED_USERS = getattr(settings, 'USERS_ONLINE__ONLY_LOGGED_USERS', True)
 
 class OnlineStatus(object):
     """Online status data which will be later cached"""

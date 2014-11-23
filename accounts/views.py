@@ -20,7 +20,7 @@ from notification.models import notification
 from student.models import Course
 
 
-def login_view(request,next='home'):
+def login(request,next='home'):
     if(request.user.is_authenticated()):
         return redirect('home')
         
@@ -39,19 +39,23 @@ def login_view(request,next='home'):
                 else:
                     return redirect('home')
             else:
-                return render(request,'accounts/login_register.html',{'message_login':"Your account is inactive"})
+                return render(request,'accounts/login.html',{'message_login':"Your account is inactive"})
         else:
-            return render(request,'accounts/login_register.html',{'message_login':"wrong Username or Password"})
+            return render(request,'accounts/login.html',{'message_login':"wrong Username or Password"})
     if('register' in request.POST):
             #call registration function 
             message=registration_function(request)#store message from registration function 
-            return render(request,'accounts/login_register.html',{'message_register_alert':message})
+            return render(request,'accounts/login.html',{'message_register_alert':message})
 
-    return render(request,'accounts/login_register.html',{'message_register_alert':''})
+    return render(request,'accounts/login.html',{'message_register_alert':''})
 
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+
+def register2(request):
+    return render (request,'accounts/register.html')
 
 def registration_function(request):
     R_username = request.POST.get('R_email', '')

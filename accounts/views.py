@@ -148,5 +148,9 @@ def success(request):
     return render(request, 'accounts/success.html')
 
 def success2(request):
-    return render(request,'accounts/changed_successfuly.html')
+    return render(request, 'accounts/changed_successfuly.html')
+
+def lock(request):
+    return render(request, 'accounts/lock_screen.html')
+
 

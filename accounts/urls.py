@@ -12,7 +12,7 @@ urlpatterns = patterns('accounts.views',
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$','reset_confirm', name='password_reset_confirm'),
     url(r'^success/$', 'success', name='success'),
     url(r'^success2/$', 'success2', name='success2'),
-    #url(r'^lock/$', 'lock', name='lock'),
+    url(r'^lock/$', 'lock', name='lock'),
 
 
 )

@@ -20,7 +20,6 @@ urlpatterns = patterns('student.views',
     url(r'^quiz_confirm$', 'quiz_confirm', name='quiz_confirm'),
     url(r'^quiz_control$', 'quiz_control', name='quiz_control'),
     url(r'^edit_spec$', 'edit_spec', name='edit_spec'),
-    url(r'^addmaterial$', 'addmaterial', name='addmaterial'),
     url(r'^course/(?P<id>[0-9A-Za-z_\-]+)$', 'course', name='course'),
     url(r'^courses$', 'courses', name='courses'),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -31,6 +30,7 @@ urlpatterns = patterns('student.views',
     #url('^inbox/notifications/', include(notifications.urls)),
     url(r'^mail$','mail'),
     url(r'^change/$', 'changePassword', name='change'),
+    url(r'^course/(?P<id>[0-9A-Za-z_\-]+)/addmaterial$', 'add_material', name='add_material'),
 )
 
 

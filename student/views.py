@@ -93,7 +93,7 @@ def attach_question(request):
 def quiz_confirm(request):
     return render(request, 'quiz_confirm.html')
 
-def addmaterial(request):
+def add_material(request,id=None):
     return render(request, 'add_material.html')
 
 @login_required
@@ -110,9 +110,6 @@ def course(request,id=None):
     if request.session['type'] == 'faculty':
         try:
             course = Course.objects.get(course_id=id)
-            print "after course"
-            print course.facultyassociated
-            print request.user.faculty_profile
             if course.facultyassociated==request.user.faculty_profile:
                 return render(request, 'admin_course_view.html',{'course':course})
             else:

@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 
+/static/uploaded_image/*
 
 # OSX Finder turds
 .DS_Store

@@ -1,0 +1,22 @@
+{% extends 'accounts/base_accounts.html' %}
+            {% block content %}
+	  		
+		      <form class="form-login" method="POST" enctype="multipart/form-data">
+		      	{% csrf_token %}
+		        <h2 class="form-login-heading">sign in now</h2>
+		        <div class="login-wrap">
+		            <input type="text" name="username" class="form-control" placeholder="User ID" autofocus>
+		            <br>
+		            <input type="password" name="password" class="form-control" placeholder="Password">
+		            <br>
+		            <P style="color:red">{{message_login}}</p>
+		            <br>
+		            <button class="btn btn-theme btn-block" name="login" type="submit"><i class="fa fa-sign-in"></i> SIGN IN</button>
+		            <hr>
+		            <h5 class="text-center">Forgot Password? <a href="{% url 'reset' %}">Click Here</a> </h5> 
+		           
+		           <h5 class="text-center">Don't have an account? <a href="{% url 'register2' %}">Create One</a> </h5> 
+		        </div>
+		      </form>	  	
+		    
+{% endblock content %}

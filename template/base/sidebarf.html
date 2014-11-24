@@ -1,0 +1,103 @@
+{% extends 'base/header.html' %}
+{% load staticfiles %}
+     {% block sidebar %}
+     {% load partial_views %}
+   <aside>
+    <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+
+            <p class="centered">
+                <a href="profile">
+                    <img src="/static/uploaded_image/{{ user.faculty_profile.image }}" class="img-circle" width="60">
+                </a>
+            </p>
+            <h5 class="centered">Marcel Newman</h5>
+
+            <li class="mt">
+                <a class="active" href="{% url 'dashboard' %}">
+                    <i class="fa fa-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-desktop"></i>
+                    <span>Courses</span>
+                </a>
+                <ul class="sub">
+                    {% course_list_function %}
+                </ul>
+            </li>
+
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-cogs"></i>
+                    <span>Faculty</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="{% url 'faculty' %}">Faculty</a>
+                    </li>
+                    <li><a href="{% url 'addmaterial' %}">Add Material</a>
+                    </li>
+                    <li><a href="{% url 'courses' %}">Admin Course</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-book"></i>
+                    <span>Extra Pages</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="blank.html">Blank Page</a>
+                    </li>
+                    <li><a href="login.html">Login</a>
+                    </li>
+                    <li><a href="lock_screen.html">Lock Screen</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-tasks"></i>
+                    <span>Forms</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="form_component.html">Form Components</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-th"></i>
+                    <span>Data Tables</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="basic_table.html">Basic Table</a>
+                    </li>
+                    <li><a href="responsive_table.html">Responsive Table</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class=" fa fa-bar-chart-o"></i>
+                    <span>Charts</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="morris.html">Morris</a>
+                    </li>
+                    <li><a href="chartjs.html">Chartjs</a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</aside>
+{% endblock sidebar %}
+
+
+

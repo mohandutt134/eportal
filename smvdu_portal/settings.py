@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from .email_info import *
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -39,13 +40,13 @@ INSTALLED_APPS = (
     'quiz',
     'student',
     'django_extensions',
-    'smartextends',
     'django.contrib.admindocs',
     'accounts',
+    'south',
     'notification',
-    'sekizai',
-    'django_markdown',
-    'online_status',
+    'smartextends',
+    
+    
 )
 SITE_ID = 1
 MIDDLEWARE_CLASSES = (
@@ -57,6 +58,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
     'online_status.middleware.OnlineStatusMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
 )
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'template'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -94,7 +96,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     'django.core.context_processors.request',
-    'sekizai.context_processors.sekizai',
+    
 )
 LANGUAGE_CODE = 'en-us'
 
@@ -105,6 +107,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+TRACK_PAGEVIEWS = True
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/uploaded_image')
 # Static files (CSS, JavaScript, Images)
@@ -117,7 +120,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),
     # Don't forget to use absolute paths, not relative paths.
 )
 
-from .email_info import *
+
 
 EMAIL_USE_TLS = EMAIL_USE_TLS
 EMAIL_HOST = EMAIL_HOST
@@ -130,3 +133,8 @@ AUTH_PROFILE_MODULE='student.student_profile'
 
 
 
+GOOGLE_MAPS_KEY='AIzaSyCtASsXUUeOCUNgBoINuY04Hn0HuF9yuws'
+TRACKING_USE_GEOIP=True
+GEOIP_PATH = '/home/vc/Desktop/GeoIP.dat'
+GEOIP_CACHE_TYPE = 1
+DEFAULT_TRACKING_TEMPLATE='tracking/visitor_map.html'

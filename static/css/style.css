@@ -210,7 +210,7 @@ hr {
 }
 
 .bg-theme {
-	background-color: #68dff0;
+	background-color: #EF6F6F;
 }
 
 ul.top-menu > li > .logout {
@@ -218,10 +218,10 @@ ul.top-menu > li > .logout {
 	font-size: 12px;
 	border-radius: 4px;
 	-webkit-border-radius: 4px;
-	border: 1px solid #64c3c2 !important;
+	border: 1px solid #438A90 !important;
 	padding: 5px 15px;
 	margin-right: 15px;
-	background: #68dff0;
+	background: rgba(99, 207, 223, 0.6);
 	margin-top: 15px;
 }
 
@@ -233,6 +233,9 @@ ul.top-menu > li > .logout {
     height: 100%;
     position: fixed;
     background: #424a5d;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    transition: all 0.8s ease;
 }
 
 #sidebar h5 {
@@ -364,7 +367,7 @@ ul.sidebar-menu li a{
 }
 
 ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
-    background: #68dff0;
+    background: rgba(0, 0, 0, 0.34);
     color: #fff;
     display: block;
 
@@ -397,11 +400,15 @@ ul.sidebar-menu li a.active i {
 
 /* MAIN CONTENT CONFIGURATION */
 #main-content {
+    /*background:url(../img/login-bg.jpg);*/
     margin-left: 210px;
+    -webkit-transition: all 0.8s ease;
+-moz-transition: all 0.8s ease;
+transition: all 0.8s ease;
 }
 
 .header, .footer {
-    min-height: 40px;
+    min-height: 60px;
     padding: 0 15px;
 }
 
@@ -413,8 +420,8 @@ ul.sidebar-menu li a.active i {
 }
 
 .black-bg {
-    background: #ffd777;
-    border-bottom: 1px solid #c9aa5f;
+    background: rgba(0, 0, 0, 0.78);
+    border-bottom: 2px solid #000000;
 }
 
 .wrapper {
@@ -432,7 +439,7 @@ a.logo {
     color: #ffffff;
     float: left;
     margin-top: 15px;
-    text-transform: uppercase;
+
 }
 
 a.logo b {
@@ -468,23 +475,37 @@ a.logo span {
 }
 
 ul.top-menu > li > a {
-    color: #666666;
+    color: #ffffff;
     font-size: 16px;
     border-radius: 4px;
     -webkit-border-radius: 4px;
-    border:1px solid #666666 !important;
+    border:1px solid #ffffff !important;
     padding: 2px 6px;
     margin-right: 15px;
 }
 
 ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     border:1px solid #b6b6b6 !important;
-    background-color: transparent !important;
+    background-color: #fff !important;
     border-color: #b6b6b6 !important;
     text-decoration: none;
+    -webkit-border-radius: 6px;
+    color: #3A676B !important;
+    -webkit-transform: scale(1.05,1.05);
+    -moz-transform:scale(1.05,1.05);
+    -webkit-transition: 0.2s ease;
+    -moz-transition: 0.2s ease;
+}
+
+.sidebar-toggle-box .fa-bars:hover{
+cursor: pointer;
+display: inline-block;
+font-size: 20px;
+color:#fff;
     border-radius: 4px;
-    -webkit-border-radius: 4px;
-    color: #b6b6b6 !important;
+-webkit-border-radius: 4px;
+    border: 1px solid #F0F0F0 !important;
+padding: 2px 6px;
 }
 
 .notify-row .badge {
@@ -523,7 +544,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 
 .dropdown-menu.extended li p.green {
-    background-color: #68dff0;
+    background-color: #0C5EA3;
     color: #fff;
 }
 
@@ -712,7 +733,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     margin-top: 0;
     opacity: 0;
     position: absolute;
-    left: 7px;
+    left: 88%;
     top: -18px;
     transition: all 0.25s ease 0s;
     width: 0;
@@ -728,7 +749,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 }
 .notify-arrow-green {
     border-color: transparent transparent #68dff0;
-    border-bottom-color: #68dff0 !important;
+    border-bottom-color: #0C5EA3 !important;
     border-top-color: #68dff0 !important;
 }
 
@@ -746,6 +767,11 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
     cursor: pointer;
     display: inline-block;
     font-size: 20px;
+    color:#fff;
+    border-radius: 4px;
+-webkit-border-radius: 4px;
+    border: 1px solid #BEBEBE !important;
+padding: 2px 6px;
 }
 
 
@@ -781,7 +807,7 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 	line-height: 60px;
 	height: 60px;
 	margin: 0;
-	background: #ff865c;
+	background: #008299;
 	text-align: center;
 }
 
@@ -986,11 +1012,15 @@ PANELS CONFIGURATIONS
 
 .pn {
 	height: 250px;
-	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 .pn:hover {
-	box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.05,1.05);
+    -moz-transform:scale(1.05,1.05);
+    -webkit-transition: 0.2s ease;
+    -moz-transition: 0.2s ease;
 	
 }
 
@@ -1055,7 +1085,7 @@ PANELS CONFIGURATIONS
 /*Green Panel*/
 .green-panel {
 	text-align: center;
-	background: #68dff0;
+	background: #004852;
 }
 .green-panel .green-header {
 	background: #43b1a9;
@@ -2219,6 +2249,7 @@ label {
     background: #68dff0;
     color: #fff;
     padding: 10px 0;
+    background:rgba(0, 0, 0, 0.48)
 }
 
 
@@ -2239,9 +2270,11 @@ label {
 .site-min-height {
     min-height: 900px;
 }
-.navbar-nav > li > a {
-padding-top: 20px;
-padding-bottom: 18px;
+
+#link_panel:hover{
+    box-shadow: 0px 0px 7px 7px rgba(0, 0, 0, 0.5);
+    -webkit-transform: scale(1.05,1.05);
+    -moz-transform:scale(1.05,1.05);
+    -webkit-transition: 0.2s ease;
+    -moz-transition: 0.2s ease;
 }
-
-

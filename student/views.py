@@ -1,6 +1,8 @@
 import uuid
+from django import template
 from django.db.models import Q
 from django.shortcuts import render_to_response, HttpResponseRedirect, render, redirect
+from django.http import HttpResponseForbidden
 from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
@@ -51,6 +53,8 @@ def handle_uploaded_file(f, path=''):
 
 def home(request):
     request.session['last']='home'
+    if request.user.is_authenticated():
+        return redirect('dashboard')
     if 'changed' in request.session:
         del request.session['changed']
         return render(request, 'index.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
@@ -61,7 +65,7 @@ def home(request):
     return render(request, 'index.html',{'notifications':result_list},context_instance=RequestContext(request))
 
 
-def courses(request):
+def all_courses(request):
     request.session['last']='courses'
     if 'changed' in request.session:
         del request.session['changed']
@@ -71,10 +75,51 @@ def courses(request):
 
 def faculty(request):
     request.session['last']='home'
-    return render(request,'base4.html',context_instance=RequestContext(request))
+    return render(request,'faculty.html',context_instance=RequestContext(request))
 
+def edit_spec(request):
+    return render(request, 'edit_spec.html')
 
+def quiz_control(request):
+    return render(request, 'quiz_control.html')
 
+def add_question(request):
+    return render(request, 'add_question.html')
+
+def attach_question(request):
+    return render(request, 'attach_question.html')
+
+def quiz_confirm(request):
+    return render(request, 'quiz_confirm.html')
+
+def addmaterial(request):
+    return render(request, 'add_material.html')
+
+@login_required
+def courses(request):
+    if request.session['type'] == 'faculty':
+        try:
+            faculty=faculty_profile.objects.get(user=request.user)
+            courses = Course.objects.filter(facultyassociated=faculty)
+        except:
+            courses=None
+        return render(request, 'courses.html',{'temp':'base/sidebarf.html','courses':courses})
+
+def course(request,id=None):
+    if request.session['type'] == 'faculty':
+        try:
+            course = Course.objects.get(course_id=id)
+            print "after course"
+            print course.facultyassociated
+            print request.user.faculty_profile
+            if course.facultyassociated==request.user.faculty_profile:
+                return render(request, 'admin_course_view.html',{'course':course})
+            else:
+                return HttpResponseForbidden()
+                
+        except:
+            return HttpResponseForbidden()
+        return render(request, 'admin_course_view.html',{'course':course})
 
 def courseView(request):
     request.session['last']='courses'
@@ -108,10 +153,21 @@ def fc(request):
         del request.session['changed']
         return render(request, 'fc.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
     request.session['last']='fc'
-    return render(request,'base3.html')
+    return render(request,'add_question.html')
 
-
-
+@login_required
+def dashboard(request):
+    request.session['last']='courses'
+    if request.user.groups.filter(name='faculty').exists():
+        request.session['type']='faculty'
+        if 'changed' in request.session:
+            del request.session['changed']
+            return render(request, 'fc.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
+        request.session['last']='fc'
+        return render(request,'dashboard.html',{'courses':courses,'temp':'base/sidebarf.html'})
+    else:
+        request.session['type']='student'
+        return render(request,'dashboard.html',{'temp':'base/sidebars.html'})
 
 
 def about (request):

@@ -27,11 +27,14 @@ def login_view(request,next='home'):
     if('login' in request.POST):
         username = request.POST.get('username', '')
         password=request.POST.get('password', '')
+        print username+password
         user = authenticate(username=username, password=password)
+        print user
         if(user is not None):
             if user.is_active:
                 login(request,user)
                 next = request.GET.get('next')
+                print "admin"
                 if next:
                     return redirect(next)
                 elif user.is_staff:
@@ -39,19 +42,23 @@ def login_view(request,next='home'):
                 else:
                     return redirect('home')
             else:
-                return render(request,'accounts/login_register.html',{'message_login':"Your account is inactive"})
+                return render(request,'accounts/login.html',{'message_login':"Your account is inactive"})
         else:
-            return render(request,'accounts/login_register.html',{'message_login':"wrong Username or Password"})
+            return render(request,'accounts/login.html',{'message_login':"wrong Username or Password"})
     if('register' in request.POST):
             #call registration function 
             message=registration_function(request)#store message from registration function 
-            return render(request,'accounts/login_register.html',{'message_register_alert':message})
+            return render(request,'accounts/login.html',{'message_register_alert':message})
 
-    return render(request,'accounts/login_register.html',{'message_register_alert':''})
+    return render(request,'accounts/login.html',{'message_register_alert':''})
 
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+
+def register2(request):
+    return render (request,'accounts/register.html')
 
 def registration_function(request):
     R_username = request.POST.get('R_email', '')

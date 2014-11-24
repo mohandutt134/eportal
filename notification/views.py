@@ -5,6 +5,7 @@ from django.shortcuts import render
 import uuid
 from django.db.models import Q
 from django.shortcuts import render_to_response, HttpResponseRedirect, render, redirect
+from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
@@ -27,3 +28,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
 from .utils import slug2id
 from django.contrib.auth.models import Group
+
+def notificationicon_create(request):
+	print "heloo"
+	return HttpResponse("sucess")

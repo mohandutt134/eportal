@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, include, url
-
+from . import settings
 from django.contrib import admin
 from django.conf.urls import *
 admin.autodiscover()
 
 urlpatterns = patterns('student.views',
     # Examples:
+    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
     #(r'^markdown/', include("django_markdown.urls")),
     (r'^quizes/',include('quiz.urls')),
@@ -23,7 +24,7 @@ urlpatterns = patterns('student.views',
     url(r'^addmaterial$', 'addmaterial', name='addmaterial'),
     url(r'^course/(?P<id>[0-9A-Za-z_\-]+)$', 'course', name='course'),
     url(r'^courses$', 'courses', name='courses'),
-    (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    
     url(r'^faculty$', 'faculty', name='faculty'),
     url(r'^about$', 'about', name='about'),
     url(r'^edit/$', 'edit', name='edit'),
@@ -33,4 +34,7 @@ urlpatterns = patterns('student.views',
     url(r'^change/$', 'changePassword', name='change'),
 )
 
-
+if settings.DEBUG is False:   #if DEBUG is True it will be served automatically
+    urlpatterns += patterns('',
+            url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+    )

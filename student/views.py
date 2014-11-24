@@ -30,6 +30,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.template import Context
 from django.template.loader import render_to_string
 from notification.models import notification
+from django.core.exceptions import PermissionDenied
+
 
 # Import the built-in password reset view and password reset confirmation view.
 from django.contrib.auth.views import password_reset, password_reset_confirm

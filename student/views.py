@@ -77,6 +77,7 @@ def faculty(request):
     request.session['last']='home'
     return render(request,'faculty.html',context_instance=RequestContext(request))
 
+
 def edit_spec(request):
     return render(request, 'edit_spec.html')
 
@@ -120,6 +121,7 @@ def course(request,id=None):
         except:
             return HttpResponseForbidden()
         return render(request, 'admin_course_view.html',{'course':course})
+
 
 def courseView(request):
     request.session['last']='courses'

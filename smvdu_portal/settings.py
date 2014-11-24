@@ -45,9 +45,9 @@ INSTALLED_APPS = (
     'south',
     'notification',
     'smartextends',
-    
-    
 )
+
+
 SITE_ID = 1
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

@@ -1,282 +1,502 @@
+{% extends temp %} {% load staticfiles %} {% block jsadd-up %} {% endblock jsadd-up %} {% block content %}
 
-{% extends temp %} {% load staticfiles %} {% block jsadd-up %}
 
-<!-- <script src="{% static 'assets/js/chart-master/Chart.js' %}"></script> -->
-{% endblock jsadd-up %} {% block content %}
+<div class="row">
+    <div class="col-lg-9 main-chart">
+        <div class="row mt">
+            <div class="col-md-4 col-sm-4 mb">
+                <a href="#">
+                    <div class="weather pn" style="background: #D24726; color:#fff;">
+                        <i class="fa fa-puzzle-piece fa-4x"></i>
+                        <h1>COURSE PORTAL</h1>
+                        <h4>manage your courses</h4>
+                    </div>
+                </a>
+            </div>
 
+            <div class="col-md-4 col-sm-4 mb">
+                <a href="#">
+                    <div class="weather pn" style="background: #004A00; color:#fff;">
+                        <i class="fa fa-puzzle-piece fa-4x"></i>
+                        <h1>ATTENDANCE PORTAL</h1>
+                        <h4>lets make them present</h4>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 col-sm-4 mb">
+                <a href="#">
+                    <div class="weather pn" style="background: #AC193D; color:#fff;">
+                        <i class="fa fa-puzzle-piece fa-4x"></i>
+                        <h1>QUIZ PORTAL</h1>
+                        <h4>manage quizes</h4>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <!-- /row -->
 
 
         <div class="row">
-            <div class="col-lg-9 main-chart">
-                <div class="row mt">
-                    <div class="col-md-4 col-sm-4 mb">
-                        <a href="{% url 'courses' %}">
-                            <div class="weather pn" style="background: #D24726; color:#fff;">
-                                <i class="fa fa-puzzle-piece fa-4x"></i>
-                                <h1>COURSE PORTAL</h1>
-                                <h4>manage your courses</h4>
-                            </div>
-                        </a>
-                    </div>
 
-                    <div class="col-md-4 col-sm-4 mb">
-                        <a href="#">
-                            <div class="weather pn" style="background: #004A00; color:#fff;">
-                                <i class="fa fa-puzzle-piece fa-4x"></i>
-                                <h1>ATTENDANCE PORTAL</h1>
-                                <h4>lets make them present</h4>
-                            </div>
-                        </a>
+            <div class="col-md-4 col-sm-4 mb">
+                <a href="#">
+                    <div class="weather pn" style="background: #094AB2; color:#fff;">
+                        <i class="fa fa-puzzle-piece fa-4x"></i>
+                        <h1>RESULT PORTAL</h1>
+                        <h4>manage results</h4>
                     </div>
-
-                    <div class="col-md-4 col-sm-4 mb">
-                        <a href="#">
-                            <div class="weather pn" style="background: #AC193D; color:#fff;">
-                                <i class="fa fa-puzzle-piece fa-4x"></i>
-                                <h1>QUIZ PORTAL</h1>
-                                <h4>manage quizes</h4>
-                            </div>
-                        </a>
-                    </div>
-
-                </div>
-                <!-- /row -->
-
-
-                <div class="row">
-                    <!-- TWITTER PANEL -->
-                    <div class="col-md-4 col-sm-4 mb">
-                        <a href="#">
-                            <div class="weather pn" style="background: #094AB2; color:#fff;">
-                                <i class="fa fa-puzzle-piece fa-4x"></i>
-                                <h1>RESULT PORTAL</h1>
-                                <h4>manage results</h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 col-sm-4 mb">
-                        <a href="#">
-                            <div class="weather pn" style="background: #00A8FF; color:#fff;">
-                                <i class="fa fa-puzzle-piece fa-4x"></i>
-                                <h1>PORTAL 5</h1>
-                                <h4>a new quiz</h4>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4 col-sm-4 mb">
-                        <a href="#">
-                            <div class="weather pn" style="background: #5133AB; color:#fff;">
-                                <i class="fa fa-puzzle-piece fa-4x"></i>
-                                <h1>PORTAL 6</h1>
-                                <h4>a new quiz</h4>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <!-- /row -->
-
-                <div class="row mt">
-                    <!--CUSTOM CHART START -->
-                    <div class="border-head">
-                        <h3>Students/Course</h3>
-                    </div>
-                    <div class="custom-bar-chart">
-                        <ul class="y-axis">
-                            <li>
-                                <span>10.000</span>
-                            </li>
-                            <li>
-                                <span>8.000</span>
-                            </li>
-                            <li>
-                                <span>6.000</span>
-                            </li>
-                            <li>
-                                <span>4.000</span>
-                            </li>
-                            <li>
-                                <span>2.000</span>
-                            </li>
-                            <li>
-                                <span>0</span>
-                            </li>
-                        </ul>
-                        <div class="bar">
-                            <div class="title">JAN</div>
-                            <div class="value tooltips" data-original-title="8.500" data-toggle="tooltip" data-placement="top">85%</div>
-                        </div>
-                        <div class="bar ">
-                            <div class="title">FEB</div>
-                            <div class="value tooltips" data-original-title="5.000" data-toggle="tooltip" data-placement="top">50%</div>
-                        </div>
-                        <div class="bar ">
-                            <div class="title">MAR</div>
-                            <div class="value tooltips" data-original-title="6.000" data-toggle="tooltip" data-placement="top">60%</div>
-                        </div>
-                        <div class="bar ">
-                            <div class="title">APR</div>
-                            <div class="value tooltips" data-original-title="4.500" data-toggle="tooltip" data-placement="top">45%</div>
-                        </div>
-                        <div class="bar">
-                            <div class="title">MAY</div>
-                            <div class="value tooltips" data-original-title="3.200" data-toggle="tooltip" data-placement="top">32%</div>
-                        </div>
-                        <div class="bar ">
-                            <div class="title">JUN</div>
-                            <div class="value tooltips" data-original-title="6.200" data-toggle="tooltip" data-placement="top">62%</div>
-                        </div>
-                        <div class="bar">
-                            <div class="title">JUL</div>
-                            <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
-                        </div>
-                    </div>
-                    <!--custom chart end-->
-                </div>
-                <!-- /row -->
-
+                </a>
             </div>
-            <!-- /col-lg-9 END SECTION MIDDLE -->
+            <div class="col-md-4 col-sm-4 mb">
+                <a href="#">
+                    <div class="weather pn" style="background: #00A8FF; color:#fff;">
+                        <i class="fa fa-puzzle-piece fa-4x"></i>
+                        <h1>PORTAL 5</h1>
+                        <h4>a new quiz</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-4 mb">
+                <a href="#">
+                    <div class="weather pn" style="background: #5133AB; color:#fff;">
+                        <i class="fa fa-puzzle-piece fa-4x"></i>
+                        <h1>PORTAL 6</h1>
+                        <h4>a new quiz</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- /row -->
+
+        <div class="row mt">
+            <!--CUSTOM CHART START -->
+            <div class="border-head">
+                <h3>Students/Course</h3>
+            </div>
+            <div class="custom-bar-chart">
+                <ul class="y-axis">
+                    <li>
+                        <span>10.000</span>
+                    </li>
+                    <li>
+                        <span>8.000</span>
+                    </li>
+                    <li>
+                        <span>6.000</span>
+                    </li>
+                    <li>
+                        <span>4.000</span>
+                    </li>
+                    <li>
+                        <span>2.000</span>
+                    </li>
+                    <li>
+                        <span>0</span>
+                    </li>
+                </ul>
+                <div class="bar">
+                    <div class="title">JAN</div>
+                    <div class="value tooltips" data-original-title="8.500" data-toggle="tooltip" data-placement="top">85%</div>
+                </div>
+                <div class="bar ">
+                    <div class="title">FEB</div>
+                    <div class="value tooltips" data-original-title="5.000" data-toggle="tooltip" data-placement="top">50%</div>
+                </div>
+                <div class="bar ">
+                    <div class="title">MAR</div>
+                    <div class="value tooltips" data-original-title="6.000" data-toggle="tooltip" data-placement="top">60%</div>
+                </div>
+                <div class="bar ">
+                    <div class="title">APR</div>
+                    <div class="value tooltips" data-original-title="4.500" data-toggle="tooltip" data-placement="top">45%</div>
+                </div>
+                <div class="bar">
+                    <div class="title">MAY</div>
+                    <div class="value tooltips" data-original-title="3.200" data-toggle="tooltip" data-placement="top">32%</div>
+                </div>
+                <div class="bar ">
+                    <div class="title">JUN</div>
+                    <div class="value tooltips" data-original-title="6.200" data-toggle="tooltip" data-placement="top">62%</div>
+                </div>
+                <div class="bar">
+                    <div class="title">JUL</div>
+                    <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
+                </div>
+            </div>
+            <!--custom chart end-->
+        </div>
+        <!-- /row -->
+
+    </div>
+    <!-- /col-lg-9 END SECTION MIDDLE -->
 
 
-            <!-- **********************************************************************************************************************************************************
+    <!-- **********************************************************************************************************************************************************
       RIGHT SIDEBAR CONTENT
       *********************************************************************************************************************************************************** -->
 
-            <div class="col-lg-3 ds">
-                <!--COMPLETED ACTIONS DONUTS CHART-->
-                <a href="http://google.com" style="color:#fff">
-                    <div class="form-panel" id="link_panel" style="background: #D24726;color:#fff">
-                        <div class="center-block">
-                            <h3 style="text-align:center;background: #D24726;color:#fff">View Your Profile</h3>
-                        </div>
-                    </div>
-                </a>
-                <h3>NOTIFICATIONS</h3>
+    <div class="col-lg-3 ds">
+        <!--COMPLETED ACTIONS DONUTS CHART-->
+        <a href="http://google.com" style="color:#fff">
+            <div class="form-panel" id="link_panel" style="background: #D24726;color:#fff">
+                <div class="center-block">
+                    <h3 style="text-align:center;background: #D24726;color:#fff">View Your Profile</h3>
+                </div>
+            </div>
+        </a>
+        <h3>NOTIFICATIONS</h3>
 
-                <!-- First Action -->
-                <div style="overflow:auto;max-height:300px" id="scrollbox">
+        <!-- First Action -->
+        <div style="overflow:auto;max-height:300px" id="scrollbox">
+            <div class="desc">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
+                                    </span>
+                </div>
+                <div class="details">
+                    <p>
+                        <muted>2 Minutes Ago</muted>
+                        <br/>
+                        <a href="#">James Brown</a> subscribed to your newsletter.
+                        <br/>
+                    </p>
+                </div>
+            </div>
+            <div class="desc">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
+                                    </span>
+                </div>
+                <div class="details">
+                    <p>
+                        <muted>2 Minutes Ago</muted>
+                        <br/>
+                        <a href="#">James Brown</a> subscribed to your newsletter.
+                        <br/>
+                    </p>
+                </div>
+            </div>
+            <div class="desc">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
+                                    </span>
+                </div>
+                <div class="details">
+                    <p>
+                        <muted>2 Minutes Ago</muted>
+                        <br/>
+                        <a href="#">James Brown</a> subscribed to your newsletter.
+                        <br/>
+                    </p>
+                </div>
+            </div>
+            <div class="desc">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
+                                    </span>
+                </div>
+                <div class="details">
+                    <p>
+                        <muted>2 Minutes Ago</muted>
+                        <br/>
+                        <a href="#">James Brown</a> subscribed to your newsletter.
+                        <br/>
+                    </p>
+                </div>
+            </div>
+            <div class="desc">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
+                                    </span>
+                </div>
+                <div class="details">
+                    <p>
+                        <muted>2 Minutes Ago</muted>
+                        <br/>
+                        <a href="#">James Brown</a> subscribed to your newsletter.
+                        <br/>
+                    </p>
+                </div>
+            </div>
+            <!-- Second Action -->
+
+        </div>
+
+        <h3>MESSAGES</h3>
+        <!-- First Action -->
+        <div style="overflow:auto;max-height:300px" id="msgbox">
+            <div class="desc">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
+                                    </span>
+                </div>
+                <div class="details">
+                    <p>
+                        <muted>2 Minutes Ago</muted>
+                        <br/>
+                        <a href="#">James Brown</a> subscribed to your newsletter.
+                        <br/>
+                    </p>
+                </div>
+            </div>
+
+            <div class="desc">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
+                                    </span>
+                </div>
+                <div class="details">
+                    <p>
+                        <muted>2 Minutes Ago</muted>
+                        <br/>
+                        <a href="#">James Brown</a> subscribed to your newsletter.
+                        <br/>
+                    </p>
+                </div>
+            </div>
+            <div class="desc">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
+                                    </span>
+                </div>
+                <div class="details">
+                    <p>
+                        <muted>2 Minutes Ago</muted>
+                        <br/>
+                        <a href="#">James Brown</a> subscribed to your newsletter.
+                        <br/>
+                    </p>
+                </div>
+            </div>
+            <div class="desc">
+                <div class="thumb">
+                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
+                                    </span>
+                </div>
+                <div class="details">
+                    <p>
+                        <muted>2 Minutes Ago</muted>
+                        <br/>
+                        <a href="#">James Brown</a> subscribed to your newsletter.
+                        <br/>
+                    </p>
+                </div>
+            </div>
+            <!-- Second Action -->
+
+        </div>
+
+
+        <!-- USERS ONLINE SECTION -->
+        <h3>FACULTY ON PORTAL</h3>
+
+        <ul class="nav nav-tabs" role="tablist" id="myTab">
+            <li role="presentation" class="active"><a href="#cse" aria-controls="cse" role="tab" data-toggle="tab">CSE</a>
+            </li>
+            <li role="presentation"><a href="#mec" aria-controls="mec" role="tab" data-toggle="tab">MEC</a>
+            </li>
+            <li role="presentation"><a href="#ece" aria-controls="ece" role="tab" data-toggle="tab">ECE</a>
+            </li>
+            <li role="presentation"><a href="#ibt" aria-controls="ibt" role="tab" data-toggle="tab">IBT</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="cse">
+                <div style="overflow:auto;max-height:250px" id="csebox">
+                    <!-- Second Member -->
                     <div class="desc">
                         <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
+                            <img class="img-circle" src="{% static 'assets/img/ui-sherman.jpg' %}" width="35px" height="35px" align="">
                         </div>
                         <div class="details">
-                            <p>
-                                <muted>2 Minutes Ago</muted>
+                            <p><a href="#">DJ SHERMAN</a>
                                 <br/>
-                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                <br/>
+                                <muted>I am Busy</muted>
                             </p>
                         </div>
                     </div>
                     <div class="desc">
                         <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
+                            <img class="img-circle" src="{% static 'assets/img/ui-sherman.jpg' %}" width="35px" height="35px" align="">
                         </div>
                         <div class="details">
-                            <p>
-                                <muted>2 Minutes Ago</muted>
+                            <p><a href="#">DJ SHERMAN</a>
                                 <br/>
-                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                <br/>
+                                <muted>I am Busy</muted>
+>>>>>>> 2e45b8efb9899787e4a6f1eaad2c1f84fe7d92f5
                             </p>
                         </div>
                     </div>
                     <div class="desc">
                         <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
+                            <img class="img-circle" src="{% static 'assets/img/ui-sherman.jpg' %}" width="35px" height="35px" align="">
                         </div>
                         <div class="details">
-                            <p>
-                                <muted>2 Minutes Ago</muted>
+                            <p><a href="#">DJ SHERMAN</a>
                                 <br/>
-                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                <br/>
+                                <muted>I am Busy</muted>
                             </p>
                         </div>
                     </div>
                     <div class="desc">
                         <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
+                            <img class="img-circle" src="{% static 'assets/img/ui-sherman.jpg' %}" width="35px" height="35px" align="">
                         </div>
                         <div class="details">
-                            <p>
-                                <muted>2 Minutes Ago</muted>
+                            <p><a href="#">DJ SHERMAN</a>
                                 <br/>
-                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                <br/>
+                                <muted>I am Busy</muted>
                             </p>
                         </div>
                     </div>
+                    <!-- Third Member -->
                     <div class="desc">
                         <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
+                            <img class="img-circle" src="{% static 'assets/img/ui-danro.jpg' %}" width="35px" height="35px" align="">
                         </div>
                         <div class="details">
-                            <p>
-                                <muted>2 Minutes Ago</muted>
+                            <p><a href="#">DAN ROGERS</a>
                                 <br/>
-                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                <br/>
+                                <muted>Available</muted>
                             </p>
                         </div>
                     </div>
-                    <!-- Second Action -->
+                    <!-- Fourth Member -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <img class="img-circle" src="{% static 'assets/img/ui-vi.jpg' %}" width="35px" height="35px" align="">
+                        </div>
+                        <div class="details">
+                            <p><a href="#">Zac Sniders</a>
+                                <br/>
+                                <muted>Available</muted>
+                            </p>
+                        </div>
+                    </div>
 
                 </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="mec">
+                <div style="overflow:auto;max-height:250px" id="mecbox">
+                    <div class="desc">
+                        <div class="thumb">
+                            <img class="img-circle" src="{% static 'assets/img/ui-divya.jpg' %}" width="35px" height="35px" align="">
+                        </div>
+                        <div class="details">
+                            <p><a href="#">DIVYA MANIAN</a>
+                                <br/>
+                                <muted>Available</muted>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Third Member -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <img class="img-circle" src="{% static 'assets/img/ui-danro.jpg' %}" width="35px" height="35px" align="">
+                        </div>
+                        <div class="details">
+                            <p><a href="#">DAN ROGERS</a>
+                                <br/>
+                                <muted>Available</muted>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Fourth Member -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <img class="img-circle" src="{% static 'assets/img/ui-vi.jpg' %}" width="35px" height="35px" align="">
+                        </div>
+                        <div class="details">
+                            <p><a href="#">Zac Sniders</a>
+                                <br/>
+                                <muted>Available</muted>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Fifth Member -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <img class="img-circle" src="{% static 'assets/img/ui-sam.jpg' %}" width="35px" height="35px" align="">
+                        </div>
+                        <div class="details">
+                            <p><a href="#">Marcel Newman</a>
+                                <br/>
+                                <muted>Available</muted>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="ece">
+                <div style="overflow:auto;max-height:250px" id="ecebox">
+                    <!-- Third Member -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <img class="img-circle" src="{% static 'assets/img/ui-danro.jpg' %}" width="35px" height="35px" align="">
+                        </div>
+                        <div class="details">
+                            <p><a href="#">DAN ROGERS</a>
+                                <br/>
+                                <muted>Available</muted>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Fourth Member -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <img class="img-circle" src="{% static 'assets/img/ui-vi.jpg' %}" width="35px" height="35px" align="">
+                        </div>
+                        <div class="details">
+                            <p><a href="#">Zac Sniders</a>
+                                <br/>
+                                <muted>Available</muted>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Fifth Member -->
+                    <div class="desc">
+                        <div class="thumb">
+                            <img class="img-circle" src="{% static 'assets/img/ui-sam.jpg' %}" width="35px" height="35px" align="">
+                        </div>
+                        <div class="details">
+                            <p><a href="#">Marcel Newman</a>
+                                <br/>
+                                <muted>Available</muted>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="ibt">
+                <div style="overflow:auto;max-height:250px" id="ibtbox">
+                    <div class="desc">
+                        <div class="thumb">
+                            <img class="img-circle" src="{% static 'assets/img/ui-divya.jpg' %}" width="35px" height="35px" align="">
+                        </div>
+                        <div class="details">
+                            <p><a href="#">DIVYA MANIAN</a>
+                                <br/>
+                                <muted>Available</muted>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="desc">
+                        <div class="thumb">
+                            <img class="img-circle" src="{% static 'assets/img/ui-divya.jpg' %}" width="35px" height="35px" align="">
+                        </div>
+                        <div class="details">
+                            <p><a href="#">DIVYA MANIAN</a>
+                                <br/>
+                                <muted>Available</muted>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="desc">
+                        <div class="thumb">
 
-                <h3>MESSAGES</h3>
-                <!-- First Action -->
-                <div style="overflow:auto;max-height:300px" id="msgbox">
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                        </div>
-                        <div class="details">
-                            <p>
-                                <muted>2 Minutes Ago</muted>
-                                <br/>
-                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                <br/>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                        </div>
-                        <div class="details">
-                            <p>
-                                <muted>2 Minutes Ago</muted>
-                                <br/>
-                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                <br/>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <div class="thumb">
-                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                        </div>
-                        <div class="details">
-                            <p>
-                                <muted>2 Minutes Ago</muted>
-                                <br/>
-                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                <br/>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <div class="thumb">
                             <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
                                     </span>
                         </div>
@@ -571,40 +791,31 @@
         </div>
       
 {% endblock %} {% block jsadd %}
-<script type="text/javascript" src="{% static 'assets/js/gritter/js/jquery.gritter.js' %}"></script>
-<script type="text/javascript" src="{% static 'assets/js/gritter-conf.js' %}"></script>
 
-<!--script for this page-->
-<script src="{% static 'assets/js/sparkline-chart.js' %}"></script>
-<script src="{% static 'assets/js/zabuto_calendar.js' %}"></script>
 
 <script type="application/javascript">
 $(document).ready(function() {
    
+
     $("#scrollbox").niceScroll({
         cursorcolor: "#61FFFF"
     });
     $("#msgbox").niceScroll({
         cursorcolor: "#61FFFF"
     });
-    $("#csebox").niceScroll({
-        cursorcolor: "#61FFFF"
-    });
-    $("#mecbox").niceScroll({
-        cursorcolor: "#61FFFF"
-    });
-    $("#ecebox").niceScroll({
-        cursorcolor: "#61FFFF"
-    });
-    $("#ibtbox").niceScroll({
-        cursorcolor: "#61FFFF"
-    });
-   
-
-    
+    // $("#csebox").niceScroll({
+    //     cursorcolor: "#61FFFF"
+    // });
+    // $("#mecbox").niceScroll({
+    //     cursorcolor: "#61FFFF"
+    // });
+    // $("#ecebox").niceScroll({
+    //     cursorcolor: "#61FFFF"
+    // });
+    // $("#ibtbox").niceScroll({
+    //     cursorcolor: "#61FFFF"
+    // });
 });
-
-
 
 </script>
 

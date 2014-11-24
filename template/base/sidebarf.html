@@ -2,6 +2,7 @@
 {% load staticfiles %}
      {% block sidebar %}
      {% load partial_views %}
+
    <aside>
     <div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
@@ -28,6 +29,7 @@
                 </a>
                 <ul class="sub">
                     {% course_list_function %}
+
                 </ul>
             </li>
 
@@ -42,6 +44,7 @@
                     <li><a href="{% url 'addmaterial' %}">Add Material</a>
                     </li>
                     <li><a href="{% url 'courses' %}">Admin Course</a>
+
                     </li>
                 </ul>
             </li>
@@ -51,11 +54,11 @@
                     <span>Extra Pages</span>
                 </a>
                 <ul class="sub">
-                    <li><a href="blank.html">Blank Page</a>
+                    <li><a href="{% url 'login' %}">Blank Page</a>
                     </li>
-                    <li><a href="login.html">Login</a>
+                    <li><a href="{% url 'login' %}">Login</a>
                     </li>
-                    <li><a href="lock_screen.html">Lock Screen</a>
+                    <li><a href="#">Lock Screen</a>
                     </li>
                 </ul>
             </li>

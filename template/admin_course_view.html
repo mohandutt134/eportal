@@ -98,6 +98,7 @@ background:url('/static/uploaded_image/{{ course.image }}');background-size:cont
 
                                 <!-- First Action -->
                                 <div style="overflow:auto;max-height:400px" id="activityBox">
+                                {% for activity in activities %}
                                     <div class="desc">
                                         <div class="thumb">
                                             <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
@@ -105,70 +106,16 @@ background:url('/static/uploaded_image/{{ course.image }}');background-size:cont
                                         </div>
                                         <div class="details">
                                             <p>
-                                                <muted>2 Minutes Ago</muted>
+                                                <muted>{{ activity.time }}</muted>
                                                 <br/>
-                                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                                <br/>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="desc">
-                                        <div class="thumb">
-                                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                                        </div>
-                                        <div class="details">
-                                            <p>
-                                                <muted>2 Minutes Ago</muted>
-                                                <br/>
-                                                <a href="#">James Brown</a> subscribed to your newsletter.
+                                                {{ activity.subject }}
                                                 <br/>
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="desc">
-                                        <div class="thumb">
-                                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                                        </div>
-                                        <div class="details">
-                                            <p>
-                                                <muted>2 Minutes Ago</muted>
-                                                <br/>
-                                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                                <br/>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="desc">
-                                        <div class="thumb">
-                                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                                        </div>
-                                        <div class="details">
-                                            <p>
-                                                <muted>2 Minutes Ago</muted>
-                                                <br/>
-                                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                                <br/>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="desc">
-                                        <div class="thumb">
-                                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                                        </div>
-                                        <div class="details">
-                                            <p>
-                                                <muted>2 Minutes Ago</muted>
-                                                <br/>
-                                                <a href="#">James Brown</a> subscribed to your newsletter.
-                                                <br/>
-                                            </p>
-                                        </div>
-                                    </div>
+                                {% endfor %}
                                     <!-- Second Action -->
+                                
 
                                 </div>
                             </div>

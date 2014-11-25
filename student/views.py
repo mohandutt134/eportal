@@ -29,7 +29,7 @@ from django.http import HttpResponse
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context
 from django.template.loader import render_to_string
-from notification.models import notification
+from notification.models import notification,activity
 from django.core.exceptions import PermissionDenied
 
 
@@ -102,43 +102,32 @@ def add_material(request,id=None):
             course = Course.objects.get(course_id=id)
             if course.facultyassociated==request.user.faculty_profile:
                 if request.method=='POST':
-<<<<<<< HEAD
                     if 'save' in request.POST:
                         form=add_material_form(request.POST,request.FILES)
                         print form
                         if form.is_valid():
                             j=form.save(commit=False)
-                            j.course=Course.objects.get(course_id=id)
+                            course=Course.objects.get(course_id=id)
+                            j.course=course
                             j.addedby=request.user
                             j.save()
-                            print 'course/' + id
+                            subject="New Material Added: "+j.title
+                            activity.objects.create(subject=subject,course=course)
+                            students = student_profile.objects.filter(coursetaken=course)
+                            link = '/course/'+id
+                            for student in students:
+                                notification.objects.create(title="Course Update",body="New Material has been added",link=link,course=course,receiver=student.user,sender=request.user)
                             return redirect('course',id=id)
                         else:
                             print form.errors
                             return render(request,'add_material.html',{'form':form})
-=======
-                    form=add_materail_form(request.POST)
-                    if form.is_valid():
-                        j=form.save(commit=False)
-                        j.course=id
-                        j.addedby=request.user
-                        j.save()
-                        return render(request,'add_material.html',{'message':'material added successfully'})
-                    else:
-                        return render(request,'add_material.html',{'form':form})
->>>>>>> 10f143f52b17f4027d21fe8fb1995f62370204d2
                 else:
                     form=add_material_form()
                     return render(request,'add_material.html',{'form':form})
             else:
                 raise PermissionDenied
-<<<<<<< HEAD
         except Exception as e:
             return HttpResponse(e)
-=======
-        except:
-            raise PermissionDenied
->>>>>>> 10f143f52b17f4027d21fe8fb1995f62370204d2
 
 @login_required
 def courses(request):
@@ -155,7 +144,8 @@ def course(request,id=None):
         try:
             course = Course.objects.get(course_id=id)
             if course.facultyassociated==request.user.faculty_profile:
-                return render(request, 'admin_course_view.html',{'course':course})
+                activities = activity.objects.filter(course=course)
+                return render(request, 'admin_course_view.html',{'course':course,'activities':activities})
             else:
                 raise PermissionDenied()
                 

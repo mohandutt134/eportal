@@ -18,6 +18,7 @@ from django.template.context import RequestContext
 from django.contrib.auth.models import Group
 from notification.models import notification
 from student.models import Course
+from django.contrib.auth.decorators import login_required
 
 
 def login_view(request,next='home'):
@@ -167,3 +168,20 @@ def lock(request):
     return render(request, 'accounts/lock_screen.html')
 
 
+
+# password change function
+@login_required
+def change_password(request):
+    if request.method=="POST":
+        new_password = request.POST.get('change_password', '')
+        if new_password != '':
+            request.user.set_password(new_password)
+            request.user.save()
+            #new_password = make_password(new_password,salt=None,hasher='default')
+            # User.objects.select_related().filter(username=request.user.username).update(password=new_password)
+            return render(request, 'index.html', {'changed': "password changed successfully"}, context_instance=RequestContext(request))
+        else:
+            return render(request,'accounts/changepassword.html',{'msg':"Enter new Password"})
+    else:
+        return render(request,'accounts/changepassword.html',{'msg':"Enter new Password"})
+            

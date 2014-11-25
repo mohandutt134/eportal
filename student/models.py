@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from time import time
 # Create your models here.
+def get_upload_file_name(instance,filename):
+    return "material/%s_%s" % (str(time()).replace('.','_'),filename)
+
 class faculty_profile(models.Model):
     user = models.OneToOneField(User,primary_key=True)
     department=models.CharField(max_length=25)
@@ -47,3 +51,13 @@ class student_profile(models.Model):
 
 User.profile=property(lambda u: student.objects.get_or_create(u=u)[0])
 
+class material(models.Model):
+    title=models.CharField(max_length=50)
+    description=models.TextField(default="There is no Description")
+    course=models.ForeignKey(Course)
+    timestamp=models.DateTimeField(auto_now=True)
+    addedby=models.ForeignKey(User)
+    document=models.FileField(upload_to=get_upload_file_name)
+
+    def __unicode__(self):
+        return unicode(self.title) or u''

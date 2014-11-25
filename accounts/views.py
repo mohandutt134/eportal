@@ -18,6 +18,7 @@ from django.template.context import RequestContext
 from django.contrib.auth.models import Group
 from notification.models import notification
 from student.models import Course
+from django.contrib.auth.decorators import login_required
 
 
 def login_view(request,next='home'):
@@ -58,7 +59,13 @@ def logout_view(request):
 
 
 def register2(request):
-    return render (request,'accounts/register.html')
+
+    if request.method=="POST":
+        print "inside"
+        msg=registration_function(request)
+        return render (request,'accounts/register.html',{"msg":msg})
+    else:
+        return render (request,'accounts/register.html')
 
 def registration_function(request):
     R_username = request.POST.get('R_email', '')
@@ -66,6 +73,7 @@ def registration_function(request):
     R_lname = request.POST.get('R_lname', '')
     R_email = request.POST.get('R_email', '')
     R_category=request.POST.get('category','')
+    print R_username
     message_register_alert = ''
     if(R_username == ''):
         message_register_alert = "Enter Username Name"
@@ -84,12 +92,17 @@ def registration_function(request):
                 message_register_alert = "User Already Exits"
             else:
                 user1=User.objects.get(username="admin")
-                course1=Course.objects.get(course_id="CS50")
+                try:
+                    course1=Course.objects.get(course_id="CS50")
+                except:
+                    course1=None
                 user = User.objects.create_user(R_username, R_email, temp_pass)
                 try:
+                    print "notification"
                     notification.objects.create(title="Registered",body="YOU HAVE BEEN REGISTERD Please change your password & Complete your profile",link='/edit',course=course1,receiver=user,sender=user1)
                 except:
                     print "unable to create notification"
+
                 user.first_name = R_fname
                 user.last_name = R_lname
                 if(R_category=='student'):
@@ -99,6 +112,7 @@ def registration_function(request):
                     g = Group.objects.get(name='faculty')
                     g.user_set.add(user)
                     user.is_active=False
+                print "create"
                 user.save()
                 subject = "Confirmation  mail"
                 message = "Your password is " + temp_pass
@@ -108,7 +122,7 @@ def registration_function(request):
                 send_mail(subject, message, from_email, to_list, fail_silently=False)
                 message_register_alert = 'success'
         except:
-            print error
+            print 'error'
             message_register_alert = "Error occured in account creation"
             user.delete()
     return message_register_alert
@@ -154,3 +168,20 @@ def lock(request):
     return render(request, 'accounts/lock_screen.html')
 
 
+
+# password change function
+@login_required
+def change_password(request):
+    if request.method=="POST":
+        new_password = request.POST.get('change_password', '')
+        if new_password != '':
+            request.user.set_password(new_password)
+            request.user.save()
+            #new_password = make_password(new_password,salt=None,hasher='default')
+            # User.objects.select_related().filter(username=request.user.username).update(password=new_password)
+            return render(request, 'index.html', {'changed': "password changed successfully"}, context_instance=RequestContext(request))
+        else:
+            return render(request,'accounts/changepassword.html',{'msg':"Enter new Password"})
+    else:
+        return render(request,'accounts/changepassword.html',{'msg':"Enter new Password"})
+            

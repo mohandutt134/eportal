@@ -46,6 +46,18 @@ class student_profile(models.Model):
         return unicode(self.user) or u''
 
 
+class material(models.Model):
+    title=models.CharField(max_length=50)
+    description=models.TextField(default="There is no Description")
+    course=models.ForeignKey(Course)
+    timestamp=models.DateTimeField(auto_now=True)
+    addedby=models.ForeignKey(User)
+    document=models.FileField(upload_to='material')
+
+    def __unicode__(self):
+        return unicode(self.title) or u''
+
+
 #User.profile=property(lambda u: student_profile.objects.get_or_create(user=u)[0])
 
 

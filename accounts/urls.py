@@ -13,6 +13,7 @@ urlpatterns = patterns('accounts.views',
     url(r'^success/$', 'success', name='success'),
     url(r'^success2/$', 'success2', name='success2'),
     url(r'^lock/$', 'lock', name='lock'),
+    url(r'^change_password/$','change_password',name='change_password'),
 
 
 )

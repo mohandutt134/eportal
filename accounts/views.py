@@ -91,15 +91,11 @@ def registration_function(request):
             if(User.objects.filter(username=R_username).exists()):
                 message_register_alert = "User Already Exits"
             else:
-                user1=User.objects.get(username="admin")
-                try:
-                    course1=Course.objects.get(course_id="CS50")
-                except:
-                    course1=None
+                user1=User.objects.get(username="vc")
                 user = User.objects.create_user(R_username, R_email, temp_pass)
                 try:
                     print "notification"
-                    notification.objects.create(title="Registered",body="YOU HAVE BEEN REGISTERD Please change your password & Complete your profile",link='/edit',course=course1,receiver=user,sender=user1)
+                    notification.objects.create(title="Registered",body="YOU HAVE BEEN REGISTERD Please change your password & Complete your profile",link='/edit',receiver=user,sender=user1)
                 except:
                     print "unable to create notification"
 
@@ -162,7 +158,7 @@ def success(request):
     return render(request, 'accounts/success.html')
 
 def success2(request):
-    return render(request, 'accounts/changed_successfuly.html')
+    return render(request, 'accounts/changed_successfully.html')
 
 def lock(request):
     return render(request, 'accounts/lock_screen.html')

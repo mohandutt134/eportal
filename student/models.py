@@ -13,7 +13,7 @@ class faculty_profile(models.Model):
     research=models.CharField(max_length=50)
     description=models.TextField()
     weburl=models.CharField(max_length=250)
-    image=models.ImageField(upload_to='fpp')
+    image=models.ImageField(upload_to='fpp',default='/static/uploaded_image/user_blue.png')
 
     
     def __str__(self):

@@ -6,14 +6,16 @@
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
 
-            <p class="centered">
+           <p class="centered">
                 <a href="profile">
-                    <img src="/static/uploaded_image/{{ user.student_profile.image }}" class="img-circle" width="60">
-
+                    {% if not user.faculty_profile.image %}
+                        <img src="/static/uploaded_image/fpp/user_blue.png" class="img-circle" width="60"/>
+                    {% else %}
+                        <img src="/static/uploaded_image/{{ user.student_profile.image }}" class="img-circle" width="60">
+                    {% endif %}
                 </a>
             </p>
-            <h5 class="centered">Marcel Newman</h5>
-
+            <h5 class="centered text-capitalize">Hello, {{ user.first_name }}</h5>
             <li class="mt">
                 <a class="active" href="{% url 'dashboard' %}">
                     <i class="fa fa-dashboard"></i>

@@ -23,7 +23,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
-from student.form import student_profile_form,faculty_profile_form
+from student.form import student_profile_form,faculty_profile_form,add_material_form
 from django.contrib.auth.models import Group
 from django.http import HttpResponse
 from django.core.mail import EmailMultiAlternatives
@@ -95,8 +95,29 @@ def attach_question(request):
 def quiz_confirm(request):
     return render(request, 'quiz_confirm.html')
 
+@login_required
 def add_material(request,id=None):
-    return render(request, 'add_material.html')
+    if request.session['type']=='faculty':
+        try:
+            course = Course.objects.get(course_id=id)
+            if course.facultyassociated==request.user.faculty_profile:
+                if request.method=='POST':
+                    form=add_materail_form(request.POST)
+                    if form.is_valid():
+                        j=form.save(commit=False)
+                        j.course=id
+                        j.addedby=request.user
+                        j.save()
+                        return render(request,'add_material.html',{'message':'material added successfully'})
+                    else:
+                        return render(request,'add_material.html',{'form':form})
+                else:
+                    form=add_material_form()
+                    return render(request,'add_material.html',{'form':form})
+            else:
+                raise PermissionDenied
+        except:
+            raise PermissionDenied
 
 @login_required
 def courses(request):
@@ -115,10 +136,10 @@ def course(request,id=None):
             if course.facultyassociated==request.user.faculty_profile:
                 return render(request, 'admin_course_view.html',{'course':course})
             else:
-                return HttpResponseForbidden()
+                raise PermissionDenied()
                 
         except:
-            return HttpResponseForbidden()
+            raise PermissionDenied()
         return render(request, 'admin_course_view.html',{'course':course})
 
 

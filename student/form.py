@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from student.models import student_profile,faculty_profile
+from student.models import student_profile,faculty_profile,material
 
 class student_profile_form(ModelForm):
 	class Meta:
@@ -11,3 +11,6 @@ class faculty_profile_form(ModelForm):
 		model=faculty_profile
 		fields=['department','facultyrating','areaofinterest','research','description','weburl','image']
 
+class add_material_form(ModelForm):
+	class Meta:
+		model=material

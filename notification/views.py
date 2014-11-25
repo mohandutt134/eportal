@@ -26,8 +26,38 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
+from .utils import slug2id
 from django.contrib.auth.models import Group
-
+from notification.models import notification
+import json
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
 def notificationicon_create(request):
-	print "heloo"
+	if(request.method=='POST'):
+		data = {'foo': 'bar', 'hello': 'world'}
+		data=notification.objects.filter(receiver=request.user,viewed=False)
+		data=serializers.serialize("json",data)
+		print data
+		return HttpResponse(data)
+	else:
+		return render(request,'404.html',{})
+
+def notification_view(request,dynamic_view_url):
+	profile=notification.objects.get(receiver_id=dynamic_view_url)
+	profile.viewed=True
+	print profile.viewed
+	profile.save()
+	if(profile.title=='Registered'):
+		return HttpResponse("prfile form")
+	else:	
+		print profile.viewed
+		return HttpResponse("sucess")
+def message_view(request,dynamic_view_url):
+	profile=notification.objects.get(receiver_id=dynamic_view_url)
+	profile.viewed=True
+	print profile.viewed
+	profile.save()
+	print profile.viewed
 	return HttpResponse("sucess")
+

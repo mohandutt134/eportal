@@ -1,13 +1,14 @@
 {% extends 'accounts/base_accounts.html' %}
             {% block content %}
-            <form class="form-login" action="index.html">
+            <form class="form-login" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
                 <h2 class="form-login-heading">SIGN UP</h2>
                 <div class="login-wrap">
-                    <input type="text" class="form-control" placeholder="User ID" autofocus>
+                    <input type="text" name="R_email" class="form-control" placeholder="User ID" autofocus>
                     <br>
-                    <input type="text" class="form-control" placeholder="First Name">
+                    <input type="text" name="R_fname" class="form-control" placeholder="First Name">
                     <br>
-                    <input type="text" class="form-control" placeholder="Last Name">
+                    <input type="text" name="R_lname" class="form-control" placeholder="Last Name">
                     <br>
                     <div class='form-group'>
                         <label for="exampleInputEmail1" ><h5>Category&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5></label>
@@ -20,9 +21,17 @@
                         </label>
 
                     </div>
+                    <p style="color:red">{% if msg == "success" %}
+                        Password is sent to your email id
+                        {% endif %}</p>
+                        <p style="color:green">
+                        {% if msg != "success" %}
+                        Password is send to your email id
+                        {% endif %}
 
+                    </p>
                     
-                    <button class="btn btn-theme btn-block" href="index.html" type="submit"><i class="fa fa-sign-in"></i> SIGN UP</button>
+                    <button class="btn btn-theme btn-block"  type="submit"><i class="fa fa-sign-in"></i> SIGN UP</button>
                     <hr>
                     <h5 class="text-center">Already have an account? <a href="{% url 'login' %}">Login Here</a> </h5>
                 </div>

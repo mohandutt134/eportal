@@ -102,7 +102,6 @@ def add_material(request,id=None):
             course = Course.objects.get(course_id=id)
             if course.facultyassociated==request.user.faculty_profile:
                 if request.method=='POST':
-<<<<<<< HEAD
                     if 'save' in request.POST:
                         form=add_material_form(request.POST,request.FILES)
                         print form
@@ -116,29 +115,13 @@ def add_material(request,id=None):
                         else:
                             print form.errors
                             return render(request,'add_material.html',{'form':form})
-=======
-                    form=add_materail_form(request.POST)
-                    if form.is_valid():
-                        j=form.save(commit=False)
-                        j.course=id
-                        j.addedby=request.user
-                        j.save()
-                        return render(request,'add_material.html',{'message':'material added successfully'})
-                    else:
-                        return render(request,'add_material.html',{'form':form})
->>>>>>> 10f143f52b17f4027d21fe8fb1995f62370204d2
                 else:
                     form=add_material_form()
                     return render(request,'add_material.html',{'form':form})
             else:
                 raise PermissionDenied
-<<<<<<< HEAD
         except Exception as e:
             return HttpResponse(e)
-=======
-        except:
-            raise PermissionDenied
->>>>>>> 10f143f52b17f4027d21fe8fb1995f62370204d2
 
 @login_required
 def courses(request):

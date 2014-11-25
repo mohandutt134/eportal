@@ -17,4 +17,12 @@ class notification(models.Model):
    		return unicode(self.title) or u''
 
 
+class activity(models.Model):
+	subject = models.CharField(max_length=256)
+	time = models.DateTimeField(auto_now=True)
+	course = models.ForeignKey(Course)
+
+	def __unicode__(self):
+   		return unicode(self.subject) or u''
+
 

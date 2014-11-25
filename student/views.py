@@ -68,10 +68,6 @@ def home(request):
 
 
 def all_courses(request):
-    request.session['last']='courses'
-    if 'changed' in request.session:
-        del request.session['changed']
-        return render(request, 'courses.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
     return render(request, 'courses.html')
 
 
@@ -155,10 +151,6 @@ def course(request,id=None):
 
 
 def courseView(request):
-    request.session['last']='courses'
-    if 'changed' in request.session:
-        del request.session['changed']
-        return render(request, 'course.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
     if(request.method == 'POST'):
         course_id1 = request.POST.get('course_id', '')
         course_name1 = request.POST.get('course_name', '')
@@ -179,46 +171,23 @@ def courseView(request):
     return render(request, 'course.html', context_instance=RequestContext(request))
 
 
-
-def fc(request):
-    request.session['last']='courses'
-    if 'changed' in request.session:
-        del request.session['changed']
-        return render(request, 'fc.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
-    request.session['last']='fc'
-    return render(request,'add_question.html')
-
 @login_required
 def dashboard(request):
-    request.session['last']='courses'
     if request.user.groups.filter(name='faculty').exists():
         request.session['type']='faculty'
-        if 'changed' in request.session:
-            del request.session['changed']
-            return render(request, 'fc.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
-        request.session['last']='fc'
-        return render(request,'dashboard.html',{'courses':courses,'temp':'base/sidebarf.html'})
+        return render(request, 'dashboard.html',{'temp':'base/sidebarf.html'}, context_instance=RequestContext(request))
     else:
         request.session['type']='student'
         return render(request,'dashboard.html',{'temp':'base/sidebars.html'})
 
 
 def about (request):
-    request.session['last']='courses'
-    if 'changed' in request.session:
-        del request.session['changed']
-        return render(request, 'about.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
-    request.session['last']='about'
     return render(request,'about.html')
 
 
 
 @login_required
 def edit(request):
-    request.session['last']='courses'
-    if 'changed' in request.session:
-        del request.session['changed']
-        return render(request, 'edit.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
     if request.user.groups.filter(name='student').exists():
         if request.method=='POST':
             if student_profile.objects.filter(user_id=request.user.id).exists():
@@ -283,14 +252,11 @@ def mail(request):
     return HttpResponse("SUCCESS")
 
 def changePassword(request):
+    redirect_to = request.GET.get('next','')
     if 'change_password_submit' in request.POST:
         new_password = request.POST.get('new_password', '')
         if new_password != '':
             request.user.set_password(new_password)
             request.user.save()
-            #new_password = make_password(new_password,salt=None,hasher='default')
-            # User.objects.select_related().filter(username=request.user.username).update(password=new_password)
-            request.session['changed']=True
-    print request.session['last']
-    return redirect(request.session['last'])
+    return redirect(redirect_to)
 

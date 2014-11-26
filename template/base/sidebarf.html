@@ -42,8 +42,27 @@
                 </ul>
             </li>
 
-            
+
             <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-cogs"></i>
+                    <span>QUIZ</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="{% url 'add_question' %}">Add Question</a>
+                    </li>
+                    <li><a href="{% url 'attach_question' %}">Add Quiz</a>
+                    </li>
+                    <li><a href="{% url 'edit_spec' %}">Edit Specifiaction</a>
+                    </li>
+                    <li><a href="{% url 'quiz_control' %}">Quiz Control</a>
+                    </li>
+                    <li><a href="{% url 'quiz_confirm' %}">Quiz Confirm</a>
+                    </li>
+                    
+                </ul>
+            </li>
+                       <li class="sub-menu">
                 <a href="javascript:;">
                     <i class=" glyphicon glyphicon-cog"></i>
                     <span>SETTINGS</span>

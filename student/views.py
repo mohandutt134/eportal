@@ -75,22 +75,6 @@ def faculty(request):
     request.session['last']='home'
     return render(request,'faculty.html',context_instance=RequestContext(request))
 
-
-def edit_spec(request):
-    return render(request, 'edit_spec.html')
-
-def quiz_control(request):
-    return render(request, 'quiz_control.html')
-
-def add_question(request):
-    return render(request, 'add_question.html')
-
-def attach_question(request):
-    return render(request, 'attach_question.html')
-
-def quiz_confirm(request):
-    return render(request, 'quiz_confirm.html')
-
 @login_required
 def add_material(request,id=None):
     if request.session['type']=='faculty':
@@ -145,8 +129,8 @@ def course(request,id=None):
             else:
                 raise PermissionDenied()
                 
-        except:
-            raise PermissionDenied()
+        except Exception as e:
+            return HttpResponse(e)
         return render(request, 'admin_course_view.html',{'course':course})
 
 
@@ -175,7 +159,10 @@ def courseView(request):
 def dashboard(request):
     if request.user.groups.filter(name='faculty').exists():
         request.session['type']='faculty'
-        return render(request, 'dashboard.html',{'temp':'base/sidebarf.html'}, context_instance=RequestContext(request))
+        courses = Course.objects.filter(facultyassociated=request.user.faculty_profile)
+        for course in courses:
+            temp_dict[course.course_id]=student_profile.objects.filter(coursetaken=course).count()
+        return render(request, 'dashboard.html',{'temp':'base/sidebarf.html',context_instance=RequestContext(request))
     else:
         request.session['type']='student'
         return render(request,'dashboard.html',{'temp':'base/sidebars.html'})
@@ -258,5 +245,6 @@ def changePassword(request):
         if new_password != '':
             request.user.set_password(new_password)
             request.user.save()
+            notification.objects.create(title="Confirmation",body="Password Changed Successfully",link="#",receiver=request.user,sender=request.user)
     return redirect(redirect_to)
 

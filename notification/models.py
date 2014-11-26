@@ -4,6 +4,7 @@ from student.models import Course
 # Create your models here.
 
 class notification(models.Model):
+	n_id = models.AutoField(primary_key=True)
 	title = models.CharField(max_length=256)
 	body = models.TextField()
 	viewed = models.BooleanField(default=False)

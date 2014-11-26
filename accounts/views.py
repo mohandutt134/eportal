@@ -73,7 +73,6 @@ def registration_function(request):
     R_lname = request.POST.get('R_lname', '')
     R_email = request.POST.get('R_email', '')
     R_category=request.POST.get('category','')
-    print R_username
     message_register_alert = ''
     if(R_username == ''):
         message_register_alert = "Enter Username Name"
@@ -87,22 +86,18 @@ def registration_function(request):
         error="Null"
         try:
             temp_pass = get_password()
-            print temp_pass
             if(User.objects.filter(username=R_username).exists()):
                 message_register_alert = "User Already Exits"
             else:
-                user1=User.objects.get(username="admin")
-                try:
-                    course1=Course.objects.get(course_id="CS50")
-                except:
-                    course1=None
+                user1=User.objects.get(username="kraken")
                 user = User.objects.create_user(R_username, R_email, temp_pass)
+                print "user created"
                 try:
                     print "notification"
-                    notification.objects.create(title="Registered",body="YOU HAVE BEEN REGISTERD Please change your password & Complete your profile",link='/edit',course=course1,receiver=user,sender=user1)
+                    notification.objects.create(title="Registered",body="YOU HAVE BEEN REGISTERD Please change your password & Complete your profile",link='/edit',receiver=user,sender=user1)
                 except:
                     print "unable to create notification"
-
+                print temp_pass
                 user.first_name = R_fname
                 user.last_name = R_lname
                 if(R_category=='student'):

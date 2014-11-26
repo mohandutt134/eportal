@@ -1,6 +1,7 @@
 {% extends 'base/sidebarf.html' %}
 
  {% load staticfiles %}
+ {% load cssFilter %}
  {% block content %}
         
 
@@ -27,19 +28,22 @@
                             <!-- SERVER STATUS PANELS -->
 
                             <div class="form-panel">
-                                <form class="form-horizontal style-form" method="POST">
+                                <form class="form-horizontal style-form" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
 
                                     {% for field in form %}
                                     <div class="form-group">
-                                        <label class="col-sm-4 control-label"><b>Title</b></label>
+                                        <label class="col-sm-4 control-label"><b>{{field.label}}</b></label>
                                         <div class="col-sm-8 pull-right">
-                                            <input type="text" class="form-control">
+                                            
+                                            {{ field|add_attributes:"form-control"}}
+                                            {{ field.errors }}
                                         </div>
                                     </div>
+                                    {% endfor %}
                                     <legend class="center-block"></legend>
                                     <div class="inline">
-                                        <input type="submit" value="Save" name="save" class="btn btn-primary btn-lg btn-block">
+                                        <input type="submit" value="save" name="save" class="btn btn-primary btn-lg btn-block">
                                     </div>
                                 </form>
                             </div>

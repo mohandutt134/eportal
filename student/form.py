@@ -14,3 +14,4 @@ class faculty_profile_form(ModelForm):
 class add_material_form(ModelForm):
 	class Meta:
 		model=material
+		fields=['title','description','document']

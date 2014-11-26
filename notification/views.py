@@ -26,7 +26,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
-from .utils import slug2id
 from django.contrib.auth.models import Group
 from notification.models import notification
 import json
@@ -43,16 +42,18 @@ def notificationicon_create(request):
 	else:
 		return render(request,'404.html',{})
 
-def notification_view(request,dynamic_view_url):
-	profile=notification.objects.get(receiver_id=dynamic_view_url)
+def notification_view(request,id):
+	profile=notification.objects.get(receiver=request.user,n_id=id)
 	profile.viewed=True
-	print profile.viewed
+	print request.GET.get('time')
 	profile.save()
 	if(profile.title=='Registered'):
 		return HttpResponse("prfile form")
-	else:	
+	else:
+		if profile.link=='#':
+			return redirect(request.GET.get('next'))
 		print profile.viewed
-		return HttpResponse("sucess")
+		return HttpResponse(request.GET.get(next))
 def message_view(request,dynamic_view_url):
 	profile=notification.objects.get(receiver_id=dynamic_view_url)
 	profile.viewed=True

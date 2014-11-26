@@ -31,6 +31,7 @@ from notification.models import notification
 import json
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+
 @csrf_exempt
 def notificationicon_create(request):
 	if(request.method=='POST'):
@@ -54,6 +55,7 @@ def notification_view(request,id):
 			return redirect(request.GET.get('next'))
 		print profile.viewed
 		return HttpResponse(request.GET.get(next))
+
 def message_view(request,dynamic_view_url):
 	profile=notification.objects.get(receiver_id=dynamic_view_url)
 	profile.viewed=True

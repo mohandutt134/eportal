@@ -21,11 +21,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '$9b^ttpvr66hxr0w6d*nep&=f5(hzdpmob)ng(a)yp*&sj1nsw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+DEBUG = True
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -49,8 +49,6 @@ INSTALLED_APPS = (
  
 # Minimum password strength settings. See the GitHub page for defaults.
 # https://github.com/dstufft/django-passwords/
-PASSWORD_MIN_LENGTH = 8
-PASSWORD_COMPLEXITY = { "UPPER":  1, "LOWER":  1, "DIGITS": 1 }
 SITE_ID = 1
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

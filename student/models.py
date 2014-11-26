@@ -20,12 +20,32 @@ class faculty_profile(models.Model):
         return self.user.username
 
 class Course(models.Model):
+    CHOICES = (
+        ('CSE', 'CSE'),
+        ('ECE', 'ECE'),
+        ('MEC', 'MEC'),
+        ('IBT', 'IBT'),
+        ('OTHER','OTHER')
+    )
+    CHOICES_SEM = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+        ('8', '8'),
+        ('OPEN', 'OPEN')
+
+    )
     course_id=models.CharField(max_length=10,primary_key=True)
     course_name=models.CharField(max_length=50)
+    dept=models.CharField(max_length=5,choices=CHOICES,default='OTHER')
     description=models.TextField(default="There is no description")
     start_date=models.DateField()
     end_date=models.DateField()
-    semester=models.IntegerField()
+    semester=models.CharField(max_length=4,choices=CHOICES_SEM,default='OPEN')
     image=models.ImageField(upload_to='cpp')
     credits=models.CharField(max_length=10)
     facultyassociated=models.ForeignKey(faculty_profile,blank=True,null=True,related_name='mentor')

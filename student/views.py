@@ -89,7 +89,7 @@ def attach_question(request):
     return render(request, 'attach_question.html')
 
 def quiz_confirm(request):
-    return render(request, 'quiz_confirm.html')
+    return render(request, 'public_courses.html')
 
 @login_required
 def add_material(request,id=None):
@@ -176,9 +176,7 @@ def dashboard(request):
     if request.user.groups.filter(name='faculty').exists():
         request.session['type']='faculty'
         courses = Course.objects.filter(facultyassociated=request.user.faculty_profile)
-        for course in courses:
-            temp_dict[course.course_id]=student_profile.objects.filter(coursetaken=course).count()
-        return render(request, 'dashboard.html',{'temp':'base/sidebarf.html',context_instance=RequestContext(request))
+        return render(request, 'dashboard.html',{'temp':'base/sidebarf.html','courses':courses},context_instance=RequestContext(request))
     else:
         request.session['type']='student'
         return render(request,'dashboard.html',{'temp':'base/sidebars.html'})

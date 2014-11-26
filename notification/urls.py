@@ -8,4 +8,5 @@ urlpatterns = patterns('notification.views',
 	url(r'^notificationicon_create$','notificationicon_create',name='notificationicon_create'),
 	url(r'^notification_view/(?P<dynamic_view_url>.*)/$','notification_view',name='notificationicon_view'),
 	url(r'^message_view/(?P<dynamic_view_url>.*)/$','message_view',name='message_view'),
+	url(r'^all_notification/$','all_notification',name='all_notification'),
 	)

@@ -79,22 +79,6 @@ def faculty(request):
     request.session['last']='home'
     return render(request,'faculty.html',context_instance=RequestContext(request))
 
-
-def edit_spec(request):
-    return render(request, 'edit_spec.html')
-
-def quiz_control(request):
-    return render(request, 'quiz_control.html')
-
-def add_question(request):
-    return render(request, 'add_question.html')
-
-def attach_question(request):
-    return render(request, 'attach_question.html')
-
-def quiz_confirm(request):
-    return render(request, 'quiz_confirm.html')
-
 @login_required
 def add_material(request,id=None):
     if request.session['type']=='faculty':

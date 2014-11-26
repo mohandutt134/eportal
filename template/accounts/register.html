@@ -21,12 +21,12 @@
                         </label>
 
                     </div>
-                    <p style="color:red">{% if msg == "success" %}
+                    <p style="color:green">{% if msg == "success" %}
                         Password is sent to your email id
                         {% endif %}</p>
-                        <p style="color:green">
+                        <p style="color:red">
                         {% if msg != "success" %}
-                        Password is send to your email id
+                        {{msg}}
                         {% endif %}
 
                     </p>

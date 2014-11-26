@@ -61,3 +61,8 @@ def message_view(request,dynamic_view_url):
 	print profile.viewed
 	return HttpResponse("sucess")
 
+def all_notification(request):
+	print request.user
+	#profile=notification.objects.all(receiver=request.user)
+	return HttpResponse('profile')
+

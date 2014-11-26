@@ -21,8 +21,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '$9b^ttpvr66hxr0w6d*nep&=f5(hzdpmob)ng(a)yp*&sj1nsw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = False
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -46,8 +46,11 @@ INSTALLED_APPS = (
     'notification',
     'smartextends',
 )
-
-
+ 
+# Minimum password strength settings. See the GitHub page for defaults.
+# https://github.com/dstufft/django-passwords/
+PASSWORD_MIN_LENGTH = 8
+PASSWORD_COMPLEXITY = { "UPPER":  1, "LOWER":  1, "DIGITS": 1 }
 SITE_ID = 1
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -113,7 +116,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/uploaded_image')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".

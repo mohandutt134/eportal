@@ -56,13 +56,13 @@ function notification_body(notification){
                             '</li>' );
 for(var i=0;i<Object.keys(notification).length;i++){
   $("#n_body").append(' <li>'+
-                              '<a href="/notification/notification_view/'+notification[0].fields.receiver+'" style="white-space: wrap;Overflow:auto;">'+
+                              '<a href="/notification/notification_view/'+notification[i].pk+'/?next='+document.URL+'" style="white-space: wrap;Overflow:auto;">'+
                                     '<span class="photo"><img alt="avatar" src="/static/assets/img/ui-sam.jpg"></span>'+
                                     '<span class="subject">'+
-                                    '<span class="from">'+notification[0].fields.title+'</span>'+
+                                    '<span class="from">'+notification[i].fields.title+'</span>'+
                                     '<span class="time">Just now</span>'+
                                     '</span>'+
-                                    '<span class="message" style="display:block" >'+notification[0].fields.body+'</span>'+
+                                    '<span class="message" style="display:block" >'+notification[i].fields.body+'</span>'+
                                 '</a>'+
                             '</li>');
 }

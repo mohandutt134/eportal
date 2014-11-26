@@ -8,6 +8,12 @@
 {% block extrastyle %}
     {{ block.super }}
     {% load staticfiles %}
+    <style type="text/css">
+  body{
+    background-image: url('/static/assets/img/login-bg.jpg');
+  }
+
+</style>
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/bootstrap.min.css' %}" />
     <script src="{% static 'admin/js/jquery-1.11.1.min.js' %}" ></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" ></script>

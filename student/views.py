@@ -169,7 +169,7 @@ def dashboard(request):
 
 
 def about (request):
-    return render(request,'about.html')
+    return render(request,'template.html')
 
 
 
@@ -248,3 +248,6 @@ def changePassword(request):
             notification.objects.create(title="Confirmation",body="Password Changed Successfully",link="#",receiver=request.user,sender=request.user)
     return redirect(redirect_to)
 
+@login_required
+def profile (request):
+    return render(request,'profile.html')

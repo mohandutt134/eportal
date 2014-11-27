@@ -90,3 +90,21 @@ def bulk_message(request,id):
 			return HttpResponse(e)
 	else:
 		return HttpResponse("Permission Denied")
+
+
+@csrf_exempt
+def messageToFaculty(request,email):
+	if request.method=='POST':
+		try:
+			title = request.POST.get('title')
+			body = request.POST.get('body')
+			receiver = User.objects.get(email=email)
+			if request.user.faculty_profile:
+				message.objects.create(title=title,body=body,sender=request.user,senderName=request.user.first_name,senderImage=request.user.faculty_profile.image,receiver=receiver)
+			else:
+				message.objects.create(title=title,body=body,sender=request.user,senderName=request.user.first_name,senderImage=request.user.student_profile.image,receiver=receiver)
+			return HttpResponse("success")
+		except Exception as e:
+			return HttpResponse("success")
+	else:
+		return HttpResponse("Permission Denied")

@@ -175,17 +175,21 @@ def courseView(request):
 
 @login_required
 def dashboard(request):
+    faculty_cse = faculty_profile.objects.filter(department="CSE")
+    faculty_ece = faculty_profile.objects.filter(department="ECE")
+    faculty_mec = faculty_profile.objects.filter(department="MEC")
+    faculty_ibt = faculty_profile.objects.filter(department="IBT")
     if request.user.groups.filter(name='faculty').exists():
         request.session['type']='faculty'
         courses = Course.objects.filter(facultyassociated=request.user.faculty_profile)
-        return render(request, 'dashboard.html',{'temp':'base/sidebarf.html','courses':courses},context_instance=RequestContext(request))
+        return render(request, 'dashboard.html',{'temp':'base/sidebarf.html','courses':courses,'faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt},context_instance=RequestContext(request))
     else:
         request.session['type']='student'
-        return render(request,'dashboard.html',{'temp':'base/sidebars.html'})
+        return render(request,'dashboard.html',{'temp':'base/sidebars.html','faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt})
 
 
 def about (request):
-    return render(request,'about.html')
+    return render(request,'template.html')
 
 
 
@@ -264,3 +268,6 @@ def changePassword(request):
             notification.objects.create(title="Confirmation",body="Password Changed Successfully",link="#",receiver=request.user,sender=request.user)
     return redirect(redirect_to)
 
+@login_required
+def profile (request):
+    return render(request,'profile.html')

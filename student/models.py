@@ -15,8 +15,7 @@ class faculty_profile(models.Model):
     )
     user = models.OneToOneField(User,primary_key=True)
     department=models.CharField(max_length=3,choices=CHOICES,default='CSE')
-    facultyrating=models.IntegerField(validators=[MinValueValidator(0),
-                                       MaxValueValidator(5)],default=0)
+    facultyrating=models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(5)],default=0)
     areaofinterest=models.CharField(max_length=40,blank=True)
     research=models.CharField(max_length=50,blank=True)
     description=models.TextField(blank=True)

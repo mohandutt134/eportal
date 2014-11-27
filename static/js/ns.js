@@ -133,3 +133,28 @@ function messageViewed(mid){
         }
 });
 }
+
+function message_to_faculty(mail){
+  var form = $("#message_form");
+  url = "/notification/messageToFaculty/"+mail+"/";
+  console.log("action changed");
+  $("#message_form").attr('action',url);
+}
+
+function send_message(){
+var frm = $("#message_form");
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (data) {
+                console.log("Success");
+                $("#messageModel").hide();
+                console.log("SHide");
+                create_post();
+            },
+            error: function(data) {
+                console.log("error");
+            }
+        });
+}

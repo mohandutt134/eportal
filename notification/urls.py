@@ -10,4 +10,5 @@ urlpatterns = patterns('notification.views',
 	url(r'^message_view/$','message_view',name='message_view'),
 	url(r'^all_notification/$','all_notification',name='all_notification'),
 	url(r'^bulk_message/(?P<id>.*)/$','bulk_message',name='bulk_message'),
+	url(r'^messageToFaculty/(?P<email>.*)/$','messageToFaculty',name='messageToFaculty'),
 	)

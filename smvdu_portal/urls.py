@@ -20,7 +20,7 @@ urlpatterns = patterns('student.views',
    
     url(r'^course/(?P<id>[0-9A-Za-z_\-]+)$', 'course', name='course'),
     url(r'^courses$', 'courses', name='courses'),
-    
+    url(r'^profile$', 'profile', name='profile'),
     url(r'^faculty$', 'faculty', name='faculty'),
     url(r'^about$', 'about', name='about'),
     url(r'^edit/$', 'edit', name='edit'),

@@ -21,16 +21,16 @@
                         </label>
 
                     </div>
-                    <p style="color:red">{% if msg == "success" %}
+                    <p style="color:green" class="text-center">{% if msg == "success" %}
                         Password is sent to your email id
                         {% endif %}</p>
-                        <p style="color:green">
+                        <p style="color:red" class="text-center">
                         {% if msg != "success" %}
-                        Password is send to your email id
+                        {{msg}}
                         {% endif %}
 
                     </p>
-                    
+                    <br>
                     <button class="btn btn-theme btn-block"  type="submit"><i class="fa fa-sign-in"></i> SIGN UP</button>
                     <hr>
                     <h5 class="text-center">Already have an account? <a href="{% url 'login' %}">Login Here</a> </h5>

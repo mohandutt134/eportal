@@ -75,7 +75,6 @@ def faculty(request):
     request.session['last']='home'
     return render(request,'faculty.html',context_instance=RequestContext(request))
 
-
 def edit_spec(request):
     return render(request, 'edit_spec.html')
 
@@ -90,6 +89,7 @@ def attach_question(request):
 
 def quiz_confirm(request):
     return render(request, 'public_courses.html')
+
 
 @login_required
 def add_material(request,id=None):
@@ -134,6 +134,8 @@ def courses(request):
         except:
             courses=None
         return render(request, 'courses.html',{'temp':'base/sidebarf.html','courses':courses})
+    elif request.session['type'] == 'student':
+        return HttpResponse("UNDER CONSTRUCTION")
 
 def course(request,id=None):
     if request.session['type'] == 'faculty':

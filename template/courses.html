@@ -12,6 +12,7 @@
 
 
                         <div class="row mt">
+                        {% if courses.count > 0 %}
                         {% for course in courses %}
                             <div class="col-md-4 col-sm-4 mb">
                                 <a href="course/{{ course.course_id }}">
@@ -21,7 +22,7 @@
                                             <div class="blog-title">{{course.course_name}}</div>
                                         </div>
                                         <div class="blog-text">
-                                            <p>{{course.about}}<a href="#">Read More</a>
+                                            <p>{{course.description}}<a href="#">Read More</a>
                                             </p>
                                         </div>
                                     </div>
@@ -65,6 +66,13 @@
                             {% endfor %}
                             </div>
                             <!--custom chart end-->
+                            {% else %}
+                            <div class="col-md-12 mb">
+                                <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">
+                                    <h1>You are not running any course currently!!!</h1>
+                                </div>
+                            </div>
+                        {% endif %}
                         </div>
                         <!-- /row -->
 

@@ -3,12 +3,18 @@
 
 
  {% block content %}
+   
 
        <div class="row">
+
+                    <!-- RIGHT SIDEBAR CONTENT
+      *********************************************************************************************************************************************************** -->
+                    <h3 class="goright">Questions added:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</h3>
                     <div class="col-lg-3">
                         <div class="form-panel">
                             <h4 class="mb"><i class="fa fa-angle-right"></i> Filters</h4>
-                            <form class="form-horizontal style-form" method="get">
+                            <form class="form-horizontal style-form" method="POST">
+                                {% csrf_token %}
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="input-group">
@@ -71,13 +77,144 @@
                                     </div>
                                     <div class="pull-right">
                                         <button type="button" class="btn btn-warning btn-xs" data-target="#fullQuestion" data-toggle="modal"><i class="fa fa-expand"></i> Full Question</button>
-                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-magnet"></i> Add Question</button>
+                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-download"></i> Add Question</button>
+
                                     </div>
                                 </h4>
                             </div>
                             <!-- /form-panel -->
 
-                        </div> 
+                        </div>
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+                            <div class="form-panel">
+                                <h4 class="mb"><i class="fa fa-hand-o-right"></i> this is the first question and we are writing this all bull shit because we need some dummy
+                                    <br>
+                                    <br>
+                                    <div class="pull-left">
+                                        <h5><i class="fa fa-user"></i> Added by: &nbsp;&nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i>rating:</h5>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-warning btn-xs" data-target="#fullQuestion" data-toggle="modal"><i class="fa fa-expand"></i> Full Question</button>
+                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-download"></i> Add Question</button>
+                                    </div>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+                            <div class="form-panel">
+                                <h4 class="mb"><i class="fa fa-hand-o-right"></i> this is the first question and we are writing this all bull shit because we need some dummy
+                                    <br>
+                                    <br>
+                                    <div class="pull-left">
+                                        <h5><i class="fa fa-user"></i> Added by: &nbsp;&nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i>rating:</h5>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-warning btn-xs" data-target="#fullQuestion" data-toggle="modal"><i class="fa fa-expand"></i> Full Question</button>
+
+                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-magnet"></i> Add Question</button>
+                                    </div>
+                                </h4>
+                            </div>
+                            <!-- /form-panel -->
+                        </div>
+                        <div class="row">
+
+                            <!-- SERVER STATUS PANELS -->
+                            <div class="form-panel">
+                                <h4 class="mb"><i class="fa fa-hand-o-right"></i> this is the first question and we are writing this all bull shit because we need some dummy
+                                    <br>
+                                    <br>
+                                    <div class="pull-left">
+                                        <h5><i class="fa fa-user"></i> Added by: &nbsp;&nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i>rating:</h5>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-warning btn-xs" data-target="#fullQuestion" data-toggle="modal"><i class="fa fa-expand"></i> Full Question</button>
+                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-download"></i> Add Question</button>
+
+                                    </div>
+                                </h4>
+                            </div>
+                            <!-- /form-panel -->
+
+                        </div>
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+                            <div class="form-panel">
+                                <h4 class="mb"><i class="fa fa-hand-o-right"></i> this is the first question and we are writing this all bull shit because we need some dummy
+                                    <br>
+                                    <br>
+                                    <div class="pull-left">
+                                        <h5><i class="fa fa-user"></i> Added by: &nbsp;&nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i>rating:</h5>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-warning btn-xs" data-target="#fullQuestion" data-toggle="modal"><i class="fa fa-expand"></i> Full Question</button>
+                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-download"></i> Add Question</button>
+
+                                    </div>
+                                </h4>
+                            </div>
+                            <!-- /form-panel -->
+
+                        </div>
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+                            <div class="form-panel">
+                                <h4 class="mb"><i class="fa fa-hand-o-right"></i> this is the first question and we are writing this all bull shit because we need some dummy
+                                    <br>
+                                    <br>
+                                    <div class="pull-left">
+                                        <h5><i class="fa fa-user"></i> Added by: &nbsp;&nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i>rating:</h5>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-warning btn-xs" data-target="#fullQuestion" data-toggle="modal"><i class="fa fa-expand"></i> Full Question</button>
+                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-download"></i> Add Question</button>
+
+                                    </div>
+                                </h4>
+                            </div>
+                            <!-- /form-panel -->
+                        </div>
+                        <div class="row">
+
+                            <!-- SERVER STATUS PANELS -->
+                            <div class="form-panel">
+                                <h4 class="mb"><i class="fa fa-hand-o-right"></i> this is the first question and we are writing this all bull shit because we need some dummy
+                                    <br>
+                                    <br>
+                                    <div class="pull-left">
+                                        <h5><i class="fa fa-user"></i> Added by: &nbsp;&nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i>rating:</h5>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-warning btn-xs" data-target="#fullQuestion" data-toggle="modal"><i class="fa fa-expand"></i> Full Question</button>
+
+                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-download"></i> Add Question</button>
+
+                                    </div>
+                                </h4>
+                            </div>
+                            <!-- /form-panel -->
+
+                        </div>
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+                            <div class="form-panel">
+                                <h4 class="mb"><i class="fa fa-hand-o-right"></i> this is the first question and we are writing this all bull shit because we need some dummy
+                                    <br>
+                                    <br>
+                                    <div class="pull-left">
+                                        <h5><i class="fa fa-user"></i> Added by: &nbsp;&nbsp;&nbsp;<i class="fa fa-thumbs-o-up"></i>rating:</h5>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-warning btn-xs" data-target="#fullQuestion" data-toggle="modal"><i class="fa fa-expand"></i> Full Question</button>
+                                        <button type="button" class="btn btn-info btn-xs"><i class="fa fa-download"></i> Add Question</button>
+                                    </div>
+                                </h4>
+                            </div>
+                          
+
+                        </div>
                     </div>
                 </div>
 

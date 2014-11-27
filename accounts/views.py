@@ -17,7 +17,7 @@ from django.core.urlresolvers import reverse
 from django.template.context import RequestContext
 from django.contrib.auth.models import Group
 from notification.models import notification
-from student.models import Course
+from student.models import Course,faculty_profile,student_profile
 from django.contrib.auth.decorators import login_required
 
 
@@ -93,22 +93,25 @@ def registration_function(request):
                 user = User.objects.create_user(R_username, R_email, temp_pass)
                 print "user created"
                 try:
-                    print "notification"
                     notification.objects.create(title="Registered",body="YOU HAVE BEEN REGISTERD Please change your password & Complete your profile",link='/edit',receiver=user,sender=user1)
-                except:
-                    print "unable to create notification"
+                except Exception as e:
+                    print e
                 print temp_pass
                 user.first_name = R_fname
                 user.last_name = R_lname
                 if(R_category=='student'):
                     g = Group.objects.get(name='student')
-                    g.user_set.add(user) 
+                    g.user_set.add(user)
                 else:
                     g = Group.objects.get(name='faculty')
                     g.user_set.add(user)
                     user.is_active=False
                 print "create"
                 user.save()
+                if(R_category=='student'):
+                    student_profile.objects.create(user=user) 
+                else:
+                    faculty_profile.objects.create(user=user)
                 subject = "Confirmation  mail"
                 message = "Your password is " + temp_pass
                 from_email = settings.EMAIL_HOST_USER
@@ -116,8 +119,8 @@ def registration_function(request):
                 print "above mail"
                 send_mail(subject, message, from_email, to_list, fail_silently=False)
                 message_register_alert = 'success'
-        except:
-            print 'error'
+        except Exception as e:
+            print e
             message_register_alert = "Error occured in account creation"
             user.delete()
     return message_register_alert
@@ -157,7 +160,7 @@ def success(request):
     return render(request, 'accounts/success.html')
 
 def success2(request):
-    return render(request, 'accounts/changed_successfuly.html')
+    return render(request, 'accounts/changed_successfully.html')
 
 def lock(request):
     return render(request, 'accounts/lock_screen.html')

@@ -11,13 +11,13 @@ class Migration(SchemaMigration):
         # Adding model 'faculty_profile'
         db.create_table(u'student_faculty_profile', (
             ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
-            ('department', self.gf('django.db.models.fields.CharField')(max_length=25)),
-            ('facultyrating', self.gf('django.db.models.fields.CharField')(max_length=5)),
+            ('department', self.gf('django.db.models.fields.CharField')(default='CSE', max_length=3)),
+            ('facultyrating', self.gf('django.db.models.fields.IntegerField')(blank=True)),
             ('areaofinterest', self.gf('django.db.models.fields.CharField')(max_length=40)),
             ('research', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('description', self.gf('django.db.models.fields.TextField')()),
             ('weburl', self.gf('django.db.models.fields.CharField')(max_length=250)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(default='/static/uploaded_image/user_blue.png', max_length=100)),
         ))
         db.send_create_signal(u'student', ['faculty_profile'])
 
@@ -25,10 +25,11 @@ class Migration(SchemaMigration):
         db.create_table(u'student_course', (
             ('course_id', self.gf('django.db.models.fields.CharField')(max_length=10, primary_key=True)),
             ('course_name', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('about', self.gf('django.db.models.fields.TextField')()),
+            ('dept', self.gf('django.db.models.fields.CharField')(default='OTHER', max_length=5)),
+            ('description', self.gf('django.db.models.fields.TextField')(default='There is no description')),
             ('start_date', self.gf('django.db.models.fields.DateField')()),
             ('end_date', self.gf('django.db.models.fields.DateField')()),
-            ('semester', self.gf('django.db.models.fields.IntegerField')()),
+            ('semester', self.gf('django.db.models.fields.CharField')(default='OPEN', max_length=4)),
             ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
             ('credits', self.gf('django.db.models.fields.CharField')(max_length=10)),
             ('facultyassociated', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='mentor', null=True, to=orm['student.faculty_profile'])),
@@ -39,8 +40,8 @@ class Migration(SchemaMigration):
         db.create_table(u'student_student_profile', (
             ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
             ('DOB', self.gf('django.db.models.fields.DateField')()),
-            ('Branch', self.gf('django.db.models.fields.CharField')(default=None, max_length=10)),
-            ('Semester', self.gf('django.db.models.fields.CharField')(default=None, max_length=10)),
+            ('Branch', self.gf('django.db.models.fields.CharField')(default='CSE', max_length=5)),
+            ('Semester', self.gf('django.db.models.fields.CharField')(default='1', max_length=4)),
             ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
         ))
         db.send_create_signal(u'student', ['student_profile'])
@@ -53,6 +54,18 @@ class Migration(SchemaMigration):
             ('course', models.ForeignKey(orm[u'student.course'], null=False))
         ))
         db.create_unique(m2m_table_name, ['student_profile_id', 'course_id'])
+
+        # Adding model 'material'
+        db.create_table(u'student_material', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=50)),
+            ('description', self.gf('django.db.models.fields.TextField')(default='There is no Description')),
+            ('course', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['student.Course'])),
+            ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
+            ('addedby', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
+            ('document', self.gf('django.db.models.fields.files.FileField')(max_length=100)),
+        ))
+        db.send_create_signal(u'student', ['material'])
 
 
     def backwards(self, orm):
@@ -67,6 +80,9 @@ class Migration(SchemaMigration):
 
         # Removing M2M table for field coursetaken on 'student_profile'
         db.delete_table(db.shorten_name(u'student_student_profile_coursetaken'))
+
+        # Deleting model 'material'
+        db.delete_table(u'student_material')
 
 
     models = {
@@ -108,32 +124,43 @@ class Migration(SchemaMigration):
         },
         u'student.course': {
             'Meta': {'object_name': 'Course'},
-            'about': ('django.db.models.fields.TextField', [], {}),
             'course_id': ('django.db.models.fields.CharField', [], {'max_length': '10', 'primary_key': 'True'}),
             'course_name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'credits': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
+            'dept': ('django.db.models.fields.CharField', [], {'default': "'OTHER'", 'max_length': '5'}),
+            'description': ('django.db.models.fields.TextField', [], {'default': "'There is no description'"}),
             'end_date': ('django.db.models.fields.DateField', [], {}),
             'facultyassociated': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'mentor'", 'null': 'True', 'to': u"orm['student.faculty_profile']"}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'semester': ('django.db.models.fields.IntegerField', [], {}),
+            'semester': ('django.db.models.fields.CharField', [], {'default': "'OPEN'", 'max_length': '4'}),
             'start_date': ('django.db.models.fields.DateField', [], {})
         },
         u'student.faculty_profile': {
             'Meta': {'object_name': 'faculty_profile'},
             'areaofinterest': ('django.db.models.fields.CharField', [], {'max_length': '40'}),
-            'department': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
+            'department': ('django.db.models.fields.CharField', [], {'default': "'CSE'", 'max_length': '3'}),
             'description': ('django.db.models.fields.TextField', [], {}),
-            'facultyrating': ('django.db.models.fields.CharField', [], {'max_length': '5'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
+            'facultyrating': ('django.db.models.fields.IntegerField', [], {'blank': 'True'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'default': "'/static/uploaded_image/user_blue.png'", 'max_length': '100'}),
             'research': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'primary_key': 'True'}),
             'weburl': ('django.db.models.fields.CharField', [], {'max_length': '250'})
         },
+        u'student.material': {
+            'Meta': {'object_name': 'material'},
+            'addedby': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
+            'course': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['student.Course']"}),
+            'description': ('django.db.models.fields.TextField', [], {'default': "'There is no Description'"}),
+            'document': ('django.db.models.fields.files.FileField', [], {'max_length': '100'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '50'})
+        },
         u'student.student_profile': {
-            'Branch': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '10'}),
+            'Branch': ('django.db.models.fields.CharField', [], {'default': "'CSE'", 'max_length': '5'}),
             'DOB': ('django.db.models.fields.DateField', [], {}),
             'Meta': {'object_name': 'student_profile'},
-            'Semester': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '10'}),
+            'Semester': ('django.db.models.fields.CharField', [], {'default': "'1'", 'max_length': '4'}),
             'coursetaken': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['student.Course']", 'symmetrical': 'False'}),
             'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})

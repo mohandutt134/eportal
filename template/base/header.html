@@ -65,7 +65,7 @@
                                         <span class="badge bg-theme" id="n_no"></span>
                                     </a>
                                     <!--notification body -->
-                                    <ul class="dropdown-menu extended inbox" id="n_body">
+                                    <ul class="dropdown-menu extended inbox" id="n_body" style="overflow:auto;max-height:200px">
                                         <div class="notify-arrow notify-arrow-green"></div>
                                         
                                     </ul>
@@ -79,7 +79,7 @@
                                         <span class="badge bg-theme" id="M_no"></span>
                                     </a>
                                     <!-- message body-->
-                                    <ul class="dropdown-menu extended inbox" id="M_body">
+                                    <ul class="dropdown-menu extended inbox" id="M_body" style="overflow:auto;max-height:200px">
                                         <div class="notify-arrow notify-arrow-green"></div>
                                         
                                     </ul>
@@ -90,11 +90,14 @@
                             <!--  notification end -->
                         </div>
 
+
                     </li>
                     <li><a class="logout" href="{% url 'logout' %}"><i class="fa fa-sign-out">&nbsp;&nbsp;Logout</i></a>
                     </li>
                 </ul>
+
             </div>
+
             {% endif %} {% if not user.is_authenticated %}
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -110,7 +113,7 @@
 
                 <ul class="nav navbar-nav">
 
-                    <li><a href="{% url 'courses' %}">Courses</a>
+                    <li><a href="{% url 'quiz_confirm' %}">Courses</a>
                     </li>
                     <li><a href="{% url 'faculty' %}">Faculty</a>
                     </li>
@@ -171,8 +174,30 @@
     {% endblock js-foot %} {% block jsadd %}
     <script type="text/javascript">
     </script>
-    {% endblock jsadd %}
 
+    
+    {% endblock jsadd %}
+<div class="modal fade" id="fullMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:100%; text-align:center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal_message_title">Delivery Message</h4>
+            </div>
+            <div class="modal-body">
+                <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">    <p id="modal_message_body"></p>
+                </div>
+                <div class="pull-left" id="modal_message_sender"></div>
+                <div class="pull-right" id="modal_message_time"></div>
+                    
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" style="padding-top:10px">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 </body>
 
 </html>

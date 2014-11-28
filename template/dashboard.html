@@ -69,6 +69,7 @@
             </div>
         </div>
         <!-- /row -->
+        {% if courses.count > 0 %}
 
         <div class="row mt">
             <!--CUSTOM CHART START -->
@@ -106,13 +107,12 @@
             <!--custom chart end-->
         </div>
         <!-- /row -->
+        {% endif %}
 
     </div>
     
 
     <div class="col-lg-3 ds">
-        <!--COMPLETED ACTIONS DONUTS CHART-->
-        
         <h3>NOTIFICATIONS</h3>
 
         <!-- First Action -->
@@ -256,252 +256,88 @@
         </div>
 
 
-        <!-- USERS ONLINE SECTION -->
-        <h3>FACULTY ON PORTAL</h3>
+                <h3>FACULTY ON PORTAL</h3>
 
-        <ul class="nav nav-tabs" role="tablist" id="myTab">
-            <li role="presentation" class="active"><a href="#cse" aria-controls="cse" role="tab" data-toggle="tab">CSE</a>
-            </li>
-            <li role="presentation"><a href="#mec" aria-controls="mec" role="tab" data-toggle="tab">MEC</a>
-            </li>
-            <li role="presentation"><a href="#ece" aria-controls="ece" role="tab" data-toggle="tab">ECE</a>
-            </li>
-            <li role="presentation"><a href="#ibt" aria-controls="ibt" role="tab" data-toggle="tab">IBT</a>
-            </li>
-        </ul>
+                <ul class="nav nav-tabs" role="tablist" id="myTab">
+                    <li role="presentation" class="active"><a href="#cse" aria-controls="cse" role="tab" data-toggle="tab">CSE</a>
+                    </li>
+                    <li role="presentation"><a href="#mec" aria-controls="mec" role="tab" data-toggle="tab">MEC</a>
+                    </li>
+                    <li role="presentation"><a href="#ece" aria-controls="ece" role="tab" data-toggle="tab">ECE</a>
+                    </li>
+                    <li role="presentation"><a href="#ibt" aria-controls="ibt" role="tab" data-toggle="tab">IBT</a>
+                    </li>
+                </ul>
 
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="cse">
-                <div style="overflow:auto;max-height:250px" id="csebox">
-                    <!-- Second Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-sherman.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DJ SHERMAN</a>
-                                <br/>
-                                <muted>I am Busy</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-sherman.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DJ SHERMAN</a>
-                                <br/>
-                                <muted>I am Busy</muted>
-                            </p>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="cse">
+                        <div style="overflow:auto;max-height:300px" id="csebox">
+                            <!-- Second Member -->
+                            {% for faculty in faculty_cse %}
+                            <div class="desc" onclick="message_to_faculty('{{faculty.user.email}}')" data-toggle="modal" data-target="#messageModal">
+                                <div class="thumb">
+                                    <img class="img-circle" src="static/uploaded_image/{{faculty.image}}" width="35px" height="35px" align="">
+                                </div>
+                                <div class="details">
+                                    <p><a href="#">{{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</a>
+                                        <br/>
+                                        <muted>I am Busy</muted>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
                         </div>
                     </div>
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-sherman.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DJ SHERMAN</a>
-                                <br/>
-                                <muted>I am Busy</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-sherman.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DJ SHERMAN</a>
-                                <br/>
-                                <muted>I am Busy</muted>
-                            </p>
+                    <div role="tabpanel" class="tab-pane" id="mec">
+                        <div style="overflow:auto;max-height:300px" id="mecbox">
+                            {% for faculty in faculty_mec %}
+                            <div class="desc" onclick="message_to_faculty('{{faculty.user.email}}')" data-toggle="modal" data-target="#messageModal">
+                                <div class="thumb">
+                                    <img class="img-circle" src="static/uploaded_image/{{faculty.image}}" width="35px" height="35px" align="">
+                                </div>
+                                <div class="details">
+                                    <p><a href="#">{{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</a>
+                                        <br/>
+                                        <muted>I am Busy</muted>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    <!-- Third Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-danro.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DAN ROGERS</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fourth Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-vi.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Zac Sniders</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
+                    <div role="tabpanel" class="tab-pane" id="ece">
+                        <div style="overflow:auto;max-height:300px" id="ecebox">
+                            {% for faculty in faculty_ece %}
+                            <div class="desc" onclick="message_to_faculty('{{faculty.user.email}}')" data-toggle="modal" data-target="#messageModal">
+                                <div class="thumb">
+                                    <img class="img-circle" src="static/uploaded_image/{{faculty.image}}" width="35px" height="35px" align="">
+                                </div>
+                                <div class="details">
+                                    <p><a href="#">{{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</a>
+                                        <br/>
+                                        <muted>I am Busy</muted>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
-
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="mec">
-                <div style="overflow:auto;max-height:250px" id="mecbox">
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-divya.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DIVYA MANIAN</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Third Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-danro.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DAN ROGERS</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fourth Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-vi.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Zac Sniders</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fifth Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-sam.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Marcel Newman</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="ece">
-                <div style="overflow:auto;max-height:250px" id="ecebox">
-                    <!-- Third Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-danro.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DAN ROGERS</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fourth Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-vi.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Zac Sniders</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Fifth Member -->
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-sam.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">Marcel Newman</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div role="tabpanel" class="tab-pane" id="ibt">
-                <div style="overflow:auto;max-height:250px" id="ibtbox">
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-divya.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DIVYA MANIAN</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-divya.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DIVYA MANIAN</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-divya.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DIVYA MANIAN</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-divya.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DIVYA MANIAN</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-divya.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DIVYA MANIAN</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <div class="thumb">
-                            <img class="img-circle" src="{% static 'assets/img/ui-divya.jpg' %}" width="35px" height="35px" align="">
-                        </div>
-                        <div class="details">
-                            <p><a href="#">DIVYA MANIAN</a>
-                                <br/>
-                                <muted>Available</muted>
-                            </p>
+                    <div role="tabpanel" class="tab-pane" id="ibt">
+                        <div style="overflow:auto;max-height:300px" id="ibtbox">
+                            {% for faculty in faculty_ibt %}
+                            <div class="desc" onclick="message_to_faculty('{{faculty.user.email}}')" data-toggle="modal" data-target="#messageModal">
+                                <div class="thumb">
+                                    <img class="img-circle" src="static/uploaded_image/{{faculty.image}}" width="35px" height="35px" align="">
+                                </div>
+                                <div class="details">
+                                    <p><a href="#">{{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</a>
+                                        <br/>
+                                        <muted>I am Busy</muted>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -536,5 +372,31 @@ $(document).ready(function() {
 });
 
 </script>
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:100%; text-align:center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Create Message</h4>
+            </div>
+            <div class="modal-body">
+                <form id="message_form" role="form" method="post" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="title" name="title" class="form-control" placeholder="Title">
+                    </div>
+                    <div class="form-group">
+                        <textarea type="text" id="body" name="body" rows="6" class="form-control" placeholder="Write Your Message Here"></textarea>
+                    </div>
+                </form>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" onclick="send_message()">Send</button>
+                        </div>
+                    </div>
+            </div>
 
+        </div>
+    </div>
+</div>
 {% endblock jsadd %}

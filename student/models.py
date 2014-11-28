@@ -14,14 +14,13 @@ class faculty_profile(models.Model):
         ('Industrial Bio-Technology','IBT')
     )
     user = models.OneToOneField(User,primary_key=True)
-    department=models.CharField(max_length=40,choices=CHOICES,default='CSE')
-    facultyrating=models.IntegerField(validators=[MinValueValidator(0),
-                                       MaxValueValidator(5)],blank=True)
-    areaofinterest=models.CharField(max_length=40)
-    research=models.CharField(max_length=50)
-    description=models.TextField()
-    weburl=models.CharField(max_length=250)
-    image=models.ImageField(upload_to='fpp',default='/static/uploaded_image/user_blue.png')
+    department=models.CharField(max_length=3,choices=CHOICES,default='CSE')
+    facultyrating=models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(5)],default=0)
+    areaofinterest=models.CharField(max_length=40,blank=True)
+    research=models.CharField(max_length=50,blank=True)
+    description=models.TextField(blank=True)
+    weburl=models.CharField(max_length=250,blank=True)
+    image=models.ImageField(upload_to='fpp',default='fpp/user_blue.png')
 
     
     def __str__(self):
@@ -54,7 +53,7 @@ class Course(models.Model):
     start_date=models.DateField()
     end_date=models.DateField()
     semester=models.CharField(max_length=4,choices=CHOICES_SEM,default='OPEN')
-    image=models.ImageField(upload_to='cpp')
+    image=models.ImageField(upload_to='cpp',default="cpp/course_default.png")
     credits=models.CharField(max_length=10)
     facultyassociated=models.ForeignKey(faculty_profile,blank=True,null=True,related_name='mentor')
 
@@ -80,11 +79,11 @@ class student_profile(models.Model):
         ('8', '8')
     )
     user = models.OneToOneField(User,primary_key=True)
-    DOB=models.DateField()
+    DOB=models.DateField(blank=True)
     Branch=models.CharField(max_length=5,choices=CHOICES,default='CSE')
     Semester=models.CharField(max_length=4,choices=CHOICES_SEM,default='1')
-    image = models.ImageField(upload_to='spp')
-    coursetaken=models.ManyToManyField(Course)
+    image = models.ImageField(upload_to='spp',default="spp/user_blue.png")
+    coursetaken=models.ManyToManyField(Course,blank=True)
 
     def __unicode__(self):
         return unicode(self.user) or u''

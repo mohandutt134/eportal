@@ -26,14 +26,14 @@
 
             <li class="mt">
                 <a class="active" href="{% url 'dashboard' %}">
-                    <i class="fa fa-dashboard"></i>
+                    <i class="fa fa-home"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
             <li class="sub-menu">
                 <a href="javascript:;">
-                    <i class="fa fa-desktop"></i>
+                    <i class="fa fa-bank"></i>
                     <span>Courses</span>
                 </a>
                 <ul class="sub">
@@ -45,26 +45,19 @@
 
             <li class="sub-menu">
                 <a href="javascript:;">
-                    <i class="fa fa-cogs"></i>
-                    <span>QUIZ</span>
+                    <i class="fa fa-edit"></i>
+                    <span>Attendance</span>
                 </a>
                 <ul class="sub">
-                    <li><a href="{% url 'add_question' %}">Add Question</a>
+                    <li><a href="{% url 'show_students' %}">Take</a>
                     </li>
-                    <li><a href="{% url 'attach_question' %}">Add Quiz</a>
+                    <li><a href="{% url 'show' %}">See</a>
                     </li>
-                    <li><a href="{% url 'edit_spec' %}">Edit Specifiaction</a>
-                    </li>
-                    <li><a href="{% url 'quiz_control' %}">Quiz Control</a>
-                    </li>
-                    <li><a href="{% url 'quiz_confirm' %}">Quiz Confirm</a>
-                    </li>
-                    
                 </ul>
             </li>
                        <li class="sub-menu">
                 <a href="javascript:;">
-                    <i class=" glyphicon glyphicon-cog"></i>
+                    <i class="fa fa-cogs"></i>
                     <span>SETTINGS</span>
                 </a>
                 <ul class="sub">

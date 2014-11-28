@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'south',
     'notification',
     'smartextends',
+    'attendance'
 )
  
 # Minimum password strength settings. See the GitHub page for defaults.

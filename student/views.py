@@ -75,19 +75,7 @@ def faculty(request):
     request.session['last']='home'
     return render(request,'faculty.html',context_instance=RequestContext(request))
 
-def edit_spec(request):
-    return render(request, 'edit_spec.html')
-
-def quiz_control(request):
-    return render(request, 'quiz_control.html')
-
-def add_question(request):
-    return render(request, 'add_question.html')
-
-def attach_question(request):
-    return render(request, 'attach_question.html')
-
-def quiz_confirm(request):
+def test(request):
     return render(request, 'public_courses.html')
 
 
@@ -152,25 +140,28 @@ def course(request,id=None):
         return render(request, 'admin_course_view.html',{'course':course})
 
 
-def courseView(request):
-    if(request.method == 'POST'):
-        course_id1 = request.POST.get('course_id', '')
-        course_name1 = request.POST.get('course_name', '')
-        credits1 = request.POST.get('credits', '')
-        end_date1 = request.POST.get('end_date', '')
-        start_date1 = request.POST.get('start_date', '')
-        image1 = request.FILES.get('image', '')
-        image2 = request.FILES.get('image').name
-        course_data = Course(
-            course_id=course_id1,
-            course_name=course_name1,
-            start_date=start_date1,
-            end_date=end_date1,
-            image=image2,
-            credits=credits1
-        )
-        course_data.save()
-    return render(request, 'course.html', context_instance=RequestContext(request))
+def allcourses(request):
+    if request.method =='POST':
+        if 'search' in request.POST:
+            string = request.POST.get('search_string')
+            courses = Course.objects.filter(course_name__icontains=string)
+            return render(request, 'public_courses.html',{'courses':courses})
+
+        elif 'category' in request.POST:
+            dept = request.POST.get('department')
+            sem = request.POST.get('semester')
+            if sem == 'all':
+                courses = Course.objects.filter(dept=dept)
+            else:
+                courses = Course.objects.filter(dept=dept,semester=sem)
+            return render(request, 'public_courses.html',{'courses':courses})
+        else:
+            raise PermissionDenied
+    else:
+        courses = Course.objects.filter(dept='CSE')
+        return render(request, 'public_courses.html',{'courses':courses})
+
+
 
 
 @login_required

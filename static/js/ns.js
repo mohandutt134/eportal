@@ -3,7 +3,7 @@ function create_post() {
      // sanity check
      console.log("inside javascript");
    $.ajax({
-  url: "http://localhost:8000/notification/notificationicon_create",
+  url: "/notification/notificationicon_create",
   type: "POST",
   data: { id : 'menuId' },
   dataType: "text",

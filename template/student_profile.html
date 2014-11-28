@@ -11,7 +11,7 @@
             <div class="form-panel">
                 <legend class="center-block"><b>PROFILE | {{ user.username }}</b>
                 </legend>
-                <form class="form-horizontal style-form" method="post">
+                <form class="form-horizontal style-form" method="post" id="target">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-8">
@@ -38,10 +38,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 col-sm-3 control-label">Department</label>
+                                <label class="col-sm-3 col-sm-3 control-label">Branch</label>
                                 <div class="col-sm-6">
                                     <select class="form-control">
-                                        <option value="{{user.faculty_profile.department}}">CSE</option>
+                                        <option value="CSE">CSE</option>
                                         <option value="ECE">ECE</option>
                                         <option value="IBT">IBT</option>
                                         <option value="MEC">MEC</option>
@@ -49,15 +49,23 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 col-sm-3 control-label">Faculty Raiting</label>
+                                <label class="col-sm-3 col-sm-3 control-label">SEMESTER</label>
                                 <div class="col-sm-6">
-                                    <div class="star-rating">
-                                        <span class="fa fa-star" data-rating="1"></span>
-
-                                        <span class="fa fa-star-o" data-rating="5"></span>
-                                    </div>
+                                    <select class="form-control">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-sm-3 control-label">DOB</label>
+                                <div class="col-sm-6">
+                                    <input type="date" class="form-control">
+                                </div>
+                            </div>
+
                         </div>
                         <div class="col-md-4">
 
@@ -69,47 +77,29 @@
                             <!-- <img src="/static/uploaded_image/{{ user.faculty_profile.image }}" width="200px"  style="margin-left:8%;margin-top:0;margin-bottom:1%;max-height:200px;max-width:200px;"> -->
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-1">
-                                    {% if user.faculty_profile.image %}
-                                    <img class="img-responsive img-thumbnail" src="/static/uploaded_image/{{ user.faculty_profile.image }}"> 
-                                      {% else %}
-                                       <img class="img-responsive img-thumbnail" src="/static/uploaded_image/fpp/user_blue.png" /> 
-                                     {% endif %}
-                                    
+                                    {% if user.student_profile.image %}
+                                    <img class="img-responsive img-thumbnail" src="/static/uploaded_image/{{ user.student_profile.image }}"> {% else %}
+                                    <img class="img-responsive img-thumbnail" src="/static/uploaded_image/fpp/user_blue.png" /> {% endif %}
+
                                 </div>
                             </div>
                             <br>
+                            <div id="image">
                             <label class="col-sm-9 col-sm-9 control-label">Change your picture:</label>
                             <br>
                             <br>
-                            <input type="file" style="margin-left:4%;padding-bottom:2%;">
+                            <input type="file"  style="margin-left:4%;padding-bottom:2%;">
                             <br>
-
+                            </div>
 
                         </div>
 
 
                     </div>
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="col-sm-2 col-sm-2 control-label">Research</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="research" class="form-control" placeholder="Research" value="{{ user.faculty_profile.research  }}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 col-sm-2 control-label">Area of Interest</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="aoi" class="form-control" placeholder="Area of Interest" value="{{ user.faculty_profile.areaofinterest|upper  }}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 col-sm-2 control-label">Description</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control" rows="4" placeholder="Add your Description Here">{{ user.faculty_profile.description}}</textarea>
-                                </div>
-                            </div>
+
                             <div class="form-group">
                                 <label class="col-sm-2 col-sm-2 control-label">Weburl</label>
                                 <div class="col-sm-6">
@@ -122,7 +112,7 @@
                             </div>
                         </div>
                     </div>
-
+ -->
 
 
 
@@ -131,9 +121,9 @@
 
                     <legend class="center-block"></legend>
                     <div class="inline">
-                        <input type="submit" value="Submit" name="save" class="btn btn-info btn-lg" style="width:50%">&nbsp;
+                        <input value="Edit" name="save" id="edit" class="btn btn-info btn-lg" style="width:50%">&nbsp;
 
-                        <a class="btn btn-danger btn-lg" style="width:49%" href="/profile/{{ user.username }}">View as Public</a>
+                        <a class="btn btn-danger btn-lg" style="width:49%" id="view" href="/profile/{{ user.username }}">View as Public</a>
                     </div>
                 </form>
                 <!-- /form-panel -->
@@ -148,4 +138,19 @@
 
 
 
-{% endblock %} {% block jsadd %} {% endblock jsadd %}
+{% endblock %} {% block jsadd %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#target :input").prop("disabled", true);
+    $("#edit").prop("disabled", false);
+    $("#image").hide();
+    $('#edit').click(function() {
+
+        $(this).prop('value', 'Save');
+        $(this).prop('type', 'Submit');
+        $("#target :input").prop("disabled", false);
+        $("#image" ).toggle();
+    });
+});
+</script>
+{% endblock jsadd %}

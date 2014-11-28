@@ -8,13 +8,13 @@ def get_upload_file_name(instance,filename):
 
 class faculty_profile(models.Model):
     CHOICES = (
-        ('CSE', 'CSE'),
-        ('ECE', 'ECE'),
-        ('MEC', 'MEC'),
-        ('IBT', 'IBT')
+        ('Computer Science & Engineering','CSE'),
+        ('Electronics & Commmunication Engineering','ECE'),
+        ('Mechanical Engineering','MEC'),
+        ('Industrial Bio-Technology','IBT')
     )
     user = models.OneToOneField(User,primary_key=True)
-    department=models.CharField(max_length=3,choices=CHOICES,default='CSE')
+    department=models.CharField(max_length=40,choices=CHOICES,default='CSE')
     facultyrating=models.IntegerField(validators=[MinValueValidator(0),
                                        MaxValueValidator(5)],blank=True)
     areaofinterest=models.CharField(max_length=40)

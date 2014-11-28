@@ -11,6 +11,7 @@ from student.models import student_profile, Course , faculty_profile
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
 from django.contrib.auth.models import User
+from django.contrib.auth import models
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import check_password, make_password
 import os
@@ -108,6 +109,20 @@ def add_material(request,id=None):
                 raise PermissionDenied
         except Exception as e:
             return HttpResponse(e)
+
+def pprofile (request,username=None):
+    try:
+        usr =  User.objects.get(username=username)        
+        if request.user.is_authenticated():
+            if request.user.groups.filter(name='faculty').exists():
+                return render(request,'pprofile.html',{'temp':'base/sidebarf.html','usr':usr})
+            else:
+                return render(request,'pprofile.html',{'temp':'base/sidebars.html','usr':usr})
+        else:
+            return render(request,'template.html',{'temp':'base/header.html','usr':usr})
+    except Exception, e:
+        return render(request,'404.html')
+    
 
 @login_required
 def courses(request):
@@ -250,4 +265,7 @@ def changePassword(request):
 
 @login_required
 def profile (request):
-    return render(request,'profile.html')
+    if request.user.groups.filter(name='faculty').exists():
+        return render(request,'profile.html',{'temp':'base/sidebarf.html'})
+    else:
+        return render(request,'student_profile.html',{'temp':'base/sidebars.html'})

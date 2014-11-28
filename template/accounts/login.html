@@ -5,12 +5,19 @@
 		      {% csrf_token %}
 		        <h2 class="form-login-heading">sign in now</h2>
 		        <div class="login-wrap">
-		            <input type="text" class="form-control" name="username" placeholder="User ID" autofocus>
+
+		        <div class="input-group ">
+                            <input type="text" name="username" class="form-control" placeholder="User ID" autofocus>
+                            <span class="input-group-addon">@smvdu.ac.in</span>
+                        </div>
+		 
 		            <br>
 		            <input type="password" class="form-control" name="password" placeholder="Password">
 		            <br>
-		            <p style="color:red;" class="text-center">{{message_login}}</p>
-		            <br>
+		            {% if message_login %}
+		            <p class="text-center error alert alert-danger">{{message_login}}</p>
+		          
+		            {% endif %}
 		            <button class="btn btn-theme btn-block" href="index.html" name="login" type="submit"><i class="fa fa-sign-in"></i> SIGN IN</button>
 		            <hr>
 		            <h5 class="text-center">Forgot Password? <a href="{% url 'reset' %}">Click Here</a> </h5> 

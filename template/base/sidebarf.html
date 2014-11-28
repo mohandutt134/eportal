@@ -1,4 +1,34 @@
-{% extends 'base/header.html' %} {% load staticfiles %} {% block sidebar %} {% load partial_views %}
+{% extends 'base/header.html' %} {% load staticfiles %} {% block sidebar %} 
+
+{% block addjs %}
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+    <script>
+    $(document).ready(function() {
+        $("#change_password_form").validate({
+            // Specify the validation rules
+            rules: {
+                    new_password: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 10
+
+                    },
+                    c_password: {
+                        required: true,
+                        equalTo: "#new_password"
+                    }
+                },
+
+                // Specify the validation error messages
+                messages: {
+                    password: "Please enter your first name",
+                    c_password: "Password do not match"
+                }
+        });
+    });
+    </script>
+{% endblock addjs %}
+{% load partial_views %}
 
 <aside>
     <div id="sidebar" class="nav-collapse ">
@@ -6,7 +36,7 @@
         <ul class="sidebar-menu" id="nav-accordion">
 
             <p class="centered">
-                <a href="profile">
+                <a href="{% url 'profile' %}">
                     {% if not user.faculty_profile.image %}
                         <img src="/static/uploaded_image/fpp/user_blue.png" class="img-circle" width="60"/>
                     {% else %}
@@ -14,7 +44,7 @@
                     {% endif %}
                 </a>
             </p>
-            <h5 class="centered text-capitalize">Hello,
+            <h5 class="centered text-capitalize">Faculty,
 
             {% if not user.first_name %}
                User
@@ -106,32 +136,7 @@
 
             </div>
         </div>
-    </div>
+</div>
     
-    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
-    <script>
-    $(document).ready(function() {
-        $("#change_password_form").validate({
-            // Specify the validation rules
-            rules: {
-                    new_password: {
-                        required: true,
-                        minlength: 6,
-                        maxlength: 10
-
-                    },
-                    c_password: {
-                        required: true,
-                        equalTo: "#new_password"
-                    }
-                },
-
-                // Specify the validation error messages
-                messages: {
-                    password: "Please enter your first name",
-                    c_password: "Password do not match"
-                }
-        });
-    });
-    </script>
+    
 {% endblock sidebar %}

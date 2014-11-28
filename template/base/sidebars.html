@@ -7,8 +7,8 @@
         <ul class="sidebar-menu" id="nav-accordion">
 
            <p class="centered">
-                <a href="profile">
-                    {% if not user.faculty_profile.image %}
+                <a href="{% url 'profile' %}">
+                    {% if not user.student_profile.image %}
                         <img src="/static/uploaded_image/fpp/user_blue.png" class="img-circle" width="60"/>
                     {% else %}
                         <img src="/static/uploaded_image/{{ user.student_profile.image }}" class="img-circle" width="60">

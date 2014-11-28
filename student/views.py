@@ -159,10 +159,8 @@ def courseView(request):
 def dashboard(request):
     if request.user.groups.filter(name='faculty').exists():
         request.session['type']='faculty'
-        courses = Course.objects.filter(facultyassociated=request.user.faculty_profile)
-        for course in courses:
-            temp_dict[course.course_id]=student_profile.objects.filter(coursetaken=course).count()
-        return render(request, 'dashboard.html',{'temp':'base/sidebarf.html',context_instance=RequestContext(request))
+        courses = Course.objects.filter(facultyassociated=request.user.faculty_profile)    
+        return render(request, 'dashboard.html',{'temp':'base/sidebarf.html'},context_instance=RequestContext(request))
     else:
         request.session['type']='student'
         return render(request,'dashboard.html',{'temp':'base/sidebars.html'})

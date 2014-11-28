@@ -8,5 +8,9 @@ urlpatterns = patterns('quiz.views',
     url(r'^quiz_confirm$', 'quiz_confirm', name='quiz_confirm'),
     url(r'^quiz_control$', 'quiz_control', name='quiz_control'),
     url(r'^edit_spec$', 'edit_spec', name='edit_spec'),
+    url(r'^addquestion$', 'addquestion', name='addquestion'),
+    url(r'^view_fullquestion$', 'view_fullquestion', name='view_fullquestion'),
+    url(r'^removeQuestion$', 'removeQuestion', name='removeQuestion'),
+    url(r'^qizquestions$', 'qizquestions', name='qizquestions'),
 
 )

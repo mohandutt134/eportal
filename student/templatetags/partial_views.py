@@ -22,3 +22,5 @@ def make_bar(course):
     
     #count=student_profile.objects.filter(coursetaken=course).count()
    	#return {'count':count}
+
+

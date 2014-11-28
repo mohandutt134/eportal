@@ -1,7 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.pyc
-
+*/migrations/*
 /static/uploaded_image/*
 
 # OSX Finder turds

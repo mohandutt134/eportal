@@ -16,7 +16,9 @@ class Migration(SchemaMigration):
             ('viewed', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('link', self.gf('django.db.models.fields.CharField')(max_length=256)),
             ('course', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['student.Course'], null=True, blank=True)),
+            ('courseName', self.gf('django.db.models.fields.CharField')(max_length=256)),
             ('sender', self.gf('django.db.models.fields.related.ForeignKey')(related_name='sends', to=orm['auth.User'])),
+            ('senderName', self.gf('django.db.models.fields.CharField')(max_length=256)),
             ('receiver', self.gf('django.db.models.fields.related.ForeignKey')(related_name='tags', to=orm['auth.User'])),
             ('time', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
@@ -31,6 +33,20 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'notification', ['activity'])
 
+        # Adding model 'message'
+        db.create_table(u'notification_message', (
+            ('m_id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=256)),
+            ('body', self.gf('django.db.models.fields.TextField')()),
+            ('viewed', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('sender', self.gf('django.db.models.fields.related.ForeignKey')(related_name='msends', to=orm['auth.User'])),
+            ('senderName', self.gf('django.db.models.fields.CharField')(default='Admin', max_length=256)),
+            ('senderImage', self.gf('django.db.models.fields.CharField')(default='fpp/user_blue.png', max_length=256)),
+            ('receiver', self.gf('django.db.models.fields.related.ForeignKey')(related_name='mtags', to=orm['auth.User'])),
+            ('time', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
+        ))
+        db.send_create_signal(u'notification', ['message'])
+
 
     def backwards(self, orm):
         # Deleting model 'notification'
@@ -38,6 +54,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'activity'
         db.delete_table(u'notification_activity')
+
+        # Deleting model 'message'
+        db.delete_table(u'notification_message')
 
 
     models = {
@@ -84,14 +103,28 @@ class Migration(SchemaMigration):
             'subject': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'time': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
         },
+        u'notification.message': {
+            'Meta': {'object_name': 'message'},
+            'body': ('django.db.models.fields.TextField', [], {}),
+            'm_id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'receiver': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'mtags'", 'to': u"orm['auth.User']"}),
+            'sender': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'msends'", 'to': u"orm['auth.User']"}),
+            'senderImage': ('django.db.models.fields.CharField', [], {'default': "'fpp/user_blue.png'", 'max_length': '256'}),
+            'senderName': ('django.db.models.fields.CharField', [], {'default': "'Admin'", 'max_length': '256'}),
+            'time': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
+            'viewed': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
+        },
         u'notification.notification': {
             'Meta': {'object_name': 'notification'},
             'body': ('django.db.models.fields.TextField', [], {}),
             'course': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['student.Course']", 'null': 'True', 'blank': 'True'}),
+            'courseName': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'link': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'n_id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'receiver': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'tags'", 'to': u"orm['auth.User']"}),
             'sender': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'sends'", 'to': u"orm['auth.User']"}),
+            'senderName': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'time': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '256'}),
             'viewed': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
@@ -101,24 +134,24 @@ class Migration(SchemaMigration):
             'course_id': ('django.db.models.fields.CharField', [], {'max_length': '10', 'primary_key': 'True'}),
             'course_name': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'credits': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'dept': ('django.db.models.fields.CharField', [], {'max_length': '3'}),
+            'dept': ('django.db.models.fields.CharField', [], {'default': "'OTHER'", 'max_length': '5'}),
             'description': ('django.db.models.fields.TextField', [], {'default': "'There is no description'"}),
             'end_date': ('django.db.models.fields.DateField', [], {}),
             'facultyassociated': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'mentor'", 'null': 'True', 'to': u"orm['student.faculty_profile']"}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
-            'semester': ('django.db.models.fields.IntegerField', [], {}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'default': "'cpp/course_default.png'", 'max_length': '100'}),
+            'semester': ('django.db.models.fields.CharField', [], {'default': "'OPEN'", 'max_length': '4'}),
             'start_date': ('django.db.models.fields.DateField', [], {})
         },
         u'student.faculty_profile': {
             'Meta': {'object_name': 'faculty_profile'},
-            'areaofinterest': ('django.db.models.fields.CharField', [], {'max_length': '40'}),
-            'department': ('django.db.models.fields.CharField', [], {'max_length': '25'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'facultyrating': ('django.db.models.fields.CharField', [], {'max_length': '5'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'default': "'/static/uploaded_image/user_blue.png'", 'max_length': '100'}),
-            'research': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'areaofinterest': ('django.db.models.fields.CharField', [], {'max_length': '40', 'blank': 'True'}),
+            'department': ('django.db.models.fields.CharField', [], {'default': "'CSE'", 'max_length': '3'}),
+            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'facultyrating': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'default': "'fpp/user_blue.png'", 'max_length': '100'}),
+            'research': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'primary_key': 'True'}),
-            'weburl': ('django.db.models.fields.CharField', [], {'max_length': '250'})
+            'weburl': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'})
         }
     }
 

@@ -30,5 +30,5 @@ def myview(request,username=None):
             }
         )
     except Exception, e:
-        return HttpResponse(e)
+        return render(request,'404.html')
     

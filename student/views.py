@@ -24,7 +24,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
-from student.form import student_profile_form,faculty_profile_form,add_material_form
+from student.form import student_profile_form,faculty_profile_form,add_material_form,update_faculty_image,update_student_image
 from django.contrib.auth.models import Group
 from django.http import HttpResponse
 from django.core.mail import EmailMultiAlternatives
@@ -43,9 +43,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 import datetime
 
 
-def handle_uploaded_file(f, path=''):
-    filename = f.name
-    fd = open('%s/%s' % (MEDIA_ROOT, str(path) + str(filename)), 'wb')
+def handle_uploaded_file(f,uname, path):
+    f.name= uname+".jpg"
+    print uname
+    fd = open('%s/%s' % (MEDIA_ROOT, str(path) + str(f.name)), 'wb')
     for chunk in f.chunks():
         fd.write(chunk)
     fd.close()
@@ -135,10 +136,9 @@ def pprofile (request,username=None):
             else:
                 return render(request,'pprofile.html',{'temp':'base/sidebars.html','usr':usr})
         else:
-            return render(request,'template.html',{'temp':'base/header.html','usr':usr})
+            return render(request,'pprofile.html',{'temp':'base/header.html','usr':usr})
     except Exception, e:
-        return render(request,'404.html')
-    
+        return HttpResponse(e)
 
 @login_required
 def courses(request):
@@ -207,59 +207,35 @@ def about (request):
     return render(request,'template.html')
 
 
+@login_required
+def profile_edit(request):
+    uname = request.POST.get('username','')
+    fname = request.POST.get('first_name','')
+    lname = request.POST.get('last_name','')
+    dept = request.POST.get('department','')
+    rsrch = request.POST.get('research','')
+    aoi = request.POST.get('aoi','')
+    des = request.POST.get('description','')
+    web = request.POST.get('weburl','')
+    User.objects.filter(username=uname).update(first_name=fname,last_name=lname)
+
+    faculty_profile.objects.filter(user= User.objects.get(username=uname)).update(department=dept,description=des,research=rsrch,areaofinterest=aoi,weburl=web)
+    return redirect('/profile')
 
 @login_required
-def edit(request):
-    if request.user.groups.filter(name='student').exists():
-        if request.method=='POST':
-            if student_profile.objects.filter(user_id=request.user.id).exists():
-                a=student_profile.objects.get(user_id=request.user.id)
-                form = student_profile_form(request.POST, instance=a)
-                if form.is_valid():
-                    j = form.save( commit=False )
-                    j.save()
-                return redirect('home')
-            else:
-                form=student_profile_form(request.POST)
-                if form.is_valid():
-                    obj = form.save(commit=False)
-                    obj.user=request.user
-                    obj.save()
-                    return redirect('home')
-                else:
-                    return render(request,'edit.html',{'form':form})
+def profile_edit_student(request):
+    uname = request.POST.get('username','')
+    fname = request.POST.get('first_name','')
+    lname = request.POST.get('last_name','')
+    dept = request.POST.get('department','')
+    rsrch = request.POST.get('research','')
+    aoi = request.POST.get('aoi','')
+    des = request.POST.get('description','')
+    web = request.POST.get('weburl','')
+    User.objects.filter(username=uname).update(first_name=fname,last_name=lname)
 
-        else:
-            form=student_profile_form()
-            return render(request,'edit.html',{'form':form})
-
-    else:
-        if request.method=='POST':
-            if faculty_profile.objects.filter(user_id=request.user.id).exists():
-                a=faculty_profile.objects.get(user_id=request.user.id)
-                form = faculty_profile_form(request.POST, instance=a)
-                if form.is_valid():
-                    j = form.save( commit=False )
-                    j.save()
-                return redirect('home')
-            else:
-                form=faculty_profile_form(request.POST)
-                if form.is_valid():
-                    obj = form.save(commit=False)
-                    obj.user=request.user
-                    obj.save()
-                    return redirect('home')
-                else:
-                    return render(request,'edit.html',{'form':form})
-        else:
-            form=faculty_profile_form()
-            return render(request,'edit.html',{'form':form})
-                                    
-
-
-
-
-
+    faculty_profile.objects.filter(user= User.objects.get(username=uname)).update(department=dept,description=des,research=rsrch,areaofinterest=aoi,weburl=web)
+    return redirect('/profile')
 
 @login_required
 def mail(request):
@@ -285,8 +261,45 @@ def changePassword(request):
 
 @login_required
 def profile (request):
-    if request.user.groups.filter(name='faculty').exists():
-        return render(request,'profile.html',{'temp':'base/sidebarf.html'})
+    if request.method=='POST':
+        uname = request.POST.get('username','')
+        fname = request.POST.get('first_name','')
+        lname = request.POST.get('last_name','')
+        User.objects.filter(username=uname).update(first_name=fname,last_name=lname)
+        if 'department' in request.POST:
+            dept = request.POST.get('department','')
+            rsrch = request.POST.get('research','')
+            aoi = request.POST.get('aoi','')
+            des = request.POST.get('description','')
+            web = request.POST.get('weburl','')
+            image=request.FILES.get('image','')
+            if image:
+                handle_uploaded_file(image,request.user.username,'fpp/')
+            #print image.name
+            else:
+                image = request.user.faculty_profile.image
+            print image
+            faculty_profile.objects.filter(user= User.objects.get(username=uname)).update(department=dept,description=des,research=rsrch,areaofinterest=aoi,weburl=web,image=image)
+            #return render(request,'profile.html',{'temp':'base/sidebarf.html','msg':"Profile has been successfully updated"})
+            return redirect('profile/'+ request.user.username )
+        else:
+            brnch = request.POST.get('branch','')
+            sem = request.POST.get('sem','')
+            dob = request.POST.get('dateofbirth','')
+            image=request.FILES.get('dp','')
+            if image:
+                handle_uploaded_file(image,request.user.username,'spp/')
+            #print image.name
+            else:
+                image = request.user.student_profile.image
+            print image
+            student_profile.objects.filter(user= User.objects.get(username=uname)).update(Branch=brnch,Semester=sem,DOB=dob,image=image)
+            return redirect('profile/'+ request.user.username )
+            #return render(request,'student_profile.html',{'temp':'base/sidebars.html','msg':"Profile has been successfully updated"})
     else:
-        return render(request,'student_profile.html',{'temp':'base/sidebars.html'})
-
+        if request.user.groups.filter(name='faculty').exists():
+            form=update_faculty_image()
+            return render(request,'profile.html',{'temp':'base/sidebarf.html','form':form})
+        else:
+            form=update_student_image()
+            return render(request,'student_profile.html',{'temp':'base/sidebars.html','form':form})

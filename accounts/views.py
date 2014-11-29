@@ -19,6 +19,7 @@ from django.contrib.auth.models import Group
 from notification.models import notification
 from student.models import Course,faculty_profile,student_profile
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 
 def login_view(request,next='home'):
@@ -59,7 +60,8 @@ def logout_view(request):
 
 
 def register2(request):
-
+    if(request.user.is_authenticated()):
+        return redirect('home')
     if request.method=="POST":
         print "inside"
         msg=registration_function(request)
@@ -89,7 +91,7 @@ def registration_function(request):
             if(User.objects.filter(username=R_username).exists()):
                 message_register_alert = "User Already Exits"
             else:
-                user1=User.objects.get(username="kraken")
+                user1=User.objects.get(username="vc")
                 user = User.objects.create_user(R_username, R_email, temp_pass)
                 print "user created"
                 try:
@@ -120,9 +122,9 @@ def registration_function(request):
                 send_mail(subject, message, from_email, to_list, fail_silently=False)
                 message_register_alert = 'success'
         except Exception as e:
-            print e
-            message_register_alert = "Error occured in account creation"
-            user.delete()
+            return HttpResponse(e)
+            #message_register_alert = "Error occured in account creation"
+            #user.delete()
     return message_register_alert
 
 

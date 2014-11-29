@@ -15,3 +15,13 @@ class add_material_form(ModelForm):
 	class Meta:
 		model=material
 		fields=['title','description','document']
+
+class update_student_image(ModelForm):
+	class Meta:
+		model=student_profile
+		fields=['image']
+
+class update_faculty_image(ModelForm):
+	class Meta:
+		model=faculty_profile
+		fields=['image']

@@ -1,4 +1,5 @@
-{% extends temp %} {% load staticfiles %} {% block cssadd %} {% if not request.user.is_authenticated %}
+{% extends temp %} {% load staticfiles %}
+{% load partial_views %} {% block cssadd %} {% if not request.user.is_authenticated %}
 <style type="text/css">
 #main-content {
     margin-left: 0;
@@ -13,6 +14,7 @@ body {
 }
 </style>
 {% endif %} {% endblock cssadd %} {% block jsadd-up %} {% endblock jsadd-up %} {% block content %} 
+
 {% if usr.faculty_profile %}
 <br>
 <div class="container-fluid">
@@ -42,7 +44,7 @@ body {
                             <img class="img-responsive img-thumbnail" src="/static/uploaded_image/fpp/user_blue.png" /> {% else %}
 
                             <div class="col-md-10 col-md-offset-1">
-                                <img class="img-responsive img-thumbnail" src="/static/uploaded_image/{{ usr.faculty_profile.image }}">
+                                <img class="img-responsive img-thumbnail" src="/static/uploaded_image/fpp/{{ usr.faculty_profile.image }}">
                             </div>
 
                             {% endif %}
@@ -66,7 +68,7 @@ body {
                                 </tr>
                                 <tr>
                                     <td>Department</td>
-                                    <td>:&nbsp;{{ usr.faculty_profile.department }}</td>
+                                   {% expansion %}
                                 </tr>
                                 <tr>
                                     <td>E-mail</td>
@@ -129,7 +131,7 @@ body {
                             <img class="img-responsive img-thumbnail" src="/static/uploaded_image/fpp/user_blue.png" /> {% else %}
 
                             <div class="col-md-10 col-md-offset-1">
-                                <img class="img-responsive img-thumbnail" src="/static/uploaded_image/{{ usr.student_profile.image }}">
+                                <img class="img-responsive img-thumbnail" src="/static/uploaded_image/spp/{{ usr.student_profile.image }}">
                             </div>
 
                             {% endif %}
@@ -153,11 +155,11 @@ body {
                                 </tr>
                                 <tr>
                                     <td>Branch</td>
-                                    <td>:&nbsp;{{ usr.student_profile.branch }}</td>
+                                    {% expansion %}
                                 </tr>
                                  <tr>
                                     <td>Semester</td>
-                                    <td>:&nbsp;{{ usr.student_profile.semester }}</td>
+                                    <td>:&nbsp;{{ usr.student_profile.Semester }}</td>
                                 </tr>
                                 <tr>
                                     <td>E-mail</td>
@@ -185,7 +187,7 @@ body {
 {% endif %} 
 <div class="row">
 <div class="col-md-4 col-md-offset-5">
-<a class="btn btn-info"  href="/pdf/{{ usr.username }}">Download as PDF</a>
+<a class="btn btn-info" target="blank" href="/pdf/{{ usr.username }}">Download as PDF</a>
 </div>
 </div>
 {% endblock %} {% block jsadd %} {% endblock jsadd %}

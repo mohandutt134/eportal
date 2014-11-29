@@ -9,9 +9,17 @@
         <div class="row">
             <!-- SERVER STATUS PANELS -->
             <div class="form-panel">
+                {% if msg %}
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                        &times;
+                    </button>
+                    {{msg}}
+                </div>
+                {% endif %}
                 <legend class="center-block"><b>PROFILE | {{ user.username }}</b>
                 </legend>
-                <form class="form-horizontal style-form" method="post">
+                <form class="form-horizontal style-form" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-8">
@@ -28,20 +36,20 @@
                             <div class="form-group">
                                 <label class="col-sm-3 col-sm-3 control-label">First Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="firstname" value="{{ user.first_name|upper }}" class="form-control" placeholder="First Name">
+                                    <input type="text" name="first_name" value="{{ user.first_name|upper }}" class="form-control" placeholder="First Name">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 col-sm-3 control-label">Last Name</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="lastname" value="{{ user.last_name|upper }}" class="form-control" placeholder="Last Name">
+                                    <input type="text" name="last_name" value="{{ user.last_name|upper }}" class="form-control" placeholder="Last Name">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 col-sm-3 control-label">Department</label>
                                 <div class="col-sm-6">
-                                    <select class="form-control">
-                                        <option value="{{user.faculty_profile.department}}">CSE</option>
+                                    <select class="form-control" name="department" id="branch">
+                                        <option value="CSE">CSE</option>
                                         <option value="ECE">ECE</option>
                                         <option value="IBT">IBT</option>
                                         <option value="MEC">MEC</option>
@@ -51,14 +59,15 @@
                             <div class="form-group">
                                 <label class="col-sm-3 col-sm-3 control-label">Faculty Raiting</label>
                                 <div class="col-sm-6">
-                                    <div class="star-rating">
-                                        <span class="fa fa-star" data-rating="1"></span>
-
-                                        <span class="fa fa-star-o" data-rating="5"></span>
+                                    <div id="rating" class="star-rating">
+                                        
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <script type="text/javascript">
+                        datesem("","{{user.faculty_profile.department}}", {{user.faculty_profile.facultyrating}});
+                        </script>
                         <div class="col-md-4">
 
 
@@ -70,18 +79,16 @@
                             <div class="row">
                                 <div class="col-md-10 col-md-offset-1">
                                     {% if user.faculty_profile.image %}
-                                    <img class="img-responsive img-thumbnail" src="/static/uploaded_image/{{ user.faculty_profile.image }}"> 
-                                      {% else %}
-                                       <img class="img-responsive img-thumbnail" src="/static/uploaded_image/fpp/user_blue.png" /> 
-                                     {% endif %}
-                                    
+                                    <img class="img-responsive img-thumbnail " src="/static/uploaded_image/fpp/{{ user.faculty_profile.image }}"> {% else %}
+                                    <img class="img-responsive img-thumbnail" src="/static/uploaded_image/fpp/user_blue.png" /> {% endif %}
+
                                 </div>
                             </div>
                             <br>
                             <label class="col-sm-9 col-sm-9 control-label">Change your picture:</label>
                             <br>
                             <br>
-                            <input type="file" style="margin-left:4%;padding-bottom:2%;">
+                            <input type='file' name='image'>
                             <br>
 
 
@@ -107,7 +114,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 col-sm-2 control-label">Description</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" rows="4" placeholder="Add your Description Here">{{ user.faculty_profile.description}}</textarea>
+                                    <textarea class="form-control" name="description" rows="4" placeholder="Add your Description Here">{{ user.faculty_profile.description}}</textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -131,7 +138,7 @@
 
                     <legend class="center-block"></legend>
                     <div class="inline">
-                        <input type="submit" value="Submit" name="save" class="btn btn-info btn-lg" style="width:50%">&nbsp;
+                        <input type="submit" value="Submit" name="F_save" class="btn btn-info btn-lg" style="width:50%">&nbsp;
 
                         <a class="btn btn-danger btn-lg" style="width:49%" href="/profile/{{ user.username }}">View as Public</a>
                     </div>

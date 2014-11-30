@@ -20,6 +20,9 @@ from notification.models import notification
 from student.models import Course,faculty_profile,student_profile
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.core.mail import EmailMultiAlternatives
+from django.template import Context
+from django.template.loader import render_to_string
 
 
 def login_view(request,next='home'):
@@ -74,6 +77,7 @@ def registration_function(request):
     R_fname = request.POST.get('R_fname', '')
     R_lname = request.POST.get('R_lname', '')
     R_email = request.POST.get('R_email', '')
+    R_email = R_email + "@smvdu.ac.in"
     R_category=request.POST.get('category','')
     message_register_alert = ''
     if(R_username == ''):
@@ -114,17 +118,18 @@ def registration_function(request):
                     student_profile.objects.create(user=user) 
                 else:
                     faculty_profile.objects.create(user=user)
-                subject = "Confirmation  mail"
-                message = "Your password is " + temp_pass
-                from_email = settings.EMAIL_HOST_USER
-                to_list = [R_username, settings.EMAIL_HOST_USER]
-                print "above mail"
-                send_mail(subject, message, from_email, to_list, fail_silently=False)
+                #subject = "Confirmation  mail"
+                #message = "Your password is " + temp_pass
+                #from_email = settings.EMAIL_HOST_USER
+                #to_list = [R_email, settings.EMAIL_HOST_USER]
+                #print "above mail"
+                #send_mail(subject, message, from_email, to_list, fail_silently=False)
+                #mail(request,R_email,'mail/email.txt','mail/fancy-1-2-3.html')
                 message_register_alert = 'success'
         except Exception as e:
             return HttpResponse(e)
             #message_register_alert = "Error occured in account creation"
-            #user.delete()
+            user.delete()
     return message_register_alert
 
 
@@ -185,3 +190,14 @@ def change_password(request):
     else:
         return render(request,'accounts/changepassword.html',{'msg':"Enter new Password"})
             
+
+
+def mail(request,receiver,subject,body):
+    c = Context({'username': settings.EMAIL_HOST_USER })    
+    text_content = render_to_string(subject, c)
+    html_content = render_to_string(body, c)
+
+    email = EmailMultiAlternatives('Subject', text_content)
+    email.attach_alternative(html_content, "text/html")
+    email.to = [receiver]
+    email.send()

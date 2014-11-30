@@ -3,7 +3,7 @@ function create_post() {
      // sanity check
      console.log("inside javascript");
    $.ajax({
-  url: "http://localhost:8000/notification/notificationicon_create",
+  url: "/notification/notificationicon_create",
   type: "POST",
   data: { id : 'menuId' },
   dataType: "text",
@@ -70,7 +70,6 @@ for(var i=0;i<Object.keys(notification).length;i++){
 function message_body(messages){
   
 
-  console.log(time);
   if(Object.keys(messages).length>0){
   $("#M_no").text(Object.keys(messages).length);
   $("#M_no").show();
@@ -91,7 +90,7 @@ for(var i=0;i<Object.keys(messages).length;i++){
         time -= minutes * 60;
   $("#M_body").append(' <li onClick=messageViewed('+messages[i].pk+') data-id='+messages[i].pk+' data-toggle="modal" data-target="#fullMessageModal">'+
                                     '<a href="#" style="white-space: wrap;Overflow:auto;">'+
-                                    '<span class="photo"><img alt="avatar" src="/static/uploaded_image/'+ messages[i].fields.senderImage +'"></span>'+
+                                    '<span class="photo"><img alt="avatar" src="/static/uploaded_image/fpp/'+ messages[i].fields.senderImage +'"></span>'+
                                     '<span class="subject">'+
                                     '<span class="from">'+messages[i].fields.senderName+'</span>'+
                                     '<span class="time">'+Math.floor(hours)+' Hr '+Math.floor(minutes)+' Mins ago</span>'+
@@ -160,6 +159,7 @@ var frm = $("#message_form");
 }
 
 
+
 function datesem(date,branch,sem){
   console.log(sem);
  d=new Date(date);
@@ -180,3 +180,4 @@ for (var i= 0;i<5-sem;i++)
 
 
 }
+

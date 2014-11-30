@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'south',
     'notification',
     'smartextends',
+    'attendance'
 )
 
 FAKER_LOCALE = None     # settings.LANGUAGE_CODE is loaded

@@ -23,7 +23,7 @@ class faculty_profile(models.Model):
     research=models.CharField(max_length=50,blank=True)
     description=models.TextField(blank=True)
     weburl=models.CharField(max_length=250,blank=True)
-    image=models.ImageField(upload_to=get_upload_image_name,default='fpp/user_blue.png')
+    image=models.ImageField(upload_to=get_upload_image_name,default='user_blue.png')
 
     
     def __str__(self):
@@ -91,7 +91,7 @@ class student_profile(models.Model):
     DOB=models.DateField(blank=True)
     Branch=models.CharField(max_length=5,choices=CHOICES,default='CSE')
     Semester=models.CharField(max_length=4,choices=CHOICES_SEM,default='1')
-    image = models.ImageField(upload_to='spp',default="spp/user_blue.png")
+    image = models.ImageField(upload_to='spp',default="user_blue.png")
     coursetaken=models.ManyToManyField(Course,blank=True)
 
     def __unicode__(self):

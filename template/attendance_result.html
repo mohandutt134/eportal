@@ -4,6 +4,7 @@
 <script src="{% static 'assets/js/chart-master/Chart.js' %}"></script>
 {% endblock jsadd-up %}
 
+{% load attendence_filter %}
 
 {% block content %}
                 <div class="row">
@@ -31,9 +32,6 @@
                                     </div>
                                 </div>
                             </form>
-                            {% if students %}
-                            <div class="checkbox goright"><label class="text-info"><input name='all' type="checkbox" id="master" value="all">Mark All</label></div>
-                            {% endif %}
                         </div>
 
                         <!--COMPLETED ACTIONS DONUTS CHART-->
@@ -42,34 +40,27 @@
                     <div class="col-lg-9 main-chart">
                             <!-- SERVER STATUS PANELS -->
                             <div class="content-panel">
-                            {% if error %}
-                              <p class='alert alert-danger' style="text-align:center">{{error}}</p>
-                            {% endif %}
-                            {% if success %}
-                              <p class='alert alert-success' style="text-align:center">{{success}}</p>
-                            {% endif %}
                             {% if students %}
                             <form method='post'>
                             {% csrf_token %}
-                              <p style="text-align:center" class="alert alert-warning h4"><b>{{selected_course|upper}}</b></p>
+                            <p style="text-align:center" class="alert alert-warning h4"><b>{{selected_course|upper}}</b></p>
                               <h4 class="goright"><i class="fa fa-calender"></i> Date: &nbsp;&nbsp;23/11/2014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4><hr><table class="table table-hover">
                               
                               
                                   <thead>
                                   <tr>
-                                      <th>#</th>
                                       <th>Entry No</th>
-                                      <th>First Name</th>
-                                      <th>Last Name</th>
+                                      <th>Total</th>
+                                      <th>Attended</th>
                                   </tr>
                                   </thead>
                                   <tbody>
+                                  
                                   {% for student in students %}
                                   <tr>
-                                      <td><input class='slave' name='present' type="checkbox" id="{{student.user.username}}" value="{{student.user.username}}"></td>
                                       <td>{{student.user.username|slice:":-12"}}</td>
-                                      <td>{{student.user.first_name}}</td>
-                                      <td>{{student.user.last_name}}</td>
+                                      <td>{{total}}</td>
+                                      {% get_attendance %}
                                   </tr>
                                   {% endfor %}
                                   

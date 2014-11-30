@@ -1,13 +1,43 @@
-{% extends "base/header.html" %} {% load staticfiles %} 
+{% extends "base/sidebars.html" %} {% load staticfiles %} 
 
 
 {% block cssadd %}
 
 {% endblock cssadd %}
-
+{% block sidebar %}
+{% endblock %}
 {% block jsadd-up %} {% endblock jsadd-up %} {% block content %}
 
+ <div class="row">
 
+
+            <ul class="nav nav-tabs" role="tablist" id="myTab">
+                <li role="presentation" class="active"><a href="#cse" aria-controls="cse" role="tab" data-toggle="tab">CSE</a>
+                </li>
+                <li role="presentation"><a href="#mec" aria-controls="mec" role="tab" data-toggle="tab">MEC</a>
+                </li>
+                <li role="presentation"><a href="#ece" aria-controls="ece" role="tab" data-toggle="tab">ECE</a>
+                </li>
+                <li role="presentation"><a href="#ibt" aria-controls="ibt" role="tab" data-toggle="tab">IBT</a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active">
+
+
+                </div>
+                <div role="tabpanel" class="tab-pane">
+
+                </div>
+                <div role="tabpanel" class="tab-pane">
+
+                </div>
+                <div role="tabpanel" class="tab-pane">
+
+                </div>
+            </div>
+        </div>
 
 
 {% endblock %} 

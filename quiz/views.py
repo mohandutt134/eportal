@@ -20,4 +20,4 @@ def attach_question(request):
     return render(request, 'attach_question.html')
 
 def quiz_confirm(request):
-    return render(request, 'quiz_confirm.html')
+    return render(request, 'attendance_form.html')

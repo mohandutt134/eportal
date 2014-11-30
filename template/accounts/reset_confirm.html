@@ -15,7 +15,7 @@
             <div class="jumbotron">
             <legend class="center-block"><b>Password Reset Confirmation:</b></legend>
            
-          <form role="form" action="." method="post">
+          <form role="form" action="." method="post" id="change_password_form">
            {% csrf_token %} <!-- CSRF token is rendered by Django in forms to avoid CSRF attacks -->
            
            <!-- If there are non-field errors in the form,
@@ -40,7 +40,7 @@
               <br/>
               <!-- Render the input field -->
               
-            {{ field|add_attributes:"form-control,type:password"}}
+            {{ field|add_attributes:"form-control,type:password,id=new_password"}}
             
                   
                 <!-- Iterate over the field's errors, if any and display
@@ -67,4 +67,39 @@
 		    
 {% endblock content %}	  	
 	  		
-	  	
+{% block js-foot %}
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+
+    
+    <script>
+$(document).ready(function() {
+    //alert("change password");
+    $("#change_password_form").validate({
+        // Specify the validation rules
+        rules: {
+            new_password: {
+                required: true,
+                minlength: 6,
+                maxlength: 10
+
+            },
+            c_password: {
+                required: true,
+                equalTo: "#new_password"
+            }
+        },
+
+        // Specify the validation error messages
+        messages: {
+            password: "Please enter your first name",
+            c_password: "Password do not match"
+        }
+    });
+});
+</script>
+
+    <!--script for this page-->
+
+    {% endblock js-foot %} 

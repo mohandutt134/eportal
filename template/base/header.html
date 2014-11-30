@@ -5,51 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
-    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    {% block title %}
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina"> {% block title %}
     <title>SMVDU E-portal</title>
-    {% endblock title %}
-    {% load staticfiles %}
+    {% endblock title %} {% load staticfiles %}
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
     <!--external css-->
     <link rel="stylesheet" href="{% static 'assets/font-awesome/css/font-awesome.css' %}">
-    
+
     <link rel="stylesheet" href="{% static 'assets/js/gritter/css/jquery.gritter.css' %}">
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/style-responsive.css' %}"> 
+    <link rel="stylesheet" href="{% static 'assets/css/style-responsive.css' %}">
     <script src="{% static 'assets/js/jquery-1.8.3.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/ns.js' %}"></script>
-    
+
 
     <style type="text/css">
-  .wrapper{
-    min-height: 86%;
-  }
+    .wrapper {
+        min-height: 86%;
+    }
     </style>
-    {% block cssadd %} {% endblock cssadd %} {% block jsadd-up %}
-
-
-     {% endblock jsadd-up %}
+    {% block cssadd %} {% endblock cssadd %} {% block jsadd-up %} {% endblock jsadd-up %}
 
 </head>
 
 <body background="/static/assets/img/login-bg.jpg">
     <section id="container">
-
+        {% if user.is_authenticated %}
         <header class="header black-bg">
-            {% if user.is_authenticated %}
+
             <div class="sidebar-toggle-box">
                 <div class="fa fa-bars tooltips" data-placement="right"></div>
-                {% endif %}
+
             </div>
 
             <!--logo start-->
             <a href="{% url 'home' %}" class="logo"><b>SMVDU Eportal</b></a>
             <!--logo end-->
-            {% if user.is_authenticated %}
+
             <script type>
 
                 create_post();
@@ -69,7 +64,7 @@
                                     <!--notification body -->
                                     <ul class="dropdown-menu extended inbox" id="n_body" style="overflow:auto;max-height:200px">
                                         <div class="notify-arrow notify-arrow-green"></div>
-                                        
+
                                     </ul>
                                     <!-- notfication body end -->
                                 </li>
@@ -83,7 +78,7 @@
                                     <!-- message body-->
                                     <ul class="dropdown-menu extended inbox" id="M_body" style="overflow:auto;max-height:200px">
                                         <div class="notify-arrow notify-arrow-green"></div>
-                                        
+
                                     </ul>
                                     <!-- end message body -->
                                 </li>
@@ -100,13 +95,22 @@
 
             </div>
 
-            {% endif %} {% if not user.is_authenticated %}
+
+
+
+
+        </header>
+        {% else %}
+        <header class="header black-bg">
+            <a href="{% url 'home' %}" class="logo"><b>SMVDU Eportal</b></a>
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" style="
+    background-color: whitesmoke;
+">
+                    <span style="background-color: #428bca;" class="sr-only">Toggle navigation</span>
+                    <span style="background-color:#428bca;" class="icon-bar"></span>
+                    <span style="background-color: #428bca;" class="icon-bar"></span>
+                    <span style="background-color:#428bca;" class="icon-bar"></span>
 
                 </button>
 
@@ -129,11 +133,22 @@
                 </ul>
 
             </div>
-            {% endif %}
-
         </header>
-
-        {% block sidebar %} {% endblock sidebar %}
+        <!-- <div class="navbar-header">
+       
+              <a href="/index" class="navbar-brand ">SMVDU E-Portal</a>
+      
+       
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+          
+      </button>
+      
+    </div> -->
+        {% endif %} {% block sidebar %} {% endblock sidebar %}
         <section id="main-content">
             <section class="wrapper">
 
@@ -153,36 +168,36 @@
 
         </section>
         {% if user.is_authenticated %}
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content" style="width:100%; text-align:center">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">Change Password</h4>
-            </div>
-            <div class="modal-body">
-                <form role="form" id="change_password_form" method="post" action="/change/?next={{request.path}}">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="width:100%; text-align:center">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Change Password</h4>
                     </div>
-                    <div class="form-group">
-                        <input type="password" id="c_password" name="c_password" class="form-control" placeholder="Confirm Password">
+                    <div class="modal-body">
+                        <form role="form" id="change_password_form" method="post" action="/change/?next={{request.path}}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" id="c_password" name="c_password" class="form-control" placeholder="Confirm Password">
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" name="change_password_submit">Submit</button>
+                                    <br>
+                                    <a href="#myModal2" data-dismiss="modal" data-toggle="modal" style="padding-top:10px"></a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary" name="change_password_submit">Submit</button>
-                            <br>
-                            <a href="#myModal2" data-dismiss="modal" data-toggle="modal" style="padding-top:10px"></a>
-                        </div>
-                    </div>
-                </form>
-            </div>
 
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-{% endif %}
+        {% endif %}
     </section>
     {% block js-foot %}
     <!-- js placed at the end of the document so the pages load faster -->
@@ -200,36 +215,36 @@
     <script src="{% static 'assets/js/common-scripts.js' %}"></script>
     {% if user.is_authenticated %}
     <script>
-$(document).ready(function() {
-    //alert("change password");
-    $("#change_password_form").validate({
-        // Specify the validation rules
-        rules: {
-            new_password: {
-                required: true,
-                minlength: 6,
-                maxlength: 10
+    $(document).ready(function() {
+        //alert("change password");
+        $("#change_password_form").validate({
+            // Specify the validation rules
+            rules: {
+                new_password: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 10
 
+                },
+                c_password: {
+                    required: true,
+                    equalTo: "#new_password"
+                }
             },
-            c_password: {
-                required: true,
-                equalTo: "#new_password"
+
+            // Specify the validation error messages
+            messages: {
+                password: "Please enter your first name",
+                c_password: "Password do not match"
             }
-        },
-
-        // Specify the validation error messages
-        messages: {
-            password: "Please enter your first name",
-            c_password: "Password do not match"
-        }
+        });
     });
-});
-</script>
+    </script>
 
-{% endif %}
+    {% endif %}
     <!--script for this page-->
 
-    {% endblock js-foot %} 
+    {% endblock js-foot %}
 
 
 </body>

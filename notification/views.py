@@ -31,6 +31,7 @@ from notification.models import notification,message
 import json
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import PermissionDenied
 
 @csrf_exempt
 def notificationicon_create(request):
@@ -41,7 +42,7 @@ def notificationicon_create(request):
 		data=json.dumps(data)
 		return HttpResponse(data)
 	else:
-		return render(request,'404.html',{})
+		raise PermissionDenied
 
 def notification_view(request,id):
 	profile=notification.objects.get(receiver=request.user,n_id=id)
@@ -49,7 +50,7 @@ def notification_view(request,id):
 	print request.GET.get('time')
 	profile.save()
 	if(profile.title=='Registered'):
-		return HttpResponse("prfile form")
+		return HttpResponse("profile form")
 	else:
 		if profile.link=='#':
 			return redirect(request.GET.get('next'))
@@ -68,7 +69,7 @@ def message_view(request):
 		data=serializers.serialize("json",msg)
 		return HttpResponse(data)
 	else:
-		return render(request,'404.html',{})
+		raise PermissionDenied
 
 def all_notification(request):
 	print request.user
@@ -89,7 +90,7 @@ def bulk_message(request,id):
 		except Exception as e:
 			return HttpResponse(e)
 	else:
-		return HttpResponse("Permission Denied")
+		raise PermissionDenied
 
 
 @csrf_exempt
@@ -107,4 +108,4 @@ def messageToFaculty(request,email):
 		except Exception as e:
 			return HttpResponse("success")
 	else:
-		return HttpResponse("Permission Denied")
+		raise PermissionDenied

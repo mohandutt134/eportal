@@ -79,7 +79,7 @@ class student_profile(models.Model):
         ('8', '8')
     )
     user = models.OneToOneField(User,primary_key=True)
-    DOB=models.DateField(blank=True)
+    DOB=models.DateField(blank=True,null=True)
     Branch=models.CharField(max_length=5,choices=CHOICES,default='CSE')
     Semester=models.CharField(max_length=4,choices=CHOICES_SEM,default='1')
     image = models.ImageField(upload_to='spp',default="spp/user_blue.png")

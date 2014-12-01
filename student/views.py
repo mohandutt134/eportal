@@ -67,9 +67,6 @@ def home(request):
     return render(request, 'index.html',{'notifications':result_list},context_instance=RequestContext(request))
 
 
-def all_courses(request):
-    return render(request, 'courses.html')
-
 
 def faculty(request):
     request.session['last']='home'
@@ -262,3 +259,16 @@ def changePassword(request):
 @login_required
 def profile (request):
     return render(request,'profile.html')
+
+def course_info(id):
+    try:
+        course = Course.objects.get(course_id=id)
+        if 'type' in request.session:
+            if request.session['type']=='student':
+                count = student_profile.objects.filter(user=request.user,coursetaken=course).count()
+                return render(request,'course_info.html',{'course':course,'count':count})
+            else:
+                return render(request,'course_info.html',{'course':course,'faculty':"isfaculty"})
+        return render(request,'course_info.html',{'course':course})
+    except:
+        return HttpResponse('404 page not found')

@@ -29,6 +29,7 @@ urlpatterns = patterns('student.views',
     url(r'^change/$', 'changePassword', name='change'),
     url(r'^course/(?P<id>[0-9A-Za-z_\-]+)/addmaterial$', 'add_material', name='add_material'),
     url(r'^allcourses$', 'allcourses', name='allcourses'),
+    #url(r'^course_info/(?P<id>[0-9A-Za-z_\-]+)$','course_info',name='course_info'),
 
     url(r'^test$', 'test', name='test'),
 )

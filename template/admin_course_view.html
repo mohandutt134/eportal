@@ -1,9 +1,7 @@
-<<<<<<< HEAD
-{% extends 'base/sidebarf.html' %} {% load staticfiles %} {% block content %}
-=======
+
 {% extends 'base/sidebarf.html' %} {% load staticfiles %} 
 {% load humanize %}{% block content %}
->>>>>>> 45ad55cf5f0595d05482ea6f096f87a756496f1c
+
 
 
 <div class="row">
@@ -41,10 +39,9 @@
 
 
             <div class="col-md-4 col-sm-4 mb">
-<<<<<<< HEAD
+HEAD
                 <a href="/quiz{{request.get_full_path}}/create_course_quiz">
-=======
->>>>>>> 45ad55cf5f0595d05482ea6f096f87a756496f1c
+
                 <div class="weather pn" style="background: #AC193D; color:#fff;">
                     <i class="fa fa-tags fa-4x"></i>
                     <h1>FORM</h1>
@@ -70,72 +67,15 @@
             <div class="col-md-4 col-sm-4 mb">
                 <a href="#" data-toggle="modal" data-target="#messageModal">
                     <div class="weather pn" style="background: #00A8FF; color:#fff;">
-<<<<<<< HEAD
-                        <i class="fa fa-mail-forward fa-4x"></i>
-=======
+
                         <i class="fa fa-envelope-o fa-4x"></i>
->>>>>>> 45ad55cf5f0595d05482ea6f096f87a756496f1c
+
                         <h1>SEND</h1>
                         <h4>message to students</h4>
                     </div>
                 </a>
             </div>
-<<<<<<< HEAD
 
-
-            <div class="col-md-4 col-sm-4 mb">
-                <a href="#">
-                    <div class="weather pn" style="background: #5133AB; color:#fff;">
-                        <i class="fa fa-tags fa-4x"></i>
-                        <h1>Course Page</h1>
-                        <h4>Public View</h4>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4 col-sm-4 mb">
-                <a href="#">
-                    <div class="weather pn" style="background: #094AB2; color:#fff;">
-                        <i class="fa fa-mortar-board fa-4x"></i>
-                        <h1>ENTER</h1>
-                        <h4>results</h4>
-                    </div>
-                </a>
-            </div>
-            <!-- /col-md-4 -->
-
-        </div>
-        <!-- /row -->
-    </div>
-    <div class="col-lg-3 ds">
-        <h3>Recent Activity</h3>
-
-        <!-- First Action -->
-        <div style="overflow:auto;max-height:400px" id="activityBox">
-            {% for activity in activities %}
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                </div>
-                <div class="details">
-                    <p>
-                        <muted>{{ activity.time }}</muted>
-                        <br/> {{ activity.subject }}
-                        <br/>
-                    </p>
-                </div>
-            </div>
-            {% endfor %}
-            <!-- Second Action -->
-
-
-        </div>
-    </div>
-</div>
-
-
-=======
 
 
             <div class="col-md-4 col-sm-4 mb">
@@ -183,19 +123,12 @@
             </div>
             {% endfor %}
             <!-- Second Action -->
->>>>>>> 45ad55cf5f0595d05482ea6f096f87a756496f1c
 
 </div>
 
         </div>
     </div>
 </div>
-
-<<<<<<< HEAD
-
-{% endblock content %} {% block jsadd %}
-=======
->>>>>>> 45ad55cf5f0595d05482ea6f096f87a756496f1c
 
 
 </div>
@@ -240,8 +173,6 @@ $(document).ready(function() {
 </div>
 
 
-<<<<<<< HEAD
-{% endblock jsadd %} {% block modal %} {% endblock %}
-=======
+
 {% endblock content %} {% block modal %} {% endblock %}
->>>>>>> 45ad55cf5f0595d05482ea6f096f87a756496f1c
+

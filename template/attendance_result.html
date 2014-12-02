@@ -1,4 +1,4 @@
-{% extends 'base/sidebarf.html' %} {% load staticfiles %}
+{% extends temp %} {% load staticfiles %}
 
 {% block jsadd-up %}
 <script src="{% static 'assets/js/chart-master/Chart.js' %}"></script>
@@ -58,7 +58,7 @@
                                   
                                   {% for student in students %}
                                   <tr>
-                                      <td>{{student.user.username|slice:":-12"}}</td>
+                                      <td>{{student.user.username}}</td>
                                       <td>{{total}}</td>
                                       {% get_attendance %}
                                   </tr>

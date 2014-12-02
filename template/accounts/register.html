@@ -4,7 +4,10 @@
               {% csrf_token %}
                 <h2 class="form-login-heading">SIGN UP</h2>
                 <div class="login-wrap">
-                    <input type="text" name="R_email" class="form-control" placeholder="User ID" autofocus>
+                <div class="input-group ">
+                            <input type="text" name="R_email" class="form-control" placeholder="User ID" autofocus>
+                            <span class="input-group-addon">@smvdu.ac.in</span>
+                        </div>
                     <br>
                     <input type="text" name="R_fname" class="form-control" placeholder="First Name">
                     <br>
@@ -21,15 +24,20 @@
                         </label>
 
                     </div>
-                    <p style="color:green" class="text-center">{% if msg == "success" %}
+                    {% if msg %}
+                    {% if msg == "success" %}
+                    <p  class="text-center error alert alert-success">
                         Password is sent to your email id
-                        {% endif %}</p>
-                        <p style="color:red" class="text-center">
+                        </p>{% endif %}
                         {% if msg != "success" %}
+                        <p  class="text-center error alert alert-danger">
+                        
                         {{msg}}
-                        {% endif %}
+                        
 
                     </p>
+                    {% endif %}
+                    {% endif %}
                     <br>
                     <button class="btn btn-theme btn-block"  type="submit"><i class="fa fa-sign-in"></i> SIGN UP</button>
                     <hr>

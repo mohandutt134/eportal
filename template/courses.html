@@ -15,7 +15,7 @@
                         {% if courses.count > 0 %}
                         {% for course in courses %}
                             <div class="col-md-4 col-sm-4 mb">
-                                <a href="course/{{ course.course_id }}">
+                                <a href="courses/{{ course.course_id }}">
                                     <div class="content-panel pn">
                                         <div id="blog-bg" style="background:url('/static/uploaded_image/{{ course.image }}');background-size:cover;">
                                             <div class="badge badge-popular">{{course.course_id}}</div>
@@ -31,6 +31,7 @@
                         {% endfor %}
                         </div>
                         <!-- /row -->
+                        
 
                         <div class="row mt">
                             <!--CUSTOM CHART START -->
@@ -60,18 +61,21 @@
                                 </ul>
                                 {% for course in courses %}
                             <div class="bar">
-                            <div class="title">{{course.course_id}}</div>
+                            <div class="title">{{course.course_name}}</div>
                             {% make_bar course %}
                             </div>
                             {% endfor %}
                             </div>
+
                             <!--custom chart end-->
                             {% else %}
+                            
                             <div class="col-md-12 mb">
                                 <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">
                                     <h1>You are not running any course currently!!!</h1>
-                                </div>
+                                </div>  
                             </div>
+                            
                         {% endif %}
                         </div>
                         <!-- /row -->

@@ -1,10 +1,10 @@
-{% extends 'base/header.html' %} {% load staticfiles %} {% block cssadd %}
-{% if not user.is_authenticated %} 
+{% extends temp %} {% load staticfiles %} {% block cssadd %} 
+{% ifequal temp 'base/header.html' %}
 <style type="text/css">
 #main-content {
     margin-left: 0;
 }
-{% endif %}
+{% endifequal %}
 </style>
 {% endblock cssadd %} {% block content %}
 <br>
@@ -42,29 +42,22 @@
 
         <div class="row">
             <!-- SERVER STATUS PANELS -->
-            {% if courses %} {% for course in courses %}
-            <div class="col-sm-4 mb">
-                <a href="course_info/{{course.course_id}}">
-                    <div class="content-panel pn">
-                        <div id="blog-bg" style="background:url('/static/uploaded_image/{{ course.image }}');background-size:cover;">
-                            <div class="badge badge-popular">{{course.course_id}}</div>
-                            <div class="blog-title">{{course.course_name}}</div>
+            {% for faculty in faculties %}
+            <a href="profile/{{faculty.user.username}}">
+            <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                <div class="content-panel pn">
+                    <div id="spotify" style="background: url(static/uploaded_image/fpp/{{faculty.image}}) no-repeat center top;background-size:cover">
+                        <div class="col-xs-4 col-xs-offset-8">
+                            <button class="btn btn-sm btn-clear-g">FOLLOW</button>
                         </div>
-                        <div class="blog-text">
-
+                        <div class="play">
+                            <i class="fa fa-play-circle"></i>
                         </div>
                     </div>
-                </a>
-            </div>
-            {% endfor %} {% else %}
-            <div class="col-md-12 mb">
-                <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">
-                    <h1>No Course Matching Your Query!!!</h1>
+                    <p class="followers"><i class="fa fa-user"></i> {{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</p>
                 </div>
             </div>
-
-            {% endif %}
-
+            {% endfor %}
             <!-- /form-panel -->
 
         </div>

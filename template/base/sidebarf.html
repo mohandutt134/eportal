@@ -6,15 +6,15 @@
         <ul class="sidebar-menu" id="nav-accordion">
 
             <p class="centered">
-                <a href="profile">
+                <a href="{% url 'dashboard' %}">
                     {% if not user.faculty_profile.image %}
                         <img src="/static/uploaded_image/fpp/user_blue.png" class="img-circle" width="60"/>
                     {% else %}
-                        <img src="/static/uploaded_image/{{ user.faculty_profile.image }}" class="img-circle" width="60">
+                        <img src="/static/uploaded_image/fpp/{{ user.faculty_profile.image }}" class="img-circle" width="60">
                     {% endif %}
                 </a>
             </p>
-            <h5 class="centered text-capitalize">Hello,
+            <h5 class="centered text-capitalize">Faculty,
 
             {% if not user.first_name %}
                User
@@ -55,13 +55,22 @@
                     </li>
                 </ul>
             </li>
-                       <li class="sub-menu">
+            <li class="sub-menu">
+                <a href="{% url 'faculty' %}">
+                    <i class="fa fa-user"></i>
+                    <span>Faculty</span>
+                </a>
+            </li>
+
+            <li class="sub-menu">
                 <a href="javascript:;">
                     <i class="fa fa-cogs"></i>
                     <span>SETTINGS</span>
                 </a>
                 <ul class="sub">
-                    <li><a href="morris.html">View Profile</a>
+                    <li><a href="/profile/{{user.username}}">View Profile</a>
+                    </li>
+                    <li><a href="/profile">Edit Profile</a>
                     </li>
                     <li><a href="#" data-toggle="modal" data-target="#myModal">Change Password</a>
                     </li>
@@ -71,60 +80,6 @@
         </ul>
     </div>
 </aside>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content" style="width:100%; text-align:center">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title">Change Password</h4>
-                </div>
-                <div class="modal-body">
-                    <form role="form" id="change_password_form" method="post" action="/change/?next={{request.path}}">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" id="c_password" name="c_password" class="form-control" placeholder="Confirm Password">
-                        </div>
-                        <div class="modal-footer">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary" name="change_password_submit">Submit</button>
-                                <br>
-                                <a href="#myModal2" data-dismiss="modal" data-toggle="modal" style="padding-top:10px"></a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
 
-            </div>
-        </div>
-    </div>
-    
-    <script src="{% static 'js/jquery.validate.min.js' %}"></script>
-    <script>
-    $(document).ready(function() {
-        $("#change_password_form").validate({
-            // Specify the validation rules
-            rules: {
-                    new_password: {
-                        required: true,
-                        minlength: 6,
-                        maxlength: 10
 
-                    },
-                    c_password: {
-                        required: true,
-                        equalTo: "#new_password"
-                    }
-                },
-
-                // Specify the validation error messages
-                messages: {
-                    password: "Please enter your first name",
-                    c_password: "Password do not match"
-                }
-        });
-    });
-    </script>
-{% endblock sidebar %}
+{% endblock sidebar %} 

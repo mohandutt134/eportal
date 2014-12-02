@@ -19,6 +19,11 @@ class notification(models.Model):
 	def __unicode__(self):
    		return unicode(self.title) or u''
 
+	class Meta:
+		verbose_name = "Notification"
+		verbose_name_plural = "Notifications"
+		ordering = ["-time"]
+
 
 class activity(models.Model):
 	subject = models.CharField(max_length=256)
@@ -27,6 +32,11 @@ class activity(models.Model):
 
 	def __unicode__(self):
    		return unicode(self.subject) or u''
+
+   	class Meta:
+		verbose_name = "Activity"
+		verbose_name_plural = "Activities"
+		ordering = ["-time"]
 
 class message(models.Model):
 	m_id = models.AutoField(primary_key=True)
@@ -42,3 +52,7 @@ class message(models.Model):
 	def __unicode__(self):
    		return unicode(self.title) or u''
 
+	class Meta:
+		verbose_name = "Message"
+		verbose_name_plural = "Messages"
+		ordering = ["-time"]

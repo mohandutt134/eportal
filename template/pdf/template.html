@@ -1,0 +1,209 @@
+<html>
+
+<head>
+    <title></title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+    <!--external css-->
+    <link rel="stylesheet" href="{% static 'assets/font-awesome/css/font-awesome.css' %}">
+
+    <link rel="stylesheet" href="{% static 'assets/js/gritter/css/jquery.gritter.css' %}">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style-responsive.css' %}">
+    <style type="text/css">
+    /* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+   
+   Feel free (nay, compelled) to edit, append, and 
+   manipulate this file as you see fit. */
+    /* SECTION 1: Set default width, margin, float, and
+   background. This prevents elements from extending 
+   beyond the edge of the printed page, and prevents
+   unnecessary background images from printing */
+    
+    body,
+    #content,
+    #container {
+        width: 100%;
+        margin: 0;
+        float: none;
+        background: #fff url(none);
+    }
+    /* SECTION 2: Remove any elements not needed in print. 
+   This would include navigation, ads, sidebars, etc. */
+    
+    #topnav,
+    #navbar,
+    #nav,
+    #sidebar,
+    .ad,
+    .noprint {
+        display: none;
+    }
+    /* SECTION 3: Set body font face, size, and color.
+   Consider using a serif font for readability. */
+    
+    body {
+        font: 1em Georgia, "Times New Roman", Times, serif;
+        color: #AC193D;
+    }
+    /* SECTION 4: Set heading font face, sizes, and color.
+   Diffrentiate your headings from your body text.
+   Perhaps use a large sans-serif for distinction. */
+    
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: Helvetica, Arial, sans-serif;
+        color: #000;
+    }
+    h1 {
+        font-size: 250%;
+    }
+    h2 {
+        font-size: 175%;
+    }
+    h3 {
+        font-size: 135%;
+    }
+    h4 {
+        font-size: 100%;
+        font-variant: small-caps;
+    }
+    h5 {
+        font-size: 100%;
+    }
+    h6 {
+        font-size: 90%;
+        font-style: italic;
+    }
+    /* SECTION 5: Make hyperlinks more usable.
+   Ensure links are underlined, and consider appending
+   the URL to the end of the link for usability. */
+    
+    a:link,
+    a:visited {
+        color: #00c;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+    #content a:link:after,
+    #content a:visited:after {
+        content: " (" attr(href) ") ";
+    }
+    td {
+        width: 30%;
+        padding: 3px;
+        font-size: 2em;
+    }
+    
+    </style>
+
+</head>
+
+<body >
+    {% if usr.faculty_profile %}
+
+    <h1>{{ usr.first_name | upper}}&nbsp;{{ usr.last_name | upper }} </h1>
+
+         <h2>PROFILE INFO:</h2>
+        <table >
+            <tr>
+                <td class="topic">User Name</td>
+                <td>:&nbsp;{{ usr.username }}</td>
+            </tr>
+            <tr>
+                <td>First Name</td>
+                <td>:&nbsp;{{ usr.first_name }}</td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td>:&nbsp;{{ usr.last_name }}</td>
+            </tr>
+            <tr>
+                <td>Department</td>
+                <td>:&nbsp;{{ usr.faculty_profile.department }}</td>
+            </tr>
+            <tr>
+                <td>E-mail</td>
+                <td>:&nbsp;{{ usr.email }}</td>
+            </tr>
+            <tr>
+                <td>Weburl</td>
+                <td>:&nbsp;{{ usr.faculty_profile.weburl }}</td>
+            </tr>
+
+        </table>
+
+  
+
+   
+        <br>
+        <h2>ABOUT </h2>
+        <p>
+            {{ usr.faculty_profile.description }}
+
+        </p>
+   
+   
+        <br>
+        <h2>My area of interests are </h2>
+        <p>{{ usr.faculty_profile.areaofinterest }}</p>
+    
+   
+        <br>
+        <h2>My researchs are </h2>
+        <p>{{ usr.faculty_profile.research }}</p>
+
+
+    {% else %}
+    <br>
+
+    <h3>{{ usr.first_name | upper}}&nbsp;{{ usr.last_name | upper }} </h3>
+
+
+
+
+
+
+    <table class="table table-hover">
+        <tr>
+            <td>User Name</td>
+            <td>:&nbsp;{{ usr.username }}</td>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td>:&nbsp;{{ usr.first_name }}</td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td>:&nbsp;{{ usr.last_name }}</td>
+        </tr>
+        <tr>
+            <td>Branch</td>
+            <td>:&nbsp;{{ usr.student_profile.branch }}</td>
+        </tr>
+        <tr>
+            <td>Semester</td>
+            <td>:&nbsp;{{ usr.student_profile.semester }}</td>
+        </tr>
+        <tr>
+            <td>E-mail</td>
+            <td>:&nbsp;{{ usr.email }}</td>
+        </tr>
+
+    </table>
+
+
+    {% endif %}
+    
+
+</body>
+
+</html>

@@ -54,16 +54,18 @@ def controls(request):
 def show(request):
 	if request.session['type']=='faculty':
 		courses = Course.objects.filter(facultyassociated=request.user.faculty_profile).exclude(semester='OPEN')
-		if request.method == 'POST':
-			if 'search' in request.POST:
-				id=request.POST.get('selected_course')
-				selected_course = Course.objects.get(course_id=id)
-				total = attendance.objects.filter(course=selected_course).count()
-				request.session['selected_id']=id
-				students=student_profile.objects.filter(coursetaken=selected_course,Semester=selected_course.semester).order_by('user')
-				return render(request,'attendance_result.html',{'courses':courses,'students':students,'selected_course':selected_course,'total':total})
-
-		else:
-			return render(request,'attendance_result.html',{'courses':courses})
+		temp='base/sidebarf.html'
 	else:
-		raise PermissionDenied
+		courses = request.user.student_profile.coursetaken.all()
+		temp='base/sidebars.html'
+	if request.method == 'POST':
+		if 'search' in request.POST:
+			id=request.POST.get('selected_course')
+			selected_course = Course.objects.get(course_id=id)
+			total = attendance.objects.filter(course=selected_course).count()
+			request.session['selected_id']=id
+			students=student_profile.objects.filter(coursetaken=selected_course,Semester=selected_course.semester).order_by('user')
+			return render(request,'attendance_result.html',{'temp':temp,'courses':courses,'students':students,'selected_course':selected_course,'total':total})
+
+	else:
+		return render(request,'attendance_result.html',{'temp':temp,'courses':courses})

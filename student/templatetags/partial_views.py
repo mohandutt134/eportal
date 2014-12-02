@@ -23,4 +23,21 @@ def make_bar(course):
     #count=student_profile.objects.filter(coursetaken=course).count()
    	#return {'count':count}
 
-
+@register.inclusion_tag('course_code.html',takes_context=True)
+def expansion(context):
+    if context['usr'].groups.filter(name='faculty').exists():
+        code = context['usr'].faculty_profile.department
+    else:
+        code = context['usr'].student_profile.Branch
+    print code
+    print "below code"
+    expanded = 'OTHER'
+    if code == 'CSE':
+        expanded = "Computer Science & Engineering"
+    if code == "ECE":
+        expanded = "Electronics & Communication Engineering"
+    if code == "MEC":
+        expanded = "Mechanical Engineering"
+    if code == "IBT":
+        expanded = "Industrial Biotechnology"
+    return {'expanded':expanded}

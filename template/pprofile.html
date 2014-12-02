@@ -1,0 +1,193 @@
+{% extends temp %} {% load staticfiles %}
+{% load partial_views %} {% block cssadd %} {% if not request.user.is_authenticated %}
+<style type="text/css">
+#main-content {
+    margin-left: 0;
+    padding: 0;
+}
+.wrapper {
+    margin-left: 0;
+    padding: 0;
+}
+body {
+    background: #f2f2f2;
+}
+</style>
+{% endif %} {% endblock cssadd %} {% block jsadd-up %} {% endblock jsadd-up %} {% block content %} 
+
+{% if usr.faculty_profile %}
+<br>
+<div class="container-fluid">
+    <div class="row row-xs-12">
+        <div class="container" style="width:90%">
+            <h3>{{ usr.first_name | upper}}&nbsp;{{ usr.last_name | upper }} </h3>
+            <!-- <input type="button" onClick="window.print()" value="Print This Page"/>  -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab_a" data-toggle="tab">BIO</a>
+                </li>
+                <li><a href="#tab_b" data-toggle="tab">About</a>
+                </li>
+                <li><a href="#tab_c" data-toggle="tab">Area Of Interest</a>
+                </li>
+                <li><a href="#tab_d" data-toggle="tab">Reserach</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_a">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+
+
+
+                            {% if not usr.faculty_profile.image %}
+                            <img class="img-responsive img-thumbnail" src="/static/uploaded_image/fpp/user_blue.png" /> {% else %}
+
+                            <div class="col-md-10 col-md-offset-1">
+                                <img class="img-responsive img-thumbnail" src="/static/uploaded_image/fpp/{{ usr.faculty_profile.image }}">
+                            </div>
+
+                            {% endif %}
+
+
+
+                        </div>
+                        <div class="col-md-8">
+                            <table class="table table-hover">
+                                <tr>
+                                    <td>User Name</td>
+                                    <td>:&nbsp;{{ usr.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td>First Name</td>
+                                    <td>:&nbsp;{{ usr.first_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name</td>
+                                    <td>:&nbsp;{{ usr.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Department</td>
+                                   {% expansion %}
+                                </tr>
+                                <tr>
+                                    <td>E-mail</td>
+                                    <td>:&nbsp;{{ usr.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Weburl</td>
+                                    <td>:&nbsp;{{ usr.faculty_profile.weburl }}</td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="tab-pane" id="tab_b">
+                    <br>
+                    <h4>About Me</h4>
+                    <p>
+                        {{ usr.faculty_profile.description }}
+
+                    </p>
+                </div>
+                <div class="tab-pane" id="tab_c">
+                    <br>
+                    <h4>My area of interests are </h4>
+                    <p>{{ usr.faculty_profile.areaofinterest }}</p>
+                </div>
+                <div class="tab-pane" id="tab_d">
+                    <br>
+                    <h4>My researchs are </h4>
+                    <p>{{ usr.faculty_profile.research }}</p>
+                </div>
+            </div>
+            <!-- tab content -->
+        </div>
+        <!-- end of container -->
+
+    </div>
+    <br>
+    <br>
+    <br>
+</div>
+{% else %}
+<br>
+<div class="container-fluid">
+    <div class="row row-xs-12">
+        <div class="container" style="width:90%">
+            <h3>{{ usr.first_name | upper}}&nbsp;{{ usr.last_name | upper }} </h3>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_a">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4">
+
+
+
+                            {% if not usr.student_profile.image %}
+                            <img class="img-responsive img-thumbnail" src="/static/uploaded_image/fpp/user_blue.png" /> {% else %}
+
+                            <div class="col-md-10 col-md-offset-1">
+                                <img class="img-responsive img-thumbnail" src="/static/uploaded_image/spp/{{ usr.student_profile.image }}">
+                            </div>
+
+                            {% endif %}
+
+
+
+                        </div>
+                        <div class="col-md-8">
+                            <table class="table table-hover">
+                                <tr>
+                                    <td>User Name</td>
+                                    <td>:&nbsp;{{ usr.username }}</td>
+                                </tr>
+                                <tr>
+                                    <td>First Name</td>
+                                    <td>:&nbsp;{{ usr.first_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name</td>
+                                    <td>:&nbsp;{{ usr.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Branch</td>
+                                    {% expansion %}
+                                </tr>
+                                 <tr>
+                                    <td>Semester</td>
+                                    <td>:&nbsp;{{ usr.student_profile.Semester }}</td>
+                                </tr>
+                                <tr>
+                                    <td>E-mail</td>
+                                    <td>:&nbsp;{{ usr.email }}</td>
+                                </tr>
+                                
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+               
+            </div>
+            <!-- tab content -->
+        </div>
+        <!-- end of container -->
+
+    </div>
+    <br>
+    <br>
+    <br>
+</div>
+
+{% endif %} 
+<div class="row">
+<div class="col-md-4 col-md-offset-1">
+<a class="btn btn-info" target="blank" href="/pdf/{{ usr.username }}">Download as PDF</a>
+</div>
+</div>
+{% endblock %} {% block jsadd %} {% endblock jsadd %}

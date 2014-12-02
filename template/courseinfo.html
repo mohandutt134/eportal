@@ -1,0 +1,120 @@
+{% extends temp %} {% load staticfiles %} {% block cssadd %} {% if not request.user.is_authenticated %}
+<style type="text/css">
+#main-content {
+    margin-left: 0px;
+}
+</style>
+{% endif %} {% endblock cssadd %} {% block jsadd-up %} {% endblock jsadd-up %} {% block content %} {% load partial_views %}
+<div class="row">
+    <div class="col-lg-9 main-chart" style="padding-top:0;">
+        <div class="row">
+            <div class="col-lg-12 ">
+
+
+
+                <div class="row">
+                    <!-- SERVER STATUS PANELS -->
+                    <div class="form-panel">
+                        <legend class="center-block"><b><h1>{{course.course_id}} : {{course.course_name}}</h1></b>
+                            <a href="/profile/{{course.facultyassociated.user.username}}"><i class="fa fa-user fa-x"></i> &nbsp;Prof  &nbsp;&nbsp;{{course.facultyassociated.user.first_name}}&nbsp;&nbsp;{{course.facultyassociated.user.last_name}}</a>
+
+                            <br> Start-Date :&nbsp;&nbsp; {{course.start_date}} <span class="pull-right">End-Date :&nbsp;&nbsp; {{course.end_date}}</span>
+                        </legend>
+
+                        <h3>Description:</h3>
+                        <p class="text-justified">
+                            {{course.description}}</p>
+
+
+                    </div>
+
+
+
+                    <!-- /row -->
+                </div>
+                <div class="row">
+                    <!-- SERVER STATUS PANELS -->
+                    <div class="col-md-4" style="margin:0;padding:0">
+
+                        <div class="form-panel">
+                            <h3>Faculty</h3>
+                            <img class="img-thumbnail img-responsive" src="/static/uploaded_image/fpp/{{course.facultyassociated.image}}">
+                            <h4>Prof  &nbsp;&nbsp;{{course.facultyassociated.user.first_name}}&nbsp;&nbsp;{{course.facultyassociated.user.last_name}}</h4>
+                            <h4>{{course.facultyassociated.department}}</h4>
+                            <p> {{course.facultyassociated.description}} </p> <a class="pull-right" href="/profile/{{course.facultyassociated.user.username}}">See More</a>
+                            <br>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-8" style="margin:0;padding:2">
+
+                        <div class="form-panel">
+
+                            <legend class="center-block"><b><h2>Course Structure</h2></b>
+
+
+                            </legend>
+                            <ul>
+                                <li><i class="fa fa-instagram fa-2x"></i> TOPIC 1</li>
+                                <li><i class="fa fa-instagram fa-2x"></i> Topic 2</li>
+                                <li><i class="fa fa-check"></i> TOPIC 1</li>
+                                <li><i class="fa fa-check"></i>Topic 2</li>
+                                <li>TOPIC 1</li>
+                                <li>Topic 2</li>
+                            </ul>
+                            <br>
+                            <ul>
+                                <li><i class="fa fa-instagram fa-2x"></i> TOPIC 1</li>
+                                <li><i class="fa fa-instagram fa-2x"></i> Topic 2</li>
+                                <li><i class="fa fa-check"></i> TOPIC 1</li>
+                                <li><i class="fa fa-check"></i>Topic 2</li>
+                                <li>TOPIC 1</li>
+                                <li>Topic 2</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="col-lg-3 ds">
+
+    <br>
+    <br>
+        <div>
+            <!-- INSTAGRAM PANEL -->
+                <div id="blog-bg" style="background:url('/static/uploaded_image/{{ course.image }}');background-size:cover;">
+                </div>
+            <br>
+
+
+            <button type="button" class="btn btn-lg btn-info btn-block"> REGISTER </button>
+            <br>
+            <div class="form-panel">
+                <h3>Similar Courses:</h3>
+                <br>
+
+                <ul style="margin-left:2;">
+                    <a href="">
+                        <li> <img src="/static/uploaded_image/fpp/vc.jpg" class="img-thumbnail" width="40"> COA
+                        </li>
+                        <br>
+                        <li> <img src="/static/uploaded_image/fpp/vc.jpg" class="img-thumbnail" width="40"> TOC
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %} {% block jsadd %} {% endblock jsadd %}

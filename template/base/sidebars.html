@@ -7,11 +7,12 @@
         <ul class="sidebar-menu" id="nav-accordion">
 
            <p class="centered">
-                <a href="profile">
-                    {% if not user.faculty_profile.image %}
+
+                <a href="{% url 'dashboard' %}">
+                    {% if not user.student_profile.image %}
                         <img src="/static/uploaded_image/fpp/user_blue.png" class="img-circle" width="60"/>
                     {% else %}
-                        <img src="/static/uploaded_image/{{ user.student_profile.image }}" class="img-circle" width="60">
+                        <img src="/static/uploaded_image/spp/{{ user.student_profile.image }}" class="img-circle" width="60">
                     {% endif %}
                 </a>
             </p>
@@ -21,10 +22,42 @@
              {{ user.first_name }}
             {% endif %}</h5>
             <li class="mt">
-                <a class="active" href="{% url 'dashboard' %}">
+                <a class="active" href="{% url 'courses' %}">
                     <i class="fa fa-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
+            </li>
+            <li class="sub-menu">
+                <a href="{% url 'allcourses' %}">
+                    <i class="fa fa-bank"></i>
+                    <span>All Courses</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="{% url 'show' %}">
+                    <i class="fa fa-edit"></i>
+                    <span>See Attendence</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="{% url 'faculty' %}">
+                    <i class="fa fa-user"></i>
+                    <span>Faculty</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;">
+                    <i class="fa fa-cogs"></i>
+                    <span>SETTINGS</span>
+                </a>
+                <ul class="sub">
+                    <li><a href="/profile/{{user.username}}">View Profile</a>
+                    </li>
+                    <li><a href="/profile">Edit Profile</a>
+                    </li>
+                    <li><a href="#" data-toggle="modal" data-target="#myModal">Change Password</a>
+                    </li>
+                </ul>
             </li>
 
             

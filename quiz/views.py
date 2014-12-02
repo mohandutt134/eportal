@@ -88,6 +88,8 @@ def add_question(request):
 					return redirect('dashboard')
 				else:
 					return redirect('attach_question')
+			else:
+				return redirect('dashboard')
 	else:
 		return render(request, 'add_question.html')
 
@@ -314,3 +316,4 @@ def quiz_questions(request):
 		quiz=quiz_spec.objects.get(id=request.session['id'])
 		questions=quiz.question_set.all()
 		return render(request,'student_quiz/quiz_question.html',{'quiz':quiz})
+

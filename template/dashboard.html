@@ -4,6 +4,7 @@
 <div class="row">
     <div class="col-lg-9 main-chart">
         <div class="row mt">
+        {% ifequal request.session.type "faculty" %}
             <div class="col-md-4 col-sm-4 mb">
                 <a href="{% url 'courses' %}">
                     <div class="weather pn" style="background: #D24726; color:#fff;">
@@ -15,7 +16,7 @@
             </div>
 
             <div class="col-md-4 col-sm-4 mb">
-                <a href="#">
+                <a href="{% url 'controls' %}">
                     <div class="weather pn" style="background: #004A00; color:#fff;">
                         <i class="fa fa-puzzle-piece fa-4x"></i>
                         <h1>ATTENDANCE PORTAL</h1>
@@ -33,12 +34,6 @@
                     </div>
                 </a>
             </div>
-
-        </div>
-        <!-- /row -->
-
-
-        <div class="row">
 
             <div class="col-md-4 col-sm-4 mb">
                 <a href="#">
@@ -67,55 +62,74 @@
                     </div>
                 </a>
             </div>
-        </div>
-        <!-- /row -->
-        {% if courses.count > 0 %}
+            {% else %}
+            {% if courses.count > 0 %}
+                        {% for course in courses %}
+                            <div class="col-md-4 col-sm-4 mb">
+                                <a href="courses/{{ course.course_id }}">
+                                    <div class="content-panel pn">
+                                        <div id="blog-bg" style="background:url('/static/uploaded_image/{{ course.image }}');background-size:cover;">
+                                            <div class="badge badge-popular">{{course.course_id}}</div>
+                                            <div class="blog-title">{{course.course_name}}</div>
+                                        </div>
+                                        <div class="blog-text">
+                                            <p>{{course.description}}<a href="#">Read More</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                        </div>
 
-        <div class="row mt">
-            <!--CUSTOM CHART START -->
-            <div class="border-head">
-                <h3>Students/Course</h3>
-            </div>
-            <div class="custom-bar-chart">
-                <ul class="y-axis">
-                    <li>
-                        <span>10</span>
-                    </li>
-                    <li>
-                        <span>8</span>
-                    </li>
-                    <li>
-                        <span>6</span>
-                    </li>
-                    <li>
-                        <span>4</span>
-                    </li>
-                    <li>
-                        <span>1</span>
-                    </li>
-                    <li>
-                        <span>0</span>
-                    </li>
-                </ul>
-                {% for course in courses %}
-                <div class="bar">
-                    <div class="title">{{course.course_id}}</div>
-                {% make_bar course %}
-                </div>
-                {% endfor %}
-            </div>
-            <!--custom chart end-->
-        </div>
-        <!-- /row -->
-        {% endif %}
+                        <div class="row mt">
+                            <!--CUSTOM CHART START -->
+                            <div class="border-head">
+                                <h3>Students/Course</h3>
+                            </div>
+                            <div class="custom-bar-chart">
+                                <ul class="y-axis">
+                                    <li>
+                                        <span>10.000</span>
+                                    </li>
+                                    <li>
+                                        <span>8.000</span>
+                                    </li>
+                                    <li>
+                                        <span>6.000</span>
+                                    </li>
+                                    <li>
+                                        <span>4.000</span>
+                                    </li>
+                                    <li>
+                                        <span>2.000</span>
+                                    </li>
+                                    <li>
+                                        <span>0</span>
+                                    </li>
+                                </ul>
+                                {% for course in courses %}
+                            <div class="bar">
+                            <div class="title">{{course.course_name}}</div>
+                            {% make_bar course %}
+                            </div>
+                            {% endfor %}
+                            </div>
 
+                            <!--custom chart end-->
+                            {% else %}
+                            
+                            <div class="col-md-12 mb">
+                                <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">
+                                    <h1>You have not registered in any course yet!!!</h1>
+                                </div>  
+                            </div>
+                            
+                        {% endif %}
+            {% endifequal %}
+        </div>
     </div>
-    <!-- /col-lg-9 END SECTION MIDDLE -->
-
-
-    <!-- **********************************************************************************************************************************************************
-      RIGHT SIDEBAR CONTENT
-      *********************************************************************************************************************************************************** -->
+    
 
     <div class="col-lg-3 ds">
         <h3>NOTIFICATIONS</h3>
@@ -259,8 +273,6 @@
             <!-- Second Action -->
 
         </div>
-
-                <!-- USERS ONLINE SECTION -->
                 <h3>FACULTY ON PORTAL</h3>
 
                 <ul class="nav nav-tabs" role="tablist" id="myTab">
@@ -281,7 +293,7 @@
                             {% for faculty in faculty_cse %}
                             <div class="desc" onclick="message_to_faculty('{{faculty.user.email}}')" data-toggle="modal" data-target="#messageModal">
                                 <div class="thumb">
-                                    <img class="img-circle" src="static/uploaded_image/{{faculty.image}}" width="35px" height="35px" align="">
+                                    <img class="img-circle" src="static/uploaded_image/fpp/{{faculty.image}}" width="35px" height="35px" align="">
                                 </div>
                                 <div class="details">
                                     <p><a href="#">{{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</a>
@@ -299,7 +311,7 @@
                             {% for faculty in faculty_mec %}
                             <div class="desc" onclick="message_to_faculty('{{faculty.user.email}}')" data-toggle="modal" data-target="#messageModal">
                                 <div class="thumb">
-                                    <img class="img-circle" src="static/uploaded_image/{{faculty.image}}" width="35px" height="35px" align="">
+                                    <img class="img-circle" src="static/uploaded_image/fpp/{{faculty.image}}" width="35px" height="35px" align="">
                                 </div>
                                 <div class="details">
                                     <p><a href="#">{{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</a>
@@ -316,7 +328,7 @@
                             {% for faculty in faculty_ece %}
                             <div class="desc" onclick="message_to_faculty('{{faculty.user.email}}')" data-toggle="modal" data-target="#messageModal">
                                 <div class="thumb">
-                                    <img class="img-circle" src="static/uploaded_image/{{faculty.image}}" width="35px" height="35px" align="">
+                                    <img class="img-circle" src="static/uploaded_image/fpp/{{faculty.image}}" width="35px" height="35px" align="">
                                 </div>
                                 <div class="details">
                                     <p><a href="#">{{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</a>
@@ -333,7 +345,7 @@
                             {% for faculty in faculty_ibt %}
                             <div class="desc" onclick="message_to_faculty('{{faculty.user.email}}')" data-toggle="modal" data-target="#messageModal">
                                 <div class="thumb">
-                                    <img class="img-circle" src="static/uploaded_image/{{faculty.image}}" width="35px" height="35px" align="">
+                                    <img class="img-circle" src="static/uploaded_image/fpp/{{faculty.image}}" width="35px" height="35px" align="">
                                 </div>
                                 <div class="details">
                                     <p><a href="#">{{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</a>
@@ -343,20 +355,60 @@
                                 </div>
                             </div>
                             {% endfor %}
-
-
                         </div>
                     </div>
                 </div>
-
-
-            
-
-                
+             </div>
+            </div>
+      <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:100%; text-align:center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Create Message</h4>
+            </div>
+            <div class="modal-body">
+                <form id="message_form" role="form" method="post" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="title" name="title" class="form-control" placeholder="Title" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea type="text" id="body" name="body" rows="6" class="form-control" placeholder="Write Your Message Here" required></textarea>
+                    </div>
+                </form>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" data-dismiss="modal" data-toggle="modal" onclick="send_message()">Send</button>
+                        </div>
+                    </div>
             </div>
 
         </div>
-      
+    </div>
+</div>
+<div class="modal fade" id="fullMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:100%; text-align:center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal_message_title">Delivery Message</h4>
+            </div>
+            <div class="modal-body">
+                <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">
+                    <p id="modal_message_body"></p>
+                </div>
+                <div class="pull-left" id="modal_message_sender"></div>
+                <div class="pull-right" id="modal_message_time"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" style="padding-top:10px">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 {% endblock %} {% block jsadd %}
 
 
@@ -408,8 +460,4 @@ $(document).ready(function() {
                         </div>
                     </div>
             </div>
-
-        </div>
-    </div>
-</div>
 {% endblock jsadd %}

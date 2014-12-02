@@ -1,0 +1,83 @@
+{% extends 'base/sidebarf.html' %} {% load staticfiles %} {% block jsadd-up %} {% endblock jsadd-up %} {% load partial_views %} {% block content %}
+
+
+<div class="row">
+    <div class="col-lg-10 col-lg-offset-1 main-chart">
+
+        <!-- /row mt -->
+
+
+        <div class="row mt">
+            {% if courses.count > 0 %}
+            <div class="col-md-6 col-sm-6 mb">
+                <a href="{% url 'show_students' %}">
+                    <div class="weather pn" style="background: #D24726; color:#fff;">
+                        <i class="fa fa-check-circle fa-4x"></i>
+                        <h1>TAKE</h1>
+                        <h4>attendence</h4>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-6 col-sm-6 mb">
+                <a href="{% url 'show' %}">
+                    <div class="weather pn" style="background: #094AB2; color:#fff;">
+                        <i class="fa fa-table  fa-4x"></i>
+                        <h1>SEE</h1>
+                        <h4>attendence</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!-- /row -->
+
+        <div class="row mt">
+            <!--CUSTOM CHART START -->
+            <div class="border-head">
+                <h3>Students/Course</h3>
+            </div>
+            <div class="custom-bar-chart">
+                <ul class="y-axis">
+                    <li>
+                        <span>10.000</span>
+                    </li>
+                    <li>
+                        <span>8.000</span>
+                    </li>
+                    <li>
+                        <span>6.000</span>
+                    </li>
+                    <li>
+                        <span>4.000</span>
+                    </li>
+                    <li>
+                        <span>2.000</span>
+                    </li>
+                    <li>
+                        <span>0</span>
+                    </li>
+                </ul>
+                {% for course in courses %}
+                <div class="bar">
+                    <div class="title">{{course.course_name}}</div>
+                    {% make_bar course %}
+                </div>
+                {% endfor %}
+            </div>
+            <!--custom chart end-->
+            {% else %}
+            <div class="col-md-12 mb">
+                <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">
+                    <h1>You are not running any course currently!!!</h1>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <!-- /row -->
+
+    </div>
+</div>
+
+
+
+{% endblock content %}

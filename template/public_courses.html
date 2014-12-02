@@ -1,171 +1,107 @@
-{% extends 'base/header.html' %} {% load staticfiles %}
 
-{% block cssadd %}
-<link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
+
+{% extends temp %} {% load staticfiles %} {% block cssadd %}
+{% if not request.session.type %}
 <style type="text/css">
-    #main-content
-    {
-        margin-left:0;margin-top:0px;padding:0;
-
-    }
-.wrapper{
-    margin-left:0;margin-top:0px;padding:0;
+#main-content {
+    margin-left: 0;
 }
-   
-
 </style>
-{% endblock cssadd %}
-
- {% block content %}
- <br>
- <br>
- <br>
- <br>
-
-       <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-panel">
-                            <h4 class="mb"><i class="fa fa-angle-right"></i> Filters</h4>
-                            <form class="form-horizontal style-form" method="get">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <div class="input-group">
-                                            <span class="input-group-addon round-form"><i class="fa fa-search"></i>
+{% endif %}
+{% endblock cssadd %} {% block content %}
+<br>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="form-panel">
+            <h4 class="mb"><i class="fa fa-angle-right"></i> Filters</h4>
+            <form class="form-horizontal style-form" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-search"></i>
                                             </span>
-                                            <input type="text" class="form-control round-form" placeholder="Enter search text">
-                                        </div><br>
-                                    </div>
-                                </div>
-                            </form>
-                            <form class="form-horizontal style-form" method="get">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <legend class="center-block"><b>Select Department</b>
-                                        </legend>
-                                        <select class="form-control">
-                                            <option value="computers">Computers</option>
-                                            <option value="electronics">Electronics</option>
-                                            <option value="communication">Communications</option>
-                                            <option value="mechanical">Mechanical Engg</option>
-                                            <option value="IBT">IBT</option>
-                                        </select><br>
-                                        <legend class="center-block"><b>Select Semester</b>
-                                        </legend>
-                                        <select class="form-control">
-                                            <option value="all">All</option>
-                                            <option value="open">Open</option>
-                                            <option value="1">1st</option>
-                                            <option value="2">2nd</option>
-                                            <option value="3">3rd</option>
-                                            <option value="4">4th</option>
-                                            <option value="5">5th</option>
-                                            <option value="6">6th</option>
-                                            <option value="7">7th</option>
-                                            <option value="8">8th</option>
-                                        </select>
-                                        <br>
-                                        <input type="submit" name="search" class="btn btn-primary btn-lg btn-block"></input>
-                                    </div>
-                                </div>
-                            </form>
+                            <input type="text" class="form-control" placeholder="Enter search text" name="search_string">
                         </div>
-                        <!--COMPLETED ACTIONS DONUTS CHART-->
-                    </div>
-
-                    <div class="col-lg-9">
-
-                        <!-- /row mt -->
-
-
-                        <div class="row">
-                            <!-- SERVER STATUS PANELS -->
-                            <div class="col-md-4 col-sm-4 mb">
-                                <a href="#">
-                                    <div class="content-panel pn">
-                                        <div id="blog-bg">
-                                            <div class="badge badge-popular">POPULAR</div>
-                                            <div class="blog-title">Incredible Title</div>
-                                        </div>
-                                        <div class="blog-text">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. <a href="#">Read More</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-4 mb">
-                                <a href="#">
-                                    <div class="content-panel pn">
-                                        <div id="blog-bg">
-                                            <div class="badge badge-popular">POPULAR</div>
-                                            <div class="blog-title">Incredible Title</div>
-                                        </div>
-                                        <div class="blog-text">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. <a href="#">Read More</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-4 mb">
-                                <a href="#">
-                                    <div class="content-panel pn">
-                                        <div id="blog-bg">
-                                            <div class="badge badge-popular">POPULAR</div>
-                                            <div class="blog-title">Incredible Title</div>
-                                        </div>
-                                        <div class="blog-text">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. <a href="#">Read More</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-4 mb">
-                                <a href="#">
-                                    <div class="content-panel pn">
-                                        <div id="blog-bg">
-                                            <div class="badge badge-popular">POPULAR</div>
-                                            <div class="blog-title">Incredible Title</div>
-                                        </div>
-                                        <div class="blog-text">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. <a href="#">Read More</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-4 mb">
-                                <a href="#">
-                                    <div class="content-panel pn">
-                                        <div id="blog-bg">
-                                            <div class="badge badge-popular">POPULAR</div>
-                                            <div class="blog-title">Incredible Title</div>
-                                        </div>
-                                        <div class="blog-text">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. <a href="#">Read More</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-4 col-sm-4 mb">
-                                <a href="#">
-                                    <div class="content-panel pn">
-                                        <div id="blog-bg">
-                                            <div class="badge badge-popular">POPULAR</div>
-                                            <div class="blog-title">Incredible Title</div>
-                                        </div>
-                                        <div class="blog-text">
-                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. <a href="#">Read More</a>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- /form-panel -->
-
-                        </div> 
+                        <label class="checkbox">
+                            <span class="pull-right">
+                            <input type='submit' class='btn btn-theme03' name='search' value='Search'>
+        
+                        </span>
+                        </label>
                     </div>
                 </div>
-  {% endblock content %} 
+            </form>
+            <form class="form-horizontal style-form" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <legend class="center-block"><b>Select Department</b>
+                        </legend>
+                        <select class="form-control" name="department">
+                            <option value="CSE">Computers</option>
+                            <option value="ECE">Electronics & Comm</option>
+                            <option value="MEC">Mechanical Engg</option>
+                            <option value="IBT">IBT</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                        <br>
+                        <legend class="center-block"><b>Select Semester</b>
+                        </legend>
+                        <select class="form-control" name="semester">
+                            <option value="all">All</option>
+                            <option value="OPEN">Open</option>
+                            <option value="1">1st</option>
+                            <option value="2">2nd</option>
+                            <option value="3">3rd</option>
+                            <option value="4">4th</option>
+                            <option value="5">5th</option>
+                            <option value="6">6th</option>
+                            <option value="7">7th</option>
+                            <option value="8">8th</option>
+                        </select>
+                        <br>
+                        <input type="submit" name="category" class="btn btn-primary btn-lg btn-block"></input>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--COMPLETED ACTIONS DONUTS CHART-->
+    </div>
+
+    <div class="col-lg-9 main-chart">
+
+        <!-- /row mt -->
+
+
+        <div class="row">
+            <!-- SERVER STATUS PANELS -->
+            {% if courses %} {% for course in courses %}
+            <div class="col-sm-4 mb">
+                <a href="courseinfo/{{course.course_id}}">
+                    <div class="content-panel pn">
+                        <div id="blog-bg" style="background:url('/static/uploaded_image/{{ course.image }}');background-size:cover;">
+                            <div class="badge badge-popular">{{course.course_id}}</div>
+                            <div class="blog-title">{{course.course_name}}</div>
+                        </div>
+                        <div class="blog-text">
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %} {% else %}
+            <div class="col-md-12 mb">
+                <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">
+                    <h1>No Course Matching Your Query!!!</h1>
+                </div>
+            </div>
+
+            {% endif %}
+
+            <!-- /form-panel -->
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

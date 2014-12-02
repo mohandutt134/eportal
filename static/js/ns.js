@@ -4,12 +4,13 @@ var question_no=-1;
 var timer=0;
 var myVar;
 
+
 function create_post() {
 
      // sanity check
      console.log("inside javascript");
    $.ajax({
-  url: "http://localhost:8000/notification/notificationicon_create",
+  url: "/notification/notificationicon_create",
   type: "POST",
   data: { id : 'menuId' },
   dataType: "text",
@@ -74,9 +75,7 @@ for(var i=0;i<Object.keys(notification).length;i++){
 
 
 function message_body(messages){
-  
 
-  console.log(time);
   if(Object.keys(messages).length>0){
   $("#M_no").text(Object.keys(messages).length);
   $("#M_no").show();
@@ -97,7 +96,9 @@ for(var i=0;i<Object.keys(messages).length;i++){
         time -= minutes * 60;
   $("#M_body").append(' <li onClick=messageViewed('+messages[i].pk+') data-id='+messages[i].pk+' data-toggle="modal" data-target="#fullMessageModal">'+
                                     '<a href="#" style="white-space: wrap;Overflow:auto;">'+
-                                    '<span class="photo"><img alt="avatar" src="/static/uploaded_image/'+ messages[i].fields.senderImage +'"></span>'+
+
+                                    '<span class="photo"><img alt="avatar" src="/static/uploaded_image/fpp/'+ messages[i].fields.senderImage +'"></span>'+
+
                                     '<span class="subject">'+
                                     '<span class="from">'+messages[i].fields.senderName+'</span>'+
                                     '<span class="time">'+Math.floor(hours)+' Hr '+Math.floor(minutes)+' Mins ago</span>'+
@@ -112,9 +113,6 @@ for(var i=0;i<Object.keys(messages).length;i++){
 
 
 }
-
-
-
 
 function addquestion( id){
 
@@ -144,9 +142,6 @@ function addquestion( id){
         }
 });
 }
-
-            // another sanity check
-
 function messageViewed(mid){
   $.ajax({
   url: "/notification/message_view/",
@@ -163,6 +158,7 @@ function messageViewed(mid){
           $('#modal_message_time').html("Receiving time:&nbsp;&nbsp"+data[0].fields.time);
           $('#fullMessageModal').show();
           create_post()
+
           },
 
         // handle a non-successful response
@@ -280,16 +276,22 @@ function removeQuestion(id){
           addremoveButton(quiz_id,data,id);
 
             // another sanity check
+
         },
 
         // handle a non-successful response
         error : function(xhr,errmsg,err) {
             $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
                 " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-            console.log("fail"); // provide a bit more info about the error to the console
+
+
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+
+
         }
 });
 }
+
 
 function qizquestions(){
 
@@ -333,6 +335,7 @@ function showbutton(msg){
 
 }
 
+
 function message_to_faculty(mail){
   var form = $("#message_form");
   url = "/notification/messageToFaculty/"+mail+"/";
@@ -356,6 +359,7 @@ var frm = $("#message_form");
                 console.log("error");
             }
         });
+
 
 }
 
@@ -397,7 +401,9 @@ $("#q_start").val(msg[0].fields.start_date);
 $("#q_end").val(msg[0].fields.end_date);
 $("#q_question").val(msg[0].fields.no_Questions);
 $("#q_credits").val(msg[0].fields.credit)
+
 }
+
 
 
 
@@ -558,3 +564,25 @@ function check(){
         }
     }
 }
+
+function datesem(date,branch,sem){
+  
+ d=new Date(date);
+ var date= d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+ 
+$("#S_date").val( date);
+$("#sem").val(sem);
+$("#branch").val(branch);
+$("#rating").html("");
+for (var i= 0;i<sem;i++)
+{
+  $("#rating").append('<span class="fa fa-star" data-rating="1"></span>');
+}
+for (var i= 0;i<5-sem;i++)
+{
+  $("#rating").append('<span class="fa fa-star-o" data-rating="1"></span>');
+}
+
+
+}
+

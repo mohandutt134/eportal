@@ -6,12 +6,19 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 def get_upload_file_name(instance,filename):
     return "material/%s_%s" % (str(time()).replace('.','_'),filename)
 
+def get_upload_image_name(instance,filename):
+    return "fpp/%s" % (filename)
+
 class faculty_profile(models.Model):
     CHOICES = (
-        ('CSE', 'CSE'),
-        ('ECE', 'ECE'),
-        ('MEC', 'MEC'),
-        ('IBT', 'IBT')
+
+
+        ('CSE','CSE'),
+        ('ECE','ECE'),
+        ('MEC','MEC'),
+        ('IBT','IBT')
+
+
     )
     user = models.OneToOneField(User,primary_key=True)
     department=models.CharField(max_length=3,choices=CHOICES,default='CSE')
@@ -20,11 +27,19 @@ class faculty_profile(models.Model):
     research=models.CharField(max_length=50,blank=True)
     description=models.TextField(blank=True)
     weburl=models.CharField(max_length=250,blank=True)
-    image=models.ImageField(upload_to='fpp',default='fpp/user_blue.png')
+
+    image=models.ImageField(upload_to=get_upload_image_name,default='user_blue.png')
+
 
     
     def __str__(self):
         return self.user.username
+
+    class Meta:
+        verbose_name = "Faculty"
+        verbose_name_plural = "Faculties"
+        ordering = ["-department"]
+
 
 class Course(models.Model):
     CHOICES = (
@@ -79,15 +94,20 @@ class student_profile(models.Model):
         ('8', '8')
     )
     user = models.OneToOneField(User,primary_key=True)
-    DOB=models.DateField(blank=True)
+
+    DOB=models.DateField(blank=True,null=True)
     Branch=models.CharField(max_length=5,choices=CHOICES,default='CSE')
     Semester=models.CharField(max_length=4,choices=CHOICES_SEM,default='1')
-    image = models.ImageField(upload_to='spp',default="spp/user_blue.png")
+    image = models.ImageField(upload_to='spp',default="user_blue.png")
+
     coursetaken=models.ManyToManyField(Course,blank=True)
 
     def __unicode__(self):
         return unicode(self.user) or u''
-
+    class Meta:
+        verbose_name = "Student"
+        verbose_name_plural = "Students"
+        ordering = ["-DOB"]
 
 User.profile=property(lambda u: student.objects.get_or_create(u=u)[0])
 

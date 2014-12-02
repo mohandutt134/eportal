@@ -5,14 +5,15 @@
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-
-    <title>SMVDU E-portal | FACULTY</title>
+    {% block title %}
+    <title>SMVDU E-portal</title>
+    {% endblock title %}
     {% load staticfiles %}
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
     <!--external css-->
     <link rel="stylesheet" href="{% static 'assets/font-awesome/css/font-awesome.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/zabuto_calendar.css' %}">
+    
     <link rel="stylesheet" href="{% static 'assets/js/gritter/css/jquery.gritter.css' %}">
 
     <!-- Custom styles for this template -->
@@ -20,6 +21,13 @@
     <link rel="stylesheet" href="{% static 'assets/css/style-responsive.css' %}"> 
     <script src="{% static 'assets/js/jquery-1.8.3.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/ns.js' %}"></script>
+    
+
+    <style type="text/css">
+  .wrapper{
+    min-height: 86%;
+  }
+    </style>
     {% block cssadd %} {% endblock cssadd %} {% block jsadd-up %}
 
 
@@ -33,12 +41,12 @@
         <header class="header black-bg">
             {% if user.is_authenticated %}
             <div class="sidebar-toggle-box">
-                <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+                <div class="fa fa-bars tooltips" data-placement="right"></div>
                 {% endif %}
             </div>
 
             <!--logo start-->
-            <a href="{% url 'home' %}" class="logo"><b>SMVDU E-portal</b></a>
+            <a href="{% url 'home' %}" class="logo"><b>SMVDU Eportal</b></a>
             <!--logo end-->
             {% if user.is_authenticated %}
             <script>
@@ -106,7 +114,11 @@
 
                 <ul class="nav navbar-nav">
 
-                    <li><a href="{% url 'quiz_confirm' %}">Courses</a>
+
+                    
+
+                    <li><a href="{% url 'allcourses' %}">Courses</a>
+
                     </li>
                     <li><a href="{% url 'faculty' %}">Faculty</a>
                     </li>
@@ -143,12 +155,42 @@
             {% endblock footer %}
 
         </section>
+        {% if user.is_authenticated %}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:100%; text-align:center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Change Password</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="change_password_form" method="post" action="/change/?next={{request.path}}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="c_password" name="c_password" class="form-control" placeholder="Confirm Password">
+                    </div>
+                    <div class="modal-footer">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" name="change_password_submit">Submit</button>
+                            <br>
+                            <a href="#myModal2" data-dismiss="modal" data-toggle="modal" style="padding-top:10px"></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
+        </div>
+    </div>
+</div>
+{% endif %}
     </section>
     {% block js-foot %}
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="{% static 'assets/js/jquery.js' %}"></script>
-    
+    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
 
     <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
 
@@ -159,17 +201,38 @@
     <script src="{% static 'assets/js/jquery.sparkline.js' %}"></script>
     <!--common script for all pages-->
     <script src="{% static 'assets/js/common-scripts.js' %}"></script>
+    {% if user.is_authenticated %}
+    <script>
+$(document).ready(function() {
+    //alert("change password");
+    $("#change_password_form").validate({
+        // Specify the validation rules
+        rules: {
+            new_password: {
+                required: true,
+                minlength: 6,
+                maxlength: 10
 
+            },
+            c_password: {
+                required: true,
+                equalTo: "#new_password"
+            }
+        },
 
+        // Specify the validation error messages
+        messages: {
+            password: "Please enter your first name",
+            c_password: "Password do not match"
+        }
+    });
+});
+</script>
 
+{% endif %}
     <!--script for this page-->
 
-    {% endblock js-foot %} {% block jsadd %}
-    <script type="text/javascript">
-    </script>
 
-    
-    {% endblock jsadd %}
 <div class="modal fade" id="fullMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content" style="width:100%; text-align:center">
@@ -188,6 +251,8 @@
                 <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" style="padding-top:10px">Close</button>
             </div>
         </div>
+
+    {% endblock js-foot %} 
 
     </div>
 </div>

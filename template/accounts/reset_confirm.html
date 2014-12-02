@@ -1,6 +1,7 @@
 {% extends 'accounts/base_accounts.html' %}
 	  		{% block content %}
 	  		{% load cssFilter %}
+        {% load staticfiles %}
 		     
      <div class="container">
      
@@ -40,7 +41,7 @@
               <br/>
               <!-- Render the input field -->
               
-            {{ field|add_attributes:"form-control,type:password,id=new_password"}}
+            {{ field|add_attributes:"form-control,type:password"}}
             
                   
                 <!-- Iterate over the field's errors, if any and display
@@ -70,35 +71,7 @@
 {% block js-foot %}
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="{% static 'assets/js/jquery.js' %}"></script>
-    <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
-
     
-    <script>
-$(document).ready(function() {
-    //alert("change password");
-    $("#change_password_form").validate({
-        // Specify the validation rules
-        rules: {
-            new_password: {
-                required: true,
-                minlength: 6,
-                maxlength: 10
-
-            },
-            c_password: {
-                required: true,
-                equalTo: "#new_password"
-            }
-        },
-
-        // Specify the validation error messages
-        messages: {
-            password: "Please enter your first name",
-            c_password: "Password do not match"
-        }
-    });
-});
-</script>
 
     <!--script for this page-->
 

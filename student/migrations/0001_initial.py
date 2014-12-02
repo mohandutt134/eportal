@@ -12,12 +12,12 @@ class Migration(SchemaMigration):
         db.create_table(u'student_faculty_profile', (
             ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
             ('department', self.gf('django.db.models.fields.CharField')(default='CSE', max_length=3)),
-            ('facultyrating', self.gf('django.db.models.fields.IntegerField')(blank=True)),
-            ('areaofinterest', self.gf('django.db.models.fields.CharField')(max_length=40)),
-            ('research', self.gf('django.db.models.fields.CharField')(max_length=50)),
-            ('description', self.gf('django.db.models.fields.TextField')()),
-            ('weburl', self.gf('django.db.models.fields.CharField')(max_length=250)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(default='/static/uploaded_image/user_blue.png', max_length=100)),
+            ('facultyrating', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('areaofinterest', self.gf('django.db.models.fields.CharField')(max_length=40, blank=True)),
+            ('research', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
+            ('description', self.gf('ckeditor.fields.RichTextField')()),
+            ('weburl', self.gf('django.db.models.fields.CharField')(max_length=250, blank=True)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(default='user_blue.png', max_length=100)),
         ))
         db.send_create_signal(u'student', ['faculty_profile'])
 
@@ -30,7 +30,7 @@ class Migration(SchemaMigration):
             ('start_date', self.gf('django.db.models.fields.DateField')()),
             ('end_date', self.gf('django.db.models.fields.DateField')()),
             ('semester', self.gf('django.db.models.fields.CharField')(default='OPEN', max_length=4)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(default='cpp/course_default.png', max_length=100)),
             ('credits', self.gf('django.db.models.fields.CharField')(max_length=10)),
             ('facultyassociated', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='mentor', null=True, to=orm['student.faculty_profile'])),
         ))
@@ -39,10 +39,10 @@ class Migration(SchemaMigration):
         # Adding model 'student_profile'
         db.create_table(u'student_student_profile', (
             ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
-            ('DOB', self.gf('django.db.models.fields.DateField')()),
+            ('DOB', self.gf('django.db.models.fields.DateField')(blank=True)),
             ('Branch', self.gf('django.db.models.fields.CharField')(default='CSE', max_length=5)),
             ('Semester', self.gf('django.db.models.fields.CharField')(default='1', max_length=4)),
-            ('image', self.gf('django.db.models.fields.files.ImageField')(max_length=100)),
+            ('image', self.gf('django.db.models.fields.files.ImageField')(default='user_blue.png', max_length=100)),
         ))
         db.send_create_signal(u'student', ['student_profile'])
 
@@ -131,20 +131,20 @@ class Migration(SchemaMigration):
             'description': ('django.db.models.fields.TextField', [], {'default': "'There is no description'"}),
             'end_date': ('django.db.models.fields.DateField', [], {}),
             'facultyassociated': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'mentor'", 'null': 'True', 'to': u"orm['student.faculty_profile']"}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'default': "'cpp/course_default.png'", 'max_length': '100'}),
             'semester': ('django.db.models.fields.CharField', [], {'default': "'OPEN'", 'max_length': '4'}),
             'start_date': ('django.db.models.fields.DateField', [], {})
         },
         u'student.faculty_profile': {
-            'Meta': {'object_name': 'faculty_profile'},
-            'areaofinterest': ('django.db.models.fields.CharField', [], {'max_length': '40'}),
+            'Meta': {'ordering': "['-department']", 'object_name': 'faculty_profile'},
+            'areaofinterest': ('django.db.models.fields.CharField', [], {'max_length': '40', 'blank': 'True'}),
             'department': ('django.db.models.fields.CharField', [], {'default': "'CSE'", 'max_length': '3'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'facultyrating': ('django.db.models.fields.IntegerField', [], {'blank': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'default': "'/static/uploaded_image/user_blue.png'", 'max_length': '100'}),
-            'research': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
+            'description': ('ckeditor.fields.RichTextField', [], {}),
+            'facultyrating': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'default': "'user_blue.png'", 'max_length': '100'}),
+            'research': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'primary_key': 'True'}),
-            'weburl': ('django.db.models.fields.CharField', [], {'max_length': '250'})
+            'weburl': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'})
         },
         u'student.material': {
             'Meta': {'object_name': 'material'},
@@ -158,11 +158,11 @@ class Migration(SchemaMigration):
         },
         u'student.student_profile': {
             'Branch': ('django.db.models.fields.CharField', [], {'default': "'CSE'", 'max_length': '5'}),
-            'DOB': ('django.db.models.fields.DateField', [], {}),
-            'Meta': {'object_name': 'student_profile'},
+            'DOB': ('django.db.models.fields.DateField', [], {'blank': 'True'}),
+            'Meta': {'ordering': "['-DOB']", 'object_name': 'student_profile'},
             'Semester': ('django.db.models.fields.CharField', [], {'default': "'1'", 'max_length': '4'}),
-            'coursetaken': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['student.Course']", 'symmetrical': 'False'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100'}),
+            'coursetaken': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['student.Course']", 'symmetrical': 'False', 'blank': 'True'}),
+            'image': ('django.db.models.fields.files.ImageField', [], {'default': "'user_blue.png'", 'max_length': '100'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
         }
     }

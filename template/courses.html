@@ -1,4 +1,6 @@
-{% extends temp %} {% load staticfiles %} {% block jsadd-up %}
+{% extends temp %} {% load staticfiles %} 
+
+{% block jsadd-up %}
 
 {% endblock jsadd-up %}
 {% load partial_views %}
@@ -22,7 +24,7 @@
                                             <div class="blog-title">{{course.course_name}}</div>
                                         </div>
                                         <div class="blog-text">
-                                            <p>{{course.description}}<a href="#">Read More</a>
+                                            <p>{{course.description|safe }}<a href="#">Read More</a>
                                             </p>
                                         </div>
                                     </div>

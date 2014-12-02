@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from .email_info import *
+from email_info import *
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -46,11 +46,14 @@ INSTALLED_APPS = (
     'notification',
     'smartextends',
     'attendance',
-    'newsletter',
-)
+    'ckeditor',
+    'django_wysiwyg',
 
-FAKER_LOCALE = None     # settings.LANGUAGE_CODE is loaded
-FAKER_PROVIDERS = None
+)
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
 # Minimum password strength settings. See the GitHub page for defaults.
 # https://github.com/dstufft/django-passwords/
 SITE_ID = 1

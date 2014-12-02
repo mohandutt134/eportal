@@ -25,6 +25,8 @@ from django.template import Context
 from django.template.loader import render_to_string
 
 
+
+
 def login_view(request,next='home'):
     if(request.user.is_authenticated()):
         return redirect('home')
@@ -118,12 +120,12 @@ def registration_function(request):
                     student_profile.objects.create(user=user) 
                 else:
                     faculty_profile.objects.create(user=user)
-                #subject = "Confirmation  mail"
-                #message = "Your password is " + temp_pass
-                #from_email = settings.EMAIL_HOST_USER
-                #to_list = [R_email, settings.EMAIL_HOST_USER]
-                #print "above mail"
-                #send_mail(subject, message, from_email, to_list, fail_silently=False)
+                subject = "Confirmation  mail"
+                message = "Your password is " + temp_pass
+                from_email = settings.EMAIL_HOST_USER
+                to_list = [R_email, settings.EMAIL_HOST_USER]
+                print "above mail"
+                send_mail(subject, message, from_email, to_list, fail_silently=False)
                 #mail(request,R_email,'mail/email.txt','mail/fancy-1-2-3.html')
                 message_register_alert = 'success'
         except Exception as e:
@@ -175,20 +177,20 @@ def lock(request):
 
 
 # password change function
-@login_required
-def change_password(request):
-    if request.method=="POST":
-        new_password = request.POST.get('change_password', '')
-        if new_password != '':
-            request.user.set_password(new_password)
-            request.user.save()
-            #new_password = make_password(new_password,salt=None,hasher='default')
-            # User.objects.select_related().filter(username=request.user.username).update(password=new_password)
-            return render(request, 'index.html', {'changed': "password changed successfully"}, context_instance=RequestContext(request))
-        else:
-            return render(request,'accounts/changepassword.html',{'msg':"Enter new Password"})
-    else:
-        return render(request,'accounts/changepassword.html',{'msg':"Enter new Password"})
+# @login_required
+# def change_password(request):
+#     if request.method=="POST":
+#         new_password = request.POST.get('change_password', '')
+#         if new_password != '':
+#             request.user.set_password(new_password)
+#             request.user.save()
+#             #new_password = make_password(new_password,salt=None,hasher='default')
+#             # User.objects.select_related().filter(username=request.user.username).update(password=new_password)
+#             return render(request, 'index.html', {'changed': "password changed successfully"}, context_instance=RequestContext(request))
+#         else:
+#             return render(request,'accounts/changepassword.html',{'msg':"Enter new Password"})
+#     else:
+#         return render(request,'accounts/changepassword.html',{'msg':"Enter new Password"})
             
 
 

@@ -7,7 +7,9 @@ admin.autodiscover()
 urlpatterns = patterns('student.views',
     # Examples:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+
     (r'^admin/', include(admin.site.urls)),
+    (r'^ckeditor/', include('ckeditor.urls')),
     (r'^attendance/', include('attendance.urls')),
     #(r'^markdown/', include("django_markdown.urls")),
     (r'^quiz/',include('quiz.urls')),
@@ -24,6 +26,7 @@ urlpatterns = patterns('student.views',
     url(r'^profile/(?P<username>[0-9A-Za-z_\-]+)$',  'pprofile', name='pprofile'),
     url(r'^users/(?P<username>[0-9A-Za-z_\-]+)/$',  'pprofile', name='pprofile'),
 
+
     url(r'^faculty$', 'faculty', name='faculty'),
     url(r'^about$', 'about', name='about'),
     #url(r'^profile_edit/$', 'profile_edit', name='profile_edit'),
@@ -34,6 +37,7 @@ urlpatterns = patterns('student.views',
     url(r'^allcourses$', 'allcourses', name='allcourses'),
 
     url(r'^test$', 'test', name='test'),
+    (r'^ckeditor/', include('ckeditor.urls')),
 )
 
 if settings.DEBUG is False:   #if DEBUG is True it will be served automatically

@@ -8,9 +8,9 @@
 
                     <!-- RIGHT SIDEBAR CONTENT
       *********************************************************************************************************************************************************** -->
-                    <h3 class="goright">Questions added:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</h3>
+      <p class="alert alert-info h3" style="text-align:center"><b>{{quiz.title}}</b></p>
+                    <h3 class="goright">Questions added:{{q.count}}&nbsp;&nbsp;&nbsp;&nbsp;</h3>
                     <div class="col-lg-3">
-                        <!--COMPLETED ACTIONS DONUTS CHART-->
                         <div class="form-panel">
                             <h4 class="mb"><i class="fa fa-angle-right"></i> Filters</h4>
                             <form class="form-horizontal style-form" method="POST">
@@ -20,11 +20,11 @@
                                         <div class="input-group">
                                             <span class="input-group-addon round-form"><i class="fa fa-search"></i>
                                             </span>
-                                            <input type="text" class="form-control round-form" placeholder="Enter search text">
-
-                                        </div>
-                                        <br>
+                                            <input type="text" name="q_search" class="form-control round-form" placeholder="Enter search text">
+                                        </div><br>
+                                         <input type="submit" name="search" value="Search" class="btn btn-primary btn-lg btn-block"></input>
                                     </div>
+
                                 </div>
                             </form>
                             <form class="form-horizontal style-form"  method="POST">
@@ -40,14 +40,16 @@
                                             <option value="communication">Communications</option>
                                             <option value="mechanical">Mechanical Engg</option>
                                             <option value="IBT">IBT</option>
+                                            <option value="added">Added Question</option>
+                                    
                                         </select>
                                         <br>
-                                        <input type="submit" name="search" class="btn btn-primary btn-lg btn-block"></input>
+                                        <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block"></input>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <a href="http://google.com" style="color:#fff">
+                        <a href="{% url 'add_question' %}" style="color:#fff">
                             <div class="form-panel" id="link_panel" style="background: #D24726;color:#fff">
                                 <div class="center-block">
                                     <h1 style="text-align:center">Add New Question</h1>
@@ -68,7 +70,9 @@
 
                         <!-- /row mt -->
 
+
                 {% for question in questions %}
+
                         <div class="row">
                             <!-- SERVER STATUS PANELS -->
                             <div class="form-panel">
@@ -89,12 +93,12 @@
                             </div>
                             <!-- /form-panel -->
                             </div>
+
                         {% endfor %}
 
                       
-                    </div>
-               
 
+                    </div>
                 </div>
 
             <div class="modal fade" id="fullQuestion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

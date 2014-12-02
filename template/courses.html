@@ -1,6 +1,7 @@
 {% extends temp %} {% load staticfiles %} {% block jsadd-up %}
 
 {% endblock jsadd-up %}
+{% load partial_views %}
  {% block content %}
        
 
@@ -11,6 +12,7 @@
 
 
                         <div class="row mt">
+                        {% if courses.count > 0 %}
                         {% for course in courses %}
                             <div class="col-md-4 col-sm-4 mb">
                                 <a href="course/{{ course.course_id }}">
@@ -20,7 +22,7 @@
                                             <div class="blog-title">{{course.course_name}}</div>
                                         </div>
                                         <div class="blog-text">
-                                            <p>{{course.about}}<a href="#">Read More</a>
+                                            <p>{{course.description}}<a href="#">Read More</a>
                                             </p>
                                         </div>
                                     </div>
@@ -56,36 +58,21 @@
                                         <span>0</span>
                                     </li>
                                 </ul>
-                                <div class="bar">
-                                    <div class="title">JAN</div>
-                                    <div class="value tooltips" data-original-title="8.500" data-toggle="tooltip" data-placement="top">85%</div>
-                                </div>
-                                <div class="bar ">
-                                    <div class="title">FEB</div>
-                                    <div class="value tooltips" data-original-title="5.000" data-toggle="tooltip" data-placement="top">50%</div>
-                                </div>
-                                <div class="bar ">
-                                    <div class="title">MAR</div>
-                                    <div class="value tooltips" data-original-title="6.000" data-toggle="tooltip" data-placement="top">60%</div>
-                                </div>
-                                <div class="bar ">
-                                    <div class="title">APR</div>
-                                    <div class="value tooltips" data-original-title="4.500" data-toggle="tooltip" data-placement="top">45%</div>
-                                </div>
-                                <div class="bar">
-                                    <div class="title">MAY</div>
-                                    <div class="value tooltips" data-original-title="3.200" data-toggle="tooltip" data-placement="top">32%</div>
-                                </div>
-                                <div class="bar ">
-                                    <div class="title">JUN</div>
-                                    <div class="value tooltips" data-original-title="6.200" data-toggle="tooltip" data-placement="top">62%</div>
-                                </div>
-                                <div class="bar">
-                                    <div class="title">JUL</div>
-                                    <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
-                                </div>
+                                {% for course in courses %}
+                            <div class="bar">
+                            <div class="title">{{course.course_id}}</div>
+                            {% make_bar course %}
+                            </div>
+                            {% endfor %}
                             </div>
                             <!--custom chart end-->
+                            {% else %}
+                            <div class="col-md-12 mb">
+                                <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">
+                                    <h1>You are not running any course currently!!!</h1>
+                                </div>
+                            </div>
+                        {% endif %}
                         </div>
                         <!-- /row -->
 

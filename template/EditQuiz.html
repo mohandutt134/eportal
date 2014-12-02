@@ -1,0 +1,103 @@
+{% extends 'base/sidebarf.html' %} {% load staticfiles %}
+
+
+
+ {% block content %}
+
+
+             <div class="row">
+                    <div class="col-lg-6 col-lg-offset-3">
+
+                        <!-- /row mt -->
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+
+                            <div class="form-panel">
+                                <legend class="center-block">
+                                    <h1 style="text-align:center">Edit Previous Quiz</h1>
+                                </legend>
+                                <!-- /form-panel -->
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+
+                            <div class="form-panel">
+                                <form class="form-horizontal style-form" method="POST">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"><b>Select Quiz</b></label>
+                                        <div class="col-sm-8 pull-right">
+                                            <select name="title" id="q_title" onchange="changeQuiz()" value="{{quiz.title}}" class="form-control">
+                                            	<option value="">select Quiz</option>
+                                                {% for quiz in quizes %}
+                                                <option value="{{quiz.title}}">{{quiz.title}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"><b>Select Course</b></label>
+                                        <div class="col-sm-8 pull-right">
+                                            <select name="course" id="q_course" value="{{quiz.course.course_name}}" class="form-control">
+                                                {% for course in courses %}
+                                                <option value="{{course.course_name}}">{{course.course_name}}</option>
+                                                {% endfor %}
+                                               
+                                            </select>
+                                        </div>
+                                    </div>
+                                     <div class="form-group">
+                                        <label class="col-sm-4 control-label"><b>Total Questions</b></label>
+                                        <div class="col-sm-8 pull-right">
+                                           
+                                                 <input type="text" id="q_question" name="no_Questions" class="form-control" placeholder="Total Questions">
+                                                 
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"><b>Total Time</b></label>
+                                        <div class="col-sm-8 pull-right">
+                                            <div class="input-group">
+                                                 <input type="text" name="time" value="{{quiz.duration}}"id="q_time" class="form-control" placeholder="Duration">
+                                                 <span class="input-group-addon">@Min</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"><b>Start Date</b></label>
+                                        <div class="col-sm-8 pull-right">
+                                            <input type="date" id="q_start" value="{{quiz.start_date}}" name= "start_date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"><b>End Date</b></label>
+                                        <div class="col-sm-8 pull-right">
+                                            <input type="date" id="q_end" name="end_date" value="{{quiz.end_date}}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label"><b>Credits/Question</b></label>
+                                        <div class="col-sm-8 pull-right">
+                                            <input type="text" id="q_credits" value="{{quiz.credit}}" name="credits" class="form-control">
+                                        </div>
+                                    </div>
+                                    <legend class="center-block"></legend>
+                                    <div class="inline">
+                                    	<p style="color:red">{{msg}}</p>
+                                        <input type="submit" value="Save" name="save" class="btn btn-primary btn-lg btn-block">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- /row -->
+                    </div>
+                    <!-- /col-lg-9 END SECTION MIDDLE -->
+                </div>
+
+    {% endblock content %} 

@@ -13,7 +13,9 @@ class quiz_spec(models.Model):
 	start_date = models.DateField()
 	end_date = models.DateField()
 	duration = models.IntegerField()
+	no_Questions=models.IntegerField()
 	credit=models.IntegerField()
+	addedBy=models.ForeignKey(faculty_profile)
 
 	def __str__(self):
 		return self.title

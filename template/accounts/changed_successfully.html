@@ -1,0 +1,24 @@
+{% extends 'accounts/base_accounts.html' %}
+	  		{% block content %}
+	  		{% load cssFilter %}
+		     
+    <div class="container">
+    <div class="row">
+        <!-- Display the success message on successful submission and validation
+            of the contact form data.
+        -->
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="jumbotron">
+          <p class="alert alert-success">
+            Your Password has been changed successfuly. <a class="btn btn-lg btn-primary pull-right" href="{% url 'login' %}">Click Here to login.</a>
+          </p>
+        </div>
+    </div>
+</div>
+		    
+{% endblock content %}	  	
+	  		
+	  	

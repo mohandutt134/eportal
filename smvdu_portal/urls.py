@@ -13,13 +13,14 @@ urlpatterns = patterns('student.views',
     (r'online/',include('online_status.urls')),
     (r'^notification/',include('notification.urls')),
     (r'^accounts/',include('accounts.urls')),
+    #(r'^report/',include('report.urls')),
     url(r'^$', 'home', name='home'),
     url(r'^dashboard$', 'dashboard', name='dashboard'),
     url(r'^all_course$', 'courseView', name='all_courses'),
    
     url(r'^course/(?P<id>[0-9A-Za-z_\-]+)$', 'course', name='course'),
     url(r'^courses$', 'courses', name='courses'),
-    
+    url(r'^profile$', 'profile', name='profile'),
     url(r'^faculty$', 'faculty', name='faculty'),
     url(r'^about$', 'about', name='about'),
     url(r'^edit/$', 'edit', name='edit'),
@@ -27,6 +28,7 @@ urlpatterns = patterns('student.views',
     url(r'^mail$','mail'),
     url(r'^change/$', 'changePassword', name='change'),
     url(r'^course/(?P<id>[0-9A-Za-z_\-]+)/addmaterial$', 'add_material', name='add_material'),
+    
 )
 
 if settings.DEBUG is False:   #if DEBUG is True it will be served automatically

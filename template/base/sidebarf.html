@@ -1,19 +1,28 @@
-{% extends 'base/header.html' %}
-{% load staticfiles %}
-     {% block sidebar %}
-     {% load partial_views %}
+{% extends 'base/header.html' %} {% load staticfiles %} {% block sidebar %} {% load partial_views %}
 
-   <aside>
+<aside>
     <div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
 
             <p class="centered">
                 <a href="profile">
-                    <img src="/static/uploaded_image/{{ user.faculty_profile.image }}" class="img-circle" width="60">
+                    {% if not user.faculty_profile.image %}
+                        <img src="/static/uploaded_image/fpp/user_blue.png" class="img-circle" width="60"/>
+                    {% else %}
+                        <img src="/static/uploaded_image/{{ user.faculty_profile.image }}" class="img-circle" width="60">
+                    {% endif %}
                 </a>
             </p>
-            <h5 class="centered">Marcel Newman</h5>
+            <h5 class="centered text-capitalize">Hello,
+
+            {% if not user.first_name %}
+               User
+            {% else %}
+             {{ user.first_name }}
+            {% endif %}
+
+             </h5>
 
             <li class="mt">
                 <a class="active" href="{% url 'dashboard' %}">
@@ -42,14 +51,13 @@
                 <ul class="sub">
                     <li><a href="{% url 'add_question' %}">Add Question</a>
                     </li>
-                    <li><a href="{% url 'attach_question' %}">Add Quiz</a>
+                    <li><a href="{% url 'edit_spec' %}">Add Quiz</a>
                     </li>
-                    <li><a href="{% url 'edit_spec' %}">Edit Specifiaction</a>
+                    <li><a href="{% url 'EditQuiz' %}">Edit Quiz</a>
                     </li>
                     <li><a href="{% url 'quiz_control' %}">Quiz Control</a>
                     </li>
-                    <li><a href="{% url 'quiz_confirm' %}">Quiz Confirm</a>
-                    </li>
+                    
                     
                 </ul>
             </li>
@@ -126,6 +134,3 @@
     });
     </script>
 {% endblock sidebar %}
-
-
-

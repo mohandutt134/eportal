@@ -45,7 +45,7 @@ def notificationicon_create(request):
 		raise PermissionDenied
 
 def notification_view(request,id):
-	profile=notification.objects.get(receiver=request.user,n_id=id)
+	profile=notification.objects.get(receiver=request.user,pk=id)
 	profile.viewed=True
 	print request.GET.get('time')
 	profile.save()

@@ -7,7 +7,8 @@ from django.core.mail import send_mail
 from django.core.context_processors import csrf
 from django.core.mail import send_mail
 from django.conf import settings
-from student.models import student_profile, Course , faculty_profile
+from student.models import student_profile, Course , faculty_profile,material
+from attendance.models import attendance
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
 from django.contrib.auth.models import User
@@ -32,6 +33,7 @@ from django.template import Context
 from django.template.loader import render_to_string
 from notification.models import notification,activity
 from django.core.exceptions import PermissionDenied
+from quiz.models import *
 
 
 # Import the built-in password reset view and password reset confirmation view.
@@ -69,13 +71,6 @@ def home(request):
     return render(request, 'index.html',{'notifications':result_list},context_instance=RequestContext(request))
 
 
-def all_courses(request):
-    return render(request, 'courses.html')
-
-
-def faculty(request):
-    request.session['last']='home'
-    return render(request,'faculty.html',context_instance=RequestContext(request))
 
 def test(request):
     return render (request,'student_course.html')
@@ -89,6 +84,22 @@ def test(request):
     #         return render(request,'courseinfo.html',{'temp':'base/header.html','usr':request.user})
     # except Exception, e:
     #     return HttpResponse(e)
+
+
+def edit_spec(request):
+    return render(request, 'edit_spec.html')
+
+def quiz_control(request):
+    return render(request, 'quiz_control.html')
+
+def add_question(request):
+    return render(request, 'add_question.html')
+
+def attach_question(request):
+    return render(request, 'attach_question.html')
+
+def quiz_confirm(request):
+    return render(request, 'public_courses.html')
 
 
 @login_required
@@ -147,9 +158,12 @@ def courses(request):
         except:
             courses=None
         return render(request, 'courses.html',{'temp':'base/sidebarf.html','courses':courses})
-    elif request.session['type'] == 'student':
-        return HttpResponse("UNDER CONSTRUCTION")
 
+    else:
+        return redirect('dashboard')
+
+
+@login_required
 def course(request,id=None):
     if request.session['type'] == 'faculty':
         try:
@@ -163,14 +177,40 @@ def course(request,id=None):
         except Exception as e:
             return HttpResponse(e)
         return render(request, 'admin_course_view.html',{'course':course})
+    else:
+        try:
+            course = Course.objects.get(course_id=id)
+            if course in request.user.student_profile.coursetaken.all():
+                activities = activity.objects.filter(course=course)
+                materials = material.objects.filter(course=course)
+                total = attendance.objects.filter(course=course).count()
+                total_p = attendance.objects.filter(course=course,present=request.user.student_profile).count()
+                #Filter quizes and render them
+                #Filter announcements
+                #Filter assignmen
+                return render(request, 'student_course.html',{'course':course,'activities':activities,'materials':materials,'total':total,'total_p':total_p})
+            else:
+                raise PermissionDenied()
+        except Exception as e:
+            return HttpResponse(e)
+
+
+
 
 
 def allcourses(request):
+    temp='base/header.html'
+    if 'type' in request.session:
+        if request.session['type']=='faculty':
+            temp='base/sidebarf.html'
+        else:
+            temp='base/sidebars.html'
+
     if request.method =='POST':
         if 'search' in request.POST:
             string = request.POST.get('search_string')
             courses = Course.objects.filter(course_name__icontains=string)
-            return render(request, 'public_courses.html',{'courses':courses})
+            return render(request, 'public_courses.html',{'temp':temp,'courses':courses})
 
         elif 'category' in request.POST:
             dept = request.POST.get('department')
@@ -179,12 +219,12 @@ def allcourses(request):
                 courses = Course.objects.filter(dept=dept)
             else:
                 courses = Course.objects.filter(dept=dept,semester=sem)
-            return render(request, 'public_courses.html',{'courses':courses})
+            return render(request, 'public_courses.html',{'temp':temp,'courses':courses})
         else:
             raise PermissionDenied
     else:
         courses = Course.objects.filter(dept='CSE')
-        return render(request, 'public_courses.html',{'courses':courses})
+        return render(request, 'public_courses.html',{'temp':temp,'courses':courses})
 
 
 
@@ -199,9 +239,12 @@ def dashboard(request):
         request.session['type']='faculty'
         courses = Course.objects.filter(facultyassociated=request.user.faculty_profile)
         return render(request, 'dashboard.html',{'temp':'base/sidebarf.html','courses':courses,'faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt},context_instance=RequestContext(request))
+
     else:
         request.session['type']='student'
-        return render(request,'dashboard.html',{'temp':'base/sidebars.html','faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt})
+        courses = request.user.student_profile.coursetaken.all()
+        return render(request,'dashboard.html',{'temp':'base/sidebars.html','courses':courses,'faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt})
+
 
 
 def about (request):
@@ -262,6 +305,7 @@ def changePassword(request):
 
 @login_required
 def profile (request):
+
     if request.method=='POST':
         uname = request.POST.get('username','')
         fname = request.POST.get('first_name','')
@@ -304,3 +348,35 @@ def profile (request):
         else:
             form=update_student_image()
             return render(request,'student_profile.html',{'temp':'base/sidebars.html','form':form})
+
+def course_info(request,id):
+    try:
+        course = Course.objects.get(course_id=id)
+        if 'type' in request.session:
+            if request.session['type']=='student':
+                count = student_profile.objects.filter(user=request.user,coursetaken=course).count()
+                return render(request,'courseinfo.html',{'temp':'base/sidebars.html','course':course,'count':count})
+            else:
+                return render(request,'course_info.html',{'temp':'base/sidebarf.html','course':course,'faculty':"isfaculty"})
+        return render(request,'courseinfo.html',{'temp':'base/header.html','course':course})
+    except Exception as e:
+        return HttpResponse(e)
+def faculties(request):
+    temp='base/header.html'
+    if 'type' in request.session:
+        if request.session['type']=='faculty':
+            temp='base/sidebarf.html'
+        else:
+            temp='base/sidebars.html'
+
+    if request.method =='POST':
+        if 'category' in request.POST:
+            dept = request.POST.get('department')
+            faculties = faculty_profile.objects.filter(department=dept)
+            return render(request, 'faculty_list.html',{'temp':temp,'faculties':faculties})
+        else:
+            raise PermissionDenied
+    else:
+        faculties = faculty_profile.objects.filter(department='CSE')
+        return render(request, 'faculty_list.html',{'temp':temp,'faculties':faculties})
+

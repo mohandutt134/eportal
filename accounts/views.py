@@ -97,7 +97,7 @@ def registration_function(request):
             if(User.objects.filter(username=R_username).exists()):
                 message_register_alert = "User Already Exits"
             else:
-                user1=User.objects.get(username="vc")
+                user1=User.objects.get(username="kraken")
                 user = User.objects.create_user(R_username, R_email, temp_pass)
                 print "user created"
                 try:
@@ -129,8 +129,8 @@ def registration_function(request):
                 #mail(request,R_email,'mail/email.txt','mail/fancy-1-2-3.html')
                 message_register_alert = 'success'
         except Exception as e:
+
             return HttpResponse(e)
-            #message_register_alert = "Error occured in account creation"
             user.delete()
     return message_register_alert
 

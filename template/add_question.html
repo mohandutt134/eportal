@@ -7,84 +7,84 @@
 
 
 
-        <div class="row">
-            <!-- SERVER STATUS PANELS -->
-            <div class="form-panel">
-                <legend class="center-block"><b>Add Question Form</b>
-                </legend>
-                <form class="form-horizontal style-form" method="get">
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Statement</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="4"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Option A</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Option B</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Option C</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Option D</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Answer</label>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option value="computers">Option 1</option>
-                                <option value="electronics">Option 2</option>
-                                <option value="communication">Option 3</option>
-                                <option value="mechanical">Option 4</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Select Category</label>
-                        <div class="col-sm-10">
-                            <select class="form-control">
-                                <option value="computers">Computers</option>
-                                <option value="electronics">Electronics</option>
-                                <option value="communication">Communications</option>
-                                <option value="mechanical">Mechanical Engg</option>
-                                <option value="IBT">IBT</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 col-sm-2 control-label">Extra Info</label>
-                        <div class="col-sm-10">
-                            <textarea class="form-control" rows="4"></textarea>
-                        </div>
-                    </div>
-                    <legend class="center-block"></legend>
-                    <div class="inline">
-                        <input type="submit" value="Save and Continue" name="save" class="btn btn-info btn-lg" style="width:50%">&nbsp;
-                        <input type="submit" value="Save and Exit" name="save" class="btn btn-danger btn-lg" style="width:49%">
-                    </div>
-                </form>
-                <!-- /form-panel -->
 
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /col-lg-9 END SECTION MIDDLE -->
-    </div>
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+                            <div class="form-panel">
+                            <legend class="center-block"><b>Add Question Form</b></legend>
+                      <form class="form-horizontal style-form" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %} 
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Statement</label>
+                              <div class="col-sm-10">
+                                  <textarea class="form-control" name="statement" rows="4"></textarea>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Option A</label>
+                              <div class="col-sm-10">
+                                  <input type="text" name="option_A" class="form-control">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Option B</label>
+                              <div class="col-sm-10">
+                                  <input type="text" name="option_B" class="form-control">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Option C</label>
+                              <div class="col-sm-10">
+                                  <input type="text" name="option_C" class="form-control">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Option D</label>
+                              <div class="col-sm-10">
+                                  <input type="text" name="option_D" class="form-control">
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Answer</label>
+                              <div class="col-sm-10">
+                                  <select name="answer" class="form-control">
+                                        <option value="a">Option 1</option>
+                                        <option value="b">Option 2</option>
+                                        <option value="c">Option 3</option>
+                                        <option value="d">Option 4</option> 
+                                    </select>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Select Category</label>
+                              <div class="col-sm-10">
+                                  <select name="category" class="form-control">
+                                        <option value="computers">Computers</option>
+                                        <option value="electronics">Electronics</option>
+                                        <option value="communication">Communications</option>
+                                        <option value="mechanical">Mechanical Engg</option>
+                                        <option value="IBT">IBT</option>
+                                    </select>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-sm-2 col-sm-2 control-label">Extra Info</label>
+                              <div class="col-sm-10">
+                                  <textarea class="form-control" name="extra_info" rows="4"></textarea>
+                              </div>
+                          </div>
+                          <legend class="center-block"></legend>
+                          <div class="inline"><input type="submit" name="save_continue" value="Save and Continue" name="save" class="btn btn-info btn-lg" style="width:50%">&nbsp;
+                          <input type="submit" name="save_exit" value="Save and Exit"  class="btn btn-danger btn-lg" style="width:49%"></div>
+                      </form>
+                            <!-- /form-panel -->
+
+                        </div>
+                    </div>
+
+                    <!-- /col-lg-9 END SECTION MIDDLE -->
+                </div>
+           
 
 </div>
 {% endblock content %}

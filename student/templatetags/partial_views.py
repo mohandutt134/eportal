@@ -23,7 +23,6 @@ def make_bar(course):
     #count=student_profile.objects.filter(coursetaken=course).count()
    	#return {'count':count}
 
-
 @register.inclusion_tag('course_code.html',takes_context=True)
 def expansion(context):
     if context['usr'].groups.filter(name='faculty').exists():

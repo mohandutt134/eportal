@@ -6,6 +6,7 @@
         <ul class="sidebar-menu" id="nav-accordion">
 
             <p class="centered">
+
                 <a href="{% url 'dashboard' %}">
                     {% if not user.faculty_profile.image %}
                         <img src="/static/uploaded_image/fpp/user_blue.png" class="img-circle" width="60"/>
@@ -15,6 +16,7 @@
                 </a>
             </p>
             <h5 class="centered text-capitalize">Faculty,
+
 
             {% if not user.first_name %}
                User
@@ -49,12 +51,22 @@
                     <span>Attendance</span>
                 </a>
                 <ul class="sub">
+
                     <li><a href="{% url 'show_students' %}">Take</a>
+
                     </li>
                     <li><a href="{% url 'show' %}">See</a>
                     </li>
+
                 </ul>
             </li>
+            <li class="sub-menu">
+                <a href="{% url 'faculty' %}">
+                    <i class="fa fa-user"></i>
+                    <span>Faculty</span>
+                </a>
+            </li>
+
             <li class="sub-menu">
                 <a href="javascript:;">
                     <i class="fa fa-cogs"></i>
@@ -75,4 +87,6 @@
 </aside>
 
 
+
 {% endblock sidebar %} 
+

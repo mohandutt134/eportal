@@ -1,0 +1,66 @@
+{% extends temp %} {% load staticfiles %} {% block cssadd %} 
+{% ifequal temp 'base/header.html' %}
+<style type="text/css">
+#main-content {
+    margin-left: 0;
+}
+{% endifequal %}
+</style>
+{% endblock cssadd %} {% block content %}
+<br>
+
+
+<div class="row">
+    <div class="col-lg-3">
+        <div class="form-panel">
+            <form class="form-horizontal style-form" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <legend class="center-block"><b>Select Department</b>
+                        </legend>
+                        <select class="form-control" name="department">
+                            <option value="CSE">Computers</option>
+                            <option value="ECE">Electronics & Comm</option>
+                            <option value="MEC">Mechanical Engg</option>
+                            <option value="IBT">IBT</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                        <br>
+                        <input type="submit" name="category" class="btn btn-primary btn-lg btn-block"></input>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--COMPLETED ACTIONS DONUTS CHART-->
+    </div>
+
+    <div class="col-lg-9 main-chart">
+
+        <!-- /row mt -->
+
+
+        <div class="row">
+            <!-- SERVER STATUS PANELS -->
+            {% for faculty in faculties %}
+            <a href="profile/{{faculty.user.username}}">
+            <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                <div class="content-panel pn">
+                    <div id="spotify" style="background: url(static/uploaded_image/fpp/{{faculty.image}}) no-repeat center top;background-size:cover">
+                        <div class="col-xs-4 col-xs-offset-8">
+                            <button class="btn btn-sm btn-clear-g">FOLLOW</button>
+                        </div>
+                        <div class="play">
+                            <i class="fa fa-play-circle"></i>
+                        </div>
+                    </div>
+                    <p class="followers"><i class="fa fa-user"></i> {{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- /form-panel -->
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

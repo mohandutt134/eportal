@@ -1,15 +1,15 @@
-{% extends 'base/header.html' %} {% load staticfiles %} {% block cssadd %}
+
+
+{% extends temp %} {% load staticfiles %} {% block cssadd %}
+{% if not request.session.type %}
 <style type="text/css">
 #main-content {
     margin-left: 0;
 }
 </style>
+{% endif %}
 {% endblock cssadd %} {% block content %}
 <br>
-<br>
-<br>
-<br>
-
 <div class="row">
     <div class="col-lg-3">
         <div class="form-panel">
@@ -78,7 +78,7 @@
             <!-- SERVER STATUS PANELS -->
             {% if courses %} {% for course in courses %}
             <div class="col-sm-4 mb">
-                <a href="course_info/{{course.course_id}}">
+                <a href="courseinfo/{{course.course_id}}">
                     <div class="content-panel pn">
                         <div id="blog-bg" style="background:url('/static/uploaded_image/{{ course.image }}');background-size:cover;">
                             <div class="badge badge-popular">{{course.course_id}}</div>

@@ -48,11 +48,12 @@ INSTALLED_APPS = (
     'attendance',
     'ckeditor',
     'django_wysiwyg',
-
+    'django.contrib.humanize',
 )
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = "pillow"
+
 
 # Minimum password strength settings. See the GitHub page for defaults.
 # https://github.com/dstufft/django-passwords/

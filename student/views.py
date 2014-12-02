@@ -184,11 +184,12 @@ def course(request,id=None):
                 activities = activity.objects.filter(course=course)
                 materials = material.objects.filter(course=course)
                 total = attendance.objects.filter(course=course).count()
+                quiz=quiz_spec.objects.filter(course=course)
                 total_p = attendance.objects.filter(course=course,present=request.user.student_profile).count()
                 #Filter quizes and render them
                 #Filter announcements
                 #Filter assignmen
-                return render(request, 'student_course.html',{'course':course,'activities':activities,'materials':materials,'total':total,'total_p':total_p})
+                return render(request, 'student_course.html',{'course':course,'activities':activities,'materials':materials,'total':total,'total_p':total_p,'quizes':quiz})
             else:
                 raise PermissionDenied()
         except Exception as e:

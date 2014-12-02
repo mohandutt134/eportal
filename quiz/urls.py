@@ -17,7 +17,9 @@ urlpatterns = patterns('quiz.views',
     url(r'^exit/$', 'exit', name='exit'),
     url(r'^course/(?P<id>[0-9A-Za-z_\-]+)/create_course_quiz$', 'create_course_quiz', name='create_course_quiz'),
     url(r'^course/(?P<id>[0-9A-Za-z_\-]+)/course_quiz$', 'course_quiz', name='course_quiz'),
-    url(r'^course/(?P<course_id>[0-9A-Za-z_\-]+)/course_quiz/(?P<quiz_id>[0-9A-Za-z_\-]+)/$', 'quiz_view', name='quiz_view'),
-    url(r'^quiz_questions/$','quiz_questions',name='quiz_questions'), 
+    url(r'^courses/(?P<course_id>[0-9A-Za-z_\-]+)/course_quiz/(?P<quiz_id>[0-9A-Za-z_\-]+)/$', 'quiz_view', name='quiz_view'),
+    url(r'^quiz_questions/$','quiz_questions',name='quiz_questions'),
+    url(r'^submit/$','submit',name='submi'),
+    url(r'^quiz_result/$','quiz_result',name='quiz_result'),
 
 )

@@ -58,16 +58,34 @@
                             </div>
                             <div class="tab-pane" id="tab_c">
                                 <div class="row">
-                                    {% if quiz %} {% for quiz in quizes %}
-                                    <div class="col-md-4 col-sm-4 mb">
-                                        <a href="#">
-                                            <div class="weather pn" style="background: #004A00; color:#fff;">
-                                                <i class="fa fa-puzzle-piece fa-4x"></i>
-                                                <h1>{{quiz.title}}</h1>
-                                                <h4>lets make them present</h4>
-                                            </div>
-                                        </a>
+                                    {% if quizes %} {% for quiz in quizes %}
+                                    <br>
+                                    <br>
+                                     <div class="col-lg-6 col-lg-offset-3">
+                                            <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+                            <div class="form-panel">
+                                <h4 class="mb"><i  class="fa fa-hand-o-right"></i> {{quiz.title}}
+                                    <br>
+                                    <br>
+                                    <div class="pull-left">
+                                        <h5><i class="fa fa-user"></i> Added by:{{quiz.addedBy.user.first_name}} &nbsp;&nbsp;&nbsp;</h5>
                                     </div>
+                                    <div class="pull-right">
+                                       <a href="/quiz{{request.get_full_path}}/course_quiz/{{quiz.id}}"> 
+                                        <button type="button"  class="btn btn-info btn-xs"><i class="fa fa-download"></i> Take Quiz</button>
+                                    </a>
+                                        
+                                      
+
+                                    </div>
+                                </h4>
+                            </div>
+                            <br>
+                            <br>
+                            <!-- /form-panel -->
+                            </div>
+  </div>
                                     {% endfor %} {% else %}
                                     <div class="col-md-12 mb">
                                         <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">

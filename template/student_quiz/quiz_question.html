@@ -40,9 +40,27 @@
     <li class="next"><a href="#" onclick="next_function()">Next <span aria-hidden="true">&rarr;</span></a></li>
   </ul>
 </nav>
-<button type="button" class="btn btn-primary" id="q_submit">Submit Your Answer</button>
+<button type="button" onclick="result()" class="btn btn-primary" id="q_submit">Submit Your Answer</button></a>
 <script type="text/javascript">
 	studentQuestions({{quiz.duration}});
 
 </script>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h4 class="modal-title" id="myModalLabel">Your Answer Has been Submited</h4>
+      </div>
+      <div class="modal-body">
+        Result Will Be Declare Soon
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'dashboard' %}">Close</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}

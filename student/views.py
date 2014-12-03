@@ -283,15 +283,21 @@ def profile_edit_student(request):
 
 
 def mail(request):
-    c = Context({'username': settings.EMAIL_HOST_USER })    
-    text_content = render_to_string('mail/email.txt', c)
-    html_content = render_to_string('mail/fancy-1-2-3.html', c)
+    try:
+        send_mail("subject1", "message2", "vibhanshu86@gmail.com", ['2011ecs48@smvdu.ac.in'])
+    except Exception, e:
+        HttpResponse(e)
+    else:
+        HttpResponse("Successfully")
+    # c = Context({'username': settings.EMAIL_HOST_USER })    
+    # text_content = render_to_string('mail/email.txt', c)
+    # html_content = render_to_string('mail/fancy-1-2-3.html', c)
 
-    email = EmailMultiAlternatives('Subject', text_content)
-    email.attach_alternative(html_content, "text/html")
-    email.to = ['vibhanshu86@gmail.com']
-    email.send()
-    return HttpResponse("SUCCESS")
+    # email = EmailMultiAlternatives('Subject', text_content)
+    # email.attach_alternative(html_content, "text/html")
+    # email.to = ['vibhanshu86@gmail.com']
+    # email.send()
+    # return HttpResponse("SUCCESS")
 
 def changePassword(request):
     redirect_to = request.GET.get('next','')
@@ -379,4 +385,6 @@ def faculties(request):
     else:
         faculties = faculty_profile.objects.filter(department='CSE')
         return render(request, 'faculty_list.html',{'temp':temp,'faculties':faculties})
+
+
 

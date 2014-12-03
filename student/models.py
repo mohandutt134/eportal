@@ -122,3 +122,6 @@ class material(models.Model):
 
     def __unicode__(self):
         return unicode(self.title) or u''
+
+
+

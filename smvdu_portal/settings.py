@@ -148,3 +148,4 @@ TRACKING_USE_GEOIP=True
 GEOIP_PATH = '/home/vc/Desktop/GeoIP.dat'
 GEOIP_CACHE_TYPE = 1
 DEFAULT_TRACKING_TEMPLATE='tracking/visitor_map.html'
+ALLOWED_INCLUDE_ROOTS = ('/static/documents/html'), 

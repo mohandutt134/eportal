@@ -19,7 +19,7 @@ urlpatterns = patterns('student.views',
     #(r'^report/',include('report.urls')),
     url(r'^$', 'home', name='home'),
     url(r'^dashboard$', 'dashboard', name='dashboard'),
-   
+
     url(r'^courses/(?P<id>[0-9A-Za-z_\-]+)$', 'course', name='course'),
     url(r'^courses$', 'courses', name='courses'),
     url(r'^profile$', 'profile', name='profile'),
@@ -27,7 +27,7 @@ urlpatterns = patterns('student.views',
     url(r'^profile/(?P<username>[0-9A-Za-z_\-]+)$',  'pprofile', name='pprofile'),
     url(r'^users/(?P<username>[0-9A-Za-z_\-]+)/$',  'pprofile', name='pprofile'),
 
-    url(r'^faculty$', 'faculty', name='faculty'),\
+    #url(r'^faculty$', 'faculty', name='faculty'),\
     url(r'^about$', 'about', name='about'),
     #url(r'^profile_edit/$', 'profile_edit', name='profile_edit'),
     #url('^inbox/notifications/', include(notifications.urls)),

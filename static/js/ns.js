@@ -117,7 +117,7 @@ for(var i=0;i<Object.keys(messages).length;i++){
 function addquestion( id){
 
   $.ajax({
-  url: "http://localhost:8000/quiz/addquestion",
+  url: "/quiz/addquestion",
   type: "GET",
   data: { id : id },
   dataType: "text",
@@ -174,7 +174,7 @@ function messageViewed(mid){
 
 function viewfullquestion(id){
    $.ajax({
-    url: "http://localhost:8000/quiz/view_fullquestion",
+    url: "/quiz/view_fullquestion",
     type: "GET",
     data: { id : id },
     dataType: "text",
@@ -262,7 +262,7 @@ function addremoveButton(quiz_id,data,id){
 
 function removeQuestion(id){
   $.ajax({
-    url: "http://localhost:8000/quiz/removeQuestion",
+    url: "/quiz/removeQuestion",
     type: "GET",
     data: { id : id },
     dataType: "text",
@@ -297,7 +297,7 @@ function qizquestions(){
 
 
   $.ajax({
-    url: "http://localhost:8000/quiz/qizquestions",
+    url: "/quiz/qizquestions",
     type: "GET",
     data: {},
     dataType: "text",
@@ -368,7 +368,7 @@ function changeQuiz(){
   var pass = $("#q_title").val()
   console.log(pass)
   $.ajax({
-    url: "http://localhost:8000/quiz/changeQuiz",
+    url: "/quiz/changeQuiz",
     type: "GET",
     data: { id : pass },
     dataType: "text",
@@ -414,7 +414,7 @@ $("#q_credits").val(msg[0].fields.credit)
 function studentQuestions(duration){
   timer=duration*60;
     $.ajax({
-    url: "http://localhost:8000/quiz/qizquestions",
+    url: "/quiz/qizquestions",
     type: "GET",
     data: {},
     dataType: "text",

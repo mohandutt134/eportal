@@ -3,9 +3,8 @@ from django import template
 from django.db.models import Q
 from django.shortcuts import render_to_response, HttpResponseRedirect, render, redirect
 from django.http import HttpResponseForbidden
-from django.core.mail import send_mail
 from django.core.context_processors import csrf
-from django.core.mail import send_mail
+from django.core.mail import send_mail,send_mass_mail
 from django.conf import settings
 from student.models import student_profile, Course , faculty_profile,material
 from attendance.models import attendance
@@ -281,24 +280,6 @@ def profile_edit_student(request):
     faculty_profile.objects.filter(user= User.objects.get(username=uname)).update(department=dept,description=des,research=rsrch,areaofinterest=aoi,weburl=web)
     return redirect('/profile')
 
-
-def mail(request):
-    try:
-        send_mail("subject1", "message2", "vibhanshu86@gmail.com", ['2011ecs48@smvdu.ac.in'])
-    except Exception, e:
-        HttpResponse(e)
-    else:
-        HttpResponse("Successfully")
-    # c = Context({'username': settings.EMAIL_HOST_USER })    
-    # text_content = render_to_string('mail/email.txt', c)
-    # html_content = render_to_string('mail/fancy-1-2-3.html', c)
-
-    # email = EmailMultiAlternatives('Subject', text_content)
-    # email.attach_alternative(html_content, "text/html")
-    # email.to = ['vibhanshu86@gmail.com']
-    # email.send()
-    # return HttpResponse("SUCCESS")
-
 def changePassword(request):
     redirect_to = request.GET.get('next','')
     if 'change_password_submit' in request.POST:
@@ -367,6 +348,7 @@ def course_info(request,id):
         return render(request,'courseinfo.html',{'temp':'base/header.html','course':course})
     except Exception as e:
         return HttpResponse(e)
+
 def faculties(request):
     temp='base/header.html'
     if 'type' in request.session:
@@ -388,3 +370,38 @@ def faculties(request):
 
 
 
+def contactview(request):
+    if request.method=='POST':
+        subject = request.POST.get('topic', '')
+        message = request.POST.get('message', '')
+        from_email = request.POST.get('email', '')
+        if subject and message and from_email:
+            datatuple = (
+            ('Subject', message , settings.EMAIL_HOST_USER, ['vibhanshu86@gmail.com']),
+            ('Subject', "Your query has been logged to us ", settings.EMAIL_HOST_USER, [from_email]),
+            )
+            try:
+                send_mass_mail(datatuple)
+            except Exception, e:
+                return HttpResponse(e)
+            return HttpResponse(subject+message+from_email)
+        else:
+            return HttpResponse("fill all the fields")
+    else:
+        return render(request,'contacts.html')    
+
+def mail(request):
+    receiver="vibhanshu86@gmail.com"
+    send_mail("Subject","Message",settings.EMAIL_HOST_USER,[receiver])
+    return HttpResponse("success")
+    # receiver="vibhanshu86@gmail.com"
+    # subject="mail/email.txt"
+    # body="mail/email.html"
+    # c = Context({'username': settings.EMAIL_HOST_USER })    
+    # text_content = render_to_string(subject, c)
+    # html_content = render_to_string(body, c)
+
+    # email = EmailMultiAlternatives('Subject', text_content)
+    # email.attach_alternative(html_content, "text/html")
+    # email.to = [receiver]
+    # email.send()

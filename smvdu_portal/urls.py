@@ -19,6 +19,7 @@ urlpatterns = patterns('student.views',
     #(r'^report/',include('report.urls')),
     url(r'^$', 'home', name='home'),
     url(r'^dashboard$', 'dashboard', name='dashboard'),
+    url(r'^contact$', 'contactview', name='contactview'),
 
     url(r'^courses/(?P<id>[0-9A-Za-z_\-]+)$', 'course', name='course'),
     url(r'^courses$', 'courses', name='courses'),

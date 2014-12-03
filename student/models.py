@@ -125,3 +125,8 @@ class material(models.Model):
 
 
 
+class Contact(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField()
+    topic = models.CharField(max_length=50)
+    message = models.TextField()

@@ -48,13 +48,10 @@ def notification_view(request,id):
 	profile.viewed=True
 	print request.GET.get('time')
 	profile.save()
-	if(profile.title=='Registered'):
-		return HttpResponse("prfile form")
-	else:
-		if profile.link=='#':
-			return redirect(request.GET.get('next'))
-		print profile.viewed
-		return HttpResponse(request.GET.get(next))
+	if profile.link=='#':
+		return redirect(request.GET.get('next'))
+	print profile.viewed
+	return redirect(profile.link)
 
 @csrf_exempt
 def message_view(request):

@@ -1,4 +1,4 @@
-{% extends temp %} {% load staticfiles %} {% block cssadd %} 
+{% extends temp %} {% load staticfiles %} {% block cssadd %}
 {% ifequal temp 'base/header.html' %}
 <style type="text/css">
 #main-content {
@@ -44,21 +44,23 @@
             <!-- SERVER STATUS PANELS -->
             {% for faculty in faculties %}
             <a href="profile/{{faculty.user.username}}">
-            <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                <div class="content-panel pn">
-                    <div id="spotify" style="background: url(static/uploaded_image/fpp/{{faculty.image}}) no-repeat center top;background-size:cover">
-                        <div class="col-xs-4 col-xs-offset-8">
-                            <button class="btn btn-sm btn-clear-g">FOLLOW</button>
+                <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                    <div class="content-panel pn">
+                        <div id="profile-02">
+                            <div class="user">
+                                <img src="static/uploaded_image/fpp/{{faculty.image}}" class="img-circle" width="120">
+                                <h4><i class="fa fa-user"></i> {{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</h4>
+                            </div>
                         </div>
-                        <div class="play">
-                            <i class="fa fa-play-circle"></i>
+                        <div class="pr2-social centered">
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-dribbble"></i></a>
                         </div>
                     </div>
-                    <p class="followers"><i class="fa fa-user"></i> {{faculty.user.first_name}}&nbsp;&nbsp;{{faculty.user.last_name}}</p>
                 </div>
-            </div>
-            {% endfor %}
-            <!-- /form-panel -->
+                {% endfor %}
+                <!-- /form-panel -->
 
         </div>
     </div>

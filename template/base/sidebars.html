@@ -18,7 +18,7 @@
             <h5 class="centered text-capitalize">Hello, {% if not user.first_name %}
                User
             {% else %}
-             {{ user.first_name }}
+             {{user.student_profile.salutation}}&nbsp;&nbsp;{{ user.first_name }}
             {% endif %}</h5>
             <li class="mt">
                 <a class="active" href="{% url 'courses' %}">

@@ -19,7 +19,7 @@
             {% if not user.first_name %}
                User
             {% else %}
-             {{ user.first_name }}
+             {{user.faculty_profile.salutation}}&nbsp;&nbsp;{{ user.first_name }}
             {% endif %}
 
              </h5>

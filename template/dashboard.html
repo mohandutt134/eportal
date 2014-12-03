@@ -1,4 +1,6 @@
-{% extends temp %} {% load staticfiles %} {% block jsadd-up %} {% endblock jsadd-up %} {% block content %}
+{% extends temp %} {% load staticfiles %}
+{% load humanize %}
+ {% block jsadd-up %} {% endblock jsadd-up %} {% block content %}
 
 {% load partial_views %}
 <div class="row">
@@ -139,6 +141,7 @@
 
         <!-- First Action -->
         <div style="overflow:auto;max-height:300px" id="scrollbox">
+        {% for notification in notifications %}
             <div class="desc">
                 <div class="thumb">
                     <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
@@ -146,76 +149,21 @@
                 </div>
                 <div class="details">
                     <p>
-                        <muted>2 Minutes Ago</muted>
+                        <muted>{{notification.time|naturaltime}}</muted>
                         <br/>
-                        <a href="#">James Brown</a> subscribed to your newsletter.
-                        <br/>
-                    </p>
-                </div>
-            </div>
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                </div>
-                <div class="details">
-                    <p>
-                        <muted>2 Minutes Ago</muted>
-                        <br/>
-                        <a href="#">James Brown</a> subscribed to your newsletter.
+                        <a href="#">{{notification.title}}</a> {{notification.body}}
                         <br/>
                     </p>
                 </div>
             </div>
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                </div>
-                <div class="details">
-                    <p>
-                        <muted>2 Minutes Ago</muted>
-                        <br/>
-                        <a href="#">James Brown</a> subscribed to your newsletter.
-                        <br/>
-                    </p>
-                </div>
-            </div>
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                </div>
-                <div class="details">
-                    <p>
-                        <muted>2 Minutes Ago</muted>
-                        <br/>
-                        <a href="#">James Brown</a> subscribed to your newsletter.
-                        <br/>
-                    </p>
-                </div>
-            </div>
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                </div>
-                <div class="details">
-                    <p>
-                        <muted>2 Minutes Ago</muted>
-                        <br/>
-                        <a href="#">James Brown</a> subscribed to your newsletter.
-                        <br/>
-                    </p>
-                </div>
-            </div>
-            <!-- Second Action -->
+        {% endfor %}
 
         </div>
 
         <h3>MESSAGES</h3>
         <!-- First Action -->
         <div style="overflow:auto;max-height:300px" id="msgbox">
+        {% for message in messages %}
             <div class="desc">
                 <div class="thumb">
                     <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
@@ -223,57 +171,15 @@
                 </div>
                 <div class="details">
                     <p>
-                        <muted>2 Minutes Ago</muted>
+                        <muted>{{message.time|naturaltime}}</muted>
                         <br/>
-                        <a href="#">James Brown</a> subscribed to your newsletter.
-                        <br/>
-                    </p>
-                </div>
-            </div>
-
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                </div>
-                <div class="details">
-                    <p>
-                        <muted>2 Minutes Ago</muted>
-                        <br/>
-                        <a href="#">James Brown</a> subscribed to your newsletter.
+                        <a href="#">{{message.sender.first_name}}</a> {{message.title}}
                         <br/>
                     </p>
                 </div>
             </div>
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                </div>
-                <div class="details">
-                    <p>
-                        <muted>2 Minutes Ago</muted>
-                        <br/>
-                        <a href="#">James Brown</a> subscribed to your newsletter.
-                        <br/>
-                    </p>
-                </div>
-            </div>
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
-                                    </span>
-                </div>
-                <div class="details">
-                    <p>
-                        <muted>2 Minutes Ago</muted>
-                        <br/>
-                        <a href="#">James Brown</a> subscribed to your newsletter.
-                        <br/>
-                    </p>
-                </div>
-            </div>
-            <!-- Second Action -->
+         {% endfor %}   
+        
 
         </div>
 

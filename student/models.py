@@ -16,7 +16,16 @@ class faculty_profile(models.Model):
         ('MEC','MEC'),
         ('IBT','IBT')
     )
+    SCHOICES = (
+        ('Mr.','Mr.'),
+        ('Ms.','Ms.'),
+        ('Mrs.','Mrs.'),
+        ('Dr.','Dr.'),
+        ('Prof.','Prof.'),
+        ('','Blank')
+    )
     user = models.OneToOneField(User,primary_key=True)
+    salutation=models.CharField(max_length=5,choices=SCHOICES,default='Blank',blank=True)
     department=models.CharField(max_length=3,choices=CHOICES,default='CSE')
     facultyrating=models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(5)],default=0)
     areaofinterest=models.CharField(max_length=40,blank=True)
@@ -55,6 +64,7 @@ class Course(models.Model):
         ('OPEN', 'OPEN')
 
     )
+    
     course_id=models.CharField(max_length=10,primary_key=True)
     course_name=models.CharField(max_length=50)
     dept=models.CharField(max_length=5,choices=CHOICES,default='OTHER')
@@ -87,7 +97,14 @@ class student_profile(models.Model):
         ('7', '7'),
         ('8', '8')
     )
+    SCHOICES = (
+        ('Mr.','Mr.'),
+        ('Ms.','Ms.'),
+        ('Mrs.','Mrs.'),
+        ('','Blank')
+    )
     user = models.OneToOneField(User,primary_key=True)
+    salutation=models.CharField(max_length=5,choices=SCHOICES,default='Blank',blank=True)
     DOB=models.DateField(blank=True,null=True)
     Branch=models.CharField(max_length=5,choices=CHOICES,default='CSE')
     Semester=models.CharField(max_length=4,choices=CHOICES_SEM,default='1')

@@ -31,8 +31,9 @@ from django.http import HttpResponse
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context
 from django.template.loader import render_to_string
-from notification.models import notification,activity
+from notification.models import notification,activity,message
 from django.core.exceptions import PermissionDenied
+from django.views.decorators.csrf import csrf_exempt
 from quiz.models import *
 
 
@@ -105,7 +106,7 @@ def add_material(request,id=None):
                             subject="New Material Added: "+j.title
                             activity.objects.create(subject=subject,course=course)
                             students = student_profile.objects.filter(coursetaken=course)
-                            link = '/course/'+id
+                            link = '/courses/'+id
                             for student in students:
                                 notification.objects.create(title="Course Update",body="New Material has been added",link=link,course=course,receiver=student.user,sender=request.user)
                             return redirect('course',id=id)
@@ -217,14 +218,16 @@ def dashboard(request):
     faculty_ece = faculty_profile.objects.filter(department="ECE")
     faculty_mec = faculty_profile.objects.filter(department="MEC")
     faculty_ibt = faculty_profile.objects.filter(department="IBT")
+    notifications = notification.objects.filter(receiver=request.user,viewed=True).order_by('-time')[0:10]
+    messages = message.objects.filter(receiver=request.user,viewed=True).order_by('-time')[0:10]
     if request.user.groups.filter(name='faculty').exists():
         request.session['type']='faculty'
         courses = Course.objects.filter(facultyassociated=request.user.faculty_profile)
-        return render(request, 'dashboard.html',{'temp':'base/sidebarf.html','courses':courses,'faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt},context_instance=RequestContext(request))
+        return render(request, 'dashboard.html',{'temp':'base/sidebarf.html','courses':courses,'faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt,'notifications':notifications,'messages':messages},context_instance=RequestContext(request))
     else:
         request.session['type']='student'
         courses = request.user.student_profile.coursetaken.all()
-        return render(request,'dashboard.html',{'temp':'base/sidebars.html','courses':courses,'faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt})
+        return render(request,'dashboard.html',{'temp':'base/sidebars.html','courses':courses,'faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt,'notifications':notifications,'messages':messages})
 
 
 def about (request):
@@ -288,6 +291,7 @@ def profile (request):
     if request.method=='POST':
         uname = request.POST.get('username','')
         fname = request.POST.get('first_name','')
+        salutation=request.POST.get('salutation','')
         lname = request.POST.get('last_name','')
         User.objects.filter(username=uname).update(first_name=fname,last_name=lname)
         if 'department' in request.POST:
@@ -303,7 +307,7 @@ def profile (request):
             else:
                 image = request.user.faculty_profile.image
             print image
-            faculty_profile.objects.filter(user= User.objects.get(username=uname)).update(department=dept,description=des,research=rsrch,areaofinterest=aoi,weburl=web,image=image)
+            faculty_profile.objects.filter(user= User.objects.get(username=uname)).update(salutation=salutation,department=dept,description=des,research=rsrch,areaofinterest=aoi,weburl=web,image=image)
             #return render(request,'profile.html',{'temp':'base/sidebarf.html','msg':"Profile has been successfully updated"})
             return redirect('profile')
         else:
@@ -317,7 +321,7 @@ def profile (request):
             else:
                 image = request.user.student_profile.image
             print image
-            student_profile.objects.filter(user= User.objects.get(username=uname)).update(Branch=brnch,Semester=sem,DOB=dob,image=image)
+            student_profile.objects.filter(user= User.objects.get(username=uname)).update(salutation=salutation,Branch=brnch,Semester=sem,DOB=dob,image=image)
             return redirect('profile')
             #return render(request,'student_profile.html',{'temp':'base/sidebars.html','msg':"Profile has been successfully updated"})
     else:
@@ -358,3 +362,14 @@ def faculties(request):
     else:
         faculties = faculty_profile.objects.filter(department='CSE')
         return render(request, 'faculty_list.html',{'temp':temp,'faculties':faculties})
+
+@login_required
+@csrf_exempt
+def course_register(request):
+    if request.method == 'POST':
+        course = Course.objects.get(course_id=request.POST.get('id'))
+        request.user.student_profile.coursetaken.add(course)
+        return HttpResponse('success')
+    else:
+        raise PermissionDenied
+    

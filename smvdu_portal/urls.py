@@ -32,7 +32,7 @@ urlpatterns = patterns('student.views',
     url(r'^allcourses$', 'allcourses', name='allcourses'),
     url(r'^courseinfo/(?P<id>[0-9A-Za-z_\-]+)$','course_info',name='course_info'),
     url(r'^faculty$', 'faculties', name='faculty'),
-
+    url(r'^courseregister/$', 'course_register', name='course_register'),
     url(r'^test$', 'test', name='test'),
 )
 

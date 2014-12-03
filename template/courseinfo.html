@@ -93,9 +93,17 @@
                 <div id="blog-bg" style="background:url('/static/uploaded_image/{{ course.image }}');background-size:cover;">
                 </div>
             <br>
-
-
-            <button type="button" class="btn btn-lg btn-info btn-block"> REGISTER </button>
+            <div id="register_button">
+            {% if not request.user.is_authenticated %}
+            <a href="{% url 'login' %}?next={{request.get_full_path}}" class="btn btn-lg btn-primary btn-block"> REGISTER </a>
+            {% elif request.session.type == 'faculty' %}
+            <button type='button' class="btn btn-lg btn-primary btn-block" disabled='true'> REGISTER </button>
+            {% elif course in request.user.student_profile.coursetaken.all %}
+            <button type='button' class="btn btn-lg btn-success btn-block" disabled='true'> REGISTERED </button>
+            {% else %}
+            <button type='button' onclick="course_register('{{course.course_id}}')" class="btn btn-lg btn-primary btn-block"> REGISTER </button>
+            {% endif %}
+            </div>
             <br>
             <div class="form-panel">
                 <h3>Similar Courses:</h3>

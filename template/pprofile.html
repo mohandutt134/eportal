@@ -59,12 +59,8 @@ body {
                                     <td>:&nbsp;{{ usr.username }}</td>
                                 </tr>
                                 <tr>
-                                    <td>First Name</td>
-                                    <td>:&nbsp;{{ usr.first_name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Last Name</td>
-                                    <td>:&nbsp;{{ usr.last_name }}</td>
+                                    <td>Name</td>
+                                    <td>:{{usr.faculty_profile.salutation}}&nbsp;&nbsp;{{ usr.first_name }}&nbsp;&nbsp;{{ usr.last_name }}</td>
                                 </tr>
                                 <tr>
                                     <td>Department</td>
@@ -76,7 +72,7 @@ body {
                                 </tr>
                                 <tr>
                                     <td>Weburl</td>
-                                    <td>:&nbsp;{{ usr.faculty_profile.weburl }}</td>
+                                    <td>:&nbsp;<a href="#">{{ usr.faculty_profile.weburl }}</a></td>
                                 </tr>
 
                             </table>
@@ -147,11 +143,7 @@ body {
                                 </tr>
                                 <tr>
                                     <td>First Name</td>
-                                    <td>:&nbsp;{{ usr.first_name }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Last Name</td>
-                                    <td>:&nbsp;{{ usr.last_name }}</td>
+                                    <td>:{{usr.student_profile.salutation}}&nbsp;&nbsp;{{ usr.first_name }}&nbsp;&nbsp;{{ usr.last_name }}</td>
                                 </tr>
                                 <tr>
                                     <td>Branch</td>

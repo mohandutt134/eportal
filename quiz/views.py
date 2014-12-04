@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from student.models import Course
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-from quiz.models import quiz_spec,question
+from quiz.models import quiz_spec,question,result
 import datetime
 from student.models import student_profile,Course,faculty_profile
 import json
@@ -126,12 +126,15 @@ def attach_question(request):
 
 
 def quiz_confirm(request):
-	quiz=quiz_spec.objects.get(id=request.session['quiz_id'])
-	try:
-		q=quiz.question_set.all()
-	except Exception as e:
-		print e
-	return render(request, 'quiz_confirm.html',{'q':q,'quiz':quiz})
+	if 'quiz_id' in request.session:
+		quiz=quiz_spec.objects.get(id=request.session['quiz_id'])
+		try:
+			q=quiz.question_set.all()
+		except Exception as e:
+			print e
+		return render(request, 'quiz_confirm.html',{'q':q,'quiz':quiz})
+	else:
+		return HttpResponse("page 404")
 
 
 
@@ -314,6 +317,26 @@ def quiz_view(request,course_id,quiz_id):
 def quiz_questions(request):
 	if 'id' in request.session:
 		quiz=quiz_spec.objects.get(id=request.session['id'])
+		if(result.objects.filter(quiz=quiz,user=request.user.student_profile).exists()):
+			return HttpResponse("u have attepted the quiz")
+		else:
+			result.objects.create(user=request.user.student_profile,score=0,course=quiz.course,quiz=quiz)
 		questions=quiz.question_set.all()
 		return render(request,'student_quiz/quiz_question.html',{'quiz':quiz})
 
+def submit(request):
+	return HttpResponse("sucess")
+
+def quiz_result(request):
+	quiz=quiz_spec.objects.get(id=request.session['id'])
+	questions=quiz.question_set.all()
+	print questions
+	result1=0
+	for question in questions:
+		if question.ans == request.GET.get(question.statement,''):
+			result1=result1+1
+	print result
+	st_result=result.objects.get(quiz=quiz,user=request.user.student_profile)
+	st_result.score=result1
+	st_result.save()
+	return HttpResponse("sucess")

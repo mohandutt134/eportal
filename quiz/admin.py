@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from quiz.models import question,quiz_spec,result
+from quiz.models import *
+admin.site.register(result)
 admin.site.register(question)
 admin.site.register(quiz_spec)
-admin.site.register(result)

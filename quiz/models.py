@@ -52,7 +52,4 @@ class result(models.Model):
 	score = models.IntegerField()
 
 	def __str__(self):
-		return self.user.username
-
-
-
+		return self.user.user.username

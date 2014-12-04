@@ -1,5 +1,7 @@
+
 {% extends 'base/sidebarf.html' %} {% load staticfiles %} 
 {% load humanize %}{% block content %}
+
 
 
 <div class="row">
@@ -37,6 +39,8 @@
 
 
             <div class="col-md-4 col-sm-4 mb">
+                <a href="/quiz{{request.get_full_path}}/create_course_quiz">
+
                 <div class="weather pn" style="background: #AC193D; color:#fff;">
                     <i class="fa fa-tags fa-4x"></i>
                     <h1>FORM</h1>
@@ -46,7 +50,7 @@
             </div>
 
             <div class="col-md-4 col-sm-4 mb">
-                <a href="#">
+                <a href="/quiz/quizresult/{{course.course_id}}">
                     <div class="weather pn" style="background: #D24726; color:#fff;">
                         <i class="fa fa-mortar-board fa-4x"></i>
                         <h1>VIEW</h1>
@@ -62,12 +66,15 @@
             <div class="col-md-4 col-sm-4 mb">
                 <a href="#" data-toggle="modal" data-target="#messageModal">
                     <div class="weather pn" style="background: #00A8FF; color:#fff;">
+
                         <i class="fa fa-envelope-o fa-4x"></i>
+
                         <h1>SEND</h1>
                         <h4>message to students</h4>
                     </div>
                 </a>
             </div>
+
 
 
             <div class="col-md-4 col-sm-4 mb">
@@ -116,11 +123,11 @@
             {% endfor %}
             <!-- Second Action -->
 
+</div>
 
         </div>
     </div>
 </div>
-
 
 
 </div>
@@ -165,4 +172,6 @@ $(document).ready(function() {
 </div>
 
 
+
 {% endblock content %} {% block modal %} {% endblock %}
+

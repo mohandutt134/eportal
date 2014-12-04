@@ -87,6 +87,22 @@ def test(request):
     #     return HttpResponse(e)
 
 
+def edit_spec(request):
+    return render(request, 'edit_spec.html')
+
+def quiz_control(request):
+    return render(request, 'quiz_control.html')
+
+def add_question(request):
+    return render(request, 'add_question.html')
+
+def attach_question(request):
+    return render(request, 'attach_question.html')
+
+def quiz_confirm(request):
+    return render(request, 'public_courses.html')
+
+
 @login_required
 def add_material(request,id=None):
     if request.session['type']=='faculty':
@@ -143,8 +159,10 @@ def courses(request):
         except:
             courses=None
         return render(request, 'courses.html',{'temp':'base/sidebarf.html','courses':courses})
+
     else:
         return redirect('dashboard')
+
 
 @login_required
 def course(request,id=None):
@@ -167,11 +185,12 @@ def course(request,id=None):
                 activities = activity.objects.filter(course=course)
                 materials = material.objects.filter(course=course)
                 total = attendance.objects.filter(course=course).count()
+                quiz=quiz_spec.objects.filter(course=course)
                 total_p = attendance.objects.filter(course=course,present=request.user.student_profile).count()
                 #Filter quizes and render them
                 #Filter announcements
                 #Filter assignmen
-                return render(request, 'student_course.html',{'course':course,'activities':activities,'materials':materials,'total':total,'total_p':total_p})
+                return render(request, 'student_course.html',{'course':course,'activities':activities,'materials':materials,'total':total,'total_p':total_p,'quizes':quiz})
             else:
                 raise PermissionDenied()
         except Exception as e:
@@ -224,10 +243,12 @@ def dashboard(request):
         request.session['type']='faculty'
         courses = Course.objects.filter(facultyassociated=request.user.faculty_profile)
         return render(request, 'dashboard.html',{'temp':'base/sidebarf.html','courses':courses,'faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt,'notifications':notifications,'messages':messages},context_instance=RequestContext(request))
+
     else:
         request.session['type']='student'
         courses = request.user.student_profile.coursetaken.all()
         return render(request,'dashboard.html',{'temp':'base/sidebars.html','courses':courses,'faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt,'notifications':notifications,'messages':messages})
+
 
 
 def about (request):
@@ -288,6 +309,7 @@ def changePassword(request):
 
 @login_required
 def profile (request):
+
     if request.method=='POST':
         uname = request.POST.get('username','')
         fname = request.POST.get('first_name','')
@@ -373,3 +395,4 @@ def course_register(request):
     else:
         raise PermissionDenied
     
+

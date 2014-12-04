@@ -21,19 +21,23 @@ urlpatterns = patterns('student.views',
     url(r'^courses/(?P<id>[0-9A-Za-z_\-]+)$', 'course', name='course'),
     url(r'^courses$', 'courses', name='courses'),
     url(r'^profile$', 'profile', name='profile'),
+
     url(r'^profile/(?P<username>[0-9A-Za-z_\-]+)$',  'pprofile', name='pprofile'),
     url(r'^users/(?P<username>[0-9A-Za-z_\-]+)/$',  'pprofile', name='pprofile'),
+
     url(r'^about$', 'about', name='about'),
     #url(r'^profile_edit/$', 'profile_edit', name='profile_edit'),
     #url('^inbox/notifications/', include(notifications.urls)),
     url(r'^mail$','mail'),
     url(r'^change/$', 'changePassword', name='change'),
+
     url(r'^courses/(?P<id>[0-9A-Za-z_\-]+)/addmaterial$', 'add_material', name='add_material'),
     url(r'^allcourses$', 'allcourses', name='allcourses'),
     url(r'^courseinfo/(?P<id>[0-9A-Za-z_\-]+)$','course_info',name='course_info'),
     url(r'^faculty$', 'faculties', name='faculty'),
     url(r'^courseregister/$', 'course_register', name='course_register'),
     url(r'^test$', 'test', name='test'),
+
 )
 
 if settings.DEBUG is False:   #if DEBUG is True it will be served automatically

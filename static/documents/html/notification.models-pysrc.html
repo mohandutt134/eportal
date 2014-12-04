@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>notification.models</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;notification ::
+        Module&nbsp;models
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="notification.models-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="notification.models-module.html">Module notification.models</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module attendance.models=attendance.models-module.html,Module notification.models=notification.models-module.html,Module student.models=student.models-module.html"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-0', 'models', 'link-0');">models</a></tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">contrib</tt><tt class="py-op">.</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-1', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt class="py-name">User</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">student</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-2', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Class student.models.Course=student.models.Course-class.html"><a title="student.models.Course" class="py-name" href="#" onclick="return doclink('link-3', 'Course', 'link-3');">Course</a></tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-comment"># Create your models here.</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"> </tt>
+<a name="notification"></a><div id="notification-def"><a name="L6"></a><tt class="py-lineno"> 6</tt> <a class="py-toggle" href="#" id="notification-toggle" onclick="return toggle('notification');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="notification.models.notification-class.html">notification</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="notification-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="notification-expanded"><a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line">        <tt id="link-4" class="py-name" targets="Variable notification.models.notification.n_id=notification.models.notification-class.html#n_id"><a title="notification.models.notification.n_id" class="py-name" href="#" onclick="return doclink('link-4', 'n_id', 'link-4');">n_id</a></tt> <tt class="py-op">=</tt> <tt id="link-5" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-5', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">AutoField</tt><tt class="py-op">(</tt><tt class="py-name">primary_key</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line">        <tt id="link-6" class="py-name" targets="Variable notification.models.message.title=notification.models.message-class.html#title,Variable notification.models.notification.title=notification.models.notification-class.html#title,Variable student.form.CourseForm.title=student.form.CourseForm-class.html#title,Variable student.models.material.title=student.models.material-class.html#title"><a title="notification.models.message.title
+notification.models.notification.title
+student.form.CourseForm.title
+student.models.material.title" class="py-name" href="#" onclick="return doclink('link-6', 'title', 'link-6');">title</a></tt> <tt class="py-op">=</tt> <tt id="link-7" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-7', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">256</tt><tt class="py-op">)</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line">        <tt id="link-8" class="py-name" targets="Variable notification.models.message.body=notification.models.message-class.html#body,Variable notification.models.notification.body=notification.models.notification-class.html#body"><a title="notification.models.message.body
+notification.models.notification.body" class="py-name" href="#" onclick="return doclink('link-8', 'body', 'link-8');">body</a></tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-9', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">TextField</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line">        <tt id="link-10" class="py-name" targets="Variable notification.models.message.viewed=notification.models.message-class.html#viewed,Variable notification.models.notification.viewed=notification.models.notification-class.html#viewed"><a title="notification.models.message.viewed
+notification.models.notification.viewed" class="py-name" href="#" onclick="return doclink('link-10', 'viewed', 'link-10');">viewed</a></tt> <tt class="py-op">=</tt> <tt id="link-11" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-11', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">BooleanField</tt><tt class="py-op">(</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line">        <tt id="link-12" class="py-name" targets="Variable notification.models.notification.link=notification.models.notification-class.html#link"><a title="notification.models.notification.link" class="py-name" href="#" onclick="return doclink('link-12', 'link', 'link-12');">link</a></tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-13', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">256</tt><tt class="py-op">)</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line">        <tt id="link-14" class="py-name" targets="Variable attendance.models.attendance.course=attendance.models.attendance-class.html#course,Variable notification.models.activity.course=notification.models.activity-class.html#course,Variable notification.models.notification.course=notification.models.notification-class.html#course,Variable student.models.material.course=student.models.material-class.html#course,Function student.views.course()=student.views-module.html#course"><a title="attendance.models.attendance.course
+notification.models.activity.course
+notification.models.notification.course
+student.models.material.course
+student.views.course" class="py-name" href="#" onclick="return doclink('link-14', 'course', 'link-14');">course</a></tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-15', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt id="link-16" class="py-name"><a title="student.models.Course" class="py-name" href="#" onclick="return doclink('link-16', 'Course', 'link-3');">Course</a></tt><tt class="py-op">,</tt><tt class="py-name">blank</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">,</tt><tt class="py-name">null</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line">        <tt id="link-17" class="py-name" targets="Variable notification.models.notification.courseName=notification.models.notification-class.html#courseName"><a title="notification.models.notification.courseName" class="py-name" href="#" onclick="return doclink('link-17', 'courseName', 'link-17');">courseName</a></tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-18', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">256</tt><tt class="py-op">)</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">        <tt id="link-19" class="py-name" targets="Variable notification.models.message.sender=notification.models.message-class.html#sender,Variable notification.models.notification.sender=notification.models.notification-class.html#sender"><a title="notification.models.message.sender
+notification.models.notification.sender" class="py-name" href="#" onclick="return doclink('link-19', 'sender', 'link-19');">sender</a></tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-20', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt class="py-name">User</tt><tt class="py-op">,</tt><tt class="py-name">related_name</tt><tt class="py-op">=</tt><tt class="py-string">"sends"</tt><tt class="py-op">,</tt> <tt class="py-name">related_query_name</tt><tt class="py-op">=</tt><tt class="py-string">"send"</tt><tt class="py-op">)</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">        <tt id="link-21" class="py-name" targets="Variable notification.models.message.senderName=notification.models.message-class.html#senderName,Variable notification.models.notification.senderName=notification.models.notification-class.html#senderName"><a title="notification.models.message.senderName
+notification.models.notification.senderName" class="py-name" href="#" onclick="return doclink('link-21', 'senderName', 'link-21');">senderName</a></tt> <tt class="py-op">=</tt> <tt id="link-22" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-22', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">256</tt><tt class="py-op">)</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line">        <tt id="link-23" class="py-name" targets="Variable notification.models.message.receiver=notification.models.message-class.html#receiver,Variable notification.models.notification.receiver=notification.models.notification-class.html#receiver"><a title="notification.models.message.receiver
+notification.models.notification.receiver" class="py-name" href="#" onclick="return doclink('link-23', 'receiver', 'link-23');">receiver</a></tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-24', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt class="py-name">User</tt><tt class="py-op">,</tt><tt class="py-name">related_name</tt><tt class="py-op">=</tt><tt class="py-string">"tags"</tt><tt class="py-op">,</tt> <tt class="py-name">related_query_name</tt><tt class="py-op">=</tt><tt class="py-string">"tag"</tt><tt class="py-op">)</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">        <tt id="link-25" class="py-name" targets="Variable notification.models.activity.time=notification.models.activity-class.html#time,Variable notification.models.message.time=notification.models.message-class.html#time,Variable notification.models.notification.time=notification.models.notification-class.html#time"><a title="notification.models.activity.time
+notification.models.message.time
+notification.models.notification.time" class="py-name" href="#" onclick="return doclink('link-25', 'time', 'link-25');">time</a></tt><tt class="py-op">=</tt><tt id="link-26" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-26', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateTimeField</tt><tt class="py-op">(</tt><tt class="py-name">auto_now</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt>
+<a name="notification.__unicode__"></a><div id="notification.__unicode__-def"><a name="L19"></a><tt class="py-lineno">19</tt> <a class="py-toggle" href="#" id="notification.__unicode__-toggle" onclick="return toggle('notification.__unicode__');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="notification.models.notification-class.html#__unicode__">__unicode__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="notification.__unicode__-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="notification.__unicode__-expanded"><a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="notification.models.message.title
+notification.models.notification.title
+student.form.CourseForm.title
+student.models.material.title" class="py-name" href="#" onclick="return doclink('link-27', 'title', 'link-6');">title</a></tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-string">u''</tt> </tt>
+</div><a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
+<a name="notification.Meta"></a><div id="notification.Meta-def"><a name="L22"></a><tt class="py-lineno">22</tt> <a class="py-toggle" href="#" id="notification.Meta-toggle" onclick="return toggle('notification.Meta');">-</a><tt class="py-line">        <tt class="py-keyword">class</tt> <a class="py-def-name" href="notification.models.notification.Meta-class.html">Meta</a><tt class="py-op">:</tt> </tt>
+</div><div id="notification.Meta-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="notification.Meta-expanded"><a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">                <tt id="link-28" class="py-name" targets="Variable notification.models.activity.Meta.verbose_name=notification.models.activity.Meta-class.html#verbose_name,Variable notification.models.message.Meta.verbose_name=notification.models.message.Meta-class.html#verbose_name,Variable notification.models.notification.Meta.verbose_name=notification.models.notification.Meta-class.html#verbose_name,Variable student.models.faculty_profile.Meta.verbose_name=student.models.faculty_profile.Meta-class.html#verbose_name,Variable student.models.student_profile.Meta.verbose_name=student.models.student_profile.Meta-class.html#verbose_name"><a title="notification.models.activity.Meta.verbose_name
+notification.models.message.Meta.verbose_name
+notification.models.notification.Meta.verbose_name
+student.models.faculty_profile.Meta.verbose_name
+student.models.student_profile.Meta.verbose_name" class="py-name" href="#" onclick="return doclink('link-28', 'verbose_name', 'link-28');">verbose_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Notification"</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">                <tt id="link-29" class="py-name" targets="Variable notification.models.activity.Meta.verbose_name_plural=notification.models.activity.Meta-class.html#verbose_name_plural,Variable notification.models.message.Meta.verbose_name_plural=notification.models.message.Meta-class.html#verbose_name_plural,Variable notification.models.notification.Meta.verbose_name_plural=notification.models.notification.Meta-class.html#verbose_name_plural,Variable student.models.faculty_profile.Meta.verbose_name_plural=student.models.faculty_profile.Meta-class.html#verbose_name_plural,Variable student.models.student_profile.Meta.verbose_name_plural=student.models.student_profile.Meta-class.html#verbose_name_plural"><a title="notification.models.activity.Meta.verbose_name_plural
+notification.models.message.Meta.verbose_name_plural
+notification.models.notification.Meta.verbose_name_plural
+student.models.faculty_profile.Meta.verbose_name_plural
+student.models.student_profile.Meta.verbose_name_plural" class="py-name" href="#" onclick="return doclink('link-29', 'verbose_name_plural', 'link-29');">verbose_name_plural</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Notifications"</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">                <tt id="link-30" class="py-name" targets="Variable notification.models.activity.Meta.ordering=notification.models.activity.Meta-class.html#ordering,Variable notification.models.message.Meta.ordering=notification.models.message.Meta-class.html#ordering,Variable notification.models.notification.Meta.ordering=notification.models.notification.Meta-class.html#ordering,Variable student.models.faculty_profile.Meta.ordering=student.models.faculty_profile.Meta-class.html#ordering,Variable student.models.student_profile.Meta.ordering=student.models.student_profile.Meta-class.html#ordering"><a title="notification.models.activity.Meta.ordering
+notification.models.message.Meta.ordering
+notification.models.notification.Meta.ordering
+student.models.faculty_profile.Meta.ordering
+student.models.student_profile.Meta.ordering" class="py-name" href="#" onclick="return doclink('link-30', 'ordering', 'link-30');">ordering</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">"-time"</tt><tt class="py-op">]</tt> </tt>
+</div></div><a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
+<a name="activity"></a><div id="activity-def"><a name="L28"></a><tt class="py-lineno">28</tt> <a class="py-toggle" href="#" id="activity-toggle" onclick="return toggle('activity');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="notification.models.activity-class.html">activity</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="activity-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="activity-expanded"><a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">        <tt id="link-31" class="py-name" targets="Variable notification.models.activity.subject=notification.models.activity-class.html#subject"><a title="notification.models.activity.subject" class="py-name" href="#" onclick="return doclink('link-31', 'subject', 'link-31');">subject</a></tt> <tt class="py-op">=</tt> <tt id="link-32" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-32', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">256</tt><tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">        <tt id="link-33" class="py-name"><a title="notification.models.activity.time
+notification.models.message.time
+notification.models.notification.time" class="py-name" href="#" onclick="return doclink('link-33', 'time', 'link-25');">time</a></tt> <tt class="py-op">=</tt> <tt id="link-34" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-34', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateTimeField</tt><tt class="py-op">(</tt><tt class="py-name">auto_now</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt id="link-35" class="py-name"><a title="attendance.models.attendance.course
+notification.models.activity.course
+notification.models.notification.course
+student.models.material.course
+student.views.course" class="py-name" href="#" onclick="return doclink('link-35', 'course', 'link-14');">course</a></tt> <tt class="py-op">=</tt> <tt id="link-36" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-36', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt id="link-37" class="py-name"><a title="student.models.Course" class="py-name" href="#" onclick="return doclink('link-37', 'Course', 'link-3');">Course</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"> </tt>
+<a name="activity.__unicode__"></a><div id="activity.__unicode__-def"><a name="L33"></a><tt class="py-lineno">33</tt> <a class="py-toggle" href="#" id="activity.__unicode__-toggle" onclick="return toggle('activity.__unicode__');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="notification.models.activity-class.html#__unicode__">__unicode__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="activity.__unicode__-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="activity.__unicode__-expanded"><a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="notification.models.activity.subject" class="py-name" href="#" onclick="return doclink('link-38', 'subject', 'link-31');">subject</a></tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-string">u''</tt> </tt>
+</div><a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"> </tt>
+<a name="activity.Meta"></a><div id="activity.Meta-def"><a name="L36"></a><tt class="py-lineno">36</tt> <a class="py-toggle" href="#" id="activity.Meta-toggle" onclick="return toggle('activity.Meta');">-</a><tt class="py-line">        <tt class="py-keyword">class</tt> <a class="py-def-name" href="notification.models.activity.Meta-class.html">Meta</a><tt class="py-op">:</tt> </tt>
+</div><div id="activity.Meta-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="activity.Meta-expanded"><a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">                <tt id="link-39" class="py-name"><a title="notification.models.activity.Meta.verbose_name
+notification.models.message.Meta.verbose_name
+notification.models.notification.Meta.verbose_name
+student.models.faculty_profile.Meta.verbose_name
+student.models.student_profile.Meta.verbose_name" class="py-name" href="#" onclick="return doclink('link-39', 'verbose_name', 'link-28');">verbose_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Activity"</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">                <tt id="link-40" class="py-name"><a title="notification.models.activity.Meta.verbose_name_plural
+notification.models.message.Meta.verbose_name_plural
+notification.models.notification.Meta.verbose_name_plural
+student.models.faculty_profile.Meta.verbose_name_plural
+student.models.student_profile.Meta.verbose_name_plural" class="py-name" href="#" onclick="return doclink('link-40', 'verbose_name_plural', 'link-29');">verbose_name_plural</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Activities"</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">                <tt id="link-41" class="py-name"><a title="notification.models.activity.Meta.ordering
+notification.models.message.Meta.ordering
+notification.models.notification.Meta.ordering
+student.models.faculty_profile.Meta.ordering
+student.models.student_profile.Meta.ordering" class="py-name" href="#" onclick="return doclink('link-41', 'ordering', 'link-30');">ordering</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">"-time"</tt><tt class="py-op">]</tt> </tt>
+</div></div><a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"> </tt>
+<a name="message"></a><div id="message-def"><a name="L41"></a><tt class="py-lineno">41</tt> <a class="py-toggle" href="#" id="message-toggle" onclick="return toggle('message');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="notification.models.message-class.html">message</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="message-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="message-expanded"><a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">        <tt id="link-42" class="py-name" targets="Variable notification.models.message.m_id=notification.models.message-class.html#m_id"><a title="notification.models.message.m_id" class="py-name" href="#" onclick="return doclink('link-42', 'm_id', 'link-42');">m_id</a></tt> <tt class="py-op">=</tt> <tt id="link-43" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-43', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">AutoField</tt><tt class="py-op">(</tt><tt class="py-name">primary_key</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt id="link-44" class="py-name"><a title="notification.models.message.title
+notification.models.notification.title
+student.form.CourseForm.title
+student.models.material.title" class="py-name" href="#" onclick="return doclink('link-44', 'title', 'link-6');">title</a></tt> <tt class="py-op">=</tt> <tt id="link-45" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-45', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">256</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">        <tt id="link-46" class="py-name"><a title="notification.models.message.body
+notification.models.notification.body" class="py-name" href="#" onclick="return doclink('link-46', 'body', 'link-8');">body</a></tt> <tt class="py-op">=</tt> <tt id="link-47" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-47', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">TextField</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">        <tt id="link-48" class="py-name"><a title="notification.models.message.viewed
+notification.models.notification.viewed" class="py-name" href="#" onclick="return doclink('link-48', 'viewed', 'link-10');">viewed</a></tt> <tt class="py-op">=</tt> <tt id="link-49" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-49', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">BooleanField</tt><tt class="py-op">(</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">        <tt id="link-50" class="py-name"><a title="notification.models.message.sender
+notification.models.notification.sender" class="py-name" href="#" onclick="return doclink('link-50', 'sender', 'link-19');">sender</a></tt> <tt class="py-op">=</tt> <tt id="link-51" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-51', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt class="py-name">User</tt><tt class="py-op">,</tt><tt class="py-name">related_name</tt><tt class="py-op">=</tt><tt class="py-string">"msends"</tt><tt class="py-op">,</tt> <tt class="py-name">related_query_name</tt><tt class="py-op">=</tt><tt class="py-string">"msend"</tt><tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">        <tt id="link-52" class="py-name"><a title="notification.models.message.senderName
+notification.models.notification.senderName" class="py-name" href="#" onclick="return doclink('link-52', 'senderName', 'link-21');">senderName</a></tt><tt class="py-op">=</tt><tt id="link-53" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-53', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">256</tt><tt class="py-op">,</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">"Admin"</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">        <tt id="link-54" class="py-name" targets="Variable notification.models.message.senderImage=notification.models.message-class.html#senderImage"><a title="notification.models.message.senderImage" class="py-name" href="#" onclick="return doclink('link-54', 'senderImage', 'link-54');">senderImage</a></tt><tt class="py-op">=</tt><tt id="link-55" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-55', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">256</tt><tt class="py-op">,</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">"fpp/user_blue.png"</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt id="link-56" class="py-name"><a title="notification.models.message.receiver
+notification.models.notification.receiver" class="py-name" href="#" onclick="return doclink('link-56', 'receiver', 'link-23');">receiver</a></tt> <tt class="py-op">=</tt> <tt id="link-57" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-57', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt class="py-name">User</tt><tt class="py-op">,</tt><tt class="py-name">related_name</tt><tt class="py-op">=</tt><tt class="py-string">"mtags"</tt><tt class="py-op">,</tt> <tt class="py-name">related_query_name</tt><tt class="py-op">=</tt><tt class="py-string">"mtag"</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">        <tt id="link-58" class="py-name"><a title="notification.models.activity.time
+notification.models.message.time
+notification.models.notification.time" class="py-name" href="#" onclick="return doclink('link-58', 'time', 'link-25');">time</a></tt><tt class="py-op">=</tt><tt id="link-59" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-59', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateTimeField</tt><tt class="py-op">(</tt><tt class="py-name">auto_now</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"> </tt>
+<a name="message.__unicode__"></a><div id="message.__unicode__-def"><a name="L52"></a><tt class="py-lineno">52</tt> <a class="py-toggle" href="#" id="message.__unicode__-toggle" onclick="return toggle('message.__unicode__');">-</a><tt class="py-line">        <tt class="py-keyword">def</tt> <a class="py-def-name" href="notification.models.message-class.html#__unicode__">__unicode__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="message.__unicode__-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="message.__unicode__-expanded"><a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-60" class="py-name"><a title="notification.models.message.title
+notification.models.notification.title
+student.form.CourseForm.title
+student.models.material.title" class="py-name" href="#" onclick="return doclink('link-60', 'title', 'link-6');">title</a></tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-string">u''</tt> </tt>
+</div><a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"> </tt>
+<a name="message.Meta"></a><div id="message.Meta-def"><a name="L55"></a><tt class="py-lineno">55</tt> <a class="py-toggle" href="#" id="message.Meta-toggle" onclick="return toggle('message.Meta');">-</a><tt class="py-line">        <tt class="py-keyword">class</tt> <a class="py-def-name" href="notification.models.message.Meta-class.html">Meta</a><tt class="py-op">:</tt> </tt>
+</div><div id="message.Meta-collapsed" style="display:none;" pad="++" indent="++++++++++++"></div><div id="message.Meta-expanded"><a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">                <tt id="link-61" class="py-name"><a title="notification.models.activity.Meta.verbose_name
+notification.models.message.Meta.verbose_name
+notification.models.notification.Meta.verbose_name
+student.models.faculty_profile.Meta.verbose_name
+student.models.student_profile.Meta.verbose_name" class="py-name" href="#" onclick="return doclink('link-61', 'verbose_name', 'link-28');">verbose_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Message"</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">                <tt id="link-62" class="py-name"><a title="notification.models.activity.Meta.verbose_name_plural
+notification.models.message.Meta.verbose_name_plural
+notification.models.notification.Meta.verbose_name_plural
+student.models.faculty_profile.Meta.verbose_name_plural
+student.models.student_profile.Meta.verbose_name_plural" class="py-name" href="#" onclick="return doclink('link-62', 'verbose_name_plural', 'link-29');">verbose_name_plural</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Messages"</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">                <tt id="link-63" class="py-name"><a title="notification.models.activity.Meta.ordering
+notification.models.message.Meta.ordering
+notification.models.notification.Meta.ordering
+student.models.faculty_profile.Meta.ordering
+student.models.student_profile.Meta.ordering" class="py-name" href="#" onclick="return doclink('link-63', 'ordering', 'link-30');">ordering</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">"-time"</tt><tt class="py-op">]</tt> </tt>
+</div></div><a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Dec  2 12:04:06 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

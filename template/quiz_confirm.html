@@ -28,25 +28,28 @@
 
                         <div class="form-panel">
                             <legend class="center-block">No of Questions
-                                <div class="pull-right">5</div>
+                                <div class="pull-right">{{q.count}}</div>
                             </legend>
                             <legend class="center-block">Total time
-                                <div class="pull-right">5</div>
+                                <div class="pull-right">{{quiz.duration}}</div>
                             </legend>
                             <legend class="center-block">Start Date
-                                <div class="pull-right">5</div>
+                                <div class="pull-right">{{quiz.start_date}}</div>
                             </legend>
                             <legend class="center-block">End Date
-                                <div class="pull-right">5</div>
+                                <div class="pull-right">{{quiz.end_date}}</div>
                             </legend>
                             <legend class="center-block">Credits/Question
-                                <div class="pull-right">5</div>
+                                <div class="pull-right">{{quiz.credit}}</div>
                             </legend>
-                            <div class="inline"><a href="#" class="btn btn-info btn-lg" style="width:50%">Change Questions</a>&nbsp;<a href="#" class="btn btn-warning btn-lg" style="width:49%">Edit Specifications</a>
+                            <div class="inline"><a href="/quiz/attach_question/?id=true" class="btn btn-info btn-lg" style="width:50%">Change Questions</a>&nbsp;<a href="{% url 'EditQuiz' %}" class="btn btn-warning btn-lg" style="width:49%">Change Previous Quiz</a>
                             </div>
                             <!-- /form-panel -->
                             <br>
-                            <a href="#" class="btn btn-success btn-lg btn-block">Save and Exit</a>
+                            {% if msg %}
+                            <p style="color:red;" class="text-center">{{msg}}:{{quiz.no_Questions}}</p>
+                            {% endif %}
+                            <a href="{% url 'exit' %}" class="btn btn-success btn-lg btn-block">Save and Exit</a>
                         </div>
                     </div>
                     <!-- /row -->

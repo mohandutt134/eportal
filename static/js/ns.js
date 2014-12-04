@@ -1,30 +1,36 @@
-function create_post() {
-    // sanity check
-    console.log("inside javascript");
-    $.ajax({
-        url: "/notification/notificationicon_create",
-        type: "POST",
-        data: {
-            id: 'menuId'
-        },
-        dataType: "text",
-        success: function(msg) {
-            // log the returned json to the console
-            var data = JSON.parse(msg);
-            var notifications = JSON.parse(data.notifications);
-            var messages = JSON.parse(data.messages);
-            notification_body(notifications);
-            message_body(messages);
-            // another sanity check
-        },
+var questions;
+var answer={};
+var question_no=-1;
+var timer=0;
+var myVar;
 
-        // handle a non-successful response
-        error: function(xhr, errmsg, err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-        }
-    });
+
+function create_post() {
+
+     // sanity check
+     
+   $.ajax({
+          url: "/notification/notificationicon_create",
+          type: "POST",
+          data: { id : 'menuId' },
+          dataType: "text",
+          success : function(msg) {
+                  // log the returned json to the console
+                  var data=JSON.parse(msg);
+                  var notifications = JSON.parse(data.notifications);
+                  var messages = JSON.parse(data.messages);
+                  notification_body(notifications);
+                  message_body(messages);
+                    // another sanity check
+                },
+
+                // handle a non-successful response
+                error : function(xhr,errmsg,err) {
+                    $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                        " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                    console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+                }
+});
 
 
 }
@@ -105,79 +111,454 @@ function message_body(messages) {
 
 }
 
-function messageViewed(mid) {
-    $.ajax({
-        url: "/notification/message_view/",
-        type: "POST",
-        data: {
-            id: mid
-        },
-        dataType: "text",
-        success: function(msg) {
+function addquestion( id){
+  console.log(id);
+  $.ajax({
+  url: "/quiz/addquestion",
+  type: "GET",
+  data: { id : id },
+  dataType: "text",
+  success : function(msg) {
+          // log the returned json to the console
+         
+          msg=JSON.parse(msg);
+          quiz_id=JSON.parse(msg.quiz_id);
+          
+          data=JSON.parse(msg.ques);
+          console.log(data.length)
+         
+          addremoveButton(quiz_id,data,id);
+           },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+
+            console.log("fail"); // provide a bit more info about the error to the console
+        }
+});
+}
+function messageViewed(mid){
+  $.ajax({
+  url: "/notification/message_view/",
+  type: "POST",
+  data: { id : mid },
+  dataType: "text",
+  success : function(msg) {
+          // log the returned json to the console
+         
+          var data=JSON.parse(msg);
+          $('#modal_message_title').html(data[0].fields.title);
+          $('#modal_message_body').html(data[0].fields.body);
+          $('#modal_message_sender').html("Sender:&nbsp;&nbsp"+data[0].fields.senderName);
+          $('#modal_message_time').html("Receiving time:&nbsp;&nbsp"+data[0].fields.time);
+          $('#fullMessageModal').show();
+          create_post();
+
+          },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+
+            // provide a bit more info about the error to the console
+        }
+});
+
+}
+
+function viewfullquestion(id){
+   $.ajax({
+    url: "/quiz/view_fullquestion",
+    type: "GET",
+    data: { id : id },
+    dataType: "text",
+    success : function(msg) {
             // log the returned json to the console
-            console.log("Success");
-            var data = JSON.parse(msg);
-            $('#modal_message_title').html(data[0].fields.title);
-            $('#modal_message_body').html(data[0].fields.body);
-            $('#modal_message_sender').html("Sender:&nbsp;&nbsp" + data[0].fields.senderName);
-            $('#modal_message_time').html("Receiving time:&nbsp;&nbsp" + data[0].fields.time);
-            $('#fullMessageModal').show();
-            create_post()
+              msg=JSON.parse(msg)
+            
+            
+            questionbody(msg);
+            
+              // another sanity check
+          },
+
+          // handle a non-successful response
+          error : function(xhr,errmsg,err) {
+              $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                  " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+              console.log("fail"); // provide a bit more info about the error to the console
+          }
+  });
+}
+
+function questionbody(msg){
+
+
+ $("#q_body").html('<p> <h3>1.'+msg[0].fields.statement+'</h3></p>'+
+          '<ul>'+
+          '<li id="1" class="fa fa-circle" style="display:block">&nbsp;&nbsp;&nbsp;&nbsp;'+msg[0].fields.a+'</li>'+
+         '<li id="2" class="fa fa-circle" style="display:block">&nbsp;&nbsp;&nbsp;&nbsp;'+msg[0].fields.b+'</li>'+
+          '<li id="3" class="fa fa-circle" style="display:block">&nbsp;&nbsp;&nbsp;&nbsp;'+msg[0].fields.c+'</li>'+
+          '<li id="4" class="fa fa-circle" style="display:block">&nbsp;&nbsp;&nbsp;&nbsp;'+msg[0].fields.d+'</li>'+
+          '</ul>'+
+          '<p>Comment:'+msg[0].fields.extra_info+'</p>');
+
+  if(msg[0].fields.ans=="a"){
+       $("#1").toggleClass('fa-circle fa-check');
+      }
+
+    else if(msg[0].fields.ans=="b"){
+       $("#2").toggleClass('fa-circle fa-check');
+      }
+      else if(msg[0].fields.ans=="c"){
+       $("#3").toggleClass('fa-circle fa-check');
+      }
+  
+   else{
+       $("#4").toggleClass('fa-circle fa-check');
+      }
+
+
+
+}
+
+function addremoveButton(quiz_id,data,id){
+  var flag=false;
+  var no_quiz=data[0].fields.quizes.length;
+  var rating="#R_"+id;
+  var add_id="#add"+id;
+  var rm_id="#rm"+id;
+  var ic_id="#i"+id;
+  for(var i=0;i<no_quiz;i++){
+  if(quiz_id==data[0].fields.quizes[i])
+    flag=true;
+  }
+
+  if(flag){
+      console.log(flag);
+      $(rating).html(no_quiz);
+      $(add_id).hide();
+      $(rm_id).show();
+      $(ic_id).toggleClass('fa-hand-o-right fa-check');
+      $(ic_id).css("color","green");
+    }
+    else{
+      console.log(flag);
+      $(rating).html(no_quiz);
+      $(add_id).show();
+      $(rm_id).hide();
+      $(ic_id).toggleClass('fa-check fa-hand-o-right');
+      $(ic_id).css("color","");
+    }
+}
+
+
+
+function removeQuestion(id){
+  console.log(id);
+  $.ajax({
+    url: "/quiz/removeQuestion",
+    type: "GET",
+    data: { id : id },
+    dataType: "text",
+    success : function(msg) {
+          // log the returned json to the console
+         
+          msg=JSON.parse(msg);
+          quiz_id=JSON.parse(msg.quiz_id);
+          data=JSON.parse(msg.ques);
+          console.log(data[0].fields.quizes.length);
+          addremoveButton(quiz_id,data,id);
+
+            // another sanity check
         },
 
         // handle a non-successful response
         error: function(xhr, errmsg, err) {
             $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: " + errmsg +
                 " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+
+
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+
+
         }
     });
 }
 
-function message_to_faculty(mail) {
-    var form = $("#message_form");
-    url = "/notification/messageToFaculty/" + mail + "/";
-    console.log("action changed");
-    $("#message_form").attr('action', url);
-}
 
-function send_message() {
-    var frm = $("#message_form");
-    $.ajax({
-        type: frm.attr('method'),
-        url: frm.attr('action'),
-        data: frm.serialize(),
-        success: function(data) {
-            console.log("Success");
-            $("#messageModel").hide();
-            console.log("SHide");
-            create_post();
+function qizquestions(){
+
+
+  $.ajax({
+    url: "/quiz/qizquestions",
+    type: "GET",
+    data: {},
+    dataType: "text",
+    success : function(msg) {
+          // log the returned json to the console
+        
+          msg=JSON.parse(msg);
+          
+          showbutton(msg);
+
         },
-        error: function(data) {
-            console.log("error");
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+             // provide a bit more info about the error to the console
         }
-    });
+});
+
+}
+
+function showbutton(msg){
+  for(var i=0;i<msg.length;i++){
+    var add_id="#add"+msg[i].pk;
+    var rm_id="#rm"+msg[i].pk;
+    var ic_id="#i"+msg[i].pk;
+      $(add_id).hide();
+      $(rm_id).show();
+      $(ic_id).toggleClass('fa-hand-o-right fa-check');
+      $(ic_id).css("color","green");
+  }
+
+
+}
+
+
+function message_to_faculty(mail){
+  var form = $("#message_form");
+  url = "/notification/messageToFaculty/"+mail+"/";
+  
+  $("#message_form").attr('action',url);
+}
+
+function send_message(){
+var frm = $("#message_form");
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (data) {
+                
+                $("#messageModel").hide();
+                
+                create_post();
+            },
+            error: function(data) {
+                console.log("error");
+            }
+        });
+
+
+}
+
+
+function changeQuiz(){
+  var pass = $("#q_title").val()
+  console.log(pass)
+  $.ajax({
+    url: "/quiz/changeQuiz",
+    type: "GET",
+    data: { id : pass },
+    dataType: "text",
+    success : function(msg) {
+          // log the returned json to the console
+          
+          msg=JSON.parse(msg)
+          course=msg.course;
+          quiz=JSON.parse(msg.quiz);
+          
+          set_value(quiz,course);
+          
+            // another sanity check
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log("fail"); // provide a bit more info about the error to the console
+        }
+});
+
+}
+
+function set_value(msg,course){
+$("#q_course").val(course);
+$("#q_time").val(msg[0].fields.duration);
+$("#q_start").val(msg[0].fields.start_date);
+$("#q_end").val(msg[0].fields.end_date);
+$("#q_question").val(msg[0].fields.no_Questions);
+$("#q_credits").val(msg[0].fields.credit)
+F
 }
 
 
 
-function datesem(date, branch, sem) {
-    console.log(sem);
-    d = new Date(date);
-    var date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+//student quiz viewfullquestion
 
-    $("#S_date").val(date);
-    $("#sem").val(sem);
-    $("#branch").val(branch);
-    $("#rating").html("");
-    for (var i = 0; i < sem; i++) {
-        $("#rating").append('<span class="fa fa-star" data-rating="1"></span>');
+
+function studentQuestions(duration){
+  timer=duration*60;
+    $.ajax({
+    url: "/quiz/qizquestions",
+    type: "GET",
+    data: {},
+    dataType: "text",
+    success : function(msg) {
+        
+          // log the returned json to the console
+          console.log(msg);
+          questions=JSON.parse(msg);
+         // questions=JSON.parse(msg);
+        
+          
+         // set_answer(questions);
+          next_function();
+      
+
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log("fail"); // provide a bit more info about the error to the console
+        }
+});
+
+
+}
+
+
+function set_answer(questions){
+for(var i=0;i<questions.length;i++){
+  answer[questions[i].fields.statement]=questions[i].fields.ans;
+}
+
+}
+
+
+function next_function(){
+ clearInterval(myVar);
+ uncheck();
+  console.log("next");
+
+  question_no=question_no+1;
+  if(question_no>questions.length-1){
+    
+  question_no=0;
+}
+if(question_no==questions.length-1){
+  $("#q_submit").show();
+}
+else{
+   $("#q_submit").hide();
+}
+
+
+ $("#question").text(questions[question_no].fields.statement);
+  $("#option1").text(questions[question_no].fields.a);
+  $("#option2").text(questions[question_no].fields.b);
+  $("#option3").text(questions[question_no].fields.c);
+  $("#option4").text(questions[question_no].fields.d);
+ check();
+ myVar = setInterval(timer1, 1000);
+
+ 
+  
+
+}
+
+
+
+function previous_function(){
+ clearInterval(myVar);
+ uncheck();
+question_no=question_no-1;
+  if(question_no < 0){
+    question_no=questions.length-1;
+  }
+
+  if(question_no==questions.length-1){
+  $("#q_submit").show();
+}
+else{
+   $("#q_submit").hide();
+}
+  
+    $("#question").text(questions[question_no].fields.statement);
+     $("#option1").text(questions[question_no].fields.a);
+    $("#option2").text(questions[question_no].fields.b);
+    $("#option3").text(questions[question_no].fields.c);
+    $("#option4").text(questions[question_no].fields.d);
+    check();
+myVar = setInterval(timer1, 1000);
+
+}
+
+//for countdown timer
+function timer1(){
+
+  timer=timer-1;
+  var min=Math.floor(timer/60);
+  var second=timer-(min*60);
+
+  $("#q_time").text(min+":"+second);
+  //for time end
+ if (timer<=0){
+    result();
+  }
+    //function call for answer submit in data base
+  }
+
+
+//for save user answer
+function submitanswer(){
+  var ans;
+var radios = document.getElementsByName("user[role]");
+for( i = 0; i < radios.length; i++ ) {
+        if( radios[i].checked ) {
+          ans= radios[i].value;
+        }
     }
-    for (var i = 0; i < 5 - sem; i++) {
-        $("#rating").append('<span class="fa fa-star-o" data-rating="1"></span>');
+var title=$("#question").text();
+
+answer[title]=ans;
+console.log(answer);
+
+
+}
+
+
+// for clear radio button selection
+
+function uncheck(){
+  var radios = document.getElementsByName("user[role]");
+for( i = 0; i < radios.length; i++ ) {
+        if( radios[i].checked ) {
+          radios[i].checked=false;
+        }
     }
 
+}
 
+// for rember user answer
+function check(){
+  var title=$("#question").text();
+  var radios = document.getElementsByName("user[role]");
+  for( i = 0; i < radios.length; i++ ) {
+        if( radios[i].value == answer[title] ) {
+          radios[i].checked=true;
+        }
+    }
 }
 
 function course_register(id){
@@ -200,4 +581,60 @@ function course_register(id){
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
         }
     });
+}
+function datesem(date,branch,sem){
+  
+         d=new Date(date);
+         var date= d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+         
+        $("#S_date").val( date);
+        $("#sem").val(sem);
+        $("#branch").val(branch);
+        $("#rating").html("");
+        for (var i= 0;i<sem;i++)
+        {
+          $("#rating").append('<span class="fa fa-star" data-rating="1"></span>');
+        }
+        for (var i= 0;i<5-sem;i++)
+        {
+          $("#rating").append('<span class="fa fa-star-o" data-rating="1"></span>');
+        }
+
+
+}
+
+function result(){
+  console.log(answer);
+   
+      clearInterval(myVar);
+      $('#myModal').modal({
+           backdrop: 'static',
+          keyboard: false ,
+           // to prevent closing with Esc button (if you want this too)
+      });
+      $('#myModal').modal('show');
+
+  $.ajax({
+    url: "/quiz/quiz_result",
+    type: "GET",
+    data: answer,
+    dataType:'text',
+    success : function(msg) {
+          // log the returned json to the console
+          
+            // another sanity check
+
+        },
+
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+
+            console.log("fail");
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+
+
+        }
+});
 }

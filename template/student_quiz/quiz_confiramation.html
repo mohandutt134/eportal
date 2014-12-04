@@ -1,0 +1,47 @@
+{% extends 'base/sidebars.html' %} {% load staticfiles %}
+
+
+
+ {% block content %}
+ <div class="row">
+
+
+                <br>
+                <div class="col-lg-6 col-lg-offset-3">
+
+                    
+                    <div class="row">
+                      
+
+                        <div class="form-panel">
+                            <legend class="center-block">
+                                <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quiz Specification</h1>
+                            </legend>
+                           
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        
+
+                        <div class="form-panel">
+                            <legend class="center-block">No of Questions
+                                <div class="pull-right">{{q.count}}</div>
+                            </legend>
+                            <legend class="center-block">Total time
+                                <div class="pull-right">{{quiz.duration}}</div>
+                            </legend>
+                            <legend class="center-block">Start Date
+                                <div class="pull-right">{{quiz.start_date}}</div>
+                            </legend>
+                            <legend class="center-block">End Date
+                                <div class="pull-right">{{quiz.end_date}}</div>
+                            </legend>
+                            <legend class="center-block">Credits/Question
+                                <div class="pull-right">{{quiz.credit}}</div>
+                            </legend>
+                            <div class="inline">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{% url 'quiz_questions' %}" class="btn btn-info btn-lg" style="width:35%; position:relative;left:26%;">Start</a>
+                            </div>
+ {% endblock content %}

@@ -32,7 +32,6 @@ class activity(models.Model):
 
 	def __unicode__(self):
    		return unicode(self.subject) or u''
-
    	class Meta:
 		verbose_name = "Activity"
 		verbose_name_plural = "Activities"

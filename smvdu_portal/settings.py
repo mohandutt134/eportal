@@ -46,11 +46,13 @@ INSTALLED_APPS = (
     'notification',
     'smartextends',
     'attendance',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
 )
+
 
 FAKER_LOCALE = None     # settings.LANGUAGE_CODE is loaded
 FAKER_PROVIDERS = None
+
 # Minimum password strength settings. See the GitHub page for defaults.
 # https://github.com/dstufft/django-passwords/
 SITE_ID = 1

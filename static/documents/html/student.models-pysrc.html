@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>student.models</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Package&nbsp;student ::
+        Module&nbsp;models
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="student.models-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="student.models-module.html">Module student.models</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module attendance.models=attendance.models-module.html,Module notification.models=notification.models-module.html,Module student.models=student.models-module.html"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-0', 'models', 'link-0');">models</a></tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">contrib</tt><tt class="py-op">.</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-1', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt class="py-name">User</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Variable notification.models.activity.time=notification.models.activity-class.html#time,Variable notification.models.message.time=notification.models.message-class.html#time,Variable notification.models.notification.time=notification.models.notification-class.html#time"><a title="notification.models.activity.time
+notification.models.message.time
+notification.models.notification.time" class="py-name" href="#" onclick="return doclink('link-2', 'time', 'link-2');">time</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name"><a title="notification.models.activity.time
+notification.models.message.time
+notification.models.notification.time" class="py-name" href="#" onclick="return doclink('link-3', 'time', 'link-2');">time</a></tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">core</tt><tt class="py-op">.</tt><tt class="py-name">validators</tt> <tt class="py-keyword">import</tt> <tt class="py-name">MinValueValidator</tt><tt class="py-op">,</tt> <tt class="py-name">MaxValueValidator</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">datetime</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"> </tt>
+<a name="get_upload_file_name"></a><div id="get_upload_file_name-def"><a name="L8"></a><tt class="py-lineno">  8</tt> <a class="py-toggle" href="#" id="get_upload_file_name-toggle" onclick="return toggle('get_upload_file_name');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="student.models-module.html#get_upload_file_name">get_upload_file_name</a><tt class="py-op">(</tt><tt class="py-param">instance</tt><tt class="py-op">,</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get_upload_file_name-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_upload_file_name-expanded"><a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-string">"material/%s_%s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">str</tt><tt class="py-op">(</tt><tt id="link-4" class="py-name"><a title="notification.models.activity.time
+notification.models.message.time
+notification.models.notification.time" class="py-name" href="#" onclick="return doclink('link-4', 'time', 'link-2');">time</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">replace</tt><tt class="py-op">(</tt><tt class="py-string">'.'</tt><tt class="py-op">,</tt><tt class="py-string">'_'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"> </tt>
+<a name="get_upload_image_name"></a><div id="get_upload_image_name-def"><a name="L11"></a><tt class="py-lineno"> 11</tt> <a class="py-toggle" href="#" id="get_upload_image_name-toggle" onclick="return toggle('get_upload_image_name');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="student.models-module.html#get_upload_image_name">get_upload_image_name</a><tt class="py-op">(</tt><tt class="py-param">instance</tt><tt class="py-op">,</tt><tt class="py-param">filename</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get_upload_image_name-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="get_upload_image_name-expanded"><a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-string">"fpp/%s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">filename</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"> </tt>
+<a name="faculty_profile"></a><div id="faculty_profile-def"><a name="L14"></a><tt class="py-lineno"> 14</tt> <a class="py-toggle" href="#" id="faculty_profile-toggle" onclick="return toggle('faculty_profile');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="student.models.faculty_profile-class.html">faculty_profile</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="faculty_profile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="faculty_profile-expanded"><a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line">    <tt id="link-5" class="py-name" targets="Variable student.models.Course.CHOICES=student.models.Course-class.html#CHOICES,Variable student.models.faculty_profile.CHOICES=student.models.faculty_profile-class.html#CHOICES,Variable student.models.student_profile.CHOICES=student.models.student_profile-class.html#CHOICES"><a title="student.models.Course.CHOICES
+student.models.faculty_profile.CHOICES
+student.models.student_profile.CHOICES" class="py-name" href="#" onclick="return doclink('link-5', 'CHOICES', 'link-5');">CHOICES</a></tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'CSE'</tt><tt class="py-op">,</tt><tt class="py-string">'CSE'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'ECE'</tt><tt class="py-op">,</tt><tt class="py-string">'ECE'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'MEC'</tt><tt class="py-op">,</tt><tt class="py-string">'MEC'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'IBT'</tt><tt class="py-op">,</tt><tt class="py-string">'IBT'</tt><tt class="py-op">)</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">    <tt class="py-op">)</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line">    <tt id="link-6" class="py-name" targets="Variable student.models.faculty_profile.user=student.models.faculty_profile-class.html#user,Variable student.models.student_profile.user=student.models.student_profile-class.html#user"><a title="student.models.faculty_profile.user
+student.models.student_profile.user" class="py-name" href="#" onclick="return doclink('link-6', 'user', 'link-6');">user</a></tt> <tt class="py-op">=</tt> <tt id="link-7" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-7', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">OneToOneField</tt><tt class="py-op">(</tt><tt class="py-name">User</tt><tt class="py-op">,</tt><tt class="py-name">primary_key</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">    <tt id="link-8" class="py-name" targets="Variable student.models.faculty_profile.department=student.models.faculty_profile-class.html#department"><a title="student.models.faculty_profile.department" class="py-name" href="#" onclick="return doclink('link-8', 'department', 'link-8');">department</a></tt><tt class="py-op">=</tt><tt id="link-9" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-9', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">3</tt><tt class="py-op">,</tt><tt class="py-name">choices</tt><tt class="py-op">=</tt><tt id="link-10" class="py-name"><a title="student.models.Course.CHOICES
+student.models.faculty_profile.CHOICES
+student.models.student_profile.CHOICES" class="py-name" href="#" onclick="return doclink('link-10', 'CHOICES', 'link-5');">CHOICES</a></tt><tt class="py-op">,</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">'CSE'</tt><tt class="py-op">)</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">    <tt id="link-11" class="py-name" targets="Variable student.models.faculty_profile.facultyrating=student.models.faculty_profile-class.html#facultyrating"><a title="student.models.faculty_profile.facultyrating" class="py-name" href="#" onclick="return doclink('link-11', 'facultyrating', 'link-11');">facultyrating</a></tt><tt class="py-op">=</tt><tt id="link-12" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-12', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">IntegerField</tt><tt class="py-op">(</tt><tt class="py-name">validators</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-name">MinValueValidator</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-name">MaxValueValidator</tt><tt class="py-op">(</tt><tt class="py-number">5</tt><tt class="py-op">)</tt><tt class="py-op">]</tt><tt class="py-op">,</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">    <tt id="link-13" class="py-name" targets="Variable student.models.faculty_profile.areaofinterest=student.models.faculty_profile-class.html#areaofinterest"><a title="student.models.faculty_profile.areaofinterest" class="py-name" href="#" onclick="return doclink('link-13', 'areaofinterest', 'link-13');">areaofinterest</a></tt><tt class="py-op">=</tt><tt id="link-14" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-14', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">40</tt><tt class="py-op">,</tt><tt class="py-name">blank</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">    <tt id="link-15" class="py-name" targets="Variable student.models.faculty_profile.research=student.models.faculty_profile-class.html#research"><a title="student.models.faculty_profile.research" class="py-name" href="#" onclick="return doclink('link-15', 'research', 'link-15');">research</a></tt><tt class="py-op">=</tt><tt id="link-16" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-16', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">50</tt><tt class="py-op">,</tt><tt class="py-name">blank</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">    <tt id="link-17" class="py-name" targets="Variable student.form.CourseForm.description=student.form.CourseForm-class.html#description,Variable student.models.Course.description=student.models.Course-class.html#description,Variable student.models.faculty_profile.description=student.models.faculty_profile-class.html#description,Variable student.models.material.description=student.models.material-class.html#description"><a title="student.form.CourseForm.description
+student.models.Course.description
+student.models.faculty_profile.description
+student.models.material.description" class="py-name" href="#" onclick="return doclink('link-17', 'description', 'link-17');">description</a></tt><tt class="py-op">=</tt><tt id="link-18" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-18', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">TextField</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">    <tt id="link-19" class="py-name" targets="Variable student.models.faculty_profile.weburl=student.models.faculty_profile-class.html#weburl"><a title="student.models.faculty_profile.weburl" class="py-name" href="#" onclick="return doclink('link-19', 'weburl', 'link-19');">weburl</a></tt><tt class="py-op">=</tt><tt id="link-20" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-20', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">250</tt><tt class="py-op">,</tt><tt class="py-name">blank</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">    <tt id="link-21" class="py-name" targets="Variable student.models.Course.image=student.models.Course-class.html#image,Variable student.models.faculty_profile.image=student.models.faculty_profile-class.html#image,Variable student.models.student_profile.image=student.models.student_profile-class.html#image"><a title="student.models.Course.image
+student.models.faculty_profile.image
+student.models.student_profile.image" class="py-name" href="#" onclick="return doclink('link-21', 'image', 'link-21');">image</a></tt><tt class="py-op">=</tt><tt id="link-22" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-22', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ImageField</tt><tt class="py-op">(</tt><tt class="py-name">upload_to</tt><tt class="py-op">=</tt><tt id="link-23" class="py-name" targets="Function student.models.get_upload_image_name()=student.models-module.html#get_upload_image_name"><a title="student.models.get_upload_image_name" class="py-name" href="#" onclick="return doclink('link-23', 'get_upload_image_name', 'link-23');">get_upload_image_name</a></tt><tt class="py-op">,</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">'user_blue.png'</tt><tt class="py-op">)</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">     </tt>
+<a name="faculty_profile.__str__"></a><div id="faculty_profile.__str__-def"><a name="L31"></a><tt class="py-lineno"> 31</tt> <a class="py-toggle" href="#" id="faculty_profile.__str__-toggle" onclick="return toggle('faculty_profile.__str__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="student.models.faculty_profile-class.html#__str__">__str__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="faculty_profile.__str__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="faculty_profile.__str__-expanded"><a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="student.models.faculty_profile.user
+student.models.student_profile.user" class="py-name" href="#" onclick="return doclink('link-24', 'user', 'link-6');">user</a></tt><tt class="py-op">.</tt><tt class="py-name">username</tt> </tt>
+</div><a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
+<a name="faculty_profile.Meta"></a><div id="faculty_profile.Meta-def"><a name="L34"></a><tt class="py-lineno"> 34</tt> <a class="py-toggle" href="#" id="faculty_profile.Meta-toggle" onclick="return toggle('faculty_profile.Meta');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="student.models.faculty_profile.Meta-class.html">Meta</a><tt class="py-op">:</tt> </tt>
+</div><div id="faculty_profile.Meta-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="faculty_profile.Meta-expanded"><a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt id="link-25" class="py-name" targets="Variable notification.models.activity.Meta.verbose_name=notification.models.activity.Meta-class.html#verbose_name,Variable notification.models.message.Meta.verbose_name=notification.models.message.Meta-class.html#verbose_name,Variable notification.models.notification.Meta.verbose_name=notification.models.notification.Meta-class.html#verbose_name,Variable student.models.faculty_profile.Meta.verbose_name=student.models.faculty_profile.Meta-class.html#verbose_name,Variable student.models.student_profile.Meta.verbose_name=student.models.student_profile.Meta-class.html#verbose_name"><a title="notification.models.activity.Meta.verbose_name
+notification.models.message.Meta.verbose_name
+notification.models.notification.Meta.verbose_name
+student.models.faculty_profile.Meta.verbose_name
+student.models.student_profile.Meta.verbose_name" class="py-name" href="#" onclick="return doclink('link-25', 'verbose_name', 'link-25');">verbose_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Faculty"</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt id="link-26" class="py-name" targets="Variable notification.models.activity.Meta.verbose_name_plural=notification.models.activity.Meta-class.html#verbose_name_plural,Variable notification.models.message.Meta.verbose_name_plural=notification.models.message.Meta-class.html#verbose_name_plural,Variable notification.models.notification.Meta.verbose_name_plural=notification.models.notification.Meta-class.html#verbose_name_plural,Variable student.models.faculty_profile.Meta.verbose_name_plural=student.models.faculty_profile.Meta-class.html#verbose_name_plural,Variable student.models.student_profile.Meta.verbose_name_plural=student.models.student_profile.Meta-class.html#verbose_name_plural"><a title="notification.models.activity.Meta.verbose_name_plural
+notification.models.message.Meta.verbose_name_plural
+notification.models.notification.Meta.verbose_name_plural
+student.models.faculty_profile.Meta.verbose_name_plural
+student.models.student_profile.Meta.verbose_name_plural" class="py-name" href="#" onclick="return doclink('link-26', 'verbose_name_plural', 'link-26');">verbose_name_plural</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Faculties"</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line">        <tt id="link-27" class="py-name" targets="Variable notification.models.activity.Meta.ordering=notification.models.activity.Meta-class.html#ordering,Variable notification.models.message.Meta.ordering=notification.models.message.Meta-class.html#ordering,Variable notification.models.notification.Meta.ordering=notification.models.notification.Meta-class.html#ordering,Variable student.models.faculty_profile.Meta.ordering=student.models.faculty_profile.Meta-class.html#ordering,Variable student.models.student_profile.Meta.ordering=student.models.student_profile.Meta-class.html#ordering"><a title="notification.models.activity.Meta.ordering
+notification.models.message.Meta.ordering
+notification.models.notification.Meta.ordering
+student.models.faculty_profile.Meta.ordering
+student.models.student_profile.Meta.ordering" class="py-name" href="#" onclick="return doclink('link-27', 'ordering', 'link-27');">ordering</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">"-department"</tt><tt class="py-op">]</tt> </tt>
+</div></div><a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"> </tt>
+<a name="Course"></a><div id="Course-def"><a name="L40"></a><tt class="py-lineno"> 40</tt> <a class="py-toggle" href="#" id="Course-toggle" onclick="return toggle('Course');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="student.models.Course-class.html">Course</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Course-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Course-expanded"><a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line">    <tt id="link-28" class="py-name"><a title="student.models.Course.CHOICES
+student.models.faculty_profile.CHOICES
+student.models.student_profile.CHOICES" class="py-name" href="#" onclick="return doclink('link-28', 'CHOICES', 'link-5');">CHOICES</a></tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'CSE'</tt><tt class="py-op">,</tt> <tt class="py-string">'CSE'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'ECE'</tt><tt class="py-op">,</tt> <tt class="py-string">'ECE'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'MEC'</tt><tt class="py-op">,</tt> <tt class="py-string">'MEC'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'IBT'</tt><tt class="py-op">,</tt> <tt class="py-string">'IBT'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'OTHER'</tt><tt class="py-op">,</tt><tt class="py-string">'OTHER'</tt><tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">    <tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">    <tt id="link-29" class="py-name" targets="Variable student.models.Course.CHOICES_SEM=student.models.Course-class.html#CHOICES_SEM,Variable student.models.student_profile.CHOICES_SEM=student.models.student_profile-class.html#CHOICES_SEM"><a title="student.models.Course.CHOICES_SEM
+student.models.student_profile.CHOICES_SEM" class="py-name" href="#" onclick="return doclink('link-29', 'CHOICES_SEM', 'link-29');">CHOICES_SEM</a></tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'1'</tt><tt class="py-op">,</tt> <tt class="py-string">'1'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'2'</tt><tt class="py-op">,</tt> <tt class="py-string">'2'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'3'</tt><tt class="py-op">,</tt> <tt class="py-string">'3'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'4'</tt><tt class="py-op">,</tt> <tt class="py-string">'4'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'5'</tt><tt class="py-op">,</tt> <tt class="py-string">'5'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'6'</tt><tt class="py-op">,</tt> <tt class="py-string">'6'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'7'</tt><tt class="py-op">,</tt> <tt class="py-string">'7'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'8'</tt><tt class="py-op">,</tt> <tt class="py-string">'8'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'OPEN'</tt><tt class="py-op">,</tt> <tt class="py-string">'OPEN'</tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">    <tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">    <tt id="link-30" class="py-name" targets="Variable student.models.Course.course_id=student.models.Course-class.html#course_id"><a title="student.models.Course.course_id" class="py-name" href="#" onclick="return doclink('link-30', 'course_id', 'link-30');">course_id</a></tt><tt class="py-op">=</tt><tt id="link-31" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-31', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">10</tt><tt class="py-op">,</tt><tt class="py-name">primary_key</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line">    <tt id="link-32" class="py-name" targets="Variable student.models.Course.course_name=student.models.Course-class.html#course_name"><a title="student.models.Course.course_name" class="py-name" href="#" onclick="return doclink('link-32', 'course_name', 'link-32');">course_name</a></tt><tt class="py-op">=</tt><tt id="link-33" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-33', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">50</tt><tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">    <tt id="link-34" class="py-name" targets="Variable student.models.Course.dept=student.models.Course-class.html#dept"><a title="student.models.Course.dept" class="py-name" href="#" onclick="return doclink('link-34', 'dept', 'link-34');">dept</a></tt><tt class="py-op">=</tt><tt id="link-35" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-35', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">5</tt><tt class="py-op">,</tt><tt class="py-name">choices</tt><tt class="py-op">=</tt><tt id="link-36" class="py-name"><a title="student.models.Course.CHOICES
+student.models.faculty_profile.CHOICES
+student.models.student_profile.CHOICES" class="py-name" href="#" onclick="return doclink('link-36', 'CHOICES', 'link-5');">CHOICES</a></tt><tt class="py-op">,</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">'OTHER'</tt><tt class="py-op">)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">    <tt id="link-37" class="py-name"><a title="student.form.CourseForm.description
+student.models.Course.description
+student.models.faculty_profile.description
+student.models.material.description" class="py-name" href="#" onclick="return doclink('link-37', 'description', 'link-17');">description</a></tt><tt class="py-op">=</tt><tt id="link-38" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-38', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">TextField</tt><tt class="py-op">(</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">"There is no description"</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">    <tt id="link-39" class="py-name" targets="Variable student.models.Course.start_date=student.models.Course-class.html#start_date"><a title="student.models.Course.start_date" class="py-name" href="#" onclick="return doclink('link-39', 'start_date', 'link-39');">start_date</a></tt><tt class="py-op">=</tt><tt id="link-40" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-40', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateField</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">    <tt id="link-41" class="py-name" targets="Variable student.models.Course.end_date=student.models.Course-class.html#end_date"><a title="student.models.Course.end_date" class="py-name" href="#" onclick="return doclink('link-41', 'end_date', 'link-41');">end_date</a></tt><tt class="py-op">=</tt><tt id="link-42" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-42', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateField</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">    <tt id="link-43" class="py-name" targets="Variable student.models.Course.semester=student.models.Course-class.html#semester"><a title="student.models.Course.semester" class="py-name" href="#" onclick="return doclink('link-43', 'semester', 'link-43');">semester</a></tt><tt class="py-op">=</tt><tt id="link-44" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-44', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">4</tt><tt class="py-op">,</tt><tt class="py-name">choices</tt><tt class="py-op">=</tt><tt id="link-45" class="py-name"><a title="student.models.Course.CHOICES_SEM
+student.models.student_profile.CHOICES_SEM" class="py-name" href="#" onclick="return doclink('link-45', 'CHOICES_SEM', 'link-29');">CHOICES_SEM</a></tt><tt class="py-op">,</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">'OPEN'</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">    <tt id="link-46" class="py-name"><a title="student.models.Course.image
+student.models.faculty_profile.image
+student.models.student_profile.image" class="py-name" href="#" onclick="return doclink('link-46', 'image', 'link-21');">image</a></tt><tt class="py-op">=</tt><tt id="link-47" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-47', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ImageField</tt><tt class="py-op">(</tt><tt class="py-name">upload_to</tt><tt class="py-op">=</tt><tt class="py-string">'cpp'</tt><tt class="py-op">,</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">"cpp/course_default.png"</tt><tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">    <tt id="link-48" class="py-name" targets="Variable student.models.Course.credits=student.models.Course-class.html#credits"><a title="student.models.Course.credits" class="py-name" href="#" onclick="return doclink('link-48', 'credits', 'link-48');">credits</a></tt><tt class="py-op">=</tt><tt id="link-49" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-49', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">10</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">    <tt id="link-50" class="py-name" targets="Variable student.models.Course.facultyassociated=student.models.Course-class.html#facultyassociated"><a title="student.models.Course.facultyassociated" class="py-name" href="#" onclick="return doclink('link-50', 'facultyassociated', 'link-50');">facultyassociated</a></tt><tt class="py-op">=</tt><tt id="link-51" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-51', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt id="link-52" class="py-name" targets="Class student.models.faculty_profile=student.models.faculty_profile-class.html"><a title="student.models.faculty_profile" class="py-name" href="#" onclick="return doclink('link-52', 'faculty_profile', 'link-52');">faculty_profile</a></tt><tt class="py-op">,</tt><tt class="py-name">blank</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">,</tt><tt class="py-name">null</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">,</tt><tt class="py-name">related_name</tt><tt class="py-op">=</tt><tt class="py-string">'mentor'</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="Course.__unicode__"></a><div id="Course.__unicode__-def"><a name="L71"></a><tt class="py-lineno"> 71</tt> <a class="py-toggle" href="#" id="Course.__unicode__-toggle" onclick="return toggle('Course.__unicode__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="student.models.Course-class.html#__unicode__">__unicode__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Course.__unicode__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Course.__unicode__-expanded"><a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-53" class="py-name"><a title="student.models.Course.course_name" class="py-name" href="#" onclick="return doclink('link-53', 'course_name', 'link-32');">course_name</a></tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-string">u''</tt> </tt>
+</div></div><a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"> </tt>
+<a name="student_profile"></a><div id="student_profile-def"><a name="L75"></a><tt class="py-lineno"> 75</tt> <a class="py-toggle" href="#" id="student_profile-toggle" onclick="return toggle('student_profile');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="student.models.student_profile-class.html">student_profile</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="student_profile-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="student_profile-expanded"><a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">    <tt id="link-54" class="py-name"><a title="student.models.Course.CHOICES
+student.models.faculty_profile.CHOICES
+student.models.student_profile.CHOICES" class="py-name" href="#" onclick="return doclink('link-54', 'CHOICES', 'link-5');">CHOICES</a></tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'CSE'</tt><tt class="py-op">,</tt> <tt class="py-string">'CSE'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'ECE'</tt><tt class="py-op">,</tt> <tt class="py-string">'ECE'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'MEC'</tt><tt class="py-op">,</tt> <tt class="py-string">'MEC'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'IBT'</tt><tt class="py-op">,</tt> <tt class="py-string">'IBT'</tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">    <tt class="py-op">)</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">    <tt id="link-55" class="py-name"><a title="student.models.Course.CHOICES_SEM
+student.models.student_profile.CHOICES_SEM" class="py-name" href="#" onclick="return doclink('link-55', 'CHOICES_SEM', 'link-29');">CHOICES_SEM</a></tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'1'</tt><tt class="py-op">,</tt> <tt class="py-string">'1'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'2'</tt><tt class="py-op">,</tt> <tt class="py-string">'2'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'3'</tt><tt class="py-op">,</tt> <tt class="py-string">'3'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'4'</tt><tt class="py-op">,</tt> <tt class="py-string">'4'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'5'</tt><tt class="py-op">,</tt> <tt class="py-string">'5'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'6'</tt><tt class="py-op">,</tt> <tt class="py-string">'6'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'7'</tt><tt class="py-op">,</tt> <tt class="py-string">'7'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'8'</tt><tt class="py-op">,</tt> <tt class="py-string">'8'</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">    <tt class="py-op">)</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">    <tt id="link-56" class="py-name"><a title="student.models.faculty_profile.user
+student.models.student_profile.user" class="py-name" href="#" onclick="return doclink('link-56', 'user', 'link-6');">user</a></tt> <tt class="py-op">=</tt> <tt id="link-57" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-57', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">OneToOneField</tt><tt class="py-op">(</tt><tt class="py-name">User</tt><tt class="py-op">,</tt><tt class="py-name">primary_key</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">    <tt id="link-58" class="py-name" targets="Variable student.models.student_profile.DOB=student.models.student_profile-class.html#DOB"><a title="student.models.student_profile.DOB" class="py-name" href="#" onclick="return doclink('link-58', 'DOB', 'link-58');">DOB</a></tt><tt class="py-op">=</tt><tt id="link-59" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-59', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateField</tt><tt class="py-op">(</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-name">datetime</tt><tt class="py-op">.</tt><tt id="link-60" class="py-name" targets="Variable attendance.models.attendance.date=attendance.models.attendance-class.html#date"><a title="attendance.models.attendance.date" class="py-name" href="#" onclick="return doclink('link-60', 'date', 'link-60');">date</a></tt><tt class="py-op">.</tt><tt class="py-name">today</tt><tt class="py-op">,</tt> <tt class="py-name">blank</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">    <tt id="link-61" class="py-name" targets="Variable student.models.student_profile.Branch=student.models.student_profile-class.html#Branch"><a title="student.models.student_profile.Branch" class="py-name" href="#" onclick="return doclink('link-61', 'Branch', 'link-61');">Branch</a></tt><tt class="py-op">=</tt><tt id="link-62" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-62', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">5</tt><tt class="py-op">,</tt><tt class="py-name">choices</tt><tt class="py-op">=</tt><tt id="link-63" class="py-name"><a title="student.models.Course.CHOICES
+student.models.faculty_profile.CHOICES
+student.models.student_profile.CHOICES" class="py-name" href="#" onclick="return doclink('link-63', 'CHOICES', 'link-5');">CHOICES</a></tt><tt class="py-op">,</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">'CSE'</tt><tt class="py-op">)</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">    <tt id="link-64" class="py-name" targets="Variable student.models.student_profile.Semester=student.models.student_profile-class.html#Semester"><a title="student.models.student_profile.Semester" class="py-name" href="#" onclick="return doclink('link-64', 'Semester', 'link-64');">Semester</a></tt><tt class="py-op">=</tt><tt id="link-65" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-65', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">4</tt><tt class="py-op">,</tt><tt class="py-name">choices</tt><tt class="py-op">=</tt><tt id="link-66" class="py-name"><a title="student.models.Course.CHOICES_SEM
+student.models.student_profile.CHOICES_SEM" class="py-name" href="#" onclick="return doclink('link-66', 'CHOICES_SEM', 'link-29');">CHOICES_SEM</a></tt><tt class="py-op">,</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">'1'</tt><tt class="py-op">)</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt id="link-67" class="py-name"><a title="student.models.Course.image
+student.models.faculty_profile.image
+student.models.student_profile.image" class="py-name" href="#" onclick="return doclink('link-67', 'image', 'link-21');">image</a></tt> <tt class="py-op">=</tt> <tt id="link-68" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-68', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ImageField</tt><tt class="py-op">(</tt><tt class="py-name">upload_to</tt><tt class="py-op">=</tt><tt class="py-string">'spp'</tt><tt class="py-op">,</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">"user_blue.png"</tt><tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">    <tt id="link-69" class="py-name" targets="Variable student.models.student_profile.coursetaken=student.models.student_profile-class.html#coursetaken"><a title="student.models.student_profile.coursetaken" class="py-name" href="#" onclick="return doclink('link-69', 'coursetaken', 'link-69');">coursetaken</a></tt><tt class="py-op">=</tt><tt id="link-70" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-70', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ManyToManyField</tt><tt class="py-op">(</tt><tt id="link-71" class="py-name" targets="Class student.models.Course=student.models.Course-class.html"><a title="student.models.Course" class="py-name" href="#" onclick="return doclink('link-71', 'Course', 'link-71');">Course</a></tt><tt class="py-op">,</tt><tt class="py-name">blank</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"> </tt>
+<a name="student_profile.__unicode__"></a><div id="student_profile.__unicode__-def"><a name="L99"></a><tt class="py-lineno"> 99</tt> <a class="py-toggle" href="#" id="student_profile.__unicode__-toggle" onclick="return toggle('student_profile.__unicode__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="student.models.student_profile-class.html#__unicode__">__unicode__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="student_profile.__unicode__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="student_profile.__unicode__-expanded"><a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-72" class="py-name"><a title="student.models.faculty_profile.user
+student.models.student_profile.user" class="py-name" href="#" onclick="return doclink('link-72', 'user', 'link-6');">user</a></tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-string">u''</tt> </tt>
+</div><a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line"> </tt>
+<a name="student_profile.Meta"></a><div id="student_profile.Meta-def"><a name="L102"></a><tt class="py-lineno">102</tt> <a class="py-toggle" href="#" id="student_profile.Meta-toggle" onclick="return toggle('student_profile.Meta');">-</a><tt class="py-line">    <tt class="py-keyword">class</tt> <a class="py-def-name" href="student.models.student_profile.Meta-class.html">Meta</a><tt class="py-op">:</tt> </tt>
+</div><div id="student_profile.Meta-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="student_profile.Meta-expanded"><a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt id="link-73" class="py-name"><a title="notification.models.activity.Meta.verbose_name
+notification.models.message.Meta.verbose_name
+notification.models.notification.Meta.verbose_name
+student.models.faculty_profile.Meta.verbose_name
+student.models.student_profile.Meta.verbose_name" class="py-name" href="#" onclick="return doclink('link-73', 'verbose_name', 'link-25');">verbose_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Student"</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">        <tt id="link-74" class="py-name"><a title="notification.models.activity.Meta.verbose_name_plural
+notification.models.message.Meta.verbose_name_plural
+notification.models.notification.Meta.verbose_name_plural
+student.models.faculty_profile.Meta.verbose_name_plural
+student.models.student_profile.Meta.verbose_name_plural" class="py-name" href="#" onclick="return doclink('link-74', 'verbose_name_plural', 'link-26');">verbose_name_plural</a></tt> <tt class="py-op">=</tt> <tt class="py-string">"Students"</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt id="link-75" class="py-name"><a title="notification.models.activity.Meta.ordering
+notification.models.message.Meta.ordering
+notification.models.notification.Meta.ordering
+student.models.faculty_profile.Meta.ordering
+student.models.student_profile.Meta.ordering" class="py-name" href="#" onclick="return doclink('link-75', 'ordering', 'link-27');">ordering</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">"-DOB"</tt><tt class="py-op">]</tt> </tt>
+</div></div><a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-name">User</tt><tt class="py-op">.</tt><tt id="link-76" class="py-name" targets="Function student.views.profile()=student.views-module.html#profile"><a title="student.views.profile" class="py-name" href="#" onclick="return doclink('link-76', 'profile', 'link-76');">profile</a></tt><tt class="py-op">=</tt><tt class="py-name">property</tt><tt class="py-op">(</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">u</tt><tt class="py-op">:</tt> <tt class="py-name">student</tt><tt class="py-op">.</tt><tt id="link-77" class="py-name" targets="Method attendance.models.attendance.objects()=attendance.models.attendance-class.html#objects,Method notification.models.activity.objects()=notification.models.activity-class.html#objects,Method notification.models.message.objects()=notification.models.message-class.html#objects,Method notification.models.notification.objects()=notification.models.notification-class.html#objects,Method student.models.Course.objects()=student.models.Course-class.html#objects,Method student.models.faculty_profile.objects()=student.models.faculty_profile-class.html#objects,Method student.models.material.objects()=student.models.material-class.html#objects,Method student.models.student_profile.objects()=student.models.student_profile-class.html#objects"><a title="attendance.models.attendance.objects
+notification.models.activity.objects
+notification.models.message.objects
+notification.models.notification.objects
+student.models.Course.objects
+student.models.faculty_profile.objects
+student.models.material.objects
+student.models.student_profile.objects" class="py-name" href="#" onclick="return doclink('link-77', 'objects', 'link-77');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">get_or_create</tt><tt class="py-op">(</tt><tt class="py-name">u</tt><tt class="py-op">=</tt><tt class="py-name">u</tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"> </tt>
+<a name="material"></a><div id="material-def"><a name="L110"></a><tt class="py-lineno">110</tt> <a class="py-toggle" href="#" id="material-toggle" onclick="return toggle('material');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="student.models.material-class.html">material</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="material-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="material-expanded"><a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line">    <tt id="link-78" class="py-name" targets="Variable notification.models.message.title=notification.models.message-class.html#title,Variable notification.models.notification.title=notification.models.notification-class.html#title,Variable student.form.CourseForm.title=student.form.CourseForm-class.html#title,Variable student.models.material.title=student.models.material-class.html#title"><a title="notification.models.message.title
+notification.models.notification.title
+student.form.CourseForm.title
+student.models.material.title" class="py-name" href="#" onclick="return doclink('link-78', 'title', 'link-78');">title</a></tt><tt class="py-op">=</tt><tt id="link-79" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-79', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">50</tt><tt class="py-op">)</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line">    <tt id="link-80" class="py-name"><a title="student.form.CourseForm.description
+student.models.Course.description
+student.models.faculty_profile.description
+student.models.material.description" class="py-name" href="#" onclick="return doclink('link-80', 'description', 'link-17');">description</a></tt><tt class="py-op">=</tt><tt id="link-81" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-81', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">TextField</tt><tt class="py-op">(</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-string">"There is no Description"</tt><tt class="py-op">)</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">    <tt id="link-82" class="py-name" targets="Variable attendance.models.attendance.course=attendance.models.attendance-class.html#course,Variable notification.models.activity.course=notification.models.activity-class.html#course,Variable notification.models.notification.course=notification.models.notification-class.html#course,Variable student.models.material.course=student.models.material-class.html#course,Function student.views.course()=student.views-module.html#course"><a title="attendance.models.attendance.course
+notification.models.activity.course
+notification.models.notification.course
+student.models.material.course
+student.views.course" class="py-name" href="#" onclick="return doclink('link-82', 'course', 'link-82');">course</a></tt><tt class="py-op">=</tt><tt id="link-83" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-83', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt id="link-84" class="py-name"><a title="student.models.Course" class="py-name" href="#" onclick="return doclink('link-84', 'Course', 'link-71');">Course</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line">    <tt id="link-85" class="py-name" targets="Variable student.models.material.timestamp=student.models.material-class.html#timestamp"><a title="student.models.material.timestamp" class="py-name" href="#" onclick="return doclink('link-85', 'timestamp', 'link-85');">timestamp</a></tt><tt class="py-op">=</tt><tt id="link-86" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-86', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateTimeField</tt><tt class="py-op">(</tt><tt class="py-name">auto_now</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line">    <tt id="link-87" class="py-name" targets="Variable student.models.material.addedby=student.models.material-class.html#addedby"><a title="student.models.material.addedby" class="py-name" href="#" onclick="return doclink('link-87', 'addedby', 'link-87');">addedby</a></tt><tt class="py-op">=</tt><tt id="link-88" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-88', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt class="py-name">User</tt><tt class="py-op">)</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">    <tt id="link-89" class="py-name" targets="Variable student.models.material.document=student.models.material-class.html#document"><a title="student.models.material.document" class="py-name" href="#" onclick="return doclink('link-89', 'document', 'link-89');">document</a></tt><tt class="py-op">=</tt><tt id="link-90" class="py-name"><a title="attendance.models
+notification.models
+student.models" class="py-name" href="#" onclick="return doclink('link-90', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">FileField</tt><tt class="py-op">(</tt><tt class="py-name">upload_to</tt><tt class="py-op">=</tt><tt id="link-91" class="py-name" targets="Function student.models.get_upload_file_name()=student.models-module.html#get_upload_file_name"><a title="student.models.get_upload_file_name" class="py-name" href="#" onclick="return doclink('link-91', 'get_upload_file_name', 'link-91');">get_upload_file_name</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="material.__unicode__"></a><div id="material.__unicode__-def"><a name="L118"></a><tt class="py-lineno">118</tt> <a class="py-toggle" href="#" id="material.__unicode__-toggle" onclick="return toggle('material.__unicode__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="student.models.material-class.html#__unicode__">__unicode__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="material.__unicode__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="material.__unicode__-expanded"><a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">unicode</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-92" class="py-name"><a title="notification.models.message.title
+notification.models.notification.title
+student.form.CourseForm.title
+student.models.material.title" class="py-name" href="#" onclick="return doclink('link-92', 'title', 'link-78');">title</a></tt><tt class="py-op">)</tt> <tt class="py-keyword">or</tt> <tt class="py-string">u''</tt> </tt>
+</div></div><a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Dec  2 12:04:06 2014
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -11,10 +11,14 @@ def get_upload_image_name(instance,filename):
 
 class faculty_profile(models.Model):
     CHOICES = (
+
+
         ('CSE','CSE'),
         ('ECE','ECE'),
         ('MEC','MEC'),
         ('IBT','IBT')
+
+
     )
     SCHOICES = (
         ('Mr.','Mr.'),
@@ -32,7 +36,9 @@ class faculty_profile(models.Model):
     research=models.CharField(max_length=50,blank=True)
     description=models.TextField(blank=True)
     weburl=models.CharField(max_length=250,blank=True)
+
     image=models.ImageField(upload_to=get_upload_image_name,default='user_blue.png')
+
 
     
     def __str__(self):
@@ -76,8 +82,8 @@ class Course(models.Model):
     credits=models.CharField(max_length=10)
     facultyassociated=models.ForeignKey(faculty_profile,blank=True,null=True,related_name='mentor')
 
-    def __unicode__(self):
-        return unicode(self.course_name) or u''
+    def __str__(self):
+        return self.course_name
 
 
 class student_profile(models.Model):
@@ -109,16 +115,15 @@ class student_profile(models.Model):
     Branch=models.CharField(max_length=5,choices=CHOICES,default='CSE')
     Semester=models.CharField(max_length=4,choices=CHOICES_SEM,default='1')
     image = models.ImageField(upload_to='spp',default="user_blue.png")
+
     coursetaken=models.ManyToManyField(Course,blank=True)
 
     def __unicode__(self):
         return unicode(self.user) or u''
-
     class Meta:
         verbose_name = "Student"
         verbose_name_plural = "Students"
         ordering = ["-DOB"]
-
 
 User.profile=property(lambda u: student.objects.get_or_create(u=u)[0])
 

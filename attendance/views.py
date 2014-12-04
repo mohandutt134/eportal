@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from attendance.models import attendance
 from django.contrib.auth.decorators import login_required
 from student.models import student_profile, Course , faculty_profile
@@ -69,3 +70,4 @@ def show(request):
 
 	else:
 		return render(request,'attendance_result.html',{'temp':temp,'courses':courses})
+

@@ -1,0 +1,84 @@
+{% extends temp %} {% load staticfiles %}
+
+{% block jsadd-up %}
+<script src="{% static 'assets/js/chart-master/Chart.js' %}"></script>
+{% endblock jsadd-up %}
+
+
+{% block content %}
+                <div class="row">
+
+                    <!-- RIGHT SIDEBAR CONTENT
+      *********************************************************************************************************************************************************** -->
+                    <!--<h3 class="goright">Questions added:&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</h3-->
+                    <div class="col-lg-3">
+                        <!--COMPLETED ACTIONS DONUTS CHART-->
+                        <div class="form-panel">
+                            <h4 class="mb"><i class="fa fa-angle-right"></i> Filters</h4>
+                            <form class="form-horizontal style-form" method="POST">
+                              {% csrf_token %}
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <legend class="center-block"><b>Select Quiz</b>
+                                        </legend>
+                                        <select class="form-control" name="selected_quiz">
+                                            {% for quiz in quizes %}
+                                            <option value="{{quiz.qid}}">{{quiz.title}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <br>
+                                        <input type="submit" name="quiz" class="btn btn-primary btn-lg btn-block">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!--COMPLETED ACTIONS DONUTS CHART-->
+                    </div>
+
+                    <div class="col-lg-9 main-chart">
+                            <!-- SERVER STATUS PANELS -->
+                            <div class="content-panel">
+                            {% if results %}
+                            <form method='post'>
+                            {% csrf_token %}
+                            <p style="text-align:center" class="alert alert-info h4"><b>{{selected_quiz|upper}}</b></p>
+                              <h4 class="goright"><i class="fa fa-calender"></i> Date: &nbsp;&nbsp;23/11/2014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4><hr><table class="table table-hover">
+                              
+                              
+                                  <thead>
+                                  <tr>
+                                      <th>Entry No</th>
+                                      <th>Max</th>
+                                      <th>Earned</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  
+                                  {% for result in results %}
+                                  <tr>
+                                      <td>{{result.user.user.username}}</td>
+                                      <td>{{total}}</td>
+                                      <td>{{result.score}}</td>
+                                  </tr>
+                                  {% endfor %}
+                                  
+                                  </tbody>
+                              </table>
+                              {% endif %}
+                            </form>
+                          </div>
+                            
+
+                        </div>
+                       
+                    </div>
+                    <script>
+                        $('#master').click(function(){
+                              $('.slave').prop("checked", $('#master').prop("checked"));
+                        });
+                    </script>
+           
+ {% endblock %}
+{% block jsadd %}
+{% endblock jsadd %}

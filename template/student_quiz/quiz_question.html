@@ -1,0 +1,66 @@
+{% extends 'base/sidebars.html' %} {% load staticfiles %}
+
+
+
+ {% block content %}
+<dic class="row">
+	<p class="alert alert-info h3" style="text-align:center"><b>{{quiz.title}}</b></p>
+	<h3 class="goright" id="q_time">Time:{{quiz.duration}}&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+	<hr>
+  <div class="col-md-8 col-md-offset-2">
+        <div class="jumbotron">
+
+        <p style="color:black; font-weight: bold;" id="question"> Who is founder of facebook?</p>
+
+        <div class="control-group">
+
+        <div class="controls" style="color:black; font-weight: bold;position:relative;left:11%;font-size:21px;">
+          <label class="radio">
+            <input type="radio"  onclick="submitanswer()" name="user[role]"  value="a" >
+           <span id="option1">Area editor</span>
+          </label>
+          <label class="radio">
+            <input type="radio"  onclick="submitanswer()" name="user[role]"  value="b">
+          <span id="option2">Area editor</span>
+          </label>
+          <label class="radio">
+            <input type="radio" onclick="submitanswer()"  name="user[role]"  value="c">
+           <span id="option3">Area editor</span>
+          </label>
+            <label class="radio">
+            <input type="radio" onclick="submitanswer()"  name="user[role]"  value="d">
+         <span id="option4">Area editor</span>
+          </label>
+        </div>
+        </div>
+</div>
+<nav>
+  <ul class="pager">
+    <li class="previous"><a href="#" onclick="previous_function()"><span aria-hidden="true">&larr;</span> Previous</a></li>
+    <li class="next"><a href="#" onclick="next_function()">Next <span aria-hidden="true">&rarr;</span></a></li>
+  </ul>
+</nav>
+<button type="button" onclick="result()" class="btn btn-primary" id="q_submit">Submit Your Answer</button></a>
+<script type="text/javascript">
+	studentQuestions({{quiz.duration}});
+
+</script>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h4 class="modal-title" id="myModalLabel">Your Answer Has been Submited</h4>
+      </div>
+      <div class="modal-body">
+        Result Will Be Declare Soon
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'dashboard' %}">Close</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

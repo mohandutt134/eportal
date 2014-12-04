@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from student.models import student_profile, Course , faculty_profile
+
+
 import datetime
 
 class attendance(models.Model):
@@ -11,5 +13,6 @@ class attendance(models.Model):
 
 	def __unicode__(self):
 		return unicode(self.date) or u''
+
 
 # Create your models here.

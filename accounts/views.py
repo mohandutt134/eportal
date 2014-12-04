@@ -127,8 +127,8 @@ def registration_function(request):
                 mail(request,R_email,'mail/email.txt','mail/fancy-1-2-3.html')
                 message_register_alert = 'success'
         except Exception as e:
+
             return HttpResponse(e)
-            #message_register_alert = "Error occured in account creation"
             user.delete()
     return message_register_alert
 

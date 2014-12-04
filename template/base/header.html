@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,7 +49,7 @@
             <a href="{% url 'home' %}" class="logo"><b>SMVDU Eportal</b></a>
             <!--logo end-->
             {% if user.is_authenticated %}
-            <script type>
+            <script>
 
                 create_post();
             </script>
@@ -115,7 +114,11 @@
 
                 <ul class="nav navbar-nav">
 
+
+                    
+
                     <li><a href="{% url 'allcourses' %}">Courses</a>
+
                     </li>
                     <li><a href="{% url 'faculty' %}">Faculty</a>
                     </li>
@@ -229,9 +232,30 @@ $(document).ready(function() {
 {% endif %}
     <!--script for this page-->
 
+
+<div class="modal fade" id="fullMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:100%; text-align:center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="modal_message_title">Delivery Message</h4>
+            </div>
+            <div class="modal-body">
+                <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">    <p id="modal_message_body"></p>
+                </div>
+                <div class="pull-left" id="modal_message_sender"></div>
+                <div class="pull-right" id="modal_message_time"></div>
+                    
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" style="padding-top:10px">Close</button>
+            </div>
+        </div>
+
     {% endblock js-foot %} 
 
-
+    </div>
+</div>
 </body>
 
 </html>

@@ -1,4 +1,6 @@
-{% extends temp %} {% load staticfiles %} {% block jsadd-up %}
+{% extends temp %} {% load staticfiles %} 
+
+{% block jsadd-up %}
 
 {% endblock jsadd-up %}
 {% load partial_views %}
@@ -22,7 +24,7 @@
                                             <div class="blog-title">{{course.course_name}}</div>
                                         </div>
                                         <div class="blog-text">
-                                            <p>{{course.description}}<a href="#">Read More</a>
+                                            <p>{{course.description|safe }}<a href="#">Read More</a>
                                             </p>
                                         </div>
                                     </div>
@@ -61,6 +63,7 @@
                                 </ul>
                                 {% for course in courses %}
                             <div class="bar">
+
                             <div class="title">{{course.course_name}}</div>
                             {% make_bar course %}
 
@@ -70,14 +73,11 @@
 
                             <!--custom chart end-->
                             {% else %}
-
-                            
                             <div class="col-md-12 mb">
                                 <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">
                                     <h1>You are not running any course currently!!!</h1>
-                                </div>  
+                                </div>
                             </div>
-                            
 
                         {% endif %}
                         </div>

@@ -85,8 +85,12 @@ body {
                     <br>
                     <h4>About Me</h4>
                     <p>
-                        {{ usr.faculty_profile.description }}
+                    {% autoescape off %}
+    
 
+                        {{ usr.faculty_profile.description }}
+                        {% endautoescape %}
+            
                     </p>
                 </div>
                 <div class="tab-pane" id="tab_c">

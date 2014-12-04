@@ -1,7 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.pyc
-*/migrations/*
+*/migrations/
 /static/uploaded_image/*
 
 # OSX Finder turds
@@ -54,3 +54,4 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 *.db
+/static/documents/

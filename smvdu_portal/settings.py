@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-from .email_info import *
+from email_info import *
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -25,7 +25,7 @@ DEBUG = True
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -46,12 +46,14 @@ INSTALLED_APPS = (
     'notification',
     'smartextends',
     'attendance',
+    'ckeditor',
+    'django_wysiwyg',
     'django.contrib.humanize',
 )
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
 
-
-FAKER_LOCALE = None     # settings.LANGUAGE_CODE is loaded
-FAKER_PROVIDERS = None
 
 # Minimum password strength settings. See the GitHub page for defaults.
 # https://github.com/dstufft/django-passwords/
@@ -146,3 +148,4 @@ TRACKING_USE_GEOIP=True
 GEOIP_PATH = '/home/vc/Desktop/GeoIP.dat'
 GEOIP_CACHE_TYPE = 1
 DEFAULT_TRACKING_TEMPLATE='tracking/visitor_map.html'
+ALLOWED_INCLUDE_ROOTS = ('/static/documents/html'), 

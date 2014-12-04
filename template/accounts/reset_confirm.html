@@ -1,6 +1,7 @@
 {% extends 'accounts/base_accounts.html' %}
 	  		{% block content %}
 	  		{% load cssFilter %}
+        {% load staticfiles %}
 		     
      <div class="container">
      
@@ -15,7 +16,7 @@
             <div class="jumbotron">
             <legend class="center-block"><b>Password Reset Confirmation:</b></legend>
            
-          <form role="form" action="." method="post">
+          <form role="form" action="." method="post" id="change_password_form">
            {% csrf_token %} <!-- CSRF token is rendered by Django in forms to avoid CSRF attacks -->
            
            <!-- If there are non-field errors in the form,
@@ -67,4 +68,11 @@
 		    
 {% endblock content %}	  	
 	  		
-	  	
+{% block js-foot %}
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+    
+
+    <!--script for this page-->
+
+    {% endblock js-foot %} 

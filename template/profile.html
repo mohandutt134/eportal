@@ -1,10 +1,8 @@
-
-{% extends temp %} {% load staticfiles %} {% block title %}
+{% extends temp %} {% load staticfiles %}{% load wysiwyg %} {% block title %}
 <title>SMVDU E-portal | {{ user.username | upper }}</title>
 {% endblock title %} {% block content %}
 <div class="row">
     <div class="col-lg-8 col-lg-offset-2">
-
 
 
         <div class="row">
@@ -124,7 +122,14 @@
                             <div class="form-group">
                                 <label class="col-sm-2 col-sm-2 control-label">Description</label>
                                 <div class="col-sm-10">
-                                    <textarea class="form-control" name="description" rows="4" placeholder="Add your Description Here">{{ user.faculty_profile.description}}</textarea>
+                                {% wysiwyg_setup %}
+
+<textarea id="foo" class="form-control" name="description" rows="4" placeholder="Add your Description Here">{{ user.faculty_profile.description}}</textarea>
+
+{% wysiwyg_editor "foo" %}
+                                    <!-- <textarea class="form-control" name="description" rows="4" placeholder="Add your Description Here">{{ user.faculty_profile.description}}</textarea> -->
+                                   
+
                                 </div>
                             </div>
                             <div class="form-group">
@@ -163,7 +168,10 @@
 
 </div>
 
+<<<<<<< HEAD
+=======
 
 
 
+>>>>>>> 933d51276b4e2309b407dcd884638603bae9ca31
 {% endblock %} {% block jsadd %} {% endblock jsadd %}

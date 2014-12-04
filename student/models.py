@@ -2,7 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from time import time
 from django.core.validators import MinValueValidator, MaxValueValidator
-# Create your models here.
+from ckeditor.fields import RichTextField
+import datetime
+
 def get_upload_file_name(instance,filename):
     return "material/%s_%s" % (str(time()).replace('.','_'),filename)
 
@@ -34,7 +36,7 @@ class faculty_profile(models.Model):
     facultyrating=models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(5)],default=0)
     areaofinterest=models.CharField(max_length=40,blank=True)
     research=models.CharField(max_length=50,blank=True)
-    description=models.TextField(blank=True)
+    description=models.TextField()
     weburl=models.CharField(max_length=250,blank=True)
 
     image=models.ImageField(upload_to=get_upload_image_name,default='user_blue.png')
@@ -129,7 +131,7 @@ User.profile=property(lambda u: student.objects.get_or_create(u=u)[0])
 
 class material(models.Model):
     title=models.CharField(max_length=50)
-    description=models.TextField(default="There is no Description")
+    description=models.TextField("NONE")
     course=models.ForeignKey(Course)
     timestamp=models.DateTimeField(auto_now=True)
     addedby=models.ForeignKey(User)
@@ -137,3 +139,7 @@ class material(models.Model):
 
     def __unicode__(self):
         return unicode(self.title) or u''
+
+
+
+

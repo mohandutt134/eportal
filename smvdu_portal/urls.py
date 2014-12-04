@@ -7,7 +7,9 @@ admin.autodiscover()
 urlpatterns = patterns('student.views',
     # Examples:
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+
     (r'^admin/', include(admin.site.urls)),
+    (r'^ckeditor/', include('ckeditor.urls')),
     (r'^attendance/', include('attendance.urls')),
     #(r'^markdown/', include("django_markdown.urls")),
     (r'^quiz/',include('quiz.urls')),
@@ -17,7 +19,8 @@ urlpatterns = patterns('student.views',
     #(r'^report/',include('report.urls')),
     url(r'^$', 'home', name='home'),
     url(r'^dashboard$', 'dashboard', name='dashboard'),
-   
+    url(r'^contact$', 'contactview', name='contact'),
+
     url(r'^courses/(?P<id>[0-9A-Za-z_\-]+)$', 'course', name='course'),
     url(r'^courses$', 'courses', name='courses'),
     url(r'^profile$', 'profile', name='profile'),
@@ -25,6 +28,7 @@ urlpatterns = patterns('student.views',
     url(r'^profile/(?P<username>[0-9A-Za-z_\-]+)$',  'pprofile', name='pprofile'),
     url(r'^users/(?P<username>[0-9A-Za-z_\-]+)/$',  'pprofile', name='pprofile'),
 
+    #url(r'^faculty$', 'faculty', name='faculty'),\
     url(r'^about$', 'about', name='about'),
     #url(r'^profile_edit/$', 'profile_edit', name='profile_edit'),
     #url('^inbox/notifications/', include(notifications.urls)),
@@ -37,7 +41,7 @@ urlpatterns = patterns('student.views',
     url(r'^faculty$', 'faculties', name='faculty'),
     url(r'^courseregister/$', 'course_register', name='course_register'),
     url(r'^test$', 'test', name='test'),
-
+    (r'^ckeditor/', include('ckeditor.urls')),
 )
 
 if settings.DEBUG is False:   #if DEBUG is True it will be served automatically

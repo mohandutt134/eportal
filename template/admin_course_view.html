@@ -1,6 +1,4 @@
-
-{% extends 'base/sidebarf.html' %} {% load staticfiles %} 
-{% load humanize %}{% block content %}
+{% extends 'base/sidebarf.html' %} {% load staticfiles %} {% load humanize %}{% block content %}
 
 
 
@@ -15,29 +13,13 @@
                 <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">
                     <div style="width: 18%;height: 18%;" class="pull-right"><img style="width: 100%;height: 100%;" src="/static/uploaded_image/{{course.image}}">
                     </div>
-                    <h1>{{course.course_name}}
-                                </div>
-                            </div>
-
-                        </div>
-                        <!-- /row -->
-                        <div class="row">
-
-                            <div class="col-lg-9 main-chart">
-                                <div class="row">
-                                    <!-- TWITTER PANEL -->
-                                    <div class="col-md-4 col-sm-4 mb">
-                                        <a href="{{request.get_full_path}}/addmaterial">
-                                            <div class="weather pn" style="background: #004A00; color:#fff;">
-                                                <i class="fa fa-wrench fa-4x"></i>
-                                                <h1>ADD</h1>
-                    <h4>material</h4>
-
+                    <h1>{{course.course_name}}</h1>
                 </div>
-                </a>
             </div>
 
-
+        </div>
+        <!-- /row -->
+        <div class="row">
             <div class="col-md-4 col-sm-4 mb">
                 <a href="/quiz{{request.get_full_path}}/create_course_quiz">
 
@@ -55,80 +37,107 @@
                         <i class="fa fa-mortar-board fa-4x"></i>
                         <h1>VIEW</h1>
                         <h4>results</h4>
+            <div class="col-lg-9 main-chart">
+                <div class="row">
+                    <!-- TWITTER PANEL -->
+                    <div class="col-md-4 col-sm-4 mb">
+                        <a href="{{request.get_full_path}}/addmaterial">
+                            <div class="weather pn" style="background: #004A00; color:#fff;">
+                                <i class="fa fa-wrench fa-4x"></i>
+                                <h1>ADD</h1>
+                                <h4>material</h4>
+
+                            </div>
+                        </a>
                     </div>
-                </a>
-            </div>
-            <!-- /col-md-4 -->
 
-        </div>
-        <div class="row">
-            <!-- TWITTER PANEL -->
-            <div class="col-md-4 col-sm-4 mb">
-                <a href="#" data-toggle="modal" data-target="#messageModal">
-                    <div class="weather pn" style="background: #00A8FF; color:#fff;">
 
-                        <i class="fa fa-envelope-o fa-4x"></i>
+                    <div class="col-md-4 col-sm-4 mb">
+                        <a href="/quiz{{request.get_full_path}}/create_course_quiz">
 
-                        <h1>SEND</h1>
-                        <h4>message to students</h4>
+                            <div class="weather pn" style="background: #AC193D; color:#fff;">
+                                <i class="fa fa-tags fa-4x"></i>
+                                <h1>FORM</h1>
+                                <h4>Quiz</h4>
+                            </div>
+                        </a>
                     </div>
-                </a>
-            </div>
 
-
-
-            <div class="col-md-4 col-sm-4 mb">
-                <a href="#">
-                    <div class="weather pn" style="background: #5133AB; color:#fff;">
-                        <i class="fa fa-tags fa-4x"></i>
-                        <h1>Course Page</h1>
-                        <h4>Public View</h4>
+                    <div class="col-md-4 col-sm-4 mb">
+                        <a href="#">
+                            <div class="weather pn" style="background: #D24726; color:#fff;">
+                                <i class="fa fa-mortar-board fa-4x"></i>
+                                <h1>VIEW</h1>
+                                <h4>results</h4>
+                            </div>
+                        </a>
                     </div>
-                </a>
-            </div>
+                    <!-- /col-md-4 -->
 
-            <div class="col-md-4 col-sm-4 mb">
-                <a href="#">
-                    <div class="weather pn" style="background: #094AB2; color:#fff;">
-                        <i class="fa fa-mortar-board fa-4x"></i>
-                        <h1>ENTER</h1>
-                        <h4>results</h4>
+                </div>
+                <div class="row">
+                    <!-- TWITTER PANEL -->
+                    <div class="col-md-4 col-sm-4 mb">
+                        <a href="#" data-toggle="modal" data-target="#messageModal">
+                            <div class="weather pn" style="background: #00A8FF; color:#fff;">
+
+                                <i class="fa fa-envelope-o fa-4x"></i>
+
+                                <h1>SEND</h1>
+                                <h4>message to students</h4>
+                            </div>
+                        </a>
                     </div>
-                </a>
+                    <div class="col-md-4 col-sm-4 mb">
+                        <a href="#">
+                            <div class="weather pn" style="background: #5133AB; color:#fff;">
+                                <i class="fa fa-tags fa-4x"></i>
+                                <h1>Course Page</h1>
+                                <h4>Public View</h4>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4 mb">
+                        <a href="#">
+                            <div class="weather pn" style="background: #094AB2; color:#fff;">
+                                <i class="fa fa-mortar-board fa-4x"></i>
+                                <h1>ENTER</h1>
+                                <h4>results</h4>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- /col-md-4 -->
+
+                </div>
+                <!-- /row -->
             </div>
-            <!-- /col-md-4 -->
+            <div class="col-lg-3 ds">
+                <h3>Recent Activity</h3>
 
-        </div>
-        <!-- /row -->
-    </div>
-    <div class="col-lg-3 ds">
-        <h3>Recent Activity</h3>
-
-        <!-- First Action -->
-        <div style="overflow:auto;max-height:476px" id="activityBox">
-            {% for activity in activities %}
-            <div class="desc">
-                <div class="thumb">
-                    <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
+                <!-- First Action -->
+                <div style="overflow:auto;max-height:476px" id="activityBox">
+                    {% for activity in activities %}
+                    <div class="desc">
+                        <div class="thumb">
+                            <span class="badge bg-theme"><i class="fa fa-clock-o"></i>
                                     </span>
+                        </div>
+                        <div class="details">
+                            <p>
+                                <muted>{{ activity.time|naturaltime }}</muted>
+                                <br/> {{ activity.subject }}
+                                <br/>
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+
                 </div>
-                <div class="details">
-                    <p>
-                        <muted>{{ activity.time|naturaltime }}</muted>
-                        <br/> {{ activity.subject }}
-                        <br/>
-                    </p>
-                </div>
+
             </div>
-            {% endfor %}
-            <!-- Second Action -->
-
-</div>
-
         </div>
     </div>
-</div>
-
 
 </div>
 
@@ -174,4 +183,3 @@ $(document).ready(function() {
 
 
 {% endblock content %} {% block modal %} {% endblock %}
-

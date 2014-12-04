@@ -1,8 +1,6 @@
-{% extends 'base/header.html' %} {% load staticfiles %}{% load wysiwyg %} {% block title %}
+{% extends temp %} {% load staticfiles %}{% load wysiwyg %} {% block title %}
 <title>SMVDU E-portal | {{ user.username | upper }}</title>
-{% endblock title %} 
-{% load wysiwyg %} 
-{% block cssadd %} {% if not request.user.is_authenticated %}
+{% endblock title %} {% load wysiwyg %} {% block cssadd %} {% if not request.user.is_authenticated %}
 <style type="text/css">
 #main-content {
     margin-left: 0;
@@ -16,70 +14,67 @@ body {
     background: #f2f2f2;
 }
 </style>
-{% endif %} {% endblock cssadd %} 
-{% block content %}
+{% endif %} 
+<style type="text/css">
+    
+.form-horizontal .control-label {
+text-align: right;
+}
+
+</style>
+{% endblock cssadd %} {% block content %}
 <div class="row">
     <div class="col-lg-8 col-lg-offset-2">
 
 
-        <div class="row">
-            <!-- SERVER STATUS PANELS -->
-            <div class="form-panel">
-                <br /><br />
-                <form class="form-horizontal style-form" method="POST" enctype="multipart/form-data">
+        <div class="form-panel">
+<legend class="center-block text-center"><h1>Drop a query or Send us suggestion</h1>
+                </legend>
+            <form class="form-horizontal style-form" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                                <label class="col-sm-3 col-sm-3 control-label">Subject</label>
-                                <div class="col-sm-9 col-md-9">
-                                        <input type="text" name="topic" value="" id="topic" class="form-control" placeholder="Subject" >
-                                   
-
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 col-sm-3 control-label">Email</label>
-                                <div class="col-sm-9 col-md-9">
-                                        <input type="text" name="email" value="" id="Email" class="form-control" placeholder="Email" >
-                                   
-
-                                </div>
-                            </div>
-                             <div class="form-group">
-                                <label class="col-sm-3 col-sm-3 control-label">Message</label>
-                                <div class="col-sm-9 col-md-9">
-                                        <div class="col-sm-10">
-                                        {% autoescape on %}
-    
-
-                                {% wysiwyg_setup %}
-
-<textarea id="foo" class="form-control" name="message" rows="4" placeholder="Add your Description Here"></textarea>
-
-{% wysiwyg_editor "foo" %}
-{% endautoescape %}
-
-                                </div>
-                            </div>
-
-                    
-
-                    <div class="form-group">
-                    <label class="col-sm-3 col-sm-3 control-label"></label>
-                                <div class="col-sm-9 col-md-9">
-                                     <input type="submit" value="Submit"  class="btn btn-info " >  
-                                   
-
-                                </div>
-                        
-
-                      </div>  
+                    <label class="col-sm-2 col-sm-2 control-label goright">Name</label>
+                    <div class="col-sm-9 col-md-9">
+                        <input type="text" name="name" value="" id="name" class="form-control" placeholder="Name" required>
                     </div>
-                </form>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Subject</label>
+                    <div class="col-sm-9 col-md-9">
+                        <input type="text" name="topic" value="" id="topic" class="form-control" placeholder="Subject" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Email</label>
+                    <div class="col-sm-9 col-md-9">
+                        <input type="text" name="email" value="" id="Email" class="form-control" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 col-sm-2 control-label">Message</label>
+                    <div class="col-sm-9 col-md-9">
+                        <textarea class="form-control" rows=8 name="message" placeholder="Write your feedback or Query Here" required></textarea>
+                    </div>
 
-            </div><!-- end c_form -->
-        </div><!-- end contact -->
 
-    </div><!-- end contact_wrap -->
+                </div>
+                    <div class="form-group">
+<div class="col-sm-9 col-md-9 col-md-offset-2">
+                        <input type="submit" value="Send" class="btn btn-info ">
+</div>
+
+
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <!-- end c_form -->
+
+
+    </div>
+    <!-- end contact_wrap -->
 </div>
 
 {% endblock %} {% block jsadd %} {% endblock jsadd %}

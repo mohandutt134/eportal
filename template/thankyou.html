@@ -1,0 +1,34 @@
+{% extends temp %} {% load staticfiles %}{% load wysiwyg %} {% block title %}
+<title>SMVDU E-portal | {{ user.username | upper }}</title>
+{% endblock title %} {% load wysiwyg %} {% block cssadd %} {% if not request.user.is_authenticated %}
+<style type="text/css">
+#main-content {
+    margin-left: 0;
+    padding: 0;
+}
+.wrapper {
+    margin-left: 0;
+    padding: 0;
+}
+body {
+    background: #f2f2f2;
+}
+</style>
+{% endif %} 
+<style type="text/css">
+    
+.form-horizontal .control-label {
+text-align: right;
+}
+
+</style>
+{% endblock cssadd %} {% block content %}
+
+<div class="row">
+    <div class="col-lg-10 col-lg-offset-1">
+     <div class="jumbotron">
+      <h2>Thankyou for writing to us. We will reply to you soon : &#128515;
+      </h2>
+    </div>
+    </div>
+{% endblock %}

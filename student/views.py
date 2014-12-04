@@ -34,6 +34,8 @@ from notification.models import notification,activity
 from django.core.exceptions import PermissionDenied
 from quiz.models import *
 
+from django.template import Context, loader
+
 
 # Import the built-in password reset view and password reset confirmation view.
 from django.contrib.auth.views import password_reset, password_reset_confirm
@@ -372,24 +374,33 @@ def faculties(request):
 
 
 def contactview(request):
+    temp='base/header.html'
+    if 'type' in request.session:
+        if request.session['type']=='faculty':
+            temp='base/sidebarf.html'
+        else:
+            temp='base/sidebars.html'
+
     if request.method=='POST':
+        name = request.POST.get('name','')
         subject = request.POST.get('topic', '')
         message = request.POST.get('message', '')
         from_email = request.POST.get('email', '')
         if subject and message and from_email:
             datatuple = (
-            ('Subject', message , settings.EMAIL_HOST_USER, ['vibhanshu86@gmail.com']),
-            ('Subject', "Your query has been logged to us ", settings.EMAIL_HOST_USER, [from_email]),
+            ('Query mail :' + subject, "This is a mail from " + name + from_email + message , settings.EMAIL_HOST_USER, ['vibhanshu86@gmail.com']),
+            ('Reply :'+ subject, "Your query has been logged to us ", settings.EMAIL_HOST_USER, [from_email]),
             )
             try:
                 send_mass_mail(datatuple)
             except Exception, e:
                 return HttpResponse(e)
-            return HttpResponse(subject+message+from_email)
+            return render(request,'thankyou.html',{'temp':temp})
         else:
             return HttpResponse("fill all the fields")
+
     else:
-        return render(request,'contacts.html')    
+        return render(request,'contacts.html',{'temp':temp})    
 
 def mail(request):
     receiver="vibhanshu86@gmail.com"

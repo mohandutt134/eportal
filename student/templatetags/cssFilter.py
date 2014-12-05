@@ -23,7 +23,7 @@ def get_nic(fullname):
 		nic = ""
 		for word in words:
 			word = word.upper()
-			if not word in ['AND','OF','&']:
+			if not word in ['AND','&']:
 				nic = nic + word[0]
 		return nic
 	else:

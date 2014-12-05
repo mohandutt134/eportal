@@ -111,7 +111,7 @@
 
                 <ul style="margin-left:2;">
                 {% for similar_course in similar_courses %}
-                        <li><a href="courseinfo/{{similar_course.course_id}}"> <img src="/static/uploaded_image/{{similar_course.image}}" class="img-thumbnail" width="40"> {{similar_course.course_name|get_nic}}</a>
+                        <li><a href="/courseinfo/{{similar_course.course_id}}"> <img src="/static/uploaded_image/{{similar_course.image}}" class="img-thumbnail" width="40"> {{similar_course.course_name|get_nic}}</a>
                         </li>
                         <br>
                 {% endfor %}

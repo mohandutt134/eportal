@@ -6,14 +6,14 @@ from django.http import HttpResponseForbidden
 from django.core.context_processors import csrf
 from django.core.mail import send_mail,send_mass_mail
 from django.conf import settings
-from student.models import student_profile, Course , faculty_profile,material
+from student.models import *
 from attendance.models import attendance
 from smvdu_portal.settings import MEDIA_ROOT
 from django.core.files.base import File
 from django.contrib.auth.models import User
 from django.contrib.auth import models
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.hashers import check_password, make_password
+from django.contrib.auth.hashers import check_password
 import os
 from django.core import serializers
 from django.template import RequestContext
@@ -24,7 +24,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.context import RequestContext
-from student.form import student_profile_form,faculty_profile_form,add_material_form,update_faculty_image,update_student_image
+from student.form import *
 from django.contrib.auth.models import Group
 from django.http import HttpResponse
 from django.core.mail import EmailMultiAlternatives
@@ -192,10 +192,8 @@ def course(request,id=None):
                 total = attendance.objects.filter(course=course).count()
                 quiz=quiz_spec.objects.filter(course=course)
                 total_p = attendance.objects.filter(course=course,present=request.user.student_profile).count()
-                #Filter quizes and render them
-                #Filter announcements
-                #Filter assignmen
-                return render(request, 'student_course.html',{'course':course,'activities':activities,'materials':materials,'total':total,'total_p':total_p,'quizes':quiz})
+                anns = announcement.objects.filter(course=course).order_by('-created_at')
+                return render(request, 'student_course.html',{'course':course,'activities':activities,'materials':materials,'total':total,'total_p':total_p,'quizes':quiz,'anns':anns})
             else:
                 raise PermissionDenied()
         except Exception as e:
@@ -293,11 +291,16 @@ def profile_edit_student(request):
 def changePassword(request):
     redirect_to = request.GET.get('next','')
     if 'change_password_submit' in request.POST:
-        new_password = request.POST.get('new_password', '')
-        if new_password != '':
-            request.user.set_password(new_password)
-            request.user.save()
-            notification.objects.create(title="Confirmation",body="Password Changed Successfully",link="#",receiver=request.user,sender=request.user)
+        old_password = request.POST.get('old_password', '')
+        if request.user.check_password(old_password):
+            new_password = request.POST.get('new_password', '')
+            if new_password != '':
+                request.user.set_password(new_password)
+                request.user.save()
+                notification.objects.create(title="Confirmation",body="Password Changed Successfully",link="#",receiver=request.user,sender=request.user)
+        else:
+            notification.objects.create(title="Error",body="Wrong old password",link="#",receiver=request.user,sender=request.user)
+            return redirect(redirect_to)
     return redirect(redirect_to)
 
 @login_required
@@ -336,7 +339,7 @@ def profile (request):
             else:
                 image = request.user.student_profile.image
             print image
-            student_profile.objects.filter(user= User.objects.get(username=uname)).update(salutation=salutation,Branch=brnch,Semester=sem,DOB=dob,image=image)
+            student_profile.objects.filter(user= User.objects.get(username=uname)).update(salutation=salutation,Branch=brnch,Semester=sem,image=image)
             return redirect('profile')
             #return render(request,'student_profile.html',{'temp':'base/sidebars.html','msg':"Profile has been successfully updated"})
     else:
@@ -434,3 +437,36 @@ def mail(request):
     # email.attach_alternative(html_content, "text/html")
     # email.to = [receiver]
     # email.send()
+
+@login_required
+def add_ann(request):
+    if request.session['type']=='faculty':
+        #try:
+        if request.method=='POST':
+            if 'save' in request.POST:
+                print 'hello'
+                form=annForm(request.POST)
+                form.fields["course"].queryset = Course.objects.filter(facultyassociated=request.user.faculty_profile)
+                if form.is_valid():
+                    form.save()
+                    subject="New Announcement"
+                    course = form.cleaned_data['course']
+                    activity.objects.create(subject=subject,course=course)
+                    students = student_profile.objects.filter(coursetaken=course)
+                    link = '/courses/'+course.course_id
+                    for student in students:
+                        notification.objects.create(title="Course Update",body="New Announcement",link=link,course=course,receiver=student.user,sender=request.user)
+                    return redirect('course',id=course.course_id)
+                else:
+                    print form.errors
+                    return render(request,'add_ann.html',{'form':form})
+            raise PermissionDenied
+        else:
+            form=annForm()
+            form.fields["course"].queryset = Course.objects.filter(facultyassociated=request.user.faculty_profile)
+            return render(request,'add_ann.html',{'form':form})
+        #except Exception as e:
+            #return HttpResponse(e)
+    else:
+        raise PermissionDenied
+

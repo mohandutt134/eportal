@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from student.models import student_profile,faculty_profile,material
+from student.models import student_profile,faculty_profile,material,announcement
 from django import forms
 from student.models import Course
 from ckeditor.widgets import CKEditorWidget
@@ -32,9 +32,17 @@ class update_faculty_image(ModelForm):
 
 class CourseForm(forms.ModelForm):
     title = forms.CharField(required=True)
-    description = forms.CharField(widget=CKEditorWidget())
+    description = forms.CharField(widget=CKEditorWidget(config_name='awesome_ckeditor'))
     tags = forms.CharField(required=True)
 
 
     class Meta:
         model = Course
+
+
+class annForm(forms.ModelForm):
+    body = forms.CharField(widget=CKEditorWidget(config_name='awesome_ckeditor'))
+    course = forms.ModelChoiceField(queryset=[], empty_label="Select Course")
+    class Meta:
+        model = announcement
+        fields = ['course','body']

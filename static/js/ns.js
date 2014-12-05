@@ -8,7 +8,6 @@ var myVar;
 function create_post() {
 
      // sanity check
-     
    $.ajax({
           url: "/notification/notificationicon_create",
           type: "POST",
@@ -30,10 +29,13 @@ function create_post() {
                         " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
                     console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
                 }
+          });
+}
+
+$(document).ready(function(){
+  setInterval(create_post,5000);
 });
 
-
-}
 
 function notification_body(notification) {
     if (Object.keys(notification).length > 0) {

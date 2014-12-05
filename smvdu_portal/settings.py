@@ -26,7 +26,7 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 
 # Application definition
 
@@ -51,8 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
 )
 DJANGO_WYSIWYG_FLAVOR = "ckeditor"
-CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_IMAGE_BACKEND = "pillow"
+
 
 
 # Minimum password strength settings. See the GitHub page for defaults.
@@ -122,7 +121,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/uploaded_image')
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-
+CKEDITOR_UPLOAD_PATH =  os.path.join(MEDIA_ROOT, 'ck')
+CKEDITOR_IMAGE_BACKEND = "pillow"
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -149,3 +149,29 @@ GEOIP_PATH = '/home/vc/Desktop/GeoIP.dat'
 GEOIP_CACHE_TYPE = 1
 DEFAULT_TRACKING_TEMPLATE='tracking/visitor_map.html'
 ALLOWED_INCLUDE_ROOTS = ('/static/documents/html'), 
+
+CKEDITOR_CONFIGS = {
+    'default' : {
+    'skin': 'kama',
+    'toolbar': 'full',
+    'height': 291,
+    'width': 618,
+    'filebrowserWindowWidth': 940,
+    'filebrowserWindowHeight': 747,
+    },
+    'awesome_ckeditor': {
+     'uiColor': '#14B8C4',
+     'width':'700',
+     'height':'400',
+     'startupFocus': True,
+     'margin':0,
+    },
+    'admin_ckeditor': {
+     'toolbar':'full',
+     'uiColor': '#14B8C4',
+     'startupFocus': True,
+     'margin':0,
+
+    },
+
+}

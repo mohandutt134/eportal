@@ -142,6 +142,13 @@ class material(models.Model):
     def __unicode__(self):
         return unicode(self.title) or u''
 
+class announcement(models.Model):
+    body=models.TextField(default="There is no description")
+    course = models.ForeignKey(Course)
+    created_at = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return unicode(self.course) or u''
 
 
 

@@ -353,8 +353,8 @@ def show_result(request,course):
 			try:
 				print request.POST.get('selected_quiz')
 				quiz_id = int(request.POST.get('selected_quiz'))
-			except E:
-				quiz_id=0
+			except Exception as e:
+				return HttpResponse(e)
 			selected_quiz = quiz_spec.objects.get(qid=int(quiz_id))
 			results = result.objects.filter(quiz=selected_quiz).order_by('-score')
 			total  = selected_quiz.no_Questions*selected_quiz.credit

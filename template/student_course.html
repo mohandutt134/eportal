@@ -30,8 +30,23 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" style="margin:2%" id="tab_a">
                                     <br>
-                                    <h3 style="margin:2%">TOPIC</h3>
-                                    <p style="margin:2%" class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis asperiores atque, accusantium quos officiis et ipsam quisquam rerum sapiente? Ipsum, repellat harum. A libero, deleniti nostrum dolores! Dolore rem, assumenda. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium dolorum incidunt sunt ex, quam ipsum expedita nihil dignissimos, molestiae animi quisquam similique sequi quae voluptas adipisci explicabo voluptate ut tempore. </p>
+                                    {% for ann in anns %}
+                                    <div class="row">
+
+                                        <div class="col-md-12">
+
+                                            <div class="form-panel">
+                                                <h2>{{ann.body|safe}}</h2>
+                                                <h5 class="mb">
+                                    <div class="pull-left">
+                                        <h5><i class="fa fa-calendar-o"></i> Added on: &nbsp;&nbsp;&nbsp;{{ann.created_at|naturaltime}}</h5>
+                                            </div>
+                                            <br>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                    {% endfor %}
 
                                 </div>
                                 <div class="tab-pane" style="max-height:600px;overflow:auto" id="tab_b">
@@ -110,25 +125,24 @@
                             </div>
                             {% endifnotequal %}
                             <div class="tab-pane" id="tab_e">
+                            <br>
                             <div class="row">
-                                <div class="col-md-12 mb">
-                                <div class="col-md-7">
-                                            <iframe width="420" height="315"
-src="http://www.youtube.com/embed/XGSy3_Czz8k">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                            <iframe width="100%" height="50%"
+src="http://www.youtube.com/embed/XGSy3_Czz8k" allowfullscreen='1'>
 </iframe></div>
-<h3 style="margin:2%">TOPIC</h3> <div class="col-md-5">
-                                    <p style="margin:2%" class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis asperiores atque, accusantium quos officiis et ipsam quisquam rerum sapiente? Ipsum, repellat harum. A libero, deleniti nostrum dolores! Dolore rem, assumenda. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium dolorum incidunt sunt ex, quam ipsum expedita nihil dignissimos, molestiae animi quisquam similique sequi quae voluptas adipisci explicabo voluptate ut tempore. </p>
+ <div class="col-md-6"><h3 style="margin:2%">TOPIC</h3>
+                                    <p style="margin:2%" class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis asperiores atque, accusantium quos officiis et ipsam quisquam rerum sapiente? Ipsum, repellat harum. A libero, deleniti nostrum dolores! Dolore rem, assumenda. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium dolorum incidunt sunt ex, quam ipsum expedita nihil dignissimos, molestiae animi quisquam similique sequi quae voluptas adipisci explicabo voluptate ut tempore.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis asperiores atque, accusantium quos officiis et ipsam quisquam rerum sapiente? Ipsum, repellat harum. A libero, deleniti nostrum dolores! Dolore rem, assumenda. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium dolorum incidunt sunt ex, quam ipsum expedita nihil dignissimos, molestiae animi quisquam similique sequi quae voluptas adipisci explicabo voluptate ut tempore. </p>
 
                                     </div>
-                                    </div>
+                                </div>
                                 </div>
                                  <div class="row">
                                 <div class="col-md-12 mb">
-                                <div class="col-md-7">
-                                            <iframe width="420" height="315"
-src="http://www.youtube.com/embed/XGSy3_Czz8k">
-</iframe></div>
-<h3 style="margin:2%">TOPIC</h3> <div class="col-md-5">
+                                <div class="col-md-6">
+                                    <iframe width="100%" height="50%" src="https://www.youtube.com/embed/5AjReRMoG3Y" frameborder="0" allowfullscreen='1'></iframe></div>
+ <div class="col-md-6"><h3 style="margin:2%">TOPIC</h3>
                                     <p style="margin:2%" class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis asperiores atque, accusantium quos officiis et ipsam quisquam rerum sapiente? Ipsum, repellat harum. A libero, deleniti nostrum dolores! Dolore rem, assumenda. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium dolorum incidunt sunt ex, quam ipsum expedita nihil dignissimos, molestiae animi quisquam similique sequi quae voluptas adipisci explicabo voluptate ut tempore. </p>
 
                                     </div>

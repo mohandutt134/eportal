@@ -42,6 +42,7 @@ urlpatterns = patterns('student.views',
     url(r'^courseregister/$', 'course_register', name='course_register'),
     url(r'^test$', 'test', name='test'),
     (r'^ckeditor/', include('ckeditor.urls')),
+    url(r'^addann/$', 'add_ann', name='addann'),
 )
 
 if settings.DEBUG is False:   #if DEBUG is True it will be served automatically

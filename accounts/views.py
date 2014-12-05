@@ -101,7 +101,7 @@ def registration_function(request):
                 user = User.objects.create_user(R_username, R_email, temp_pass)
                 print "username:  " + R_username
                 try:
-                    notification.objects.create(title="Registered",body="YOU HAVE BEEN REGISTERD Please change your password & Complete your profile",link='/edit',receiver=user,sender=user1)
+                    notification.objects.create(title="Registered",body="YOU HAVE BEEN REGISTERD Please change your password & Complete your profile",link='/profile',receiver=user,sender=user1)
                 except Exception as e:
                     print e
                 print temp_pass

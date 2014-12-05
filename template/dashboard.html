@@ -48,11 +48,11 @@
                 </a>
             </div>
             <div class="col-md-4 col-sm-4 mb">
-                <a href="#">
+                <a href="{% url 'addann' %}">
                     <div class="weather pn" style="background: #00A8FF; color:#fff;">
-                        <i class="fa fa-puzzle-piece fa-4x"></i>
-                        <h1>PORTAL 5</h1>
-                        <h4>a new quiz</h4>
+                        <i class="fa fa-volume-up fa-4x"></i>
+                        <h1>ANNOUNCE</h1>
+                        <h4>something</h4>
                     </div>
                 </a>
             </div>
@@ -76,8 +76,7 @@
                                             <div class="blog-title">{{course.course_name}}</div>
                                         </div>
                                         <div class="blog-text">
-                                            <p>{{course.description}}<a href="#">Read More</a>
-                                            </p>
+                                             <p class="text-justify">{{course.description|safe|slice:":180"}}...<b>See More</b></p>
                                         </div>
                                     </div>
                                 </a>
@@ -158,6 +157,7 @@
         {% endfor %}
 
         </div>
+        <br>
 
         <h3>MESSAGES</h3>
         <!-- First Action -->
@@ -181,6 +181,7 @@
         
 
         </div>
+        <br>
                 <h3>FACULTY ON PORTAL</h3>
 
                 <ul class="nav nav-tabs" role="tablist" id="myTab">

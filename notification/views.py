@@ -83,7 +83,7 @@ def bulk_message(request,id):
 			print receivers
 			for receiver in receivers:
 				message.objects.create(title=request.POST.get('title'),body=request.POST.get('body'),sender=request.user,senderName=request.user.first_name,senderImage=request.user.faculty_profile.image,receiver=receiver.user)
-			message.objects.create(title="Delivery Report",body="Your message has been delivered successfully",sender=User.objects.get(username="kraken"),receiver=request.user)
+			message.objects.create(title="Delivery Report",body="Your message has been delivered successfully",sender=User.objects.get(username="admin"),receiver=request.user)
 			return redirect(request.GET.get('next'))
 		except Exception as e:
 			return HttpResponse(e)

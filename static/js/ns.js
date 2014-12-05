@@ -582,15 +582,15 @@ function course_register(id){
         }
     });
 }
-function datesem(date,branch,sem){
+function datesem(date,branch,sem,salutation){
   
          d=new Date(date);
          var date= d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
          
-        $("#S_date").val( date);
+        $("#S_date").val(date);
         $("#sem").val(sem);
         $("#branch").val(branch);
-        $("#rating").html("");
+        $("#salutation").val(salutation);
         for (var i= 0;i<sem;i++)
         {
           $("#rating").append('<span class="fa fa-star" data-rating="1"></span>');

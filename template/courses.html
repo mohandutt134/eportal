@@ -1,5 +1,5 @@
 {% extends temp %} {% load staticfiles %} 
-
+{% load cssFilter %}
 {% block jsadd-up %}
 
 {% endblock jsadd-up %}
@@ -24,8 +24,8 @@
                                             <div class="blog-title">{{course.course_name}}</div>
                                         </div>
                                         <div class="blog-text">
-                                            <p>{{course.description|safe }}<a href="#">Read More</a>
-                                            </p>
+                                            
+                                            <p class="text-justify">{{course.description|safe|slice:":180"}}...<b>See More</b></p>
                                         </div>
                                     </div>
                                 </a>
@@ -64,7 +64,7 @@
                                 {% for course in courses %}
                             <div class="bar">
 
-                            <div class="title">{{course.course_name}}</div>
+                            <div class="title">{{course.course_name|get_nic}}</div>
                             {% make_bar course %}
 
                             </div>

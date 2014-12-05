@@ -20,6 +20,7 @@ def render_to_pdf(template_src, context_dict):
 
 def myview(request,username=None):
     try:
+        username = username.upper()
         usr =  User.objects.get(username=username)
         return render_to_pdf(
             'pdf/template.html',

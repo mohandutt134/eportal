@@ -43,6 +43,7 @@
         <div class="row">
             <!-- SERVER STATUS PANELS -->
             {% for faculty in faculties %}
+            {% if faculty.user.is_active %}
             <a href="profile/{{faculty.user.username}}">
                 <div class="col-lg-4 col-md-4 col-sm-4 mb">
                     <div class="content-panel pn">
@@ -59,6 +60,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
                 {% endfor %}
                 <!-- /form-panel -->
 

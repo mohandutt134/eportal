@@ -1,3 +1,4 @@
+{% load cssFilter %}
 {% for course in courses %}
-    <li><a href="/courses/{{ course.course_id }}">{{course.course_name}}</a></li>
+    <li><a href="/courses/{{ course.course_id }}">{{course.course_name|get_nic}}</a></li>
 {% endfor %}

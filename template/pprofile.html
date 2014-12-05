@@ -3,14 +3,6 @@
 <style type="text/css">
 #main-content {
     margin-left: 0;
-    padding: 0;
-}
-.wrapper {
-    margin-left: 0;
-    padding: 0;
-}
-body {
-    background: #f2f2f2;
 }
 </style>
 {% endif %} {% endblock cssadd %} {% block jsadd-up %} {% endblock jsadd-up %} {% block content %} 
@@ -60,7 +52,8 @@ body {
                                 </tr>
                                 <tr>
                                     <td>Name</td>
-                                    <td>:{{usr.faculty_profile.salutation}}&nbsp;&nbsp;{{ usr.first_name }}&nbsp;&nbsp;{{ usr.last_name }}</td>
+                                    <td>
+                                    :{{usr.faculty_profile.salutation}}&nbsp;&nbsp;{{ usr.first_name }}&nbsp;&nbsp;{{ usr.last_name }}</td>
                                 </tr>
                                 <tr>
                                     <td>Department</td>

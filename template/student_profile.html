@@ -79,14 +79,14 @@
                                         <option value="8">8</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div><!-- 
                             <div class="form-group">
                                 <label class="col-sm-3 col-sm-3 control-label">DOB</label>
                                 <div class="col-sm-6">
                                     <input type="date" id="S_date" class="form-control" name="dateofbirth" required>
                                 </div>
 
-                            </div>
+                            </div> -->
 
                         </div>
                         <div class="col-md-4">
@@ -132,7 +132,12 @@
                     </div>
                 </form>
                 <!-- /form-panel -->
-
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        datesem(date="{{user.student_profile.DOB}}",branch="{{user.student_profile.Branch}}",sem="{{user.student_profile.Semester}}",salutation="{{user.student_profile.salutation}}");
+                    });
+                        
+                </script>
             </div>
             <!-- /row -->
         </div>

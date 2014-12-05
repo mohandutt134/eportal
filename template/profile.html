@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <script type="text/javascript">
-                        datesem("","{{user.faculty_profile.department}}", {{user.faculty_profile.facultyrating}});
+                        datesem("",branch="{{user.faculty_profile.department}}",sem={{user.faculty_profile.facultyrating}},salutation="{{user.faculty_profile.salutation}}");
                         </script>
                         <div class="col-md-4">
 
@@ -167,11 +167,4 @@
     </div>
 
 </div>
-
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 933d51276b4e2309b407dcd884638603bae9ca31
 {% endblock %} {% block jsadd %} {% endblock jsadd %}

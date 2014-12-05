@@ -1,4 +1,4 @@
-{% extends temp %} {% load staticfiles %} {% block cssadd %} {% if not request.user.is_authenticated %}
+{% extends temp %} {% load staticfiles %}{% load cssFilter %} {% block cssadd %} {% if not request.user.is_authenticated %}
 <style type="text/css">
 #main-content {
     margin-left: 0px;
@@ -110,13 +110,11 @@
                 <br>
 
                 <ul style="margin-left:2;">
-                    <a href="">
-                        <li> <img src="/static/uploaded_image/fpp/vc.jpg" class="img-thumbnail" width="40"> COA
+                {% for similar_course in similar_courses %}
+                        <li><a href="courseinfo/{{similar_course.course_id}}"> <img src="/static/uploaded_image/{{similar_course.image}}" class="img-thumbnail" width="40"> {{similar_course.course_name|get_nic}}</a>
                         </li>
                         <br>
-                        <li> <img src="/static/uploaded_image/fpp/vc.jpg" class="img-thumbnail" width="40"> TOC
-                        </li>
-                    </a>
+                {% endfor %}
                 </ul>
             </div>
         </div>

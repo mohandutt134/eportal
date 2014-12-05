@@ -6,7 +6,6 @@ from student.models import Course,student_profile,faculty_profile,material
 
 
 class CourseAdminForm(forms.ModelForm):
-    description = forms.CharField(widget=CKEditorWidget())
     class Meta:
         model = Course
 

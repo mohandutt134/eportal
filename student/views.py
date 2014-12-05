@@ -140,14 +140,18 @@ def add_material(request,id=None):
 
 def pprofile (request,username=None):
     try:
-        usr =  User.objects.get(username=username)        
-        if request.user.is_authenticated():
-            if request.user.groups.filter(name='faculty').exists():
-                return render(request,'pprofile.html',{'temp':'base/sidebarf.html','usr':usr})
+        username = username.upper()
+        usr =  User.objects.get(username=username)
+        if usr.is_active:        
+            if request.user.is_authenticated():
+                if request.user.groups.filter(name='faculty').exists():
+                    return render(request,'pprofile.html',{'temp':'base/sidebarf.html','usr':usr})
+                else:
+                    return render(request,'pprofile.html',{'temp':'base/sidebars.html','usr':usr})
             else:
-                return render(request,'pprofile.html',{'temp':'base/sidebars.html','usr':usr})
+                return render(request,'pprofile.html',{'temp':'base/header.html','usr':usr})
         else:
-            return render(request,'pprofile.html',{'temp':'base/header.html','usr':usr})
+            return render(request,'404.html')
     except Exception, e:
         return HttpResponse(e)
 
@@ -346,13 +350,14 @@ def profile (request):
 def course_info(request,id):
     try:
         course = Course.objects.get(course_id=id)
+        similar_courses = Course.objects.filter(dept=course.dept).exclude(course_id=id)[:3]
         if 'type' in request.session:
             if request.session['type']=='student':
                 count = student_profile.objects.filter(user=request.user,coursetaken=course).count()
-                return render(request,'courseinfo.html',{'temp':'base/sidebars.html','course':course,'count':count})
+                return render(request,'courseinfo.html',{'temp':'base/sidebars.html','course':course,'count':count,'similar_courses':similar_courses})
             else:
-                return render(request,'course_info.html',{'temp':'base/sidebarf.html','course':course,'faculty':"isfaculty"})
-        return render(request,'courseinfo.html',{'temp':'base/header.html','course':course})
+                return render(request,'course_info.html',{'temp':'base/sidebarf.html','course':course,'faculty':"isfaculty",'similar_courses':similar_courses})
+        return render(request,'courseinfo.html',{'temp':'base/header.html','course':course,'similar_courses':similar_courses})
     except Exception as e:
         return HttpResponse(e)
 

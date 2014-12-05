@@ -10,6 +10,8 @@ def get_upload_file_name(instance,filename):
 
 def get_upload_image_name(instance,filename):
     return "fpp/%s" % (filename)
+def get_upload_course_image_name(instance,filename,course_id):
+    return "cpp/%s.jpg" % (course_id)
 
 class faculty_profile(models.Model):
     CHOICES = (
@@ -28,10 +30,10 @@ class faculty_profile(models.Model):
         ('Mrs.','Mrs.'),
         ('Dr.','Dr.'),
         ('Prof.','Prof.'),
-        ('','Blank')
+        ('','')
     )
     user = models.OneToOneField(User,primary_key=True)
-    salutation=models.CharField(max_length=5,choices=SCHOICES,default='Blank',blank=True)
+    salutation=models.CharField(max_length=5,choices=SCHOICES,default='',blank=True)
     department=models.CharField(max_length=3,choices=CHOICES,default='CSE')
     facultyrating=models.IntegerField(validators=[MinValueValidator(0),MaxValueValidator(5)],default=0)
     areaofinterest=models.CharField(max_length=40,blank=True)
@@ -109,14 +111,14 @@ class student_profile(models.Model):
         ('Mr.','Mr.'),
         ('Ms.','Ms.'),
         ('Mrs.','Mrs.'),
-        ('','Blank')
+        ('','')
     )
     user = models.OneToOneField(User,primary_key=True)
-    salutation=models.CharField(max_length=5,choices=SCHOICES,default='Blank',blank=True)
+    salutation=models.CharField(max_length=5,choices=SCHOICES,default='',blank=True)
     DOB=models.DateField(blank=True,null=True)
     Branch=models.CharField(max_length=5,choices=CHOICES,default='CSE')
     Semester=models.CharField(max_length=4,choices=CHOICES_SEM,default='1')
-    image = models.ImageField(upload_to='spp',default="user_blue.png")
+    image = models.ImageField(upload_to=get_upload_course_image_name,default="user_blue.png")
 
     coursetaken=models.ManyToManyField(Course,blank=True)
 

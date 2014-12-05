@@ -1,5 +1,6 @@
-{% extends temp %} {% load staticfiles %}
+{% extends temp %}{% load staticfiles %}
 {% load humanize %}
+{% load cssFilter %}
  {% block jsadd-up %} {% endblock jsadd-up %} {% block content %}
 
 {% load partial_views %}
@@ -112,7 +113,7 @@
                                 </ul>
                                 {% for course in courses %}
                             <div class="bar">
-                            <div class="title">{{course.course_name}}</div>
+                            <div class="title">{{course.course_name|get_nic}}</div>
                             {% make_bar course %}
                             </div>
                             {% endfor %}

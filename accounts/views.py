@@ -32,7 +32,7 @@ def login_view(request,next='home'):
         return redirect('home')
         
     if('login' in request.POST):
-        username = request.POST.get('username', '')
+        username = request.POST.get('username', '').upper()
         password=request.POST.get('password', '')
         print username+password
         user = authenticate(username=username, password=password)
@@ -75,7 +75,7 @@ def register2(request):
         return render (request,'accounts/register.html')
 
 def registration_function(request):
-    R_username = request.POST.get('R_email', '')
+    R_username = request.POST.get('R_email', '').upper()
     R_fname = request.POST.get('R_fname', '')
     R_lname = request.POST.get('R_lname', '')
     R_email = request.POST.get('R_email', '')
@@ -97,9 +97,9 @@ def registration_function(request):
             if(User.objects.filter(username=R_username).exists()):
                 message_register_alert = "User Already Exits"
             else:
-                user1=User.objects.get(username="kraken")
+                user1=User.objects.get(username="admin")
                 user = User.objects.create_user(R_username, R_email, temp_pass)
-                print "user created"
+                print "username:  " + R_username
                 try:
                     notification.objects.create(title="Registered",body="YOU HAVE BEEN REGISTERD Please change your password & Complete your profile",link='/edit',receiver=user,sender=user1)
                 except Exception as e:
@@ -114,7 +114,6 @@ def registration_function(request):
                     g = Group.objects.get(name='faculty')
                     g.user_set.add(user)
                     user.is_active=False
-                print "create"
                 user.save()
                 if(R_category=='student'):
                     student_profile.objects.create(user=user) 
@@ -124,7 +123,6 @@ def registration_function(request):
                 message = "Your password is " + temp_pass
                 from_email = settings.EMAIL_HOST_USER
                 to_list = [R_email, settings.EMAIL_HOST_USER]
-                print "above mail"
                 send_mail(subject, message, from_email, to_list, fail_silently=False)
                 #mail(request,R_email,'mail/email.txt','mail/fancy-1-2-3.html')
                 message_register_alert = 'success'

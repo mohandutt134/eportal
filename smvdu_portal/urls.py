@@ -25,8 +25,8 @@ urlpatterns = patterns('student.views',
     url(r'^courses$', 'courses', name='courses'),
     url(r'^profile$', 'profile', name='profile'),
 
-    url(r'^profile/(?P<username>[0-9A-Za-z_\-]+)$',  'pprofile', name='pprofile'),
-    url(r'^users/(?P<username>[0-9A-Za-z_\-]+)/$',  'pprofile', name='pprofile'),
+    url(r'^profile/(?P<username>[0-9A-Za-z_\-\.]+)$',  'pprofile', name='pprofile'),
+    url(r'^users/(?P<username>[0-9A-Za-z_\-\.]+)/$',  'pprofile', name='pprofile'),
 
     #url(r'^faculty$', 'faculty', name='faculty'),\
     url(r'^about$', 'about', name='about'),
@@ -50,5 +50,5 @@ if settings.DEBUG is False:   #if DEBUG is True it will be served automatically
     )
 
 urlpatterns += patterns('',
-            url(r'^pdf/(?P<username>[0-9A-Za-z_\-]+)$', 'student.genpdf.myview', name='pdf'),
+            url(r'^pdf/(?P<username>[0-9A-Za-z_\-\.]+)$', 'student.genpdf.myview', name='pdf'),
     )

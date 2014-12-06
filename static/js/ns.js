@@ -33,7 +33,7 @@ function create_post() {
 }
 
 $(document).ready(function(){
-  setInterval(create_post,50000);
+  setInterval(create_post,5000);
 });
 
 

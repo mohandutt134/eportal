@@ -219,11 +219,9 @@ def qizquestions(request):
 		quiz=quiz_spec.objects.get(qid=request.session['id'])
 	elif 'quiz_id' in request.session:
 		quiz=quiz_spec.objects.get(qid=request.session['quiz_id'])
-	
-	ques=question.objects.filter(quizes=quiz)
 	print quiz
 	try:
-		q=quiz.question_set.all()
+		q=quiz.question_set.all().order_by('?')[:quiz.no_Questions]
 	except Exception as e:
 		print e
 	print q

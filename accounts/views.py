@@ -42,6 +42,10 @@ def login_view(request,next='home'):
                 login(request,user)
                 next = request.GET.get('next')
                 print "admin"
+                if request.user.groups.filter(name='faculty').exists():
+                    request.session['type']='faculty'
+                else:
+                    request.session['type']='student'
                 if next:
                     return redirect(next)
                 elif user.is_staff:

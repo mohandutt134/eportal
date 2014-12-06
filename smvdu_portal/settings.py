@@ -21,8 +21,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = '$9b^ttpvr66hxr0w6d*nep&=f5(hzdpmob)ng(a)yp*&sj1nsw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+DEBUG = False
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']

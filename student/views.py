@@ -60,48 +60,11 @@ def handle_uploaded_file(f,uname, path):
 
 
 def home(request):
-    request.session['last']='home'
     if request.user.is_authenticated():
         return redirect('dashboard')
-    if 'changed' in request.session:
-        del request.session['changed']
-        return render(request, 'index.html',{'changed': "password changed successfully"}, context_instance=RequestContext(request))
-    result_list = notification.objects.filter(receiver=request.user.id,viewed=False)
-    print result_list
-    request.session['count']= len(result_list)
-    print request.session['count']
-    return render(request, 'index.html',{'notifications':result_list},context_instance=RequestContext(request))
-
-
-
-def test(request):
-    return render (request,'student_course.html')
-    # try:
-    #     if request.user.is_authenticated():
-    #         if request.user.groups.filter(name='faculty').exists():
-    #             return render(request,'courseinfo.html',{'temp':'base/sidebarf.html','usr':request.user})
-    #         else:
-    #             return render(request,'courseinfo.html',{'temp':'base/sidebars.html','usr':request.user})
-    #     else:
-    #         return render(request,'courseinfo.html',{'temp':'base/header.html','usr':request.user})
-    # except Exception, e:
-    #     return HttpResponse(e)
-
-
-# def edit_spec(request):
-#     return render(request, 'edit_spec.html')
-
-# def quiz_control(request):
-#     return render(request, 'quiz_control.html')
-
-# def add_question(request):
-#     return render(request, 'add_question.html')
-
-# def attach_question(request):
-#     return render(request, 'attach_question.html')
-
-# def quiz_confirm(request):
-#     return render(request, 'public_courses.html')
+    else:
+        courses = Course.objects.all().order_by('?')[:3]
+        return render(request,'index.html',{'courses':courses})
 
 
 @login_required
@@ -178,7 +141,7 @@ def course(request,id=None):
                 activities = activity.objects.filter(course=course)
                 return render(request, 'admin_course_view.html',{'course':course,'activities':activities})
             else:
-                raise PermissionDenied()
+                return render(request,'403.html')
                 
         except Exception as e:
             return HttpResponse(e)
@@ -196,7 +159,7 @@ def course(request,id=None):
                 videos = video.objects.filter(course=course).order_by('-posted_at')
                 return render(request, 'student_course.html',{'course':course,'activities':activities,'materials':materials,'total':total,'total_p':total_p,'quizes':quiz,'anns':anns,'videos':videos})
             else:
-                raise PermissionDenied()
+                raise PermissionDenied
         except Exception as e:
             return HttpResponse(e)
 
@@ -243,13 +206,11 @@ def dashboard(request):
     faculty_ibt = faculty_profile.objects.filter(department="IBT")
     notifications = notification.objects.filter(receiver=request.user,viewed=True).order_by('-time')[0:10]
     messages = message.objects.filter(receiver=request.user,viewed=True).order_by('-time')[0:10]
-    if request.user.groups.filter(name='faculty').exists():
-        request.session['type']='faculty'
+    if request.session['type']=='faculty':
         courses = Course.objects.filter(facultyassociated=request.user.faculty_profile)
         return render(request, 'dashboard.html',{'temp':'base/sidebarf.html','courses':courses,'faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt,'notifications':notifications,'messages':messages},context_instance=RequestContext(request))
 
     else:
-        request.session['type']='student'
         courses = request.user.student_profile.coursetaken.all()
         return render(request,'dashboard.html',{'temp':'base/sidebars.html','courses':courses,'faculty_cse':faculty_cse,'faculty_ece':faculty_ece,'faculty_mec':faculty_mec,'faculty_ibt':faculty_ibt,'notifications':notifications,'messages':messages})
 
@@ -335,7 +296,7 @@ def profile (request):
             dob = request.POST.get('dateofbirth','')
             image=request.FILES.get('dp','')
             if image:
-                handle_uploaded_file(image,request.user.username,'spp/')
+                handle_uploaded_file(image,request.user.username,'fpp/')
             #print image.name
             else:
                 image = request.user.student_profile.image
@@ -360,7 +321,7 @@ def course_info(request,id):
                 count = student_profile.objects.filter(user=request.user,coursetaken=course).count()
                 return render(request,'courseinfo.html',{'temp':'base/sidebars.html','course':course,'count':count,'similar_courses':similar_courses})
             else:
-                return render(request,'course_info.html',{'temp':'base/sidebarf.html','course':course,'faculty':"isfaculty",'similar_courses':similar_courses})
+                return render(request,'courseinfo.html',{'temp':'base/sidebarf.html','course':course,'faculty':"isfaculty",'similar_courses':similar_courses})
         return render(request,'courseinfo.html',{'temp':'base/header.html','course':course,'similar_courses':similar_courses})
     except Exception as e:
         return HttpResponse(e)
@@ -508,32 +469,37 @@ def add_video(request):
 @login_required
 def add_syllabus(request,id):
     if request.session['type']=='faculty':
-        #try:
-        if request.method=='POST':
-            if 'save' in request.POST:
-                print 'hello'
-                course=Course.objects.get(course_id=id)
-                s = get_object_or_404(Course, pk=Course.objects.get(course_id=id).course_id)
-                form=syllabusForm(request.POST, instance = s)
-                if form.is_valid():
-                    form.save()
-                    subject="Course Update"
-                    activity.objects.create(subject=subject,course=course)
-                    students = student_profile.objects.filter(coursetaken=course)
-                    link = '/courseinfo/'+course.course_id
-                    for student in students:
-                        notification.objects.create(title="Course Update",body="Syllabus Updated",link=link,course=course,receiver=student.user,sender=request.user)
-                    return redirect('course',id=course.course_id)
+        try:
+            course=Course.objects.get(course_id=id)
+            if course.facultyassociated == request.user.faculty_profile:
+                if request.method=='POST':
+                    if 'save' in request.POST:
+                        s = get_object_or_404(Course, pk=Course.objects.get(course_id=id).course_id)
+                        form=syllabusForm(request.POST, instance = s)
+                        if form.is_valid():
+                            form.save()
+                            subject="Course Update"
+                            activity.objects.create(subject=subject,course=course)
+                            students = student_profile.objects.filter(coursetaken=course)
+                            link = '/courseinfo/'+course.course_id
+                            for student in students:
+                                notification.objects.create(title="Course Update",body="Syllabus Updated",link=link,course=course,receiver=student.user,sender=request.user)
+                            return redirect('course',id=course.course_id)
+                        else:
+                            print form.errors
+                            return render(request,'add_syllabus.html',{'form':form})
+                        
+                    else:
+                        return redirect('dashboard')
                 else:
-                    print form.errors
-                    return render(request,'add_syllabus.html',{'form':form})
+                    course = Course.objects.get(course_id=id)
+                    s=get_object_or_404(Course, pk=Course.objects.get(course_id=id).course_id)
+                    form=syllabusForm(instance=s)
+                    # form.syllabus=Course.objects.get(course_id=id).syllabus
+                    return render(request,'add_syllabus.html',{'form':form,'course':course})
             else:
-                return redirect('dashboard')
-        else:
-            course = Course.objects.get(course_id=id)
-            s=get_object_or_404(Course, pk=Course.objects.get(course_id=id).course_id)
-            form=syllabusForm(instance=s)
-            # form.syllabus=Course.objects.get(course_id=id).syllabus
-            return render(request,'add_syllabus.html',{'form':form,'course':course})
+                return render(request,'403.html')
+        except:
+            return render(request,'404.html')
     else:
         raise PermissionDenied

@@ -98,7 +98,7 @@ def messageToFaculty(request,email):
 			title = request.POST.get('title')
 			body = request.POST.get('body')
 			receiver = User.objects.get(email=email)
-			if request.user.faculty_profile:
+			if request.session['type']=='faculty':
 				message.objects.create(title=title,body=body,sender=request.user,senderName=request.user.first_name,senderImage=request.user.faculty_profile.image,receiver=receiver)
 			else:
 				message.objects.create(title=title,body=body,sender=request.user,senderName=request.user.first_name,senderImage=request.user.student_profile.image,receiver=receiver)

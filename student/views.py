@@ -123,11 +123,11 @@ def courses(request):
     if request.session['type'] == 'faculty':
         try:
             faculty=faculty_profile.objects.get(user=request.user)
-            courses = Course.objects.filter(facultyassociated=faculty)
+            courses = Course.objects.get(facultyassociated=faculty)
         except:
             courses=None
+            return render(request,'404.html')
         return render(request, 'courses.html',{'temp':'base/sidebarf.html','courses':courses})
-
     else:
         return redirect('dashboard')
 
@@ -144,7 +144,7 @@ def course(request,id=None):
                 return render(request,'403.html')
                 
         except Exception as e:
-            return HttpResponse(e)
+            return render(request,'404.html')
         return render(request, 'admin_course_view.html',{'course':course})
     else:
         try:
@@ -217,7 +217,13 @@ def dashboard(request):
 
 
 def about (request):
-    return render(request,'template.html')
+    if request.user.is_authenticated():
+        if request.user.groups.filter(name='faculty').exists():
+            return render(request,'template.html',{'temp':'base/sidebarf.html'})
+        else:
+            return render(request,'template.html',{'temp':'base/sidebars.html'})
+    else:
+        return render(request,'template.html',{'temp':'base/header.html'})
 
 
 @login_required

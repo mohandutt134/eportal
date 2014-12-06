@@ -328,7 +328,7 @@ def quiz_questions(request):
 	if 'id' in request.session:
 		quiz=quiz_spec.objects.get(qid=request.session['id'])
 		if(result.objects.filter(quiz=quiz,user=request.user.student_profile).exists()):
-			return HttpResponse("u have attepted the quiz")
+			return render(request,"repeatquiz.html")
 		else:
 			result.objects.create(user=request.user.student_profile,score=0,course=quiz.course,quiz=quiz)
 		questions=quiz.question_set.all()

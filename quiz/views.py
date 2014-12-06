@@ -19,9 +19,11 @@ from django.db.models import Q
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Create your views here.
+@login_required
 def quiz(request):
 	return render(request,'course.html',{'course':course})
 
+@login_required
 def edit_spec(request):
 	course1=Course.objects.filter(facultyassociated=request.user.faculty_profile)
 	if request.method=='POST':
@@ -46,12 +48,15 @@ def edit_spec(request):
 
 
 
-
+@login_required
 def quiz_control(request):
-	return render(request, 'quiz_control.html')
+	if request.session['type']=='faculty':
+	    return render(request, 'quiz_control.html')
+	else:
+		raise PermissionDenied()
 
 
-
+@login_required
 @csrf_exempt
 def add_question(request):
 	if request.method=='POST':
@@ -96,7 +101,7 @@ def add_question(request):
 		return render(request, 'add_question.html')
 
 
-
+@login_required
 def attach_question(request):
 	if 'quiz_id' in request.session:
 		quiz=quiz_spec.objects.get(qid=request.session['quiz_id'])
@@ -126,7 +131,7 @@ def attach_question(request):
 	else:
 		return HttpResponse("permission Denied")
 
-
+@login_required
 def quiz_confirm(request):
 	if 'quiz_id' in request.session:
 		quiz=quiz_spec.objects.get(qid=request.session['quiz_id'])
@@ -139,7 +144,7 @@ def quiz_confirm(request):
 		return HttpResponse("page 404")
 
 
-
+@login_required
 def validation_field(request):
 	statement=request.POST.get('statement','')
 	option_A=request.POST.get('option_A','')
@@ -164,7 +169,7 @@ def validation_field(request):
 		msg='Enter answer'
 	return msg
 	
-
+@login_required
 def addquestion(request):
 	print request.session['quiz_id']
 	data={}
@@ -182,7 +187,7 @@ def addquestion(request):
 	data=json.dumps(data)
 	return HttpResponse(data)
 
-
+@login_required
 def view_fullquestion(request):
 	print "full"
 	ques_id=(request.GET.get('id','').strip())
@@ -190,6 +195,7 @@ def view_fullquestion(request):
 	ques=serializers.serialize("json",ques)
 	return HttpResponse(ques)
 
+@login_required
 def removeQuestion(request):
 	print request.session['quiz_id']
 	data={}
@@ -206,7 +212,7 @@ def removeQuestion(request):
 	data=json.dumps(data)
 	return HttpResponse(data)
 
-
+@login_required
 def qizquestions(request):
 	print "inside all quiz"
 	if 'id' in request.session:
@@ -224,7 +230,7 @@ def qizquestions(request):
 	questions=serializers.serialize('json',q)
 	return HttpResponse(questions)
 	
-
+@login_required
 def EditQuiz(request):
 	quizes=quiz_spec.objects.filter(addedBy=request.user.faculty_profile)
 	course1=Course.objects.filter(facultyassociated=request.user.faculty_profile)
@@ -256,7 +262,7 @@ def EditQuiz(request):
 
 	return render(request,'EditQuiz.html',{'quizes':quizes,'courses':course1,'msg':''})
 
-
+@login_required
 def changeQuiz(request):
 	data={}
 	title=request.GET.get("id")
@@ -266,7 +272,7 @@ def changeQuiz(request):
 	data=json.dumps(data)
 	return HttpResponse(data)
 
-
+@login_required
 def exit(request):
 	print "hello"
 	quiz=quiz_spec.objects.get(qid=request.session['quiz_id'])
@@ -281,6 +287,7 @@ def exit(request):
 	else:
 		return HttpResponse("permission Denied")
 
+@login_required
 def create_course_quiz(request,id=None):
 	course1=Course.objects.filter(course_id=id)
 	if request.method=='POST':
@@ -305,17 +312,20 @@ def create_course_quiz(request,id=None):
 
 
 #stdent quiz views
-
+@login_required
 def course_quiz(request,id=None):
 	course=Course.objects.filter(course_id=id)
 	quiz=quiz_spec.objects.filter(course=course)
 	print quiz
 	return render(request,"student_quiz/course_quiz.html",{'quizes':quiz})
+
+@login_required
 def quiz_view(request,course_id,quiz_id):
 	quiz=quiz_spec.objects.filter(qid=quiz_id)
 	request.session['id']=quiz_id
 	return render(request,'student_quiz/quiz_confiramation.html',{})
 
+@login_required
 def quiz_questions(request):
 	if 'id' in request.session:
 		quiz=quiz_spec.objects.get(qid=request.session['id'])
@@ -326,9 +336,11 @@ def quiz_questions(request):
 		questions=quiz.question_set.all()
 		return render(request,'student_quiz/quiz_question.html',{'quiz':quiz})
 
+@login_required
 def submit(request):
 	return HttpResponse("sucess")
 
+@login_required
 def quiz_result(request):
 	quiz=quiz_spec.objects.get(qid=request.session['id'])
 	questions=quiz.question_set.all()

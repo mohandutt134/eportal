@@ -18,8 +18,9 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style-responsive.css' %}">
     <script src="{% static 'assets/js/jquery-1.8.3.min.js' %}"></script>
+    {% if request.user.is_authenticated %}
     <script type="text/javascript" src="{% static 'js/ns.js' %}"></script>
-
+    {% endif %}
 
     <style type="text/css">
     .wrapper {
@@ -50,10 +51,12 @@ margin-top: 5;
             <a href="{% url 'home' %}
 " class="logo"><b>SMVDU E-portal</b></a>
             <!--logo end-->
+            {% if request.user.is_authenticated %}
             <script>
 
                 create_post();
             </script>
+            {% endif %}
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
                     <li>
@@ -62,7 +65,7 @@ margin-top: 5;
                             <ul class="nav top-menu">
                                 <!-- settings start -->
                                 <li class="dropdown">
-                                    <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                         <i class="fa fa-bell"></i>
                                         <span class="badge bg-theme" id="n_no"></span>
                                     </a>
@@ -76,7 +79,7 @@ margin-top: 5;
                                 <!-- settings end -->
                                 <!-- inbox dropdown start-->
                                 <li id="header_inbox_bar" class="dropdown">
-                                    <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                         <i class="fa fa-envelope-o"></i>
                                         <span class="badge bg-theme" id="M_no"></span>
                                     </a>

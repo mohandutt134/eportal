@@ -22,7 +22,7 @@
                         </legend>
 
                         <h3>Description:</h3>
-                        <p class="text-justified">
+                        <p class="text-justify">
                             {{course.description}}</p>
 
 
@@ -41,7 +41,7 @@
                             <img class="img-thumbnail img-responsive" src="/static/uploaded_image/fpp/{{course.facultyassociated.image}}">
                             <h4>Prof  &nbsp;&nbsp;{{course.facultyassociated.user.first_name}}&nbsp;&nbsp;{{course.facultyassociated.user.last_name}}</h4>
                             <h4>{{course.facultyassociated.department}}</h4>
-                            <p> {{course.facultyassociated.description}} </p> <a class="pull-right" href="/profile/{{course.facultyassociated.user.username}}">See More</a>
+                            <p> {{course.facultyassociated.description|safe}} </p> <a class="pull-right" href="/profile/{{course.facultyassociated.user.username}}">See More</a>
                             <br>
                         </div>
 
@@ -55,23 +55,7 @@
 
 
                             </legend>
-                            <ul>
-                                <li><i class="fa fa-instagram fa-2x"></i> TOPIC 1</li>
-                                <li><i class="fa fa-instagram fa-2x"></i> Topic 2</li>
-                                <li><i class="fa fa-check"></i> TOPIC 1</li>
-                                <li><i class="fa fa-check"></i>Topic 2</li>
-                                <li>TOPIC 1</li>
-                                <li>Topic 2</li>
-                            </ul>
-                            <br>
-                            <ul>
-                                <li><i class="fa fa-instagram fa-2x"></i> TOPIC 1</li>
-                                <li><i class="fa fa-instagram fa-2x"></i> Topic 2</li>
-                                <li><i class="fa fa-check"></i> TOPIC 1</li>
-                                <li><i class="fa fa-check"></i>Topic 2</li>
-                                <li>TOPIC 1</li>
-                                <li>Topic 2</li>
-                            </ul>
+                            {{course.syllabus|safe}}
                         </div>
                     </div>
 

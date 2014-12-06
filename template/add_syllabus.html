@@ -1,0 +1,66 @@
+{% extends 'base/sidebarf.html' %}
+
+ {% load staticfiles %}
+ {% load cssFilter %}
+ {% block content %}
+        
+
+
+                <div class="row">
+
+                    <div class="col-lg-10 col-lg-offset-1">
+
+                        <!-- /row mt -->
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+
+                            <div class="form-panel">
+                                <legend class="center-block">
+                                    <h1 style="text-align:center">Edit Syllabus | {{ course.course_name }}</h1>
+                                </legend>
+                                <!-- /form-panel -->
+
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <!-- SERVER STATUS PANELS -->
+
+                            <div class="form-panel">
+                                <form class="form-horizontal style-form" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                    {% for field in form %}
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label"><b>{{field.label}}</b></label>
+                                        <div class="col-sm-10 ">
+                                            
+                                            {{ field|add_attributes:"form-control"}}
+                                            {{ field.errors }}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <legend class="center-block"></legend>
+                                    <div class="inline">
+                                        <input type="submit" value="save" name="save" class="btn btn-primary btn-lg btn-block">
+                                        <input type="submit" value="exit" name="exit" class="btn btn-primary btn-lg btn-block">
+                                    </div>
+                                </form>
+                            </div>
+                            <script type="text/javascript">
+                             $(document).ready(function(){
+                                $("#id_syllabus").unwrap();
+                                
+                             });
+
+                             </script>
+                            
+                        </div>
+                        <!-- /row -->
+                    </div>
+                    <!-- /col-lg-9 END SECTION MIDDLE -->
+                </div>
+           
+
+{% endblock content %}  

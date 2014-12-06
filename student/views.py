@@ -88,20 +88,20 @@ def test(request):
     #     return HttpResponse(e)
 
 
-def edit_spec(request):
-    return render(request, 'edit_spec.html')
+# def edit_spec(request):
+#     return render(request, 'edit_spec.html')
 
-def quiz_control(request):
-    return render(request, 'quiz_control.html')
+# def quiz_control(request):
+#     return render(request, 'quiz_control.html')
 
-def add_question(request):
-    return render(request, 'add_question.html')
+# def add_question(request):
+#     return render(request, 'add_question.html')
 
-def attach_question(request):
-    return render(request, 'attach_question.html')
+# def attach_question(request):
+#     return render(request, 'attach_question.html')
 
-def quiz_confirm(request):
-    return render(request, 'public_courses.html')
+# def quiz_confirm(request):
+#     return render(request, 'public_courses.html')
 
 
 @login_required
@@ -193,7 +193,8 @@ def course(request,id=None):
                 quiz=quiz_spec.objects.filter(course=course)
                 total_p = attendance.objects.filter(course=course,present=request.user.student_profile).count()
                 anns = announcement.objects.filter(course=course).order_by('-created_at')
-                return render(request, 'student_course.html',{'course':course,'activities':activities,'materials':materials,'total':total,'total_p':total_p,'quizes':quiz,'anns':anns})
+                videos = video.objects.filter(course=course).order_by('-posted_at')
+                return render(request, 'student_course.html',{'course':course,'activities':activities,'materials':materials,'total':total,'total_p':total_p,'quizes':quiz,'anns':anns,'videos':videos})
             else:
                 raise PermissionDenied()
         except Exception as e:
@@ -422,6 +423,7 @@ def contactview(request):
     else:
         return render(request,'contacts.html',{'temp':temp})    
 
+@login_required
 def mail(request):
     receiver="vibhanshu86@gmail.com"
     send_mail("Subject","Message",settings.EMAIL_HOST_USER,[receiver])
@@ -470,3 +472,68 @@ def add_ann(request):
     else:
         raise PermissionDenied
 
+
+@login_required
+def add_video(request):
+    if request.session['type']=='faculty':
+        #try:
+        if request.method=='POST':
+            if 'save' in request.POST:
+                print 'hello'
+                form=videoForm(request.POST)
+                form.fields["course"].queryset = Course.objects.filter(facultyassociated=request.user.faculty_profile)
+                if form.is_valid():
+                    form.save()
+                    subject="New Video"
+                    course = form.cleaned_data['course']
+                    activity.objects.create(subject=subject,course=course)
+                    students = student_profile.objects.filter(coursetaken=course)
+                    link = '/courses/'+course.course_id
+                    for student in students:
+                        notification.objects.create(title="Course Update",body="New Video",link=link,course=course,receiver=student.user,sender=request.user)
+                    return redirect('course',id=course.course_id)
+                else:
+                    print form.errors
+                    return render(request,'add_video.html',{'form':form})
+            raise PermissionDenied
+        else:
+            form=videoForm()
+            form.fields["course"].queryset = Course.objects.filter(facultyassociated=request.user.faculty_profile)
+            return render(request,'add_video.html',{'form':form})
+        #except Exception as e:
+            #return HttpResponse(e)
+    else:
+        raise PermissionDenied
+
+@login_required
+def add_syllabus(request,id):
+    if request.session['type']=='faculty':
+        #try:
+        if request.method=='POST':
+            if 'save' in request.POST:
+                print 'hello'
+                course=Course.objects.get(course_id=id)
+                s = get_object_or_404(Course, pk=Course.objects.get(course_id=id).course_id)
+                form=syllabusForm(request.POST, instance = s)
+                if form.is_valid():
+                    form.save()
+                    subject="Course Update"
+                    activity.objects.create(subject=subject,course=course)
+                    students = student_profile.objects.filter(coursetaken=course)
+                    link = '/courseinfo/'+course.course_id
+                    for student in students:
+                        notification.objects.create(title="Course Update",body="Syllabus Updated",link=link,course=course,receiver=student.user,sender=request.user)
+                    return redirect('course',id=course.course_id)
+                else:
+                    print form.errors
+                    return render(request,'add_syllabus.html',{'form':form})
+            else:
+                return redirect('dashboard')
+        else:
+            course = Course.objects.get(course_id=id)
+            s=get_object_or_404(Course, pk=Course.objects.get(course_id=id).course_id)
+            form=syllabusForm(instance=s)
+            # form.syllabus=Course.objects.get(course_id=id).syllabus
+            return render(request,'add_syllabus.html',{'form':form,'course':course})
+    else:
+        raise PermissionDenied

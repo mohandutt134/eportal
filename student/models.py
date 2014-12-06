@@ -4,6 +4,8 @@ from time import time
 from django.core.validators import MinValueValidator, MaxValueValidator
 from ckeditor.fields import RichTextField
 import datetime
+from django.core.validators import URLValidator
+from django.core.validators import RegexValidator
 
 def get_upload_file_name(instance,filename):
     return "material/%s_%s" % (str(time()).replace('.','_'),filename)
@@ -85,6 +87,7 @@ class Course(models.Model):
     image=models.ImageField(upload_to='cpp',default="cpp/course_default.png")
     credits=models.CharField(max_length=10)
     facultyassociated=models.ForeignKey(faculty_profile,blank=True,null=True,related_name='mentor')
+    syllabus=models.TextField(default='Not Added Till Now')
 
     def __str__(self):
         return self.course_name
@@ -147,6 +150,14 @@ class announcement(models.Model):
     course = models.ForeignKey(Course)
     created_at = models.DateTimeField(auto_now=True)
 
+    def __unicode__(self):
+        return unicode(self.course) or u''
+
+class video(models.Model):
+    body = models.TextField(default="There is no description")
+    course = models.ForeignKey(Course)
+    posted_at = models.DateTimeField(auto_now=True)
+    link = models.TextField(validators=[RegexValidator(regex='^.{11}$', message='Length has to be 11', code='nomatch')])
     def __unicode__(self):
         return unicode(self.course) or u''
 

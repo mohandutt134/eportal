@@ -43,6 +43,9 @@ urlpatterns = patterns('student.views',
     url(r'^test$', 'test', name='test'),
     (r'^ckeditor/', include('ckeditor.urls')),
     url(r'^addann/$', 'add_ann', name='addann'),
+    url(r'^addvideo/$', 'add_video', name='addvideo'),
+
+    url(r'^addsyllabus/(?P<id>[0-9A-Za-z_\-]+)$$', 'add_syllabus', name='addsyllabus'),
 )
 
 if settings.DEBUG is False:   #if DEBUG is True it will be served automatically

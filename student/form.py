@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from student.models import student_profile,faculty_profile,material,announcement
+from student.models import *
 from django import forms
 from student.models import Course
 from ckeditor.widgets import CKEditorWidget
@@ -46,3 +46,20 @@ class annForm(forms.ModelForm):
     class Meta:
         model = announcement
         fields = ['course','body']
+
+
+class videoForm(forms.ModelForm):
+    body = forms.CharField(widget=CKEditorWidget(config_name='awesome_ckeditor'))
+    course = forms.ModelChoiceField(queryset=[], empty_label="Select Course")
+    link= forms.CharField(max_length=11, min_length=11)
+    class Meta:
+        model = video
+        fields = ['course','body','link']
+
+class syllabusForm(forms.ModelForm):
+    syllabus = forms.CharField(widget=CKEditorWidget(config_name='awesome_ckeditor'))
+    
+    
+    class Meta:
+        model = Course
+        fields = ['syllabus']

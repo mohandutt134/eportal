@@ -6,6 +6,7 @@ from student.models import *
 
 
 class CourseAdminForm(forms.ModelForm):
+    syllabus=forms.CharField(widget=CKEditorWidget(config_name='admin_ckeditor'))
     class Meta:
         model = Course
 
@@ -36,9 +37,17 @@ class announcementAdminForm(forms.ModelForm):
 class announcementAdmin(admin.ModelAdmin):
     form = announcementAdminForm
 
+class videoAdminForm(forms.ModelForm):
+    body = forms.CharField(widget=CKEditorWidget(config_name='admin_ckeditor'))
+    class Meta:
+        model = video
+
+class videoAdmin(admin.ModelAdmin):
+    form = videoAdminForm
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(student_profile)
 admin.site.register(faculty_profile,FacultyAdmin)
 admin.site.register(material,materialAdmin)
 admin.site.register(announcement,announcementAdmin)
+admin.site.register(video,videoAdmin)

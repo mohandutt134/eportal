@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-from attendance.models import attendance
+from attendance.models import Attendance
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 
 
@@ -17,5 +17,5 @@ class Attendance_Admin(ForeignKeyAutocompleteAdmin):
 
     fields = ( 'date' ,'course', 'present', )
 
-admin.site.register(attendance, Attendance_Admin)
+admin.site.register(Attendance, Attendance_Admin)
 

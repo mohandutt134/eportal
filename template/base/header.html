@@ -1,11 +1,11 @@
 <html>
 <head>
-   <meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
-     {% block title %}
-    <title>SMVDU E-portal</title>
+    {% block title %}
+        <title>E-portal</title>
     {% endblock title %} {% load staticfiles %}
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
@@ -19,27 +19,28 @@
     <link rel="stylesheet" href="{% static 'assets/css/style-responsive.css' %}">
     <script src="{% static 'assets/js/jquery-1.8.3.min.js' %}"></script>
     {% if request.user.is_authenticated %}
-    <script type="text/javascript" src="{% static 'js/ns.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/ns.js' %}"></script>
     {% endif %}
 
     <style type="text/css">
-    .wrapper {
-        min-height: 86%;
+        .wrapper {
+            min-height: 86%;
 
-    }
-    .navbar-nav {
-margin-left: 25;
-margin-right: 25;
-margin-top: 5;
-}
+        }
+
+        .navbar-nav {
+            margin-left: 25;
+            margin-right: 25;
+            margin-top: 5;
+        }
     </style>
     {% block cssadd %} {% endblock cssadd %} {% block jsadd-up %} {% endblock jsadd-up %}
 
 </head>
 
 <body background="/static/assets/img/login-bg.jpg">
-    <section id="container">
-        {% if user.is_authenticated %}
+<section id="container">
+    {% if user.is_authenticated %}
         <header class="header black-bg">
 
             <div class="sidebar-toggle-box">
@@ -52,10 +53,10 @@ margin-top: 5;
 " class="logo"><b>SMVDU E-portal</b></a>
             <!--logo end-->
             {% if request.user.is_authenticated %}
-            <script>
+                <script>
 
-                create_post();
-            </script>
+                    create_post();
+                </script>
             {% endif %}
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
@@ -70,7 +71,8 @@ margin-top: 5;
                                         <span class="badge bg-theme" id="n_no"></span>
                                     </a>
                                     <!--notification body -->
-                                    <ul class="dropdown-menu extended inbox" id="n_body" style="overflow:auto;max-height:200px">
+                                    <ul class="dropdown-menu extended inbox" id="n_body"
+                                        style="overflow:auto;max-height:200px">
                                         <div class="notify-arrow notify-arrow-green"></div>
 
                                     </ul>
@@ -84,7 +86,8 @@ margin-top: 5;
                                         <span class="badge bg-theme" id="M_no"></span>
                                     </a>
                                     <!-- message body-->
-                                    <ul class="dropdown-menu extended inbox" id="M_body" style="overflow:auto;max-height:200px">
+                                    <ul class="dropdown-menu extended inbox" id="M_body"
+                                        style="overflow:auto;max-height:200px">
                                         <div class="notify-arrow notify-arrow-green"></div>
 
                                     </ul>
@@ -104,15 +107,13 @@ margin-top: 5;
             </div>
 
 
-
-
-
         </header>
-        {% else %}
+    {% else %}
         <header class="header black-bg">
             <a href="{% url 'home' %}" class="logo"><b>SMVDU Eportal</b></a>
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" style="
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" style="
     background-color: whitesmoke;
 ">
                     <span style="background-color: #428bca;" class="sr-only">Toggle navigation</span>
@@ -127,8 +128,6 @@ margin-top: 5;
 
                 <ul class="nav navbar-nav">
 
-
-                    
 
                     <li><a href="{% url 'allcourses' %}">Courses</a>
 
@@ -150,14 +149,14 @@ margin-top: 5;
 
             </div>
         </header>
-        {% endif %} {% block sidebar %} {% endblock sidebar %}
-        <section id="main-content">
-            <section class="wrapper">
+    {% endif %} {% block sidebar %} {% endblock sidebar %}
+    <section id="main-content">
+        <section class="wrapper">
 
-                {% block content %} {% endblock content %}
+            {% block content %} {% endblock content %}
 
-            </section>
-            {% block footer %}
+        </section>
+        {% block footer %}
             <footer class="site-footer">
                 <div class="text-center">
                     <img src="{% static 'assets/img/sm.gif' %}" style="width:30px;">
@@ -166,11 +165,12 @@ margin-top: 5;
                     </a>
                 </div>
             </footer>
-            {% endblock footer %}
+        {% endblock footer %}
 
-        </section>
-        {% if user.is_authenticated %}
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    </section>
+    {% if user.is_authenticated %}
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content" style="width:100%; text-align:center">
                     <div class="modal-header">
@@ -178,22 +178,28 @@ margin-top: 5;
                         <h4 class="modal-title">Change Password</h4>
                     </div>
                     <div class="modal-body">
-                        <form role="form" id="change_password_form" method="post" action="/change/?next={{request.path}}">
+                        <form role="form" id="change_password_form" method="post"
+                              action="/change/?next={{ request.path }}">
                             {% csrf_token %}
                             <div class="form-group">
-                                <input type="password" id="old_password" name="old_password" class="form-control" placeholder="Old Password">
+                                <input type="password" id="old_password" name="old_password" class="form-control"
+                                       placeholder="Old Password">
                             </div>
                             <div class="form-group">
-                                <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
+                                <input type="password" id="new_password" name="new_password" class="form-control"
+                                       placeholder="New Password">
                             </div>
                             <div class="form-group">
-                                <input type="password" id="c_password" name="c_password" class="form-control" placeholder="Confirm Password">
+                                <input type="password" id="c_password" name="c_password" class="form-control"
+                                       placeholder="Confirm Password">
                             </div>
                             <div class="modal-footer">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary" name="change_password_submit">Submit</button>
+                                    <button type="submit" class="btn btn-primary" name="change_password_submit">Submit
+                                    </button>
                                     <br>
-                                    <a href="#myModal2" data-dismiss="modal" data-toggle="modal" style="padding-top:10px"></a>
+                                    <a href="#myModal2" data-dismiss="modal" data-toggle="modal"
+                                       style="padding-top:10px"></a>
                                 </div>
                             </div>
                         </form>
@@ -202,9 +208,9 @@ margin-top: 5;
                 </div>
             </div>
         </div>
-        {% endif %}
-    </section>
-    {% block js-foot %}
+    {% endif %}
+</section>
+{% block js-foot %}
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="{% static 'assets/js/jquery.js' %}"></script>
     <script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
@@ -216,68 +222,70 @@ margin-top: 5;
     <script src="{% static 'assets/js/jquery.scrollTo.min.js' %}"></script>
     <script src="{% static 'assets/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
     <script src="{% static 'assets/js/jquery.sparkline.js' %}"></script>
-    
+
     <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
     <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
     <!--common script for all pages-->
-   
+
     <script src="{% static 'assets/js/common-scripts.js' %}"></script>
     {% if user.is_authenticated %}
-    <script>
-    $(document).ready(function() {
-        //alert("change password");
-        $("#change_password_form").validate({
-            // Specify the validation rules
-            rules: {
-                old_password: {
-                    required: true
+        <script>
+            $(document).ready(function () {
+                //alert("change password");
+                $("#change_password_form").validate({
+                    // Specify the validation rules
+                    rules: {
+                        old_password: {
+                            required: true
 
-                },
-                new_password: {
-                    required: true,
-                    minlength: 6,
-                    maxlength: 10
+                        },
+                        new_password: {
+                            required: true,
+                            minlength: 6,
+                            maxlength: 10
 
-                },
-                c_password: {
-                    required: true,
-                    equalTo: "#new_password"
-                }
-            },
+                        },
+                        c_password: {
+                            required: true,
+                            equalTo: "#new_password"
+                        }
+                    },
 
-            // Specify the validation error messages
-            messages: {
-                password: "Please enter your first name",
-                c_password: "Password do not match"
-            }
-        });
-    });
-    </script>
+                    // Specify the validation error messages
+                    messages: {
+                        password: "Please enter your first name",
+                        c_password: "Password do not match"
+                    }
+                });
+            });
+        </script>
 
     {% endif %}
 
-<div class="modal fade" id="fullMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="fullMessageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:100%; text-align:center">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="modal_message_title">Delivery Message</h4>
-            </div>
-            <div class="modal-body">
-                <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);">    <p id="modal_message_body"></p>
-                </div>
-                <div class="pull-left" id="modal_message_sender"></div>
-                <div class="pull-right" id="modal_message_time"></div>
-                    
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" style="padding-top:10px">Close</button>
-            </div>
+    <div class="modal-content" style="width:100%; text-align:center">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="modal_message_title">Delivery Message</h4>
         </div>
+        <div class="modal-body">
+            <div class="jumbotron" style="color: #fff;background: rgba(5, 5, 5, 0.87);"><p id="modal_message_body"></p>
+            </div>
+            <div class="pull-left" id="modal_message_sender"></div>
+            <div class="pull-right" id="modal_message_time"></div>
 
-    {% endblock js-foot %} 
-
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-dismiss="modal" data-toggle="modal" style="padding-top:10px">Close
+            </button>
+        </div>
     </div>
+
+{% endblock js-foot %}
+
+</div>
 </div>
 </body>
 

@@ -1,0 +1,6 @@
+Django==1.11.8
+django-ckeditor==5.6.1
+django-wysiwyg==0.8.0
+six==1.12.0
+typing==3.6.6
+webencodings==0.5.1

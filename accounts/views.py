@@ -1,67 +1,51 @@
-from django.shortcuts import render
 import uuid
-from django.db.models import Q
-from django.shortcuts import render_to_response, HttpResponseRedirect, render, redirect
-from django.core.mail import send_mail
-from django.core.context_processors import csrf
-from django.core.mail import send_mail
+from django.shortcuts import render, redirect
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.hashers import check_password, make_password
-import os
-from django.template import RequestContext
-from datetime import datetime
-from django.contrib.auth.views import password_reset,password_reset_confirm
+from django.contrib.auth.views import password_reset, password_reset_confirm
 from django.core.urlresolvers import reverse
-from django.template.context import RequestContext
-from django.contrib.auth.models import Group
 from notification.models import notification
-from student.models import Course,faculty_profile,student_profile
-from django.contrib.auth.decorators import login_required
+from student.models import faculty_profile, student_profile
 from django.http import HttpResponse
 from django.core.mail import EmailMultiAlternatives
 from django.template import Context
 from django.template.loader import render_to_string
 
 
-
-
-def login_view(request,next='home'):
-    if(request.user.is_authenticated()):
+def login_view(request, next='home'):
+    if request.user.is_authenticated():
         return redirect('home')
-        
-    if('login' in request.POST):
-        username = request.POST.get('username', '').upper()
-        password=request.POST.get('password', '')
-        print username+password
+
+    if 'login' in request.POST:
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
         user = authenticate(username=username, password=password)
-        print user
-        if(user is not None):
+        if user is not None:
             if user.is_active:
-                login(request,user)
+                login(request, user)
                 next = request.GET.get('next')
-                print "admin"
                 if request.user.groups.filter(name='faculty').exists():
-                    request.session['type']='faculty'
-                else:
-                    request.session['type']='student'
+                    request.session['type'] = 'faculty'
+                elif request.user.groups.filter(name='student').exists():
+                    request.session['type'] = 'student'
                 if next:
                     return redirect(next)
                 elif user.is_staff:
-                    return redirect ('/admin') 
+                    return redirect('/admin')
                 else:
                     return redirect('home')
             else:
-                return render(request,'accounts/login.html',{'message_login':"Your account is inactive"})
+                return render(request, 'accounts/login.html', {'message_login': "Your account is inactive"})
         else:
-            return render(request,'accounts/login.html',{'message_login':"wrong Username or Password"})
-    if('register' in request.POST):
-            #call registration function 
-            message=registration_function(request)#store message from registration function 
-            return render(request,'accounts/login.html',{'message_register_alert':message})
+            return render(request, 'accounts/login.html', {'message_login': "Wrong username or password"})
+    if 'register' in request.POST:
+        # call registration function
+        message = registration_function(request)  # store message from registration function
+        return render(request, 'accounts/login.html', {'message_register_alert': message})
 
-    return render(request,'accounts/login.html',{'message_register_alert':''})
+    return render(request, 'accounts/login.html', {'message_register_alert': ''})
+
 
 def logout_view(request):
     logout(request)
@@ -69,82 +53,71 @@ def logout_view(request):
 
 
 def register2(request):
-    if(request.user.is_authenticated()):
+    if request.user.is_authenticated():
         return redirect('home')
-    if request.method=="POST":
-        print "inside"
-        msg=registration_function(request)
-        return render (request,'accounts/register.html',{"msg":msg})
+    if request.method == "POST":
+        msg = registration_function(request)
+        return render(request, 'accounts/register.html', {"msg": msg})
     else:
-        return render (request,'accounts/register.html')
+        return render(request, 'accounts/register.html')
+
 
 def registration_function(request):
-    R_username = request.POST.get('R_email', '').upper()
     R_fname = request.POST.get('R_fname', '')
     R_lname = request.POST.get('R_lname', '')
     R_email = request.POST.get('R_email', '')
-    R_email = R_email + "@smvdu.ac.in"
-    R_category=request.POST.get('category','')
-    message_register_alert = ''
-    if(R_username == ''):
-        message_register_alert = "Enter Username Name"
-    elif(R_fname == ''):
-        message_register_alert = "Enter First Name"
-    elif(R_email == ''):
-        message_register_alert = "please Enter the Email ID"
-    elif(R_category==''):
-        message_register_alert="Please Enter Category"
+    R_category = request.POST.get('category', '')
+    R_password = request.POST.get('password', '')
+    if R_email == '':
+        message_register_alert = "Enter username"
+    elif R_password == '':
+        message_register_alert = "Enter password"
+    elif R_fname == '':
+        message_register_alert = "Enter first name"
+    elif R_category == '':
+        message_register_alert = "Please choose category"
     else:
-        error="Null"
         try:
-            temp_pass = get_password()
-            if(User.objects.filter(username=R_username).exists()):
-                message_register_alert = "User Already Exits"
+            if User.objects.filter(username=R_email).exists():
+                message_register_alert = "User already exits"
             else:
-                user1=User.objects.get(username="admin")
-                user = User.objects.create_user(R_username, R_email, temp_pass)
-                print "username:  " + R_username
+                user1 = User.objects.get(username='admin')
+                user = User.objects.create_user(R_email, R_email, R_password)
                 try:
-                    notification.objects.create(title="Registered",body="YOU HAVE BEEN REGISTERD Please change your password & Complete your profile",link='/profile',receiver=user,sender=user1)
+                    notification.objects.create(title="Registered",
+                                                body="YOU HAVE BEEN REGISTERED."
+                                                     "Please change your password & Complete your profile",
+                                                link='/profile', receiver=user, sender=user1)
                 except Exception as e:
                     print e
-                print temp_pass
                 user.first_name = R_fname
                 user.last_name = R_lname
-                if(R_category=='student'):
+                if R_category == 'student':
                     g = Group.objects.get(name='student')
                     g.user_set.add(user)
                 else:
                     g = Group.objects.get(name='faculty')
                     g.user_set.add(user)
-                    user.is_active=False
+                    user.is_active = False
                 user.save()
-                if(R_category=='student'):
-                    student_profile.objects.create(user=user) 
+                if R_category == 'student':
+                    student_profile.objects.create(user=user)
                 else:
                     faculty_profile.objects.create(user=user)
-                subject = "Confirmation  mail"
-                message = "Your password is " + temp_pass
-                from_email = settings.EMAIL_HOST_USER
-                to_list = [R_email, settings.EMAIL_HOST_USER]
-                send_mail(subject, message, from_email, to_list, fail_silently=False)
-                #mail(request,R_email,'mail/email.txt','mail/fancy-1-2-3.html')
+                # subject = "Confirmation  mail"
+                # message = "Your account has been created"
+                # from_email = settings.EMAIL_HOST_USER
+                # to_list = [R_email, settings.EMAIL_HOST_USER]
+                # send_mail(subject, message, from_email, to_list, fail_silently=False)
+                # mail(request,R_email,'mail/email.txt','mail/fancy-1-2-3.html')
                 message_register_alert = 'success'
         except Exception as e:
-
             return HttpResponse(e)
-            user.delete()
     return message_register_alert
 
 
 def get_password():
-    temp_pass = str(uuid.uuid4())[:11].replace('-', '').lower()
-    try:
-        pass_exists = User.objects.get(password=temp_pass)
-        get_password()
-    except:
-        return temp_pass
-
+    return str(uuid.uuid4())[:11].replace('-', '')
 
 
 def reset(request):
@@ -152,6 +125,7 @@ def reset(request):
     # like the template name, email template name, subject template name
     # and the url to redirect after the password reset is initiated.
     return password_reset(request, template_name='accounts/reset.html', post_reset_redirect=reverse('success'))
+
 
 # This view handles password reset confirmation links. See urls.py file for the mapping.
 # This view is not used here because the password reset emails with confirmation links
@@ -162,7 +136,9 @@ def reset_confirm(request, uidb64=None, token=None):
     # Wrap the built-in reset confirmation view and pass to it all the captured parameters like uidb64, token
     # and template name, url to redirect after password reset is confirmed.
 
-    return password_reset_confirm(request,template_name='accounts/reset_confirm.html', uidb64=uidb64, token=token, post_reset_redirect=reverse('success2'))
+    return password_reset_confirm(request, template_name='accounts/reset_confirm.html', uidb64=uidb64, token=token,
+                                  post_reset_redirect=reverse('success2'))
+
 
 # This view renders a page with success message.
 
@@ -170,12 +146,13 @@ def reset_confirm(request, uidb64=None, token=None):
 def success(request):
     return render(request, 'accounts/success.html')
 
+
 def success2(request):
     return render(request, 'accounts/changed_successfully.html')
 
+
 def lock(request):
     return render(request, 'accounts/lock_screen.html')
-
 
 
 # password change function
@@ -193,11 +170,10 @@ def lock(request):
 #             return render(request,'accounts/changepassword.html',{'msg':"Enter new Password"})
 #     else:
 #         return render(request,'accounts/changepassword.html',{'msg':"Enter new Password"})
-            
 
 
-def mail(request,receiver,subject,body):
-    c = Context({'username': settings.EMAIL_HOST_USER })    
+def mail(request, receiver, subject, body):
+    c = Context({'username': settings.EMAIL_HOST_USER})
     text_content = render_to_string(subject, c)
     html_content = render_to_string(body, c)
 

@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 */migrations/
+!*/migrations/__init__.py
 /static/uploaded_image/*
 
 # OSX Finder turds

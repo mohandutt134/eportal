@@ -1,100 +1,103 @@
 {% extends 'base/header.html' %} {% load staticfiles %} {% block cssadd %}
-<link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
-<style type="text/css">
-#main-content {
-    margin-left: 0;
-    margin-top: 0px;
-    padding: 0;
-}
-.wrapper {
-    margin-left: 0;
-    margin-top: 0px;
-    padding: 0;
-    min-height: 95%;
-}
-body {
-    background: #f2f2f2;
-}
-</style>
+    <link rel="stylesheet" href="{% static 'css/half-slider.css' %}">
+    <style type="text/css">
+        #main-content {
+            margin-left: 0;
+            margin-top: 0px;
+            padding: 0;
+        }
+
+        .wrapper {
+            margin-left: 0;
+            margin-top: 0;
+            padding: 0;
+            min-height: 95%;
+        }
+
+        body {
+            background: #f2f2f2;
+        }
+    </style>
 {% endblock cssadd %} {% block content %}
 
-<header id="myCarousel" class="carousel slide">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
+    <header id="myCarousel" class="carousel slide">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
 
-    </ol>
+        </ol>
 
-    <!-- Wrapper for Slides -->
-    <div class="carousel-inner">
-        <div class="item active">
-            <!-- Set the first background image using inline CSS below. -->
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <!-- Set the first background image using inline CSS below. -->
 
-            <div class="fill" style="background-image:url('{% static 'images/1.jpg' %}');"></div>
-            <div class="carousel-caption">
-                <h2>Caption 1</h2>
+                <div class="fill" style="background-image:url('{% static 'images/1.jpg' %}');"></div>
+                <div class="carousel-caption">
+                    <h2>Caption 1</h2>
+                </div>
             </div>
-        </div>
-        <div class="item">
-            <!-- Set the second background image using inline CSS below. -->
-            <div class="fill" style="background-image:url('{% static 'images/2.jpg' %}');"></div>
-        </div>
-        <div class="item">
-            <!-- Set the third background image using inline CSS below. -->
-            <div class="fill" style="background-image:url('{% static 'images/3.jpg' %}');"></div>
-        </div>
-        <div class="item">
-            <!-- Set the third background image using inline CSS below. -->
-            <div class="fill" style="background-image:url('{% static 'images/4.jpg' %}');"></div>
+            <div class="item">
+                <!-- Set the second background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('{% static 'images/2.jpg' %}');"></div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('{% static 'images/3.jpg' %}');"></div>
+            </div>
+            <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="background-image:url('{% static 'images/4.jpg' %}');"></div>
+            </div>
+
         </div>
 
-    </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
 
-    <!-- Controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-        <span class="icon-prev"></span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-        <span class="icon-next"></span>
-    </a>
+    </header>
+    <br>
+    <br>
 
-</header>
-<br>
-<br>
-
-<div class="container">
-    <div class="row">
-        <!-- WEATHER PANEL -->
-        {% for course in courses %}
-        <!-- <div class="col-md-4 col-sm-4 mb">
+    <div class="container">
+        <div class="row">
+            <!-- WEATHER PANEL -->
+            {% for course in courses %}
+                <!-- <div class="col-md-4 col-sm-4 mb">
                         <div class="weather pn" style="background:url('/static/uploaded_image/{{ course.image }}');background-size:cover;">
                             <h4>{{course.course_name}}</h4>
                         </div>
                     </div> -->
-        <div class="col-lg-4 col-md-4 col-sm-4 mb">
-        <a href='/courseinfo/{{course.course_id}}'>
-            <div class="content-panel pn">
-                <div id="spotify" style="background:url('/static/uploaded_image/{{ course.image }}');background-size:cover;">
+                <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                    <a href='/courseinfo/{{ course.course_id }}'>
+                        <div class="content-panel pn">
+                            <div id="spotify"
+                                 style="background:url('/static/uploaded_image/{{ course.image }}');background-size:cover;">
+                            </div>
+                            <p class="followers" style="text-align:center">{{ course.course_name|title }}&nbsp;&nbsp;|&nbsp;&nbsp;56
+                            </p>
+                        </div>
+                    </a>
                 </div>
-                <p class="followers" style="text-align:center">{{course.course_name|title}}&nbsp;&nbsp;|&nbsp;&nbsp;56
-                </p>
-            </div>
-        </a>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
 
 
 {% endblock content %} {% block jsadd %}
-<script type="text/javascript">
-$('document').ready(function() {
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    });
-});
-</script>
+    <script type="text/javascript">
+        $('document').ready(function () {
+            $('.carousel').carousel({
+                interval: 5000 //changes the speed
+            });
+        });
+    </script>
 {% endblock jsadd %}s

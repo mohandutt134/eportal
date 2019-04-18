@@ -1,53 +1,51 @@
 {% extends 'accounts/base_accounts.html' %}
-            {% block content %}
-            <form class="form-login" method="POST" enctype="multipart/form-data">
-              {% csrf_token %}
-                <h2 class="form-login-heading">SIGN UP</h2>
-                <div class="login-wrap">
-                <div class="input-group ">
-                            <input type="text" name="R_email" class="form-control" placeholder="User ID" autofocus>
-                            <span class="input-group-addon">@smvdu.ac.in</span>
-                        </div>
-                    <br>
-                    <input type="text" name="R_fname" class="form-control" placeholder="First Name">
-                    <br>
-                    <input type="text" name="R_lname" class="form-control" placeholder="Last Name">
-                    <br>
-                    <div class='form-group'>
-                        <label for="exampleInputEmail1" ><h5>Category&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5></label>
-                        <label class="radio-inline">
-                            <input type="radio" name="category" id="inlineRadio1" value="student"> Student
-                        </label>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <label class="radio-inline">
-                            <input type="radio" name="category" id="inlineRadio2" value="faculty"> Faculty
-                        </label>
+{% block content %}
+    <form class="form-login" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 class="form-login-heading">SIGN UP</h2>
+        <div class="login-wrap">
+            <input type="text" name="R_email" class="form-control" placeholder="User ID" autofocus>
+            <br>
+            <input type="text" name="R_fname" class="form-control" placeholder="First Name">
+            <br>
+            <input type="text" name="R_lname" class="form-control" placeholder="Last Name">
+            <br>
+            <input type="password" name="password" class="form-control" placeholder="Password">
+            <div class='form-group padding-top-15'>
+                <label for="input-type">
+                    Category&nbsp;
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="category" id="inlineRadio1" value="student"> Student
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="category" id="inlineRadio2" value="faculty"> Faculty
+                </label>
 
-                    </div>
+            </div>
 
-                    {% if msg %}
-                    {% if msg == "success" %}
-                    <p  class="text-center error alert alert-success">
+            {% if msg %}
+                {% if msg == "success" %}
+                    <p class="text-center error alert alert-success">
                         Password is sent to your email id
-                        </p>{% endif %}
-                        {% if msg != "success" %}
-                        <p  class="text-center error alert alert-danger">
-                        
-                        {{msg}}
-                        
+                    </p>{% endif %}
+                {% if msg != "success" %}
+                    <p class="text-center error alert alert-danger">
+
+                        {{ msg }}
+
 
                     </p>
 
-                    {% endif %}
-                    {% endif %}
+                {% endif %}
+            {% endif %}
 
-                    <br>
-                    <button class="btn btn-theme btn-block"  type="submit"><i class="fa fa-sign-in"></i> SIGN UP</button>
-                    <hr>
-                    <h5 class="text-center">Already have an account? <a href="{% url 'login' %}">Login Here</a> </h5>
-                </div>
-            </form>
-
+            <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-sign-in"></i> SIGN UP</button>
+            <hr>
+            <h5 class="text-center">Already have an account? <a href="{% url 'login' %}">Login Here</a></h5>
+        </div>
+    </form>
 
 
- {% endblock content %}
+
+{% endblock content %}

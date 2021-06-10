@@ -1,4 +1,4 @@
-Django==1.11.8
+Django==2.2.24
 django-ckeditor==5.6.1
 django-wysiwyg==0.8.0
 six==1.12.0
